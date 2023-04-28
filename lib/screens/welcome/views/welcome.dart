@@ -67,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
                         onPressed: () =>
-                            Navigator.pushNamed(context, route.authPage),
+                            Navigator.pushNamed(context, route.homePage),
                         child: const SizedBox(
                             width: 120,
                             child: Center(
@@ -82,7 +82,7 @@ class WelcomePage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
                         onPressed: () =>
-                            Navigator.pushNamed(context, route.authPage),
+                            Navigator.pushNamed(context, route.homePage),
                         child: const SizedBox(
                             width: 120,
                             child: Center(

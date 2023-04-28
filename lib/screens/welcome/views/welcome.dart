@@ -15,8 +15,15 @@ class WelcomePage extends StatelessWidget {
         child: ListView(
           physics: const ClampingScrollPhysics(),
           children: [
-            const SizedBox(
+            SizedBox(
               height: 200,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 40.0),
+                  child: Image.asset('assets/images/my_daktari_blue.png'),
+                ),
+              ),
             ),
             const Center(
               child: Text(
@@ -25,7 +32,7 @@ class WelcomePage extends StatelessWidget {
               ),
             ),
             Image.asset(
-              'assets/aya.png',
+              'assets/images/aya.png',
               height: 250,
             ),
             const SizedBox(
@@ -66,8 +73,7 @@ class WelcomePage extends StatelessWidget {
                                 const Color.fromARGB(255, 1, 84, 186),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
-                        onPressed: () =>
-                            Navigator.pushNamed(context, route.homePage),
+                        onPressed: () {},
                         child: const SizedBox(
                             width: 120,
                             child: Center(

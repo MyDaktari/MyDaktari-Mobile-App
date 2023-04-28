@@ -28,7 +28,8 @@ class DisclaimerDialog extends StatelessWidget {
       content: const Text(
         """This app provides useful information but is not a substitute for professional medical advice, diagnosis or treatment. If you think you may have a medical emergency, immediately call your doctor or dial 999.\nBefore acting on any of the information in MyDaktari, consult with your doctor to make sure that it is right for you.""",
         textAlign: TextAlign.justify,
-        style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
+        style: TextStyle(
+            fontWeight: FontWeight.normal, fontSize: 15, color: Colors.grey),
       ),
       actions: [
         ElevatedButton(

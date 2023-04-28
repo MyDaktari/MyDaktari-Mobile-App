@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
 
+import '../../../widgets/tab_header_bar.dart';
+import '../widgets/grid_item.dart';
+import 'package:my_daktari/constants/constants.dart' as constants;
+
 class HomeTabView extends StatelessWidget {
   HomeTabView({super.key});
   final List<Map<String, dynamic>> grids = [
-    {'image': 'assets/reminder.png', 'title': 'reminder', 'route': ''},
-    {'image': 'assets/reminder.png', 'title': 'Symptom Checker', 'route': ''},
-    {'image': 'assets/virus.png', 'title': 'Allergy Tracker', 'route': ''},
+    {'image': 'assets/images/reminder.png', 'title': 'reminder', 'route': ''},
     {
-      'image': 'assets/graph-report.png',
+      'image': 'assets/images/reminder.png',
+      'title': 'Symptom Checker',
+      'route': ''
+    },
+    {
+      'image': 'assets/images/virus.png',
+      'title': 'Allergy Tracker',
+      'route': ''
+    },
+    {
+      'image': 'assets/images/graph-report.png',
       'title': 'Track Symptoms',
       'route': ''
     },
     {
-      'image': 'assets/pharmacist.png',
+      'image': 'assets/images/pharmacist.png',
       'title': 'Prescription Discounts',
       'route': ''
     },
-    {'image': 'assets/engage.png', 'title': 'Drug Interactions', 'route': ''},
+    {
+      'image': 'assets/images/engage.png',
+      'title': 'Drug Interactions',
+      'route': ''
+    },
   ];
   @override
   Widget build(BuildContext context) {
@@ -25,52 +41,23 @@ class HomeTabView extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Column(
         children: [
-          Container(
-            height: size.height * .18,
-            decoration:
-                const BoxDecoration(color: Color.fromARGB(255, 242, 242, 242)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 28.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Talk to Aya,',
-                        style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 1, 84, 186)),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'Your virtual assistant.',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 0, 236, 182)),
-                      ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(21)),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 236, 182)),
-                          onPressed: () {},
-                          child: const Text('Get Started'))
-                    ],
-                  ),
-                  Image.asset('assets/aya-half.png')
-                ],
-              ),
+          TabHeader(
+            size: size,
+            title: Text(
+              'Talk to Aya,',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
+            subtitle: Text('Your virtual assistant.',
+                style: Theme.of(context).textTheme.titleMedium),
+            button: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(21)),
+                    backgroundColor: constants.greenish),
+                onPressed: () {},
+                child: const Text('Get Started')),
+            image: Image.asset('assets/images/aya-half.png'),
           ),
           SizedBox(
             height: size.height * .25,
@@ -81,20 +68,7 @@ class HomeTabView extends StatelessWidget {
                     childAspectRatio: 3, crossAxisCount: 2),
                 itemBuilder: (context, index) {
                   Map<String, dynamic> grid = grids[index];
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: .5)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Image.asset(
-                          grid['image'],
-                          height: 30,
-                        ),
-                        Text(grid['title'])
-                      ],
-                    ),
-                  );
+                  return HomeGridItem(grid: grid);
                 }),
           ),
           const Align(

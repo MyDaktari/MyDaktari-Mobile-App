@@ -49,9 +49,16 @@ class AuthPage extends StatelessWidget {
                     const BoxDecoration(color: Color.fromARGB(255, 1, 84, 186)),
                 child: Visibility(
                   visible: authPageProvider.isRegister,
+                  replacement: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 40.0),
+                      child: Image.asset('assets/images/my_daktari.png'),
+                    ),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 40.0),
-                    child: Image.asset('assets/telehealth.png'),
+                    child: Image.asset('assets/images/telehealth.png'),
                   ),
                 ),
               ),

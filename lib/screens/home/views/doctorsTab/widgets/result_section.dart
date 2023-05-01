@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_daktari/screens/home/views/doctorsTab/widgets/all_results.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../mock/service/get_doctor_service.dart';
@@ -36,7 +37,13 @@ class ResultSection extends StatelessWidget {
                 Visibility(
                     visible: getDoctor.doctors.length > 2,
                     child: TextButton(
-                        onPressed: () {}, child: const Text('See All')))
+                        onPressed: () => showModalBottomSheet(
+                              useSafeArea: true,
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) => const AllResults(),
+                            ),
+                        child: const Text('See All')))
               ],
             ),
             Row(
@@ -46,7 +53,6 @@ class ResultSection extends StatelessWidget {
                   .map((doctor) => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          //height: 200,
                           width: (size.width / 2) - 28,
                           decoration: BoxDecoration(
                               border: Border.all(),

@@ -8,6 +8,8 @@ import 'package:my_daktari/constants/constants.dart' as constants;
 import 'package:my_daktari/routes/app_route.dart' as routes;
 import 'package:provider/provider.dart';
 
+import '../widgets/disclaimer.dart';
+
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
@@ -55,8 +57,8 @@ class HomePage extends StatelessWidget {
     AuthPageProvider authPageProvider = context.read<AuthPageProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (context.mounted) {
-        // showDialog(
-        //     context: context, builder: (context) => const DisclaimerDialog());
+        showDialog(
+            context: context, builder: (context) => const DisclaimerDialog());
       }
     });
     return ValueListenableBuilder(

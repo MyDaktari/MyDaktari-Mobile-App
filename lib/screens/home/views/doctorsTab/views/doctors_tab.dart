@@ -23,7 +23,7 @@ class DoctorsTab extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Consumer<GetDoctor>(builder: (context, getDoctor, _) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // !valuesReset ? resetValues(getDoctor) : null;
+        !valuesReset ? resetValues(getDoctor) : null;
       });
       return ValueListenableBuilder(
           valueListenable: _searchTermNotifier,

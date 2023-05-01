@@ -4,7 +4,6 @@ import 'package:my_daktari/screens/home/views/ayaTab/views/aya_tab.dart';
 import 'package:my_daktari/screens/home/views/doctorsTab/views/doctors_tab.dart';
 import 'package:my_daktari/screens/home/views/homeTab/views/home_tab.dart';
 import 'package:my_daktari/screens/home/views/profileTab/views/profile_tab.dart';
-import 'package:my_daktari/screens/home/widgets/disclaimer.dart';
 import 'package:my_daktari/constants/constants.dart' as constants;
 import 'package:my_daktari/routes/app_route.dart' as routes;
 import 'package:provider/provider.dart';
@@ -51,18 +50,14 @@ class HomePage extends StatelessWidget {
     ];
   }
 
-  final DisclalimerNotifier _disclalimerNotifier =
-      DisclalimerNotifier(value: false);
   @override
   Widget build(BuildContext context) {
     AuthPageProvider authPageProvider = context.read<AuthPageProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _disclalimerNotifier.value
-          ? debugPrint('disclaimer already shown')
-          : showDialog(
-                  context: context,
-                  builder: (context) => const DisclaimerDialog())
-              .then((value) => _disclalimerNotifier.disclaimerShown = true);
+      if (context.mounted) {
+        // showDialog(
+        //     context: context, builder: (context) => const DisclaimerDialog());
+      }
     });
     return ValueListenableBuilder(
         valueListenable: _pageNotifier,
@@ -72,7 +67,6 @@ class HomePage extends StatelessWidget {
               toolbarHeight: currentIndex == 1
                   ? 0
                   : Theme.of(context).appBarTheme.toolbarHeight,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               elevation: 0,
               leading: IconButton(
                   onPressed: () {},
@@ -154,14 +148,6 @@ class PageNotifier extends ValueNotifier<int> {
   PageNotifier({required int value}) : super(value);
 
   set index(int value) {
-    this.value = value;
-    notifyListeners();
-  }
-}
-
-class DisclalimerNotifier extends ValueNotifier<bool> {
-  DisclalimerNotifier({required bool value}) : super(value);
-  set disclaimerShown(bool value) {
     this.value = value;
     notifyListeners();
   }

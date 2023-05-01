@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_daktari/mock/service/get_doctor_service.dart';
 import 'package:my_daktari/theme/app_theme.dart';
 import 'package:my_daktari/theme/theme_mode.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'routes/app_route.dart' as route;
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AuthPageProvider.instance()),
+    ChangeNotifierProvider(create: (_) => GetDoctor()),
     ChangeNotifierProvider(create: (_) => ThemeNotifier(ThemeMode.light))
   ], child: const MyApp()));
 }

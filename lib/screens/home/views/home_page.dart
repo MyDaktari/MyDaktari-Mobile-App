@@ -133,7 +133,7 @@ class HomePage extends StatelessWidget {
               onPageChanged: (page) => _pageNotifier.index = page,
               children: [
                 HomeTabView(),
-                const DoctorsTab(),
+                DoctorsTab(),
                 const AyaTab(),
                 ProfileTab()
               ],

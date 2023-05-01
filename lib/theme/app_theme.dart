@@ -27,6 +27,7 @@ class AppTheme {
         unselectedItemColor: Colors.grey,
       ),
       appBarTheme: AppBarTheme(
+          backgroundColor: ThemeData.light().scaffoldBackgroundColor,
           titleTextStyle: TextStyle(
               color: Colors.grey[800],
               fontWeight: FontWeight.bold,

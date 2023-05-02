@@ -53,30 +53,81 @@ class ProfileTab extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: TabHeader(
-            size: size,
-            title: Text(
-              'Create Your Profile,',
-              style: textTheme.titleLarge?.copyWith(fontSize: 22),
-            ),
-            subtitle: Text('save your important information',
-                style: textTheme.titleMedium?.copyWith(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal)),
-            button: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(21)),
-                    backgroundColor: constants.greenish),
-                onPressed: () {
-                  authPageProvider.setRegister(true);
-                  Navigator.pushReplacementNamed(context, routes.authPage);
-                },
-                child: const Text('Register')),
-            image: Image.asset('assets/images/telehealth.png'),
-          ),
+          child: Consumer<AuthPageProvider>(builder: (context, auth, _) {
+            if (auth.user != null) {
+              return Container(
+                height: size.height * .18,
+                width: size.width,
+                decoration: const BoxDecoration(color: constants.primaryColor),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 28.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(auth.user?.name ?? '',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              auth.user?.email ?? '',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  auth.signOut();
+                                },
+                                child: const Text('Sign Out'))
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: Image.asset('assets/images/male-user.png'))
+                    ],
+                  ),
+                ),
+              );
+            }
+            return TabHeader(
+              size: size,
+              title: Text(
+                'Create Your Profile,',
+                style: textTheme.titleLarge?.copyWith(fontSize: 22),
+              ),
+              subtitle: Text('save your important information',
+                  style: textTheme.titleMedium?.copyWith(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontWeight: FontWeight.normal)),
+              button: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(21)),
+                      backgroundColor: constants.greenish),
+                  onPressed: () {
+                    authPageProvider.setRegister(true);
+                    Navigator.pushReplacementNamed(context, routes.authPage);
+                  },
+                  child: const Text('Register')),
+              image: Image.asset('assets/images/telehealth.png'),
+            );
+          }),
         ),
         Expanded(
           child: ListView(

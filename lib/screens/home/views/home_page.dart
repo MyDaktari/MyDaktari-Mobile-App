@@ -109,16 +109,19 @@ class HomePage extends StatelessWidget {
                   ? [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: TextButton(
-                            onPressed: () {
-                              authPageProvider.setRegister(false);
-                              Navigator.pushReplacementNamed(
-                                  context, routes.authPage);
-                            },
-                            child: const Text(
-                              'Sign In',
-                              style: TextStyle(fontSize: 18),
-                            )),
+                        child: TextButton(onPressed: () {
+                          authPageProvider.setRegister(false);
+                          Navigator.pushReplacementNamed(
+                              context, routes.authPage);
+                        }, child: Consumer<AuthPageProvider>(
+                            builder: (context, auth, _) {
+                          return auth.user != null
+                              ? const SizedBox()
+                              : const Text(
+                                  'Sign In',
+                                  style: TextStyle(fontSize: 18),
+                                );
+                        })),
                       )
                     ]
                   : [],

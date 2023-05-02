@@ -4,27 +4,50 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../mock/users/users.dart';
 import '../services/auth_page_provider.dart';
 import '../widgets/birth_date_picker.dart';
 import '../widgets/scroll_behavior.dart';
 import '../widgets/sex_menu.dart';
 import '../widgets/terms_and_conditions.dart';
+import 'package:my_daktari/routes/app_route.dart' as routes;
 
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  void _validateRegistration(AuthPageProvider authPageProvider) {
+  bool _validateRegistration(BuildContext context,
+      {required AuthPageProvider authPageProvider}) {
     if (authPageProvider.birthDate.year == DateTime.now().year) {
       print('invalid birth date');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Your Birth Year Should Not Be This Year')));
+      return false;
     } else if (authPageProvider.sex == null) {
       print('invalid sex');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Please Tell Us Your Gender')));
+      return false;
     } else if (!authPageProvider.termsAccepted) {
       print('terms not accepted');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+              'You will not be able to register if you do not accept the terms and conditions')));
+      return false;
     } else {
       print('register successful');
+      return true;
     }
   }
+
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +134,7 @@ class AuthPage extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
+                                controller: nameController,
                                 validator: (val) {
                                   return val?.isEmpty ?? true
                                       ? 'name field should not be empty'
@@ -131,6 +155,7 @@ class AuthPage extends StatelessWidget {
                           ),
                         ),
                         TextFormField(
+                          controller: emailController,
                           validator: (val) {
                             return val?.isEmpty ?? true
                                 ? 'incorrect email input format'
@@ -158,6 +183,7 @@ class AuthPage extends StatelessWidget {
                               ),
                             ])),
                         TextFormField(
+                          controller: passwordController,
                           validator: (val) {
                             return val?.isEmpty ?? true
                                 ? 'This will not work'
@@ -181,15 +207,59 @@ class AuthPage extends StatelessWidget {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   if (authPageProvider.isRegister) {
-                                    _validateRegistration(authPageProvider);
+                                    if (_validateRegistration(context,
+                                        authPageProvider: authPageProvider)) {
+                                      authPageProvider.authenticate(User(
+                                          authPageProvider.sex!,
+                                          name: nameController.text.trim(),
+                                          age: (DateTime.now().year -
+                                              authPageProvider.birthDate.year),
+                                          email: emailController.text.trim(),
+                                          password: passwordController.text));
+                                      Navigator.pushReplacementNamed(
+                                          context, routes.homePage);
+                                    }
                                   } else {
                                     print('login success');
+
+                                    User user;
+                                    try {
+                                      user = users
+                                          .map((userJson) =>
+                                              User.fromJson(userJson))
+                                          .toList()
+                                          .where((user) =>
+                                              user.email ==
+                                              emailController.text.trim())
+                                          .first;
+
+                                      if (passwordController.text ==
+                                          user.password) {
+                                        authPageProvider.authenticate(user);
+                                        Navigator.pushReplacementNamed(
+                                            context, routes.homePage);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content: Text(
+                                                    'Invalid Login Credentials')));
+                                      }
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text(
+                                                  'Invalid Login Credentials')));
+                                    }
                                   }
                                 } else {
                                   print('all fields are required');
                                 }
                               },
                               style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18))),
                               child: Padding(

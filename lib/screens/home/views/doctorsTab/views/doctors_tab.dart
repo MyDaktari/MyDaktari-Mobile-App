@@ -33,12 +33,13 @@ class DoctorsTab extends StatelessWidget {
               child: ListView(
                 //  crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Image.asset(
-                        'assets/images/my_daktari_blue.png',
-                        height: 200,
-                      )),
+                  Padding(
+                    padding: EdgeInsets.only(left: size.width * .21),
+                    child: Image.asset(
+                      'assets/images/my_daktari_blue.png',
+                      height: 200,
+                    ),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -58,6 +59,17 @@ class DoctorsTab extends StatelessWidget {
                         onChanged: (value) {
                           _searchTermNotifier.newValue = value;
                         },
+                        onSubmitted: value.trim().isEmpty
+                            ? null
+                            : value.trim().length < 2
+                                ? (value) => ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                        content: Text('search term too short')))
+                                : (v) {
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    getDoctor.search(v.trim());
+                                  },
                         controller: _searchController,
                         decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.search),
@@ -94,14 +106,19 @@ class DoctorsTab extends StatelessWidget {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: constants.primaryColor),
-                          onPressed: value.isEmpty
+                          onPressed: value.trim().isEmpty
                               ? null
-                              : () {
-                                  FocusScope.of(context)
-                                      .requestFocus(FocusNode());
-                                  getDoctor
-                                      .search(_searchController.text.trim());
-                                },
+                              : value.trim().length < 2
+                                  ? () => ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                          content:
+                                              Text('search term too short')))
+                                  : () {
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                      getDoctor.search(
+                                          _searchController.text.trim());
+                                    },
                           child: const Text('Search'))),
                   const ResultSection()
                 ],

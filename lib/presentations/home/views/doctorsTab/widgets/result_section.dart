@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/screens/home/views/doctorsTab/views/all_results.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../mock/service/get_doctor_service.dart';
+import '../../doctorsTab/views/all_results.dart';
+import '/mock/service/get_doctor_service.dart';
 import 'doctor_result_widget1.dart';
 
 class ResultSection extends StatelessWidget {

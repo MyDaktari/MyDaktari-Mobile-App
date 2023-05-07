@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:my_daktari/mock/models/doctor_model.dart';
-import 'package:my_daktari/screens/home/views/doctorsTab/views/booking_page.dart';
-import 'package:my_daktari/screens/home/views/doctorsTab/views/select_session.dart';
+import '../../doctorsTab/views/select_session.dart';
+import '/mock/models/doctor_model.dart';
 
 class DoctorProfilePage extends StatelessWidget {
   const DoctorProfilePage({super.key, required this.doctor});

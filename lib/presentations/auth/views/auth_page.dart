@@ -12,6 +12,7 @@ import '../widgets/sex_menu.dart';
 import '../widgets/terms_and_conditions.dart';
 import 'package:my_daktari/routes/app_route.dart' as routes;
 
+// ignore: must_be_immutable
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
 

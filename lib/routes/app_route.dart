@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/mock/models/doctor_model.dart';
-import 'package:my_daktari/screens/home/views/doctorsTab/views/doctor_profile_page.dart';
-import 'package:my_daktari/screens/home/views/home_page.dart';
 
-import '../screens/auth/views/auth_page.dart';
-import '../screens/welcome/views/welcome.dart';
+import '../mock/models/doctor_model.dart';
+import '../presentations/auth/views/auth_page.dart';
+import '../presentations/home/views/doctorsTab/views/doctor_profile_page.dart';
+import '../presentations/home/views/home_page.dart';
+import '../presentations/welcome.dart';
 
 const String authPage = 'authPage';
 const String welcome = 'welcome';
@@ -22,15 +22,13 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case doctorProfile:
         return MaterialPageRoute(
-            builder: (_) => DoctorProfilePage(
-                  doctor: settings.arguments as DoctorModel,
-                ));
+            builder: (_) =>
+                DoctorProfilePage(doctor: settings.arguments as DoctorModel));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
-                  body: Center(
-                      child: Text('No route defined for ${settings.name}')),
-                ));
+                body: Center(
+                    child: Text('No route defined for ${settings.name}'))));
     }
   }
 }

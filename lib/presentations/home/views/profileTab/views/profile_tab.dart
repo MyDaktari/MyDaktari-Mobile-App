@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:my_daktari/constants/constants.dart' as constants;
-
-import 'package:my_daktari/routes/app_route.dart' as routes;
 import 'package:provider/provider.dart';
 
 import '../../../../auth/services/auth_page_provider.dart';
 import '../../../widgets/tab_header_bar.dart';
+import '/constants/constants.dart' as constants;
+import '/routes/app_route.dart' as routes;
 
 class ProfileTab extends StatelessWidget {
   ProfileTab({super.key});

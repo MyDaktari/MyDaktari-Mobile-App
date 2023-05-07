@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart' as constants;
-import 'package:my_daktari/mock/service/get_doctor_service.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/result_section.dart';
+import '/constants/constants.dart' as constants;
+import '/mock/service/get_doctor_service.dart';
 
 // ignore: must_be_immutable
 class DoctorsTab extends StatelessWidget {

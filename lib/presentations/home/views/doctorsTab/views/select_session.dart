@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/screens/home/views/doctorsTab/views/booking_page.dart';
 
-import '../../../../../mock/models/doctor_model.dart';
+import '../../doctorsTab/views/booking_page.dart';
+import '/mock/models/doctor_model.dart';
 
 class SelectSession extends StatelessWidget {
   SelectSession({super.key, required this.doctor});

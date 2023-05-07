@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart' as constants;
+import '/constants/constants.dart' as constants;
 
 class AyaTab extends StatelessWidget {
   const AyaTab({super.key});

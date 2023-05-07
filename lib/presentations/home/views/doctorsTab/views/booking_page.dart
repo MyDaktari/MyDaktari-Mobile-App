@@ -1,6 +1,6 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
-import 'package:my_daktari/mock/models/doctor_model.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import '/mock/models/doctor_model.dart';
 
 class DoctorBookingView extends StatelessWidget {
   DoctorBookingView({super.key, required this.doctor});

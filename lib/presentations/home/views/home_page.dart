@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/screens/auth/services/auth_page_provider.dart';
-import 'package:my_daktari/screens/home/views/ayaTab/views/aya_tab.dart';
-import 'package:my_daktari/screens/home/views/doctorsTab/views/doctors_tab.dart';
-import 'package:my_daktari/screens/home/views/homeTab/views/home_tab.dart';
-import 'package:my_daktari/screens/home/views/profileTab/views/profile_tab.dart';
-import 'package:my_daktari/constants/constants.dart' as constants;
-import 'package:my_daktari/routes/app_route.dart' as routes;
 import 'package:provider/provider.dart';
 
+import '../../auth/services/auth_page_provider.dart';
 import '../widgets/disclaimer.dart';
+import '/constants/constants.dart' as constants;
+import '/routes/app_route.dart' as routes;
+import 'ayaTab/views/aya_tab.dart';
+import 'doctorsTab/views/doctors_tab.dart';
+import 'homeTab/views/home_tab.dart';
+import 'profileTab/views/profile_tab.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

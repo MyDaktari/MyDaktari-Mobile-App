@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_daktari/mock/service/get_doctor_service.dart';
-import 'package:my_daktari/theme/app_theme.dart';
-import 'package:my_daktari/theme/theme_mode.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/auth/services/auth_page_provider.dart';
-import 'routes/app_route.dart' as route;
+import './constants/theme/app_theme.dart';
+import './mock/service/get_doctor_service.dart';
+import './presentations/auth/services/auth_page_provider.dart';
+import './routes/app_route.dart' as route;
+import './theme/theme_mode.dart';
 
 void main() {
   runApp(MultiProvider(providers: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../widgets/tab_header_bar.dart';
 import '../widgets/grid_item.dart';
-import 'package:my_daktari/constants/constants.dart' as constants;
+import '/constants/constants.dart' as constants;
 
 class HomeTabView extends StatelessWidget {
   HomeTabView({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/mock/service/get_doctor_service.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/doctor_result_widget2.dart';
+import '/mock/service/get_doctor_service.dart';
 
 class AllResults extends StatelessWidget {
   const AllResults({super.key});

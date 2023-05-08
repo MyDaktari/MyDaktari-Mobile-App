@@ -11,27 +11,27 @@ class HomeTabView extends StatelessWidget {
     {
       'image': 'assets/images/reminder.png',
       'title': 'Symptom Checker',
-      'route': ''
+      'route': 'symptomChecker'
     },
     {
       'image': 'assets/images/virus.png',
       'title': 'Allergy Tracker',
-      'route': ''
+      'route': 'allergyTracker'
     },
     {
       'image': 'assets/images/graph-report.png',
       'title': 'Track Symptoms',
-      'route': ''
+      'route': 'trackSymptoms'
     },
     {
       'image': 'assets/images/pharmacist.png',
       'title': 'Prescription Discounts',
-      'route': ''
+      'route': 'prescriptionDiscounts'
     },
     {
       'image': 'assets/images/engage.png',
       'title': 'Drug Interactions',
-      'route': ''
+      'route': 'drugInteractions'
     },
   ];
   @override

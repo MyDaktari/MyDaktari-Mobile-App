@@ -10,18 +10,22 @@ class HomeGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration:
-          BoxDecoration(border: Border.all(color: Colors.grey, width: .5)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            grid['image'],
-            height: 30,
-          ),
-          Text(grid['title'])
-        ],
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, grid['route']),
+      onHover: (val) {},
+      child: Container(
+        decoration:
+            BoxDecoration(border: Border.all(color: Colors.grey, width: .5)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset(
+              grid['image'],
+              height: 30,
+            ),
+            Text(grid['title'])
+          ],
+        ),
       ),
     );
   }

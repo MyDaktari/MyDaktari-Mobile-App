@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/presentations/home/views/homeTab/views/symptomChecker/symptoms_samples.dart';
 
 import '../mock/models/doctor_model.dart';
 import '../presentations/auth/views/auth_page.dart';
@@ -12,6 +13,7 @@ const String welcome = 'welcome';
 const String homePage = 'homePage';
 const String doctorProfile = 'doctorProfile';
 const String symptomChecker = 'symptomChecker';
+const String symptomSamples = 'symptomSamples';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,6 +30,11 @@ class AppRouter {
                 DoctorProfilePage(doctor: settings.arguments as DoctorModel));
       case symptomChecker:
         return MaterialPageRoute(builder: (_) => SymptomChecker());
+      case symptomSamples:
+        return MaterialPageRoute(
+            builder: (_) => SymptomSamples(
+                  bodyPartNotifier: settings.arguments as BodyPartNotifier,
+                ));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

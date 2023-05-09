@@ -1,115 +1,114 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/mock/models/symptom_model.dart';
-import 'package:my_daktari/mock/symptoms/symptoms.dart';
-import 'package:my_daktari/constants/constants.dart' as constants;
+import 'package:my_daktari/mock/symptoms/symptoms.dart' as s;
+import 'package:my_daktari/routes/app_route.dart' as routes;
 
 class SymptomChecker extends StatelessWidget {
   SymptomChecker({super.key});
-
-  final List<SymptomModel> _symptoms =
-      symptoms.map((json) => SymptomModel.fromJson(json)).toList();
-  final ActiveSymptom _activeSymptom = ActiveSymptom(null);
+  final List<SymptomModel> _symptoms = s.symptoms
+      .map((symptom) => SymptomModel.fromJson(symptom))
+      .toList()
+    ..add(SymptomModel(bodyPart: 'Not Sure'));
+  final BodyPartNotifier _bodyPartNotifier = BodyPartNotifier(null);
+  final TextEditingController _symptomsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return ValueListenableBuilder(
-        valueListenable: _activeSymptom,
-        builder: (context, value, _) {
+        valueListenable: _bodyPartNotifier,
+        builder: (context, _symptom, _) {
           return Scaffold(
-            appBar: AppBar(),
-            body: ListView(
-              children: _symptoms
-                  .map((symptoms) => Padding(
-                        padding: EdgeInsets.all(size.width * .01),
-                        child: SizedBox(
-                          width: size.width,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                symptoms.title!,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
-                              Wrap(
-                                alignment: WrapAlignment.start,
-                                runSpacing: 10,
-                                spacing: 10,
-                                children: symptoms.symptoms!
-                                    .map((symptom) => InkWell(
-                                          onTap: () {
-                                            _activeSymptom.activeSymptom =
-                                                symptom;
-                                          },
-                                          child: SizedBox(
-                                            width: size.width * .95 / 2,
-                                            child: Stack(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    const Divider(
-                                                      thickness: 2,
-                                                      color: constants
-                                                          .primaryColor,
-                                                    ),
-                                                    Text(
-                                                      symptom.symptom!,
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: constants
-                                                              .primaryColor),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(symptom.description!)
-                                                  ],
-                                                ),
-                                                Visibility(
-                                                  visible: value == symptom,
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 40,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                              color: constants
-                                                                  .primaryColor,
-                                                              shape: BoxShape
-                                                                  .circle),
-                                                      child: const Icon(
-                                                        Icons.check,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
-                              )
-                            ],
-                          ),
+            appBar: AppBar(
+              title: Text('Report Symptoms'),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButtonFormField<SymptomModel>(
+                    style: TextStyle(color: Colors.grey),
+                    value: _symptom,
+                    onChanged: (SymptomModel? newValue) {
+                      _bodyPartNotifier.selectedSymmptom = newValue;
+                    },
+                    items: _symptoms.map((SymptomModel option) {
+                      return DropdownMenuItem<SymptomModel>(
+                        value: option,
+                        child: Text(option.bodyPart!),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                        labelText: 'Most affected body part',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 100,
+                    ),
+                    child: TextField(
+                      controller: _symptomsController,
+                      style: TextStyle(color: Colors.grey),
+                      maxLines: null, // allow unlimited number of lines
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        labelText:
+                            'Describe your Symptoms, (be as precise as possible)',
+                        hintText: 'Describe your symptoms here',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor),
+                      onPressed: () => Navigator.pushNamed(
+                          context, routes.symptomSamples,
+                          arguments: _bodyPartNotifier),
+                      child: Text('Continue')),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Not sure What to say? ',
+                          style: TextStyle(color: Colors.black),
                         ),
-                      ))
-                  .toList(),
+                        TextSpan(
+                          text: 'Check out our sample symptoms.',
+                          style: TextStyle(color: primaryColor),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(
+                                  context, routes.symptomSamples,
+                                  arguments: BodyPartNotifier(
+                                      SymptomModel(bodyPart: 'Not sure')));
+                            },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         });
   }
 }
 
-class ActiveSymptom extends ValueNotifier<Symptoms?> {
-  ActiveSymptom(Symptoms? value) : super(value);
-
-  set activeSymptom(Symptoms symptom) {
+class BodyPartNotifier extends ValueNotifier<SymptomModel?> {
+  BodyPartNotifier(SymptomModel? value) : super(value);
+  set selectedSymmptom(SymptomModel? symptom) {
     value = symptom;
     notifyListeners();
   }

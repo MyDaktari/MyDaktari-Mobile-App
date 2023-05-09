@@ -1,6 +1,6 @@
 List<Map<String, dynamic>> symptoms = [
   {
-    "title": "brain nerves and spinal cord",
+    "body_part": "brain nerves and spinal cord",
     "symptoms": [
       {
         "symptom": "Migraine",
@@ -25,7 +25,7 @@ List<Map<String, dynamic>> symptoms = [
     ]
   },
   {
-    "title": "Heart",
+    "body_part": "Heart",
     "symptoms": [
       {
         "symptom": "Chest Pain",
@@ -53,7 +53,7 @@ List<Map<String, dynamic>> symptoms = [
     ]
   },
   {
-    "title": "Lungs",
+    "body_part": "Lungs",
     "symptoms": [
       {
         "symptom": "Coughing",
@@ -87,7 +87,7 @@ List<Map<String, dynamic>> symptoms = [
     ]
   },
   {
-    "title": "Stomach",
+    "body_part": "Stomach",
     "symptoms": [
       {"symptom": "Nausea", "description": "Feeling sick to your stomach."},
       {
@@ -111,7 +111,7 @@ List<Map<String, dynamic>> symptoms = [
     ]
   },
   {
-    "title": "Liver",
+    "body_part": "Liver",
     "symptoms": [
       {
         "symptom": "Fatigue",

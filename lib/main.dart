@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,
       ),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'My Daktari',
         theme: AppTheme().lightTheme,
         themeMode: themeNotifier.getThemeMode(),

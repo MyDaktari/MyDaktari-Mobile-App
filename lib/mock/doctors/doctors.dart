@@ -189,7 +189,7 @@ List<Map<String, dynamic>> doctors = [
     "title": "Neurologist",
     "overview":
         "Dr. Michael Johnson is a board-certified neurologist with over 15 years of experience. He specializes in diagnosing and treating conditions that affect the brain and nervous system, such as migraines, epilepsy, multiple sclerosis, and Parkinson's disease. Dr. Johnson is committed to providing his patients with the most advanced and compassionate care possible. He works closely with his patients to develop individualized treatment plans that address their specific needs and help them achieve their health goals.",
-    "charges": {"phone_call": 1500.00, "chat": 500.00, "video_call": 2500.00},
+    "charges": {"phone_call": 200.00, "chat": 500.00, "video_call": 2500.00},
     "opening_hours": {
       "weekdays": "9:00 AM - 5:00 PM",
       "weekend": "10:00 AM - 2:00 PM",

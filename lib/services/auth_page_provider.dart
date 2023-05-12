@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/models/client.dart';
 
 class AuthPageProvider with ChangeNotifier {
   AuthPageProvider.instance() {
@@ -11,7 +12,9 @@ class AuthPageProvider with ChangeNotifier {
   late bool termsAccepted;
   late DateTime birthDate;
   Sex? sex;
-  User? user;
+  UserType? userType;
+  bool? loggedIn;
+  dynamic user;
 
   void setRegister(bool isRegister) {
     this.isRegister = isRegister;
@@ -33,13 +36,16 @@ class AuthPageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void authenticate(User user) {
-    this.user = user;
+  void authenticate(UserType userType, user) {
+    if (userType.name.contains('client')) {
+      this.user = user as ClientModel;
+    } else {}
     notifyListeners();
+    loggedIn = true;
   }
 
   void signOut() {
-    user = null;
+    loggedIn = false;
 
     notifyListeners();
   }
@@ -47,26 +53,4 @@ class AuthPageProvider with ChangeNotifier {
 
 enum Sex { male, female }
 
-class User {
-  final String name;
-  final int age;
-  final String email;
-  final Sex sex;
-  final String password;
-
-  User(this.sex,
-      {required this.password,
-      required this.name,
-      required this.age,
-      required this.email});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      Sex.values.firstWhere((e) => e.toString() == 'Sex.${json['sex']}'),
-      name: json['name'],
-      age: json['age'],
-      email: json['email'],
-      password: json['password'],
-    );
-  }
-}
+enum UserType { doctor, client }

@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
 import './mock/service/get_doctor_service.dart';
-import './presentations/auth/services/auth_page_provider.dart';
 import './routes/app_route.dart' as route;
 import 'constants/theme/theme_mode.dart';
+import 'services/auth_page_provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [

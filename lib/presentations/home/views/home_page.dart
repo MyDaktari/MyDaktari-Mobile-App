@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/presentations/home/views/appointments/patient_appointments.dart';
+import 'package:my_daktari/presentations/home/views/patients/patients.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth/services/auth_page_provider.dart';
+import '../../../services/auth_page_provider.dart';
 import '../widgets/disclaimer.dart';
 import '/constants/constants.dart' as constants;
 import '/routes/app_route.dart' as routes;
@@ -15,6 +17,12 @@ class HomePage extends StatelessWidget {
 
   final PageNotifier _pageNotifier = PageNotifier(value: 0);
   final PageController _pageController = PageController(initialPage: 0);
+  late final AuthPageProvider _authPageProvider;
+  bool isClient() {
+    UserType userType = _authPageProvider.userType ?? UserType.client;
+    return userType == UserType.client;
+  }
+
   Color color(int index) {
     return _pageNotifier.value == index ? constants.primaryColor : Colors.grey;
   }
@@ -27,14 +35,14 @@ class HomePage extends StatelessWidget {
             height: 24,
             color: color(0),
           ),
-          label: 'Home'),
+          label: isClient() ? 'Home' : 'Appointments'),
       BottomNavigationBarItem(
           icon: Image.asset(
             'assets/images/doctor.png',
             height: 24,
             color: color(1),
           ),
-          label: 'Doctors'),
+          label: isClient() ? 'Doctors' : 'My Patients'),
       BottomNavigationBarItem(
           icon: Image.asset(
             'assets/images/nurse.png',
@@ -54,11 +62,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthPageProvider authPageProvider = context.read<AuthPageProvider>();
+    _authPageProvider = context.read<AuthPageProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (context.mounted) {
-        showDialog(
-            context: context, builder: (context) => const DisclaimerDialog());
+      //TODO:
+      //!negate this to hide dialog on hot reload
+      if (!context.mounted) {
+        isClient()
+            ? showDialog(
+                context: context,
+                builder: (context) => const DisclaimerDialog())
+            : null;
       }
     });
     return ValueListenableBuilder(
@@ -66,7 +79,7 @@ class HomePage extends StatelessWidget {
         builder: (context, currentIndex, _) {
           return Scaffold(
             appBar: AppBar(
-              toolbarHeight: currentIndex == 1
+              toolbarHeight: (currentIndex == 1 && isClient())
                   ? 0
                   : Theme.of(context).appBarTheme.toolbarHeight,
               elevation: 0,
@@ -75,7 +88,6 @@ class HomePage extends StatelessWidget {
                   icon: const Icon(
                     Icons.menu_rounded,
                     size: 50,
-                    //  color: Color.fromARGB(255, 1, 84, 186),
                   )),
               title: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -84,16 +96,20 @@ class HomePage extends StatelessWidget {
                     case 0:
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                              hintText: 'Search symptoms, medication, news...',
-                              hintStyle: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  letterSpacing: 1),
-                              border: InputBorder.none,
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 224, 224, 224)),
+                        child: Visibility(
+                          visible: isClient(),
+                          child: const TextField(
+                            decoration: InputDecoration(
+                                hintText:
+                                    'Search symptoms, medication, news...',
+                                hintStyle: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    letterSpacing: 1),
+                                border: InputBorder.none,
+                                filled: true,
+                                fillColor: Color.fromARGB(255, 224, 224, 224)),
+                          ),
                         ),
                       );
                     case 2:
@@ -109,30 +125,42 @@ class HomePage extends StatelessWidget {
                   ? [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: TextButton(onPressed: () {
-                          authPageProvider.setRegister(false);
-                          Navigator.pushReplacementNamed(
-                              context, routes.authPage);
-                        }, child: Consumer<AuthPageProvider>(
-                            builder: (context, auth, _) {
-                          return auth.user != null
-                              ? const SizedBox()
-                              : const Text(
-                                  'Sign In',
-                                  style: TextStyle(fontSize: 18),
-                                );
-                        })),
+                        child: TextButton(
+                            onPressed: () {
+                              _authPageProvider.setRegister(false);
+                              Navigator.pushReplacementNamed(
+                                  context, routes.authPage);
+                            },
+                            child: _authPageProvider.user != null
+                                ? const SizedBox()
+                                : const Text(
+                                    'Sign In',
+                                    style: TextStyle(fontSize: 18),
+                                  )),
                       )
                     ]
-                  : [],
+                  : [
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.notifications,
+                            size: 40,
+                          ))
+                    ],
             ),
             body: PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
               onPageChanged: (page) => _pageNotifier.index = page,
               children: [
-                HomeTabView(),
-                DoctorsTab(),
+                Visibility(
+                    visible: isClient(),
+                    replacement: PatientAppointment(),
+                    child: HomeTabView()),
+                Visibility(
+                    visible: isClient(),
+                    replacement: PatientsTab(),
+                    child: DoctorsTab()),
                 const AyaTab(),
                 ProfileTab()
               ],

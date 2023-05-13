@@ -7,7 +7,7 @@ import './base_authentication_repository.dart';
 
 class AuthenticationRepository extends BaseAuthenticationRepository {
   @override
-  Future<Client> login(
+  Future<ClientModel> login(
       {required String username, required String password}) async {
     final response = await http.post(
       Uri.parse('$loginClientUrl'),
@@ -18,7 +18,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
 
-      Client client = Client.fromJson(responseBody['user']);
+      ClientModel client = ClientModel.fromJson(responseBody['user']);
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       print('incorrect');
@@ -31,7 +31,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
-  Future<Client> RegisterDoctor({
+  Future<ClientModel> RegisterDoctor({
     required String name,
     required String password,
     required String phone,
@@ -54,7 +54,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
     if (response.statusCode == 201) {
       final responseBody = jsonDecode(response.body);
-      Client client = Client.fromJson(responseBody['user']);
+      ClientModel client = ClientModel.fromJson(responseBody['user']);
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       print('incorrect');

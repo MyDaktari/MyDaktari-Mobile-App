@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../mock/users/users.dart';
-import '../services/auth_page_provider.dart';
+import '../../../services/auth_page_provider.dart';
 import '../widgets/birth_date_picker.dart';
 import '../widgets/scroll_behavior.dart';
 import '../widgets/sex_menu.dart';
@@ -210,49 +210,49 @@ class AuthPage extends StatelessWidget {
                                   if (authPageProvider.isRegister) {
                                     if (_validateRegistration(context,
                                         authPageProvider: authPageProvider)) {
-                                      authPageProvider.authenticate(User(
-                                          authPageProvider.sex!,
-                                          name: nameController.text.trim(),
-                                          age: (DateTime.now().year -
-                                              authPageProvider.birthDate.year),
-                                          email: emailController.text.trim(),
-                                          password: passwordController.text));
-                                      Navigator.pushReplacementNamed(
-                                          context, routes.homePage);
+                                      // authPageProvider.authenticate(User(
+                                      //     authPageProvider.sex!,
+                                      //     name: nameController.text.trim(),
+                                      //     age: (DateTime.now().year -
+                                      //         authPageProvider.birthDate.year),
+                                      //     email: emailController.text.trim(),
+                                      //     password: passwordController.text));
+                                      // Navigator.pushReplacementNamed(
+                                      //     context, routes.homePage);
                                     }
                                   } else {
                                     print('login success');
 
-                                    User user;
-                                    try {
-                                      user = users
-                                          .map((userJson) =>
-                                              User.fromJson(userJson))
-                                          .toList()
-                                          .where((user) =>
-                                              user.email ==
-                                              emailController.text.trim())
-                                          .first;
+                                    // User user;
+                                    // try {
+                                    //   user = users
+                                    //       .map((userJson) =>
+                                    //           User.fromJson(userJson))
+                                    //       .toList()
+                                    //       .where((user) =>
+                                    //           user.email ==
+                                    //           emailController.text.trim())
+                                    //       .first;
 
-                                      if (passwordController.text ==
-                                          user.password) {
-                                        authPageProvider.authenticate(user);
-                                        Navigator.pushReplacementNamed(
-                                            context, routes.homePage);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                    'Invalid Login Credentials')));
-                                      }
-                                    } catch (e) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              backgroundColor: Colors.red,
-                                              content: Text(
-                                                  'Invalid Login Credentials')));
-                                    }
+                                    //   if (passwordController.text ==
+                                    //       user.password) {
+                                    //     authPageProvider.authenticate(user);
+                                    //     Navigator.pushReplacementNamed(
+                                    //         context, routes.homePage);
+                                    //   } else {
+                                    //     ScaffoldMessenger.of(context)
+                                    //         .showSnackBar(const SnackBar(
+                                    //             backgroundColor: Colors.red,
+                                    //             content: Text(
+                                    //                 'Invalid Login Credentials')));
+                                    //   }
+                                    // } catch (e) {
+                                    //   ScaffoldMessenger.of(context)
+                                    //       .showSnackBar(const SnackBar(
+                                    //           backgroundColor: Colors.red,
+                                    //           content: Text(
+                                    //               'Invalid Login Credentials')));
+                                    // }
                                   }
                                 } else {
                                   print('all fields are required');

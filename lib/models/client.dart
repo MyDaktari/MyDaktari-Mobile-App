@@ -1,4 +1,4 @@
-class Client {
+class ClientModel {
   String? name;
   int? id;
   String? email;
@@ -6,9 +6,9 @@ class Client {
   String? dob;
   String? gender;
 
-  Client({this.name, this.id, this.email, this.phone, this.dob, this.gender});
-
-  Client.fromJson(Map<String, dynamic> json) {
+  ClientModel(
+      {this.name, this.id, this.email, this.phone, this.dob, this.gender});
+  ClientModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     id = json['id'];
     email = json['email'];

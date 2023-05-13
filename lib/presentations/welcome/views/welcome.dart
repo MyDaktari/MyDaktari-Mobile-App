@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/services/auth_page_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../auth/widgets/scroll_behavior.dart';
 import '/routes/app_route.dart' as route;
@@ -8,6 +10,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthPageProvider authPageProvider = context.read<AuthPageProvider>();
     return Scaffold(
       body: SafeArea(
           child: ScrollConfiguration(
@@ -73,7 +76,10 @@ class WelcomePage extends StatelessWidget {
                                 const Color.fromARGB(255, 1, 84, 186),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
-                        onPressed: () {},
+                        onPressed: () {
+                          authPageProvider.userType = UserType.doctor;
+                          Navigator.pushNamed(context, route.homePage);
+                        },
                         child: const SizedBox(
                             width: 120,
                             child: Center(
@@ -87,8 +93,10 @@ class WelcomePage extends StatelessWidget {
                                 const Color.fromARGB(255, 1, 84, 186),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
-                        onPressed: () =>
-                            Navigator.pushNamed(context, route.homePage),
+                        onPressed: () async {
+                          authPageProvider.userType = UserType.client;
+                          Navigator.pushNamed(context, route.homePage);
+                        },
                         child: const SizedBox(
                             width: 120,
                             child: Center(

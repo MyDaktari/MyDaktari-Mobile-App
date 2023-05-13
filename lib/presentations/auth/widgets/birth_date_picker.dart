@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../services/auth_page_provider.dart';
+import '../../../services/auth_page_provider.dart';
 
 class BirthDatePicker extends StatelessWidget {
   const BirthDatePicker({super.key});

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/mock/models/doctor_model.dart';
+import 'package:my_daktari/models/client.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../auth/services/auth_page_provider.dart';
+import '../../../../../services/auth_page_provider.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '/constants/constants.dart' as constants;
 import '/routes/app_route.dart' as routes;
@@ -72,7 +74,12 @@ class ProfileTab extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            Text(auth.user?.name ?? '',
+                            Text(
+                                ((auth.userType?.name.contains('client') ??
+                                            false)
+                                        ? (auth.user as ClientModel).name
+                                        : (auth.user as DoctorModel).name) ??
+                                    '',
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

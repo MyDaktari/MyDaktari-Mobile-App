@@ -10,5 +10,6 @@ abstract class BaseAuthenticationRepository {
     required String dob,
     required String gender,
     required String email,
+    required String description,
   }) async {}
 }

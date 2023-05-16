@@ -4,13 +4,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../mock/users/users.dart';
 import '../../../services/auth_page_provider.dart';
 import '../widgets/birth_date_picker.dart';
 import '../widgets/scroll_behavior.dart';
 import '../widgets/sex_menu.dart';
 import '../widgets/terms_and_conditions.dart';
-import 'package:my_daktari/routes/app_route.dart' as routes;
 
 // ignore: must_be_immutable
 class AuthPage extends StatelessWidget {

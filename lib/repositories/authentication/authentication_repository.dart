@@ -38,6 +38,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     required String dob,
     required String gender,
     required String email,
+    required String description,
   }) async {
     final response = await http.post(
       Uri.parse('$registerDoctorUrl'),
@@ -49,6 +50,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         "dob": dob,
         "gender": gender,
         "password": password,
+        "description": description,
       }),
     );
 

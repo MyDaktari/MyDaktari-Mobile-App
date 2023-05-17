@@ -24,9 +24,13 @@ class AuthenticationBloc
     }
   }
 
-  void _onLoginClient(LoginClient event, Emitter<AuthenticationState> emit) {
+  void _onLoginClient(
+      LoginClient event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
-    try {} catch (error) {
+    try {
+      final client = await _repository.login(
+          username: event.username, password: event.password);
+    } catch (error) {
       emit(AuthenticationError(errorMessage: '$error'));
     }
   }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
 import './mock/service/get_doctor_service.dart';
 import './routes/app_route.dart' as route;
+import 'bloc/blocs.dart';
 import 'constants/theme/theme_mode.dart';
+import 'repositories/repositories.dart';
 import 'services/auth_page_provider.dart';
 
 void main() {
@@ -22,19 +25,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        systemStatusBarContrastEnforced: false,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: Colors.transparent,
-      ),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'My Daktari',
-        theme: AppTheme().lightTheme,
-        themeMode: themeNotifier.getThemeMode(),
-        onGenerateRoute: route.AppRouter.generateRoute,
-        initialRoute: route.welcome,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthenticationRepository>(
+            create: (_) => AuthenticationRepository()),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+              create: (context) =>
+                  AuthenticationBloc(repository: AuthenticationRepository())),
+        ],
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            systemStatusBarContrastEnforced: false,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarColor: Colors.transparent,
+          ),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'My Daktari',
+            theme: AppTheme().lightTheme,
+            themeMode: themeNotifier.getThemeMode(),
+            onGenerateRoute: route.AppRouter.generateRoute,
+            initialRoute: route.welcome,
+          ),
+        ),
       ),
     );
   }

@@ -11,22 +11,20 @@ abstract class AuthenticationEvent extends Equatable {
 class RegisterDoctor extends AuthenticationEvent {}
 
 class LoginDoctor extends AuthenticationEvent {
-  final String phoneNumber;
-  final String password;
-  const LoginDoctor({required this.phoneNumber, required this.password});
+  final String username, password;
+  const LoginDoctor({required this.username, required this.password});
   @override
-  List<Object> get props => [phoneNumber, password];
+  List<Object> get props => [username, password];
 }
 
 //Client events
 class RegisterClient extends AuthenticationEvent {}
 
 class LoginClient extends AuthenticationEvent {
-  final String phoneNumber;
-  final String password;
-  const LoginClient({required this.phoneNumber, required this.password});
+  final String username, password;
+  const LoginClient({required this.username, required this.password});
   @override
-  List<Object> get props => [phoneNumber, password];
+  List<Object> get props => [username, password];
 }
 
 class SendOTP extends AuthenticationEvent {

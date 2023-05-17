@@ -8,7 +8,6 @@ class ClientModel {
 
   ClientModel(
       {this.name, this.id, this.email, this.phone, this.dob, this.gender});
-
   ClientModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     id = json['id'];

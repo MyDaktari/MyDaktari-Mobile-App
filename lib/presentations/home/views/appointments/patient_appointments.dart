@@ -33,7 +33,7 @@ class PatientAppointment extends StatelessWidget {
             height: 5,
           ),
           Container(
-            height: 10,
+            height: 3,
             decoration: BoxDecoration(
                 color: tabValue == index ? primaryColor : Colors.grey,
                 borderRadius: BorderRadius.horizontal(
@@ -125,21 +125,21 @@ class AppointmentList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25)),
               color: primaryColor,
               child: SizedBox(
-                height: 150,
+                height: 110,
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      height: 80,
-                      width: 80,
+                      height: 60,
+                      width: 60,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white),
                       child: Image.asset('assets/images/male-user.png'),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +148,7 @@ class AppointmentList extends StatelessWidget {
                             '12:00 PM',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w100),
                           ),
                           const Text(
                             'John Doe',
@@ -172,6 +172,7 @@ class AppointmentList extends StatelessWidget {
                           onPressed: () {},
                           icon: Icon(
                             Icons.more_horiz,
+                            weight: 1,
                             color: Colors.white,
                           )),
                     )

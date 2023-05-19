@@ -15,6 +15,8 @@ const String registerDoctorUrl =
     'https://mydoc.my-daktari.com/new_api/registerDoctor.php';
 const String loginDoctorUrl =
     'https://mydoc.my-daktari.com/new_api/loginDoctor.php';
+const String doctorAppointmentsUrl =
+    'https://mydoc.my-daktari.com/new_api/appointments.php';
 
 const String otpUrl =
     'https://mydoc.my-daktari.com/new_api/sendRegisterOTP.php';

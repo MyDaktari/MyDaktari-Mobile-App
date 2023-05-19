@@ -1,15 +1,24 @@
-import '../../models/client.dart';
+import '../../models/models.dart';
 
 abstract class BaseAuthenticationRepository {
-  Future<ClientModel?> login(
+  Future<ClientModel?> loginClient(
       {required String username, required String password}) async {}
-  Future<ClientModel?> RegisterDoctor({
-    required String name,
-    required String password,
-    required String phone,
-    required String dob,
-    required String gender,
-    required String email,
-    required String description,
-  }) async {}
+  Future<ClientModel?> registerClient(
+      {required String name,
+      required String password,
+      required String phone,
+      required String dob,
+      required String gender,
+      required String email,
+      required String address}) async {}
+
+  Future<DoctorModel?> loginDoctor(
+      {required String username, required String password}) async {}
+  Future<DoctorModel?> registerDoctor(
+      {required String name,
+      required String password,
+      required String phone,
+      required String dob,
+      required String gender,
+      required String email}) async {}
 }

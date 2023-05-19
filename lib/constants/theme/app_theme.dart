@@ -33,8 +33,6 @@ class AppTheme {
               fontWeight: FontWeight.bold,
               fontSize: 23,
               fontFamily: constants.fontFamily),
-          iconTheme: const IconThemeData(
-            color: constants.primaryColor,
-          ),
+          iconTheme: const IconThemeData(color: constants.primaryColor),
           elevation: 0));
 }

@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../logic/bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
+import '../widgets/blog_card.dart';
 import '../widgets/grid_item.dart';
 import '/constants/constants.dart' as constants;
 
 class HomeTabView extends StatelessWidget {
   HomeTabView({super.key});
   final List<Map<String, dynamic>> grids = [
-    {'image': 'assets/images/reminder.png', 'title': 'reminder', 'route': ''},
     {
       'image': 'assets/images/reminder.png',
       'title': 'Symptom Checker',
       'route': 'symptomChecker'
     },
-    {
-      'image': 'assets/images/virus.png',
-      'title': 'Allergy Tracker',
-      'route': 'allergyTracker'
-    },
+    {'image': 'assets/images/reminder.png', 'title': 'reminder', 'route': ''},
+    // {
+    //   'image': 'assets/images/virus.png',
+    //   'title': 'Allergy Tracker',
+    //   'route': 'allergyTracker'
+    // },
     {
       'image': 'assets/images/graph-report.png',
-      'title': 'Track Symptoms',
-      'route': 'trackSymptoms'
+      'title': 'Call an Ambulance',
+      'route': 'CallanAmbulance'
     },
-    {
-      'image': 'assets/images/pharmacist.png',
-      'title': 'Prescription Discounts',
-      'route': 'prescriptionDiscounts'
-    },
+    // {
+    //   'image': 'assets/images/pharmacist.png',
+    //   'title': 'Prescription Discounts',
+    //   'route': 'prescriptionDiscounts'
+    // },
     {
       'image': 'assets/images/engage.png',
-      'title': 'Drug Interactions',
-      'route': 'drugInteractions'
+      'title': 'Pharmarcies',
+      'route': 'Pharmarcies'
     },
   ];
   @override
@@ -81,33 +84,23 @@ class HomeTabView extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-              child: ListView(
-            children: List.generate(
-                5,
-                (index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        child: SizedBox(
-                          height: 250,
-                          width: size.width,
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 150,
-                                decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25),
-                                        topRight: Radius.circular(25)),
-                                    color: Colors.blue),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
+          Expanded(child: BlocBuilder<BlogBloc, BlogState>(
+            builder: (context, state) {
+              if (state is BlogLoading) {
+                return Center(child: const CircularProgressIndicator());
+              } else if (state is BlogLoaded) {
+                return ListView.builder(
+                  itemCount: state.blogs.length,
+                  itemBuilder: (context, index) {
+                    return BlogCard(blog: state.blogs.elementAt(index));
+                  },
+                );
+              } else if (state is BlogLoadingError) {
+                return Center(child: Text(state.message));
+              } else {
+                return Center(child: Text('An internal Error Occured'));
+              }
+            },
           ))
         ],
       ),

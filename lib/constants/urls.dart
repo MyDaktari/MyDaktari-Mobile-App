@@ -20,3 +20,5 @@ const String doctorAppointmentsUrl =
 
 const String otpUrl =
     'https://mydoc.my-daktari.com/new_api/sendRegisterOTP.php';
+
+const String blogUrl = 'https://mydoc.my-daktari.com/new_api/allBlogs.php';

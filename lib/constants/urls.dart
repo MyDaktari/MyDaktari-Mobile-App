@@ -17,6 +17,15 @@ const String loginDoctorUrl =
     'https://mydoc.my-daktari.com/new_api/loginDoctor.php';
 const String doctorAppointmentsUrl =
     'https://mydoc.my-daktari.com/new_api/appointments.php';
+const String addDoctorChargesUrl =
+    'https://mydoc.my-daktari.com/new_api/addCharge.php';
+const String editDoctorChargesUrl =
+    'https://mydoc.my-daktari.com/new_api/editCharges.php';
+const String getDoctorChargesUrl = '';
+const String getDoctorPatientsUrl =
+    'https://mydoc.my-daktari.com/new_api/patients.php';
 
 const String otpUrl =
     'https://mydoc.my-daktari.com/new_api/sendRegisterOTP.php';
+
+const String blogUrl = 'https://mydoc.my-daktari.com/new_api/allBlogs.php';

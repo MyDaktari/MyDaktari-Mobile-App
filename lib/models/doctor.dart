@@ -7,7 +7,7 @@ class DoctorModel {
   String? gender;
   String? speciality;
   String? description;
-  Null? location;
+  String? location;
   String? lat;
   String? lng;
 

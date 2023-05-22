@@ -84,14 +84,10 @@ class ProfileTab extends StatelessWidget {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              auth.user?.email ?? '',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
-                            ),
+                            const SizedBox(height: 10),
+                            Text(auth.user?.email ?? '',
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 12)),
                             ElevatedButton(
                                 onPressed: () {
                                   auth.signOut();
@@ -127,9 +123,9 @@ class ProfileTab extends StatelessWidget {
                       backgroundColor: constants.greenish),
                   onPressed: () {
                     authPageProvider.setRegister(true);
-                    Navigator.pushReplacementNamed(context, routes.authPage);
+                    Navigator.pushNamed(context, routes.loginScreen);
                   },
-                  child: const Text('Register')),
+                  child: const Text('Sign In')),
               image: Image.asset('assets/images/telehealth.png'),
             );
           }),
@@ -137,18 +133,12 @@ class ProfileTab extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Center(
-                child: Text(
-                  'Tools',
-                  style: textTheme.titleLarge?.copyWith(fontSize: 15),
-                ),
+                child: Text('Tools',
+                    style: textTheme.titleLarge?.copyWith(fontSize: 15)),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               const Divider(),
               SizedBox(
                 height: 190,
@@ -156,9 +146,8 @@ class ProfileTab extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) => Center(
                       child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(tools[index]['title']),
-                  )),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(tools[index]['title']))),
                   separatorBuilder: (BuildContext context, int index) =>
                       const Divider(),
                   itemCount: tools.length,
@@ -169,14 +158,9 @@ class ProfileTab extends StatelessWidget {
                 height: 15,
               ),
               Center(
-                child: Text(
-                  'Saved',
-                  style: textTheme.titleLarge?.copyWith(fontSize: 15),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
+                  child: Text('Saved',
+                      style: textTheme.titleLarge?.copyWith(fontSize: 15))),
+              const SizedBox(height: 15),
               const Divider(),
               SizedBox(
                 height: 190,
@@ -187,11 +171,8 @@ class ProfileTab extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Image.asset(
-                          saved[index]['image'],
-                          height: 20,
-                        ),
-                        Text(saved[index]['title']),
+                        Image.asset(saved[index]['image'], height: 20),
+                        Text(saved[index]['title'])
                       ],
                     ),
                   )),

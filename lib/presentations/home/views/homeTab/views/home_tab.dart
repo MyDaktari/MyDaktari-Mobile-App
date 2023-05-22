@@ -5,6 +5,7 @@ import '../../../../../logic/bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '../widgets/blog_card.dart';
 import '../widgets/grid_item.dart';
+import 'package:my_daktari/routes/app_route.dart' as route;
 import '/constants/constants.dart' as constants;
 
 class HomeTabView extends StatelessWidget {
@@ -63,7 +64,7 @@ class HomeTabView extends StatelessWidget {
             image: Image.asset('assets/images/aya-half.png'),
           ),
           SizedBox(
-            height: size.height * .25,
+            height: size.height * .18,
             child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: grids.length,
@@ -92,7 +93,11 @@ class HomeTabView extends StatelessWidget {
                 return ListView.builder(
                   itemCount: state.blogs.length,
                   itemBuilder: (context, index) {
-                    return BlogCard(blog: state.blogs.elementAt(index));
+                    return InkWell(
+                        onTap: () => Navigator.pushNamed(
+                            context, route.blogScreen,
+                            arguments: state.blogs.elementAt(index)),
+                        child: BlogCard(blog: state.blogs.elementAt(index)));
                   },
                 );
               } else if (state is BlogLoadingError) {

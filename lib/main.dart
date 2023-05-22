@@ -9,6 +9,7 @@ import './routes/app_route.dart' as route;
 import 'logic/bloc/blocs.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
+import 'logic/cubit/user_type/user_type_cubit.dart';
 import 'repositories/blog/blog_repository.dart';
 import 'repositories/repositories.dart';
 import 'services/auth_page_provider.dart';
@@ -36,14 +37,16 @@ class MyApp extends StatelessWidget {
         providers: [
           //Blocs
           BlocProvider<AuthenticationBloc>(
-              create: (context) =>
-                  AuthenticationBloc(repository: AuthenticationRepository())),
+              create: (context) => AuthenticationBloc(
+                  repository: AuthenticationRepository(),
+                  userTypeCubit: UserTypeCubit())),
           BlocProvider<BlogBloc>(
               create: (context) =>
                   BlogBloc(blogRepository: BlogRepository())..add(LoadBlogs())),
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider<PageUpdateCubit>(create: (context) => PageUpdateCubit()),
+          BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),
         ],
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(

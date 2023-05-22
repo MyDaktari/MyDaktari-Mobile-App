@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:my_daktari/services/auth_page_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth/widgets/scroll_behavior.dart';
+import 'auth/widgets/scroll_behavior.dart';
 import '/routes/app_route.dart' as route;
 
 class WelcomePage extends StatelessWidget {
@@ -77,7 +79,10 @@ class WelcomePage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
                         onPressed: () {
-                          authPageProvider.userType = UserType.doctor;
+                          context
+                              .read<UserTypeCubit>()
+                              .switchToUser(userType: UserType.doctor);
+                          //authPageProvider.userType = UserType.doctor;
                           Navigator.pushNamed(context, route.homePage);
                         },
                         child: const SizedBox(
@@ -94,7 +99,10 @@ class WelcomePage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(21))),
                         onPressed: () async {
-                          authPageProvider.userType = UserType.client;
+                          context
+                              .read<UserTypeCubit>()
+                              .switchToUser(userType: UserType.client);
+                          // authPageProvider.userType = UserType.client;
                           Navigator.pushNamed(context, route.homePage);
                         },
                         child: const SizedBox(

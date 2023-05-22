@@ -9,7 +9,7 @@ abstract class AuthenticationEvent extends Equatable {
 
 //Doctor events
 class RegisterDoctor extends AuthenticationEvent {
-  String name, password, phone, dob, gender, email;
+  final String name, password, phone, dob, gender, email;
   RegisterDoctor({
     required this.name,
     required this.password,
@@ -32,7 +32,7 @@ class LoginUser extends AuthenticationEvent {
 
 //Client events
 class RegisterClient extends AuthenticationEvent {
-  String name, password, phone, dob, gender, email, address;
+  final String name, password, phone, dob, gender, email, address;
   RegisterClient(
       {required this.name,
       required this.password,

@@ -8,24 +8,49 @@ abstract class AuthenticationEvent extends Equatable {
 }
 
 //Doctor events
-class RegisterDoctor extends AuthenticationEvent {}
+class RegisterDoctor extends AuthenticationEvent {
+  String name, password, phone, dob, gender, email;
+  RegisterDoctor({
+    required this.name,
+    required this.password,
+    required this.phone,
+    required this.dob,
+    required this.gender,
+    required this.email,
+  });
+  List<Object> get props => [name, password, phone, dob, gender, email];
+}
 
-class LoginDoctor extends AuthenticationEvent {
+class LoginUser extends AuthenticationEvent {
   final String username, password;
-  const LoginDoctor({required this.username, required this.password});
+  final UserType userType;
+  const LoginUser(
+      {required this.userType, required this.username, required this.password});
   @override
   List<Object> get props => [username, password];
 }
 
 //Client events
-class RegisterClient extends AuthenticationEvent {}
-
-class LoginClient extends AuthenticationEvent {
-  final String username, password;
-  const LoginClient({required this.username, required this.password});
-  @override
-  List<Object> get props => [username, password];
+class RegisterClient extends AuthenticationEvent {
+  String name, password, phone, dob, gender, email, address;
+  RegisterClient(
+      {required this.name,
+      required this.password,
+      required this.phone,
+      required this.dob,
+      required this.gender,
+      required this.email,
+      required this.address});
+  List<Object> get props =>
+      [name, password, phone, dob, gender, email, address];
 }
+
+// class LoginClient extends AuthenticationEvent {
+//   final String username, password;
+//   const LoginClient({required this.username, required this.password});
+//   @override
+//   List<Object> get props => [username, password];
+// }
 
 class SendOTP extends AuthenticationEvent {
   final String phoneNumber;

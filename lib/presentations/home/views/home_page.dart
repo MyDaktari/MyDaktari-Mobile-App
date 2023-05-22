@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/logic/bloc/authentication/authentication_bloc.dart';
 import 'package:my_daktari/presentations/home/views/appointments/patient_appointments.dart';
 import 'package:my_daktari/presentations/home/views/patients/patients.dart';
 
@@ -29,8 +30,13 @@ class HomePage extends StatelessWidget {
             : null;
       }
     });
+
     return BlocBuilder<UserTypeCubit, UserTypeState>(
       builder: (context, userState) {
+        context.read<AuthenticationBloc>().add(LoginUser(
+            userType: userState.userType,
+            username: '23333',
+            password: 'eefef'));
         return BlocBuilder<PageUpdateCubit, PageUpdateState>(
             builder: (context, state) {
           // Helper method to get the color based on the current page

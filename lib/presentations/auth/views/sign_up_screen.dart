@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
-import '../../../services/auth_page_provider.dart';
 import '../widgets/birth_date_picker.dart';
 import '../widgets/scroll_behavior.dart';
 import '../widgets/sex_menu.dart';
@@ -11,32 +10,32 @@ class AuthPage extends StatelessWidget {
   AuthPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _validateRegistration(BuildContext context,
-      {required AuthPageProvider authPageProvider}) {
-    if (authPageProvider.birthDate.year == DateTime.now().year) {
-      print('invalid birth date');
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Your Birth Year Should Not Be This Year')));
-      return false;
-    } else if (authPageProvider.sex == null) {
-      print('invalid sex');
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Please Tell Us Your Gender')));
-      return false;
-    } else if (!authPageProvider.termsAccepted) {
-      print('terms not accepted');
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-              'You will not be able to register if you do not accept the terms and conditions')));
-      return false;
-    } else {
-      print('register successful');
-      return true;
-    }
-  }
+  // bool _validateRegistration(BuildContext context,
+  //     {required AuthPageProvider authPageProvider}) {
+  //   if (authPageProvider.birthDate.year == DateTime.now().year) {
+  //     print('invalid birth date');
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         backgroundColor: Colors.red,
+  //         content: Text('Your Birth Year Should Not Be This Year')));
+  //     return false;
+  //   } else if (authPageProvider.sex == null) {
+  //     print('invalid sex');
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         backgroundColor: Colors.red,
+  //         content: Text('Please Tell Us Your Gender')));
+  //     return false;
+  //   } else if (!authPageProvider.termsAccepted) {
+  //     print('terms not accepted');
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         backgroundColor: Colors.red,
+  //         content: Text(
+  //             'You will not be able to register if you do not accept the terms and conditions')));
+  //     return false;
+  //   } else {
+  //     print('register successful');
+  //     return true;
+  //   }
+  // }
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();

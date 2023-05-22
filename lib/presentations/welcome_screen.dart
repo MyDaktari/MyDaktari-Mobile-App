@@ -4,7 +4,7 @@ import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:my_daktari/services/auth_page_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth/widgets/scroll_behavior.dart';
+import 'auth/widgets/scroll_behavior.dart';
 import '/routes/app_route.dart' as route;
 
 class WelcomePage extends StatelessWidget {

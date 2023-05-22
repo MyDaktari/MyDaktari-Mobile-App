@@ -123,9 +123,9 @@ class ProfileTab extends StatelessWidget {
                       backgroundColor: constants.greenish),
                   onPressed: () {
                     authPageProvider.setRegister(true);
-                    Navigator.pushNamed(context, routes.authPage);
+                    Navigator.pushNamed(context, routes.loginScreen);
                   },
-                  child: const Text('Register')),
+                  child: const Text('Sign In')),
               image: Image.asset('assets/images/telehealth.png'),
             );
           }),

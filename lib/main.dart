@@ -37,8 +37,9 @@ class MyApp extends StatelessWidget {
         providers: [
           //Blocs
           BlocProvider<AuthenticationBloc>(
-              create: (context) =>
-                  AuthenticationBloc(repository: AuthenticationRepository())),
+              create: (context) => AuthenticationBloc(
+                  repository: AuthenticationRepository(),
+                  userTypeCubit: UserTypeCubit())),
           BlocProvider<BlogBloc>(
               create: (context) =>
                   BlogBloc(blogRepository: BlogRepository())..add(LoadBlogs())),

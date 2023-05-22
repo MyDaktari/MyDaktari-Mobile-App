@@ -6,3 +6,5 @@ abstract class AuthStatusEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class CheckUserStatus extends AuthStatusEvent {}

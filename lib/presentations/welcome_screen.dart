@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AuthStatusBloc>().add(CheckUserStatus());
     return Scaffold(
       body: SafeArea(
           child: ScrollConfiguration(

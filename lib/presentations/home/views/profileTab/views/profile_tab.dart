@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/mock/models/doctor_model.dart';
 import 'package:my_daktari/models/client.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../../../services/auth_page_provider.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '/constants/constants.dart' as constants;
@@ -115,17 +117,32 @@ class ProfileTab extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 13,
                       fontWeight: FontWeight.normal)),
-              button: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(21)),
-                      backgroundColor: constants.greenish),
-                  onPressed: () {
-                    authPageProvider.setRegister(true);
-                    Navigator.pushNamed(context, routes.loginScreen);
-                  },
-                  child: const Text('Sign In')),
+              button: BlocBuilder<AuthStatusBloc, AuthStatusState>(
+                builder: (context, state) {
+                  if (state is UserUnauthenticated) {
+                    return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21)),
+                            backgroundColor: constants.greenish),
+                        onPressed: () {
+                          authPageProvider.setRegister(true);
+                          Navigator.pushNamed(context, routes.loginScreen);
+                        },
+                        child: const Text('Sign In'));
+                  } else {
+                    return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21)),
+                            backgroundColor: constants.greenish),
+                        onPressed: () {},
+                        child: const Text('Sign Out'));
+                  }
+                },
+              ),
               image: Image.asset('assets/images/telehealth.png'),
             );
           }),

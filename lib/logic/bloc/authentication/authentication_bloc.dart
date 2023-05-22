@@ -28,24 +28,18 @@ class AuthenticationBloc
   void _onRegisterClient(
       RegisterClient event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
-    print(userTypeCubit.state.userType.toString());
+
     try {
-      if (userTypeCubit.state.userType == UserType.client) {
-        ClientModel client = await _repository.registerClient(
-            name: event.name,
-            email: event.email,
-            dob: event.dob,
-            gender: event.gender,
-            address: event.address,
-            phone: event.phone,
-            password: event.password);
-        emit(AuthenticationLoaded(
-            userType: userTypeCubit.state.userType, user: client));
-      } else {
-        emit(AuthenticationError(
-            errorMessage: 'User Type not defined',
-            userType: userTypeCubit.state.userType));
-      }
+      ClientModel client = await _repository.registerClient(
+          name: event.name,
+          email: event.email,
+          dob: event.dob,
+          gender: event.gender,
+          address: event.address,
+          phone: event.phone,
+          password: event.password);
+      emit(AuthenticationLoaded(
+          userType: userTypeCubit.state.userType, user: client));
     } catch (error) {
       emit(AuthenticationError(
           errorMessage: '$error', userType: userTypeCubit.state.userType));
@@ -80,8 +74,6 @@ class AuthenticationBloc
 
   void _onLoginUser(LoginUser event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
-    print('############');
-    print(event.userType.toString());
     try {
       if (event.userType == UserType.client) {
         ClientModel client = await _repository.loginClient(

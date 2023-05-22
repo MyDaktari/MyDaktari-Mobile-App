@@ -43,6 +43,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<BlogBloc>(
               create: (context) =>
                   BlogBloc(blogRepository: BlogRepository())..add(LoadBlogs())),
+          //authentication status
+          BlocProvider<AuthStatusBloc>(
+              create: (context) =>
+                  AuthStatusBloc(authRepository: AuthenticationRepository())
+                    ..add(CheckUserStatus())),
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider<PageUpdateCubit>(create: (context) => PageUpdateCubit()),
@@ -54,15 +59,21 @@ class MyApp extends StatelessWidget {
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: Colors.transparent,
           ),
-          child: BlocBuilder<ThemeCubit, ThemeState>(
-            builder: (context, state) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'My Daktari',
-                theme: AppTheme().lightTheme,
-                themeMode: state.themeMode,
-                onGenerateRoute: route.AppRouter.generateRoute,
-                initialRoute: route.welcome,
+          child: BlocBuilder<AuthStatusBloc, AuthStatusState>(
+            builder: (context, authState) {
+              return BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, state) {
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    title: 'My Daktari',
+                    theme: AppTheme().lightTheme,
+                    themeMode: state.themeMode,
+                    onGenerateRoute: route.AppRouter.generateRoute,
+                    initialRoute: authState is UserUnauthenticated
+                        ? route.homePage
+                        : route.welcome,
+                  );
+                },
               );
             },
           ),

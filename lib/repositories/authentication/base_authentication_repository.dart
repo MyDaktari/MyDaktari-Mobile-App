@@ -4,7 +4,7 @@ import '../../models/models.dart';
 
 abstract class BaseAuthenticationRepository {
   Future<bool?> logOut() async {}
-  Future<dynamic> checkUser() async {}
+  Future<Map<String, dynamic>?> checkUser() async {}
   Future<ClientModel?> loginClient(
       {required String username, required String password}) async {}
   Future<ClientModel?> registerClient(

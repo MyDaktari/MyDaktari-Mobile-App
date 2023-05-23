@@ -16,7 +16,16 @@ class UserUnauthenticated extends AuthStatusState {
 
 class UserAuthenticated extends AuthStatusState {
   final dynamic user;
-  const UserAuthenticated({required this.user});
+  final UserType userType;
+  const UserAuthenticated({required this.userType, required this.user});
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [user, userType];
+}
+
+class UserAuthStatusError extends AuthStatusState {
+  final String message;
+
+  UserAuthStatusError({required this.message});
+  @override
+  List<Object> get props => [message];
 }

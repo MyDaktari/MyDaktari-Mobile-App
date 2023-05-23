@@ -136,32 +136,30 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
   //function to check the user Authentication status
   @override
-  Future<dynamic> checkUser() async {
+  Future<Map<String, dynamic>> checkUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? userFromPrefs = preferences.getString('user');
     String? userTypeFromPrefs = preferences.getString('userType');
     dynamic user;
-
-    print('11111111111111111111');
-    print(userTypeFromPrefs);
-    print('22222222222222222');
-    print(userFromPrefs);
 
     if (userTypeFromPrefs != null) {
       if (userFromPrefs != null) {
         if (userTypeFromPrefs == UserType.client.name) {
           final userString = jsonDecode(userFromPrefs);
           ClientModel client = ClientModel.fromJson(userString);
-          print(client.name);
           user = client;
-          return user;
         } else {
           final userString = jsonDecode(userFromPrefs);
           DoctorModel doctor = DoctorModel.fromJson(userString);
           user = doctor;
-          return user;
         }
       }
+      return {
+        'user': user,
+        'userType': (userTypeFromPrefs == UserType.client.name)
+            ? UserType.client
+            : UserType.doctor,
+      };
     } else {
       throw Exception('User Not Authenticated');
     }
@@ -170,7 +168,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   @override
   Future<bool> logOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool loggedOut = await preferences.remove('user');
-    return loggedOut;
+    bool deleteUseType = await preferences.remove('userType');
+    bool logUerOut = await preferences.remove('user');
+    return deleteUseType && logUerOut;
   }
 }

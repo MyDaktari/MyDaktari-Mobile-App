@@ -59,22 +59,42 @@ class MyApp extends StatelessWidget {
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: Colors.transparent,
           ),
-          child: BlocBuilder<AuthStatusBloc, AuthStatusState>(
+          child: BlocConsumer<AuthStatusBloc, AuthStatusState>(
+            listener: (context, authState) {
+              if (authState is UserAuthenticated) {
+                context
+                    .read<UserTypeCubit>()
+                    .switchToUser(userType: authState.userType);
+              }
+            },
             builder: (context, authState) {
-              return BlocBuilder<ThemeCubit, ThemeState>(
-                builder: (context, state) {
-                  return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    title: 'My Daktari',
-                    theme: AppTheme().lightTheme,
-                    themeMode: state.themeMode,
-                    onGenerateRoute: route.AppRouter.generateRoute,
-                    initialRoute: authState is UserUnauthenticated
-                        ? route.homePage
-                        : route.welcome,
+              if (authState is UserAuthenticated) {
+                return BlocBuilder<ThemeCubit, ThemeState>(
+                  builder: (context, state) {
+                    return MaterialApp(
+                        debugShowCheckedModeBanner: false,
+                        title: 'My Daktari',
+                        theme: AppTheme().lightTheme,
+                        themeMode: state.themeMode,
+                        onGenerateRoute: route.AppRouter.generateRoute,
+                        initialRoute: route.homePage);
+                  },
+                );
+              } else {
+                return Builder(builder: (context) {
+                  return BlocBuilder<ThemeCubit, ThemeState>(
+                    builder: (context, state) {
+                      return MaterialApp(
+                          debugShowCheckedModeBanner: false,
+                          title: 'My Daktari',
+                          theme: AppTheme().lightTheme,
+                          themeMode: state.themeMode,
+                          onGenerateRoute: route.AppRouter.generateRoute,
+                          initialRoute: route.welcome);
+                    },
                   );
-                },
-              );
+                });
+              }
             },
           ),
         ),

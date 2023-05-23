@@ -8,7 +8,7 @@ import '../presentations/auth/views/sign_up_screen.dart';
 import '../presentations/home/views/doctorsTab/views/doctor_profile_page.dart';
 import '../presentations/home/views/homeTab/views/blog_screen.dart';
 import '../presentations/home/views/homeTab/views/symptomChecker/symptom_checker.dart';
-import '../presentations/home/views/home_page.dart';
+import '../presentations/home/views/landing_screen.dart';
 import '../presentations/welcome_screen.dart';
 
 const String authPage = 'authPage';

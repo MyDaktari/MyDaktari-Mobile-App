@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:my_daktari/constants/constants.dart';
 
 import '../../constants/urls.dart';
 import '../../models/models.dart';
@@ -12,9 +13,13 @@ class DoctorRepository extends BaseDoctorRepository {
   Future<List<AppointmentModel>> getDoctorAppointments(
       {required String doctorId}) async {
     List<AppointmentModel> appointments = List.empty();
-    final response = await http.post(Uri.parse(doctorAppointmentsUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'doctorId': doctorId}));
+    print('user:$userId');
+    final response = await http.post(
+      Uri.parse(doctorAppointmentsUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({"doctorID": userId}),
+    );
+
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
       appointments = jsonData
@@ -22,6 +27,7 @@ class DoctorRepository extends BaseDoctorRepository {
           .toList();
       return appointments;
     } else if (response.statusCode == 404) {
+      print(response.statusCode);
       return appointments = List.empty();
     } else {
       print(response.statusCode);
@@ -36,7 +42,7 @@ class DoctorRepository extends BaseDoctorRepository {
     List<PatientModel> patients = List.empty();
     final response = await http.post(Uri.parse(getDoctorPatientsUrl),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'doctorId': doctorId}));
+        body: jsonEncode({"doctorId": doctorId}));
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
       patients =
@@ -99,7 +105,7 @@ class DoctorRepository extends BaseDoctorRepository {
       {required String doctorId}) async {
     final response = await http.post(Uri.parse(getDoctorChargesUrl),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'doctorId': doctorId}));
+        body: jsonEncode({"doctorId": doctorId}));
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'];
       final doctorcharges = DoctorChargesModel.fromJson(jsonData);

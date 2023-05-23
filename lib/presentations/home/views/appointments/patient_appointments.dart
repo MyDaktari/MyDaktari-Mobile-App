@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/models/appointment.dart';
+import 'package:my_daktari/presentations/home/views/appointments/doctor_appointment_card.dart';
+
+import '../../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 
 class PatientAppointment extends StatelessWidget {
   PatientAppointment({super.key});
@@ -82,24 +87,45 @@ class PatientAppointment extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                    child: PageView(
-                  controller: _pageController,
-                  onPageChanged: (val) {
-                    _tabNotifier.newValue = val;
+                BlocBuilder<DoctorAppointmentsBloc, DoctorAppointmentsState>(
+                  builder: (context, state) {
+                    if (state is DoctorAppointmentsLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is DoctorAppointmentsLoaded) {
+                      return Expanded(
+                          child: PageView(
+                        controller: _pageController,
+                        onPageChanged: (val) {
+                          _tabNotifier.newValue = val;
+                        },
+                        children: [
+                          AppointmentList(list: []),
+                          AppointmentList(list: []),
+                          AppointmentList(
+                              list: state.appointments
+                                  .where((element) =>
+                                      (element.appointmentStatus ?? '')
+                                          .toLowerCase() ==
+                                      'pending')
+                                  .toList()),
+                          AppointmentList(
+                              list: state.appointments
+                                  .where((element) =>
+                                      (element.appointmentStatus ?? '')
+                                          .toLowerCase() ==
+                                      'done')
+                                  .toList()),
+                        ],
+                      ));
+                    } else if (state is DoctorAppointmentsLoadingError) {
+                      return Center(child: Text(state.message));
+                    } else {
+                      return Center(
+                          child: Text(
+                              'An error Occured which fetching your appointment'));
+                    }
                   },
-                  children: [
-                    AppointmentList(
-                      list: List.generate(2, (index) => null).toList(),
-                    ),
-                    AppointmentList(
-                        list: List.generate(3, (index) => null).toList()),
-                    AppointmentList(
-                        list: List.generate(1, (index) => null).toList()),
-                    AppointmentList(
-                        list: List.generate(4, (index) => null).toList()),
-                  ],
-                ))
+                )
               ],
             ),
           );
@@ -115,73 +141,17 @@ class AppointmentList extends StatelessWidget {
   final List list;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25)),
-              color: primaryColor,
-              child: SizedBox(
-                height: 110,
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white),
-                      child: Image.asset('assets/images/male-user.png'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '12:00 PM',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w100),
-                          ),
-                          const Text(
-                            'John Doe',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 21,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const Text(
-                            'Allergies',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.more_horiz,
-                            weight: 1,
-                            color: Colors.white,
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ),
+    return list.isNotEmpty
+        ? ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return DoctorAppointmentCard(
+                doctorAppointment: list.elementAt(index),
+              );
+            })
+        : Center(
+            child: Text('You\'ve got nothing yet'),
           );
-        });
   }
 }
 

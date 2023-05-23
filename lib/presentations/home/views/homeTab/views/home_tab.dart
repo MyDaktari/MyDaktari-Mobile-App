@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/presentations/auth/widgets/scroll_behavior.dart';
 
 import '../../../../../logic/bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
@@ -89,11 +90,14 @@ class HomeTabView extends StatelessWidget {
               if (state is BlogLoading) {
                 return Center(child: const CircularProgressIndicator());
               } else if (state is BlogLoaded) {
-                return ListView.builder(
-                  itemCount: state.blogs.length,
-                  itemBuilder: (context, index) {
-                    return BlogCard(blog: state.blogs.elementAt(index));
-                  },
+                return ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: ListView.builder(
+                    itemCount: state.blogs.length,
+                    itemBuilder: (context, index) {
+                      return BlogCard(blog: state.blogs.elementAt(index));
+                    },
+                  ),
                 );
               } else if (state is BlogLoadingError) {
                 return Center(child: Text(state.message));

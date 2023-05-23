@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/urls.dart';
 import '../../models/models.dart';
 import './base_authentication_repository.dart';
@@ -9,14 +11,15 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   @override
   Future<ClientModel> loginClient(
       {required String username, required String password}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     final response = await http.post(Uri.parse('$loginClientUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
-
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-
       ClientModel client = ClientModel.fromJson(responseBody['user']);
+      preferences.setString('user', jsonEncode(responseBody['user']));
+      preferences.setString('userType', UserType.client.name);
       return client;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -50,10 +53,13 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           "lat": "",
           "lng": "",
         }));
+    SharedPreferences preferences = await SharedPreferences.getInstance();
 
     if (response.statusCode == 201) {
       final responseBody = jsonDecode(response.body);
       ClientModel client = ClientModel.fromJson(responseBody['user']);
+      preferences.setString('user', jsonEncode(responseBody['user']));
+      preferences.setString('userType', UserType.client.name);
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');
@@ -71,11 +77,13 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     final response = await http.post(Uri.parse('$loginDoctorUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
+    SharedPreferences preferences = await SharedPreferences.getInstance();
 
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-
       DoctorModel doctor = DoctorModel.fromJson(responseBody['doctor']);
+      preferences.setString('user', jsonEncode(responseBody['doctor']));
+      preferences.setString('userType', UserType.doctor.name);
       return doctor;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -109,9 +117,13 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           "lng": "",
         }));
 
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
     if (response.statusCode == 201) {
       final responseBody = jsonDecode(response.body);
       DoctorModel doctor = DoctorModel.fromJson(responseBody['doctor']);
+      preferences.setString('user', jsonEncode(responseBody['doctor']));
+      preferences.setString('userType', UserType.doctor.name);
       return doctor;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');
@@ -120,5 +132,44 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     } else {
       throw Exception('Failed to login');
     }
+  }
+
+  //function to check the user Authentication status
+  @override
+  Future<Map<String, dynamic>> checkUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? userFromPrefs = preferences.getString('user');
+    String? userTypeFromPrefs = preferences.getString('userType');
+    dynamic user;
+
+    if (userTypeFromPrefs != null) {
+      if (userFromPrefs != null) {
+        if (userTypeFromPrefs == UserType.client.name) {
+          final userString = jsonDecode(userFromPrefs);
+          ClientModel client = ClientModel.fromJson(userString);
+          user = client;
+        } else {
+          final userString = jsonDecode(userFromPrefs);
+          DoctorModel doctor = DoctorModel.fromJson(userString);
+          user = doctor;
+        }
+      }
+      return {
+        'user': user,
+        'userType': (userTypeFromPrefs == UserType.client.name)
+            ? UserType.client
+            : UserType.doctor,
+      };
+    } else {
+      throw Exception('User Not Authenticated');
+    }
+  }
+
+  @override
+  Future<bool> logOut() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool deleteUseType = await preferences.remove('userType');
+    bool logUerOut = await preferences.remove('user');
+    return deleteUseType && logUerOut;
   }
 }

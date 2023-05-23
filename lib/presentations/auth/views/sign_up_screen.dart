@@ -5,6 +5,8 @@ import '../widgets/scroll_behavior.dart';
 import '../widgets/sex_menu.dart';
 import '../widgets/terms_and_conditions.dart';
 
+import 'package:my_daktari/routes/app_route.dart' as route;
+
 // ignore: must_be_immutable
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
@@ -64,37 +66,43 @@ class AuthPage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: Image.asset('assets/images/telehealth.png')),
             ),
-            Container(
-              height: size.height * .16,
-              width: size.width,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 238, 246, 244)),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Column(
-                  children: const [
-                    Text(
-                      'Why Register?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'It\'s Free!\nQuicker symptom checker services\nSchedule medication reminders\nSave articles',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
+            // Container(
+            //   height: size.height * .16,
+            //   width: size.width,
+            //   decoration: const BoxDecoration(
+            //       color: Color.fromARGB(255, 238, 246, 244)),
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(top: 18.0),
+            //     child: Column(
+            //       children: const [
+            //         Text(
+            //           'Why Register?',
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.bold,
+            //             fontSize: 20,
+            //           ),
+            //         ),
+            //         SizedBox(
+            //           height: 10,
+            //         ),
+            //         Text(
+            //           'It\'s Free!\nQuicker symptom checker services\nSchedule medication reminders\nSave articles',
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.w300,
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            SizedBox(height: 10),
+            Text('Create Account',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontSize: 30, fontWeight: FontWeight.w800)),
+            const SizedBox(height: 10),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -150,7 +158,7 @@ class AuthPage extends StatelessWidget {
                         controller: passwordController,
                         validator: (val) {
                           return val?.isEmpty ?? true
-                              ? 'This will not work'
+                              ? 'Invalid password format'
                               : null;
                         },
                         decoration: InputDecoration(
@@ -160,9 +168,16 @@ class AuthPage extends StatelessWidget {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15))),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 10),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Already have an account? '),
+                            TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('Sign In'))
+                          ]),
+                      const SizedBox(height: 10),
                       const TermsAndConditions(),
                       Padding(
                         padding: const EdgeInsets.only(right: 80.0, left: 80.0),
@@ -179,11 +194,10 @@ class AuthPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(18))),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Create an account',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
+                              child: Text('Create an account',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
                             )),
                       ),
                     ],

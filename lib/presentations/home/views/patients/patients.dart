@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/presentations/home/views/appointments/patient_appointments.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 
 class PatientsTab extends StatelessWidget {
   const PatientsTab({super.key});
@@ -16,7 +18,26 @@ class PatientsTab extends StatelessWidget {
             'Patients',
             style: textTheme.titleLarge,
           ),
-          Expanded(child: AppointmentList(list: [1, 2, 3, 4, 5])),
+          Expanded(
+            child: BlocBuilder<DoctorPatientsBloc, DoctorPatientsState>(
+              builder: (context, state) {
+                return ListView.builder(
+                    itemCount: 2,
+                    itemBuilder: (context, index) {
+                      if (state is DoctorPatientsLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (state is DoctorPatientsLoaded) {
+                        return Card();
+                      } else if (state is DoctorPatientsLoadingError) {
+                        return Center(child: Text(state.message));
+                      } else {
+                        return Center(
+                            child: Text('We could not load your patients'));
+                      }
+                    });
+              },
+            ),
+          ),
         ],
       ),
     );

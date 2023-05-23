@@ -77,15 +77,13 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: 30),
+                        Text('Hello There',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(fontSize: 30)),
                         Text(
-                          'Hello There!',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(fontSize: 30),
-                        ),
-                        Text(
-                          'Welcome Back',
+                          'Welcome Back!',
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall!
@@ -111,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                           controller: passwordController,
                           validator: (val) {
                             return val?.isEmpty ?? true
-                                ? 'This will not work'
+                                ? 'Invalid password format'
                                 : null;
                           },
                           decoration: InputDecoration(

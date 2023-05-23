@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enum_user_type.dart';
 
+import '../../../models/models.dart';
 import '../../../repositories/authentication/authentication_repository.dart';
 
 part 'auth_status_event.dart';
@@ -21,12 +23,18 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
       if (response['user'] != null && response['userType'] != null) {
+        userId = (response['userType'] == UserType.client)
+            ? (response['user'] as ClientModel).userID.toString()
+            : (response['user'] as DoctorModel).id.toString();
+
         emit(UserAuthenticated(
             user: response['user'], userType: response['userType']));
       } else {
+        userId = '';
         emit(UserUnauthenticated());
       }
     } catch (error) {
+      userId = '';
       emit(UserUnauthenticated());
     }
   }

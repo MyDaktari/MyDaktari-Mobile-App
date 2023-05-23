@@ -34,13 +34,8 @@ class WelcomePage extends StatelessWidget {
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
               ),
             ),
-            Image.asset(
-              'assets/images/aya.png',
-              height: 250,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            Image.asset('assets/images/aya.png', height: 250),
+            const SizedBox(height: 10),
             const Center(
               child: Text(
                 'Meet Aya, your virtual assistant',
@@ -81,7 +76,7 @@ class WelcomePage extends StatelessWidget {
                               .read<UserTypeCubit>()
                               .switchToUser(userType: UserType.doctor);
                           //authPageProvider.userType = UserType.doctor;
-                          Navigator.pushNamed(context, route.homePage);
+                          Navigator.pushNamed(context, route.loginScreen);
                         },
                         child: const SizedBox(
                             width: 120,
@@ -106,10 +101,8 @@ class WelcomePage extends StatelessWidget {
                         child: const SizedBox(
                             width: 120,
                             child: Center(
-                                child: Text(
-                              'I am a Client',
-                              style: TextStyle(fontSize: 16),
-                            )))),
+                                child: Text('I am a Client',
+                                    style: TextStyle(fontSize: 16))))),
                   ],
                 ),
               ),

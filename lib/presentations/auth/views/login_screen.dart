@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
+import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import '../../../constants/constants.dart';
 import 'package:my_daktari/routes/app_route.dart' as route;
 
+import '../../../constants/enum_user_type.dart';
 import '../../../logic/bloc/authentication/authentication_bloc.dart';
+import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
 
 // ignore: must_be_immutable
@@ -15,33 +18,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // bool _validateRegistration(BuildContext context,
-  //     {required AuthPageProvider authPageProvider}) {
-  //   if (authPageProvider.birthDate.year == DateTime.now().year) {
-  //     print('invalid birth date');
-  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         backgroundColor: Colors.red,
-  //         content: Text('Your Birth Year Should Not Be This Year')));
-  //     return false;
-  //   } else if (authPageProvider.sex == null) {
-  //     print('invalid sex');
-  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         backgroundColor: Colors.red,
-  //         content: Text('Please Tell Us Your Gender')));
-  //     return false;
-  //   } else if (!authPageProvider.termsAccepted) {
-  //     print('terms not accepted');
-  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         backgroundColor: Colors.red,
-  //         content: Text(
-  //             'You will not be able to register if you do not accept the terms and conditions')));
-  //     return false;
-  //   } else {
-  //     print('register successful');
-  //     return true;
-  //   }
-  // }
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -159,6 +135,16 @@ class LoginScreen extends StatelessWidget {
                                       context
                                           .read<AuthStatusBloc>()
                                           .add(CheckUserStatus());
+                                      if (userState.userType ==
+                                          UserType.doctor) {
+                                        context
+                                            .read<DoctorAppointmentsBloc>()
+                                            .add(LoadDoctorAppointments(
+                                                doctorId: userId));
+                                        context.read<DoctorPatientsBloc>().add(
+                                            LoadDoctorPatients(
+                                                doctorId: userId));
+                                      }
                                     }
                                     if (state is AuthenticationError) {
                                       Fluttertoast.showToast(
@@ -170,12 +156,10 @@ class LoginScreen extends StatelessWidget {
                                         ? CupertinoActivityIndicator(
                                             color: Colors.white,
                                           )
-                                        : Text(
-                                            'Sign In',
+                                        : Text('Sign In',
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 16),
-                                          );
+                                                fontSize: 16));
                                   },
                                 ),
                               )),
@@ -186,11 +170,10 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Text('Don\'t have an account yet? '),
                             TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, route.authPage);
-                              },
-                              child: Text('Sign Up'),
-                            ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, route.authPage);
+                                },
+                                child: Text('Sign Up'))
                           ],
                         ),
                       ],

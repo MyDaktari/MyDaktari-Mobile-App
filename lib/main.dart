@@ -94,6 +94,7 @@ class MyApp extends StatelessWidget {
                   },
                 );
               } else {
+                //!do not remove this builder
                 return Builder(builder: (context) {
                   return BlocBuilder<ThemeCubit, ThemeState>(
                     builder: (context, state) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/routes/app_route.dart' as route;
 import '/constants/constants.dart' as constants;
 
 class AyaTab extends StatelessWidget {
@@ -39,7 +40,9 @@ class AyaTab extends StatelessWidget {
                     style: textTheme.titleMedium?.copyWith(color: Colors.white),
                   ),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Continue to Chat'))
+                      onPressed: () =>
+                          Navigator.pushNamed(context, route.loginScreen),
+                      child: const Text('Continue to Chat'))
                 ],
               ),
             ),

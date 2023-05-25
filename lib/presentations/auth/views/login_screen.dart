@@ -26,8 +26,7 @@ class LoginScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-          elevation: 0, backgroundColor: const Color.fromARGB(255, 1, 84, 186)),
+      appBar: AppBar(elevation: 0, backgroundColor: primaryColor),
       body: BlocBuilder<UserTypeCubit, UserTypeState>(
         builder: (context, userState) {
           return SingleChildScrollView(
@@ -35,12 +34,12 @@ class LoginScreen extends StatelessWidget {
                 child: Form(
               key: _formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     height: size.height * .22,
                     width: size.width,
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 1, 84, 186)),
+                    decoration: const BoxDecoration(color: primaryColor),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(

@@ -6,7 +6,6 @@ import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:my_daktari/presentations/auth/widgets/sign_up_button.dart';
 import '../../../constants/enums.dart';
 import '../widgets/birth_date_picker.dart';
-import '../../home/widgets/scroll_behavior.dart';
 import '../widgets/sex_menu.dart';
 import '../widgets/terms_and_conditions.dart';
 

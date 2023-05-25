@@ -26,7 +26,7 @@ class DoctorRepository extends BaseDoctorRepository {
           .map((appointment) => AppointmentModel.fromJson(appointment))
           .toList();
       return appointments;
-    } else if (response.statusCode == 404) {
+    } else if (response.statusCode == 404 || response.statusCode == 400) {
       print(response.statusCode);
       return appointments = List.empty();
     } else {
@@ -42,7 +42,7 @@ class DoctorRepository extends BaseDoctorRepository {
     List<PatientModel> patients = List.empty();
     final response = await http.post(Uri.parse(getDoctorPatientsUrl),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"doctorId": doctorId}));
+        body: jsonEncode({"doctorID": doctorId}));
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
       patients =

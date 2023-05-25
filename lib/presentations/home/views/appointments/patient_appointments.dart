@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/models/appointment.dart';
 import 'package:my_daktari/presentations/home/views/appointments/doctor_appointment_card.dart';
 
 import '../../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';

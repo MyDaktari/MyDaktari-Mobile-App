@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:my_daktari/constants/enums.dart';
 
 import '../../../models/models.dart';
 import '../../../repositories/authentication/authentication_repository.dart';

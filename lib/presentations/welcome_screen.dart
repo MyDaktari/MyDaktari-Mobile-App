@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:provider/provider.dart';
 
-import 'auth/widgets/scroll_behavior.dart';
+import 'home/widgets/scroll_behavior.dart';
 import '/routes/app_route.dart' as route;
 
 class WelcomePage extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/presentations/auth/widgets/scroll_behavior.dart';
+import 'package:my_daktari/presentations/home/widgets/scroll_behavior.dart';
 
 import '../../../../../logic/bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';

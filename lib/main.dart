@@ -12,6 +12,7 @@ import 'logic/bloc/blocs.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
+import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 import 'logic/cubit/tab_update/tab_update_cubit.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
 import 'logic/cubit/user_type/user_type_cubit.dart';
@@ -68,6 +69,8 @@ class MyApp extends StatelessWidget {
                     ..add(CheckUserStatus())),
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+          BlocProvider<SignUpHelperCubit>(
+              create: (context) => SignUpHelperCubit()),
           BlocProvider<TabUpdateCubit>(create: (context) => TabUpdateCubit()),
           BlocProvider<PageUpdateCubit>(create: (context) => PageUpdateCubit()),
           BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),

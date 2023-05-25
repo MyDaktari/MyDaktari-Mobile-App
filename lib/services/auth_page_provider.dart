@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/models/client.dart';
 
-import '../constants/enum_user_type.dart';
+import '../constants/enums.dart';
 
 class AuthPageProvider with ChangeNotifier {
   AuthPageProvider.instance() {
@@ -54,5 +54,3 @@ class AuthPageProvider with ChangeNotifier {
 }
 
 enum Sex { male, female }
-
-enum UserTyp { doctor, client }

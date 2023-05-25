@@ -1,10 +1,12 @@
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../services/auth_page_provider.dart';
+import '../../../logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 
 class BirthDatePicker extends StatelessWidget {
-  const BirthDatePicker({super.key});
+  BirthDatePicker({super.key});
   String appendZero(int inputNumber) {
     return inputNumber.toString().length == 1
         ? '0$inputNumber'
@@ -13,46 +15,38 @@ class BirthDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final signUpHelperCubit = context.watch<SignUpHelperCubit>();
     Size size = MediaQuery.of(context).size;
-    return Consumer<AuthPageProvider>(builder: (context, authPageProvider, _) {
-      return Column(
-        children: [
-          InkWell(
-            borderRadius: BorderRadius.circular(15),
-            onTap: () async {
-              final date = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1910),
-                  lastDate: DateTime.now());
-              authPageProvider.updateBirthDate(date ?? DateTime.now());
-            },
-            child: Container(
-              width: size.width,
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.grey, width: 1.5)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Birth Date',
-                      style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.w300),
-                    ),
-                    Text(
-                        '${appendZero(authPageProvider.birthDate.day)}/${appendZero(authPageProvider.birthDate.month)}/${authPageProvider.birthDate.year}')
-                  ],
-                ),
-              ),
+
+    return Column(
+      children: [
+        Container(
+          height: 50,
+          width: size.width * .43,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: Colors.grey, width: 1.5)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: DateTimeField(
+              dateFormat: DateFormat('yyyy-MM-dd'),
+              mode: DateTimeFieldPickerMode.date,
+              initialDate: DateTime(2005),
+              firstDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+              lastDate: DateTime.now().subtract(Duration(days: 365 * 17)),
+              decoration: InputDecoration(hintText: "Birth Date"),
+              onDateSelected: (DateTime value) {
+                signUpHelperCubit.updateBirthDate(value.toString());
+              },
+              selectedDate: signUpHelperCubit.state.birthDate.isEmpty
+                  ? null
+                  : DateFormat('yyyy-MM-dd')
+                      .parse(signUpHelperCubit.state.birthDate),
             ),
           ),
-          const SizedBox(height: 15),
-        ],
-      );
-    });
+        ),
+        const SizedBox(height: 15),
+      ],
+    );
   }
 }

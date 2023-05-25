@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:my_daktari/constants/enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/urls.dart';
 import '../../models/models.dart';
@@ -57,8 +57,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
     if (response.statusCode == 201) {
       final responseBody = jsonDecode(response.body);
-      ClientModel client = ClientModel.fromJson(responseBody['user']);
-      preferences.setString('user', jsonEncode(responseBody['user']));
+      ClientModel client = ClientModel.fromJson(responseBody['data']);
+      preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.client.name);
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
@@ -113,16 +113,16 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           "dob": dob,
           "gender": gender,
           "password": password,
-          "lat": "",
-          "lng": "",
+          "lat": "37.7749",
+          "lng": "-122.4194"
         }));
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    if (response.statusCode == 201) {
+    print(response.body);
+    if (response.statusCode == 201 || response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      DoctorModel doctor = DoctorModel.fromJson(responseBody['doctor']);
-      preferences.setString('user', jsonEncode(responseBody['doctor']));
+      DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
+      preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
       return doctor;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
@@ -130,6 +130,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     } else if (response.statusCode == 409) {
       throw Exception('Email already exist');
     } else {
+      print(response.statusCode);
       throw Exception('Failed to login');
     }
   }

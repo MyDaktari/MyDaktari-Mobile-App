@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../constants/enum_user_type.dart';
+import '../../../constants/enums.dart';
 
 part 'user_type_state.dart';
 

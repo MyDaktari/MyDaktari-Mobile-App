@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/constants/enum_user_type.dart';
+import 'package:my_daktari/constants/enums.dart';
 
 import '../../../models/models.dart';
 import '../../../repositories/authentication/authentication_repository.dart';
@@ -49,23 +49,16 @@ class AuthenticationBloc
   void _onRegisterDoctor(
       RegisterDoctor event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
-    print(userTypeCubit.state.userType.toString());
     try {
-      if (userTypeCubit.state.userType == UserType.client) {
-        DoctorModel client = await _repository.registerDoctor(
-            name: event.name,
-            email: event.email,
-            dob: event.dob,
-            gender: event.gender,
-            password: event.password,
-            phone: event.phone);
-        emit(AuthenticationLoaded(
-            userType: userTypeCubit.state.userType, user: client));
-      } else {
-        emit(AuthenticationError(
-            errorMessage: 'User Type not defined',
-            userType: userTypeCubit.state.userType));
-      }
+      DoctorModel doctor = await _repository.registerDoctor(
+          name: event.name,
+          email: event.email,
+          dob: event.dob,
+          gender: event.gender,
+          password: event.password,
+          phone: event.phone);
+      emit(AuthenticationLoaded(
+          userType: userTypeCubit.state.userType, user: doctor));
     } catch (error) {
       emit(AuthenticationError(
           errorMessage: '$error', userType: userTypeCubit.state.userType));

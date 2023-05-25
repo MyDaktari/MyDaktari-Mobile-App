@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/models/client.dart';
 
-import '../../../../../constants/enum_user_type.dart';
+import '../../../../../constants/enums.dart';
 import '../../../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../../../models/doctor.dart';
 import '../../../widgets/tab_header_bar.dart';

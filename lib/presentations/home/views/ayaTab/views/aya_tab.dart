@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/routes/app_route.dart' as route;
 import '/constants/constants.dart' as constants;
 
 class AyaTab extends StatelessWidget {
@@ -11,11 +12,8 @@ class AyaTab extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Image.asset(
-            'assets/images/aya-half.png',
-            fit: BoxFit.fitHeight,
-          ),
-        ),
+            child: Image.asset('assets/images/aya-half.png',
+                fit: BoxFit.fitHeight)),
         Expanded(
           child: Container(
             width: size.width,
@@ -29,17 +27,18 @@ class AyaTab extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    'Hello, I\'m Aya',
-                    style: textTheme.titleLarge?.copyWith(color: Colors.white),
-                  ),
+                  Text('Hello, I\'m Aya',
+                      style:
+                          textTheme.titleLarge?.copyWith(color: Colors.white)),
                   Text(
                     'Your very own MyDaktari Assistant. I work 24/7 to enhance your MyDaktari experience and available at the touch of a button',
                     textAlign: TextAlign.center,
                     style: textTheme.titleMedium?.copyWith(color: Colors.white),
                   ),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Continue to Chat'))
+                      onPressed: () =>
+                          Navigator.pushNamed(context, route.loginScreen),
+                      child: const Text('Continue to Chat'))
                 ],
               ),
             ),

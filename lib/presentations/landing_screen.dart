@@ -16,7 +16,6 @@ import 'home/views/profileTab/views/profile_tab.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  final PageController _pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -29,6 +28,7 @@ class HomePage extends StatelessWidget {
             : null;
       }
     });
+    final pageCubit = context.watch<PageUpdateCubit>();
 
     return BlocBuilder<UserTypeCubit, UserTypeState>(
       builder: (context, userState) {
@@ -45,6 +45,7 @@ class HomePage extends StatelessWidget {
                       : Theme.of(context).appBarTheme.toolbarHeight,
               elevation: 0,
               leading: SizedBox(),
+              leadingWidth: 0,
               title: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Builder(builder: (context) {
@@ -54,17 +55,20 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         child: Visibility(
                           visible: userState.userType == UserType.client,
-                          child: const TextField(
-                            decoration: InputDecoration(
-                                hintText:
-                                    'Search symptoms, medication, news...',
-                                hintStyle: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w300,
-                                    letterSpacing: 1),
-                                border: InputBorder.none,
-                                filled: true,
-                                fillColor: Color.fromARGB(255, 224, 224, 224)),
+                          child: Expanded(
+                            child: const TextField(
+                              decoration: InputDecoration(
+                                  hintText:
+                                      'Search symptoms, medication, news...',
+                                  hintStyle: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w300,
+                                      letterSpacing: 1),
+                                  border: InputBorder.none,
+                                  filled: true,
+                                  fillColor:
+                                      Color.fromARGB(255, 224, 224, 224)),
+                            ),
                           ),
                         ),
                       );
@@ -84,7 +88,7 @@ class HomePage extends StatelessWidget {
                         child: TextButton(
                             onPressed: () {
                               Navigator.pushReplacementNamed(
-                                  context, routes.authPage);
+                                  context, routes.signUpScreen);
                             },
                             child: const Text('Sign In',
                                 style: TextStyle(fontSize: 18))),
@@ -98,7 +102,7 @@ class HomePage extends StatelessWidget {
             ),
             body: PageView(
               physics: const NeverScrollableScrollPhysics(),
-              controller: _pageController,
+              controller: pageCubit.state.pageController,
               onPageChanged: (pageIndex) =>
                   context.read<PageUpdateCubit>().setPageIndex(pageIndex),
               children: [
@@ -118,7 +122,6 @@ class HomePage extends StatelessWidget {
                 currentIndex: state.index,
                 onTap: (value) {
                   context.read<PageUpdateCubit>().setPageIndex(value);
-                  _pageController.jumpToPage(value);
                 },
                 items: [
                   BottomNavigationBarItem(

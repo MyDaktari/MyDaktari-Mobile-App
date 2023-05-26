@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/urls.dart';
@@ -60,6 +61,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       ClientModel client = ClientModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.client.name);
+      userPhoneNumber = client.phone!;
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');
@@ -124,6 +126,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
+      userPhoneNumber = doctor.phone!;
       return doctor;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');
@@ -163,6 +166,39 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       };
     } else {
       throw Exception('User Not Authenticated');
+    }
+  }
+
+  @override
+  Future<String> otpRequest({required String phoneNumber}) async {
+    final response = await http.post(Uri.parse('$otpRequestUrl'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"phone": phoneNumber}));
+
+    print(response.body);
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      String message = jsonDecode(response.body)['message'];
+      return message;
+    } else {
+      print(response.statusCode);
+      throw Exception('Fail to send OTP');
+    }
+  }
+
+  @override
+  Future<String> otpVerification(
+      {required String phoneNumber, required String otp}) async {
+    final response = await http.post(Uri.parse('$otpVerificationUrl'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"phone": phoneNumber, "otp": otp}));
+
+    print(response.body);
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      String message = jsonDecode(response.body)['message'];
+      return message;
+    } else {
+      print(response.statusCode);
+      throw Exception('Invalid OTP');
     }
   }
 

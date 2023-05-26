@@ -18,26 +18,27 @@ class HomeTabView extends StatelessWidget {
       'route': 'symptomChecker'
     },
     {'image': 'assets/images/reminder.png', 'title': 'reminder', 'route': ''},
-    // {
-    //   'image': 'assets/images/virus.png',
-    //   'title': 'Allergy Tracker',
-    //   'route': 'allergyTracker'
-    // },
+
     {
       'image': 'assets/images/graph-report.png',
       'title': 'Call an Ambulance',
       'route': 'CallanAmbulance'
+    },
+    {
+      'image': 'assets/images/engage.png',
+      'title': 'Pharmarcies',
+      'route': 'Pharmarcies'
     },
     // {
     //   'image': 'assets/images/pharmacist.png',
     //   'title': 'Prescription Discounts',
     //   'route': 'prescriptionDiscounts'
     // },
-    {
-      'image': 'assets/images/engage.png',
-      'title': 'Pharmarcies',
-      'route': 'Pharmarcies'
-    },
+    // {
+    //   'image': 'assets/images/virus.png',
+    //   'title': 'Allergy Tracker',
+    //   'route': 'allergyTracker'
+    // },
   ];
   @override
   Widget build(BuildContext context) {

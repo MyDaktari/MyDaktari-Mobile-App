@@ -12,7 +12,7 @@ import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dar
 import '../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../widgets/otp_input_field.dart';
-import 'package:my_daktari/routes/app_route.dart' as route;
+import 'package:my_daktari/constants/routes/app_route.dart' as route;
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({Key? key}) : super(key: key);

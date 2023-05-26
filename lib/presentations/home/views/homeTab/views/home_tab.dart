@@ -82,10 +82,8 @@ class HomeTabView extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Top News',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              child: Text('Top News',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
           ),
           Expanded(child: BlocBuilder<BlogBloc, BlogState>(
@@ -95,17 +93,41 @@ class HomeTabView extends StatelessWidget {
               } else if (state is BlogLoaded) {
                 return ScrollConfiguration(
                   behavior: MyBehavior(),
-                  child: ListView.builder(
-                    itemCount: state.blogs.length,
-                    itemBuilder: (context, index) {
-                      return BlogCard(blog: state.blogs.elementAt(index));
-                    },
+                  child: RefreshIndicator(
+                    onRefresh: () async =>
+                        context.read<BlogBloc>().add(LoadBlogs()),
+                    child: ListView.builder(
+                      itemCount: state.blogs.length,
+                      itemBuilder: (context, index) {
+                        return BlogCard(blog: state.blogs.elementAt(index));
+                      },
+                    ),
                   ),
                 );
               } else if (state is BlogLoadingError) {
-                return Center(child: Text(state.message));
+                return Center(
+                    child: Column(
+                  children: [
+                    Text(state.message),
+                    SizedBox(height: 15),
+                    IconButton(
+                        onPressed: () =>
+                            context.read<BlogBloc>().add(LoadBlogs()),
+                        icon: Icon(Icons.refresh_rounded))
+                  ],
+                ));
               } else {
-                return Center(child: Text('An internal Error Occured'));
+                return Center(
+                    child: Column(
+                  children: [
+                    Text('An internal Error Occured'),
+                    SizedBox(height: 15),
+                    IconButton(
+                        onPressed: () =>
+                            context.read<BlogBloc>().add(LoadBlogs()),
+                        icon: Icon(Icons.refresh_rounded))
+                  ],
+                ));
               }
             },
           ))

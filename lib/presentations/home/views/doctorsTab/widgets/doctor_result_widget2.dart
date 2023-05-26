@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/mock/models/doctor_model.dart';
-import '/routes/app_route.dart' as route;
+import '../../../../../constants/routes/app_route.dart' as route;
 
 class DoctorResultWidget2 extends StatelessWidget {
   const DoctorResultWidget2({

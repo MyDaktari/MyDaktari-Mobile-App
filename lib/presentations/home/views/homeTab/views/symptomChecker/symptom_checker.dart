@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/mock/models/symptom_model.dart';
 import 'package:my_daktari/mock/symptoms/symptoms.dart' as s;
-import 'package:my_daktari/routes/app_route.dart' as routes;
+import 'package:my_daktari/constants/routes/app_route.dart' as routes;
 
 class SymptomChecker extends StatelessWidget {
   SymptomChecker({super.key});
@@ -15,6 +15,7 @@ class SymptomChecker extends StatelessWidget {
   final TextEditingController _symptomsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ValueListenableBuilder(
         valueListenable: _bodyPartNotifier,
         builder: (context, _symptom, _) {
@@ -25,8 +26,13 @@ class SymptomChecker extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: size.width * .21),
+                    child: Image.asset('assets/images/my_daktari_blue.png',
+                        height: 200),
+                  ),
+                  SizedBox(height: size.height * .1),
                   DropdownButtonFormField<SymptomModel>(
                     style: TextStyle(color: Colors.grey),
                     value: _symptom,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '/mock/models/doctor_model.dart';
-import '/routes/app_route.dart' as route;
+import '../../../../../constants/routes/app_route.dart' as route;
 
 class DoctorResultWidget1 extends StatelessWidget {
   const DoctorResultWidget1({

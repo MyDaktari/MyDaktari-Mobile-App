@@ -8,7 +8,7 @@ import '../logic/cubit/page_update/page_update_cubit.dart';
 import '../logic/cubit/user_type/user_type_cubit.dart';
 import 'home/widgets/disclaimer.dart';
 import '/constants/constants.dart' as constants;
-import '/routes/app_route.dart' as routes;
+import '../constants/routes/app_route.dart' as routes;
 import 'home/views/ayaTab/views/aya_tab.dart';
 import 'home/views/doctorsTab/views/doctors_tab.dart';
 import 'home/views/homeTab/views/home_tab.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:my_daktari/routes/app_route.dart' as route;
+import 'package:my_daktari/constants/routes/app_route.dart' as route;
 
 import '../../../constants/enums.dart';
 import '../../../logic/bloc/authentication/authentication_bloc.dart';

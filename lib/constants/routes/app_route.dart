@@ -3,14 +3,14 @@ import 'package:my_daktari/models/blog.dart';
 import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
 import 'package:my_daktari/presentations/home/views/homeTab/views/symptomChecker/symptoms_samples.dart';
 
-import '../mock/models/doctor_model.dart';
-import '../presentations/auth/views/login_screen.dart';
-import '../presentations/auth/views/sign_up_screen.dart';
-import '../presentations/home/views/doctorsTab/views/doctor_profile_page.dart';
-import '../presentations/home/views/homeTab/views/blog_screen.dart';
-import '../presentations/home/views/homeTab/views/symptomChecker/symptom_checker.dart';
-import '../presentations/landing_screen.dart';
-import '../presentations/welcome_screen.dart';
+import '../../mock/models/doctor_model.dart';
+import '../../presentations/auth/views/login_screen.dart';
+import '../../presentations/auth/views/sign_up_screen.dart';
+import '../../presentations/home/views/doctorsTab/views/doctor_profile_page.dart';
+import '../../presentations/home/views/homeTab/views/blog_screen.dart';
+import '../../presentations/home/views/homeTab/views/symptomChecker/symptom_checker.dart';
+import '../../presentations/landing_screen.dart';
+import '../../presentations/welcome_screen.dart';
 
 const String signUpScreen = 'authPage';
 const String loginScreen = 'loginPage';

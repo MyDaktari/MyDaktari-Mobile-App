@@ -4,13 +4,14 @@ import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:provider/provider.dart';
 
 import 'home/widgets/scroll_behavior.dart';
-import '/routes/app_route.dart' as route;
+import '../constants/routes/app_route.dart' as route;
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: ScrollConfiguration(
@@ -78,8 +79,8 @@ class WelcomePage extends StatelessWidget {
                           //authPageProvider.userType = UserType.doctor;
                           Navigator.pushNamed(context, route.loginScreen);
                         },
-                        child: const SizedBox(
-                            width: 120,
+                        child: SizedBox(
+                            width: size.width * .35,
                             child: Center(
                                 child: Text(
                               'I am a Doctor',
@@ -98,8 +99,8 @@ class WelcomePage extends StatelessWidget {
                           // authPageProvider.userType = UserType.client;
                           Navigator.pushNamed(context, route.homePage);
                         },
-                        child: const SizedBox(
-                            width: 120,
+                        child: SizedBox(
+                            width: size.width * .35,
                             child: Center(
                                 child: Text('I am a Client',
                                     style: TextStyle(fontSize: 16))))),

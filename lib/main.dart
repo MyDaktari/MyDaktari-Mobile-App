@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
 import './mock/service/get_doctor_service.dart';
-import './routes/app_route.dart' as route;
+import 'constants/routes/app_route.dart' as route;
 import 'logic/bloc/blocs.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';

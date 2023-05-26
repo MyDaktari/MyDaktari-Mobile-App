@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../constants/constants.dart';
+import 'package:my_daktari/routes/app_route.dart' as route;
+
 import '../../../constants/enums.dart';
-import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../logic/bloc/authentication/authentication_bloc.dart';
-import '../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
-import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import '../../../logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
 
@@ -32,6 +30,7 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final signUpHelperCubit = context.watch<SignUpHelperCubit>();
     final userTypeCubit = context.watch<UserTypeCubit>();
+
     return Padding(
       padding: const EdgeInsets.only(right: 80.0, left: 80.0),
       child: ElevatedButton(
@@ -76,16 +75,7 @@ class SignUpButton extends StatelessWidget {
           child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {
               if (state is AuthenticationLoaded) {
-                Navigator.pop(context);
-                context.read<AuthStatusBloc>().add(CheckUserStatus());
-                if (userTypeCubit.state.userType == UserType.doctor) {
-                  context
-                      .read<DoctorAppointmentsBloc>()
-                      .add(LoadDoctorAppointments(doctorId: userId));
-                  context
-                      .read<DoctorPatientsBloc>()
-                      .add(LoadDoctorPatients(doctorId: userId));
-                }
+                Navigator.pushNamed(context, route.otpScreen);
               }
               if (state is AuthenticationError) {
                 Fluttertoast.showToast(msg: state.errorMessage);
@@ -93,9 +83,7 @@ class SignUpButton extends StatelessWidget {
             },
             builder: (context, state) {
               return state is AuthenticationLoading
-                  ? CupertinoActivityIndicator(
-                      color: Colors.white,
-                    )
+                  ? CupertinoActivityIndicator(color: Colors.white)
                   : Text('Sign Up',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16));

@@ -12,11 +12,8 @@ class AyaTab extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Image.asset(
-            'assets/images/aya-half.png',
-            fit: BoxFit.fitHeight,
-          ),
-        ),
+            child: Image.asset('assets/images/aya-half.png',
+                fit: BoxFit.fitHeight)),
         Expanded(
           child: Container(
             width: size.width,
@@ -30,10 +27,9 @@ class AyaTab extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    'Hello, I\'m Aya',
-                    style: textTheme.titleLarge?.copyWith(color: Colors.white),
-                  ),
+                  Text('Hello, I\'m Aya',
+                      style:
+                          textTheme.titleLarge?.copyWith(color: Colors.white)),
                   Text(
                     'Your very own MyDaktari Assistant. I work 24/7 to enhance your MyDaktari experience and available at the touch of a button',
                     textAlign: TextAlign.center,

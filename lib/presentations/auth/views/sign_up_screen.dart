@@ -10,8 +10,8 @@ import '../widgets/sex_menu.dart';
 import '../widgets/terms_and_conditions.dart';
 
 // ignore: must_be_immutable
-class AuthPage extends StatelessWidget {
-  AuthPage({super.key});
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();

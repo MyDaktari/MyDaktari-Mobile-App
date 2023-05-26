@@ -8,6 +8,7 @@ const Color headerColor = Color.fromARGB(255, 242, 242, 242);
 const Color greenish = Color.fromARGB(255, 0, 236, 182);
 
 String userId = '';
+String userPhoneNumber = '';
 
 String formatRelativeTime(DateTime dateTime) {
   final now = DateTime.now();

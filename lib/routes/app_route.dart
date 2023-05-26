@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/models/blog.dart';
+import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
 import 'package:my_daktari/presentations/home/views/homeTab/views/symptomChecker/symptoms_samples.dart';
 
 import '../mock/models/doctor_model.dart';
@@ -11,8 +12,9 @@ import '../presentations/home/views/homeTab/views/symptomChecker/symptom_checker
 import '../presentations/landing_screen.dart';
 import '../presentations/welcome_screen.dart';
 
-const String authPage = 'authPage';
+const String signUpScreen = 'authPage';
 const String loginScreen = 'loginPage';
+const String otpScreen = 'otpPage';
 const String welcome = 'welcome';
 const String homePage = 'homePage';
 const String blogScreen = 'blogScreen';
@@ -25,10 +27,12 @@ class AppRouter {
     switch (settings.name) {
       case welcome:
         return MaterialPageRoute(builder: (_) => const WelcomePage());
-      case authPage:
-        return MaterialPageRoute(builder: (_) => AuthPage());
+      case signUpScreen:
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
       case loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+      case otpScreen:
+        return MaterialPageRoute(builder: (_) => OtpScreen());
       case blogScreen:
         return MaterialPageRoute(
             builder: (_) => BlogScreen(blog: settings.arguments as BlogModel));
@@ -43,8 +47,7 @@ class AppRouter {
       case symptomSamples:
         return MaterialPageRoute(
             builder: (_) => SymptomSamples(
-                  bodyPartNotifier: settings.arguments as BodyPartNotifier,
-                ));
+                bodyPartNotifier: settings.arguments as BodyPartNotifier));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

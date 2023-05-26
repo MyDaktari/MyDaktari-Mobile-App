@@ -23,10 +23,13 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
       if (response['user'] != null && response['userType'] != null) {
-        userId = (response['userType'] == UserType.client)
-            ? (response['user'] as ClientModel).userID.toString()
-            : (response['user'] as DoctorModel).id.toString();
-
+        if (response['userType'] == UserType.client) {
+          userId = (response['user'] as ClientModel).userID.toString();
+          userPhoneNumber = (response['user'] as ClientModel).phone.toString();
+        } else {
+          userId = (response['user'] as DoctorModel).id.toString();
+          userPhoneNumber = (response['user'] as DoctorModel).phone.toString();
+        }
         emit(UserAuthenticated(
             user: response['user'], userType: response['userType']));
       } else {

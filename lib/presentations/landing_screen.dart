@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                         child: TextButton(
                             onPressed: () {
                               Navigator.pushReplacementNamed(
-                                  context, routes.authPage);
+                                  context, routes.signUpScreen);
                             },
                             child: const Text('Sign In',
                                 style: TextStyle(fontSize: 18))),

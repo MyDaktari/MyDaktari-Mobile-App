@@ -24,6 +24,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print('Uppppppppppppppppppppppp');
 
     return Scaffold(
       appBar: AppBar(elevation: 0, backgroundColor: primaryColor),
@@ -170,7 +171,8 @@ class LoginScreen extends StatelessWidget {
                             Text('Don\'t have an account yet? '),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, route.authPage);
+                                  Navigator.pushReplacementNamed(
+                                      context, route.signUpScreen);
                                 },
                                 child: Text('Sign Up'))
                           ],

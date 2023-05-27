@@ -88,6 +88,9 @@ class LoginScreen extends StatelessWidget {
                                 ? 'Invalid password format'
                                 : null;
                           },
+                          obscureText: true,
+                          enableSuggestions: false,
+                          autocorrect: false,
                           decoration: InputDecoration(
                               hintText: 'Password',
                               hintStyle:

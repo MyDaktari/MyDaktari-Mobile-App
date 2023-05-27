@@ -18,7 +18,6 @@ class HomeTabView extends StatelessWidget {
       'route': 'symptomChecker'
     },
     {'image': 'assets/images/reminder.png', 'title': 'reminder', 'route': ''},
-
     {
       'image': 'assets/images/graph-report.png',
       'title': 'Call an Ambulance',

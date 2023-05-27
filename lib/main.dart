@@ -84,10 +84,9 @@ class MyApp extends StatelessWidget {
         ],
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(
-            systemStatusBarContrastEnforced: false,
-            statusBarIconBrightness: Brightness.dark,
-            statusBarColor: Colors.transparent,
-          ),
+              systemStatusBarContrastEnforced: false,
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: Colors.transparent),
           child: BlocConsumer<AuthStatusBloc, AuthStatusState>(
             listener: (context, authState) {
               if (authState is UserAuthenticated) {

@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
+import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
 import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
 import './mock/service/get_doctor_service.dart';
 import 'constants/routes/app_route.dart' as route;
+import 'logic/bloc/ambulance/ambulance_bloc.dart';
 import 'logic/bloc/blocs.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
+import 'logic/bloc/pharmacy/pharmacy_bloc.dart';
 import 'logic/cubit/otp_timer/otp_timer_cubit.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
 import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
@@ -45,6 +49,10 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<AuthenticationRepository>(
             create: (_) => AuthenticationRepository()),
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepository()),
+        RepositoryProvider<AmbulanceRepository>(
+            create: (_) => AmbulanceRepository()),
+        RepositoryProvider<PharmacyRepository>(
+            create: (_) => PharmacyRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -67,6 +75,16 @@ class MyApp extends StatelessWidget {
           BlocProvider<BlogBloc>(
               create: (context) =>
                   BlogBloc(blogRepository: BlogRepository())..add(LoadBlogs())),
+
+          BlocProvider<PharmacyBloc>(
+              create: (context) =>
+                  PharmacyBloc(pharmacyRepository: PharmacyRepository())
+                    ..add(LoadPharmacy())),
+
+          BlocProvider<AmbulanceBloc>(
+              create: (context) =>
+                  AmbulanceBloc(ambulanceRepository: AmbulanceRepository())
+                    ..add(LoadAmbulances())),
           //authentication status
           BlocProvider<AuthStatusBloc>(
             create: (context) =>

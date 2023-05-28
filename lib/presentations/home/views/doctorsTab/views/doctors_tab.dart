@@ -29,28 +29,19 @@ class DoctorsTab extends StatelessWidget {
           valueListenable: _searchTermNotifier,
           builder: (context, value, _) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(size.width * .03),
               child: ListView(
                 //  crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: size.width * .21),
-                    child: Image.asset(
-                      'assets/images/my_daktari_blue.png',
-                      height: 200,
-                    ),
+                    child: Image.asset('assets/images/my_daktari_blue.png',
+                        height: 200),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const Text('Do you need help?'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Let’s Find Your Doctor',
-                    style: textTheme.titleLarge,
-                  ),
+                  const SizedBox(height: 10),
+                  Text('Let’s Find Your Doctor', style: textTheme.titleLarge),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 20, 20, 0),
                     child: Focus(
@@ -93,9 +84,7 @@ class DoctorsTab extends StatelessWidget {
                         child: Row(
                           children: const [
                             Icon(Icons.location_on),
-                            SizedBox(
-                              width: 10,
-                            ),
+                            SizedBox(width: 10),
                             Text('Current Location')
                           ],
                         ),

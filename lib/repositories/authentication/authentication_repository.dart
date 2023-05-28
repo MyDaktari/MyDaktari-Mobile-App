@@ -114,9 +114,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           "phone": phone,
           "dob": dob,
           "gender": gender,
-          "password": password,
-          "lat": "37.7749",
-          "lng": "-122.4194"
+          "password": password
         }));
 
     SharedPreferences preferences = await SharedPreferences.getInstance();

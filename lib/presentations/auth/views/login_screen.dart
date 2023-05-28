@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import '../../../constants/constants.dart';
-import 'package:my_daktari/routes/app_route.dart' as route;
+import 'package:my_daktari/constants/routes/app_route.dart' as route;
 
 import '../../../constants/enums.dart';
 import '../../../logic/bloc/authentication/authentication_bloc.dart';
@@ -88,6 +88,9 @@ class LoginScreen extends StatelessWidget {
                                 ? 'Invalid password format'
                                 : null;
                           },
+                          obscureText: true,
+                          enableSuggestions: false,
+                          autocorrect: false,
                           decoration: InputDecoration(
                               hintText: 'Password',
                               hintStyle:

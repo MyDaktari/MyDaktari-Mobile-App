@@ -15,8 +15,6 @@ class AppointmentTab extends StatelessWidget {
                 doctorAppointment: list.elementAt(index),
               );
             })
-        : Center(
-            child: Text('You\'ve got nothing yet'),
-          );
+        : Center(child: Text('You\'ve got nothing yet'));
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
+import 'package:my_daktari/repositories/client/client_repository.dart';
 import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import './mock/service/get_doctor_service.dart';
 import 'constants/routes/app_route.dart' as route;
 import 'logic/bloc/ambulance/ambulance_bloc.dart';
 import 'logic/bloc/blocs.dart';
+import 'logic/bloc/client/search_doctor/search_doctor_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<AuthenticationRepository>(
             create: (_) => AuthenticationRepository()),
         RepositoryProvider<DoctorRepository>(create: (_) => DoctorRepository()),
+        RepositoryProvider<ClientRepository>(create: (_) => ClientRepository()),
         RepositoryProvider<AmbulanceRepository>(
             create: (_) => AmbulanceRepository()),
         RepositoryProvider<PharmacyRepository>(
@@ -72,10 +75,14 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   DoctorPatientsBloc(doctorRepository: DoctorRepository())
                     ..add(LoadDoctorPatients(doctorId: userId))),
+
           BlocProvider<BlogBloc>(
               create: (context) =>
                   BlogBloc(blogRepository: BlogRepository())..add(LoadBlogs())),
 
+          BlocProvider<SearchDoctorBloc>(
+              create: (context) =>
+                  SearchDoctorBloc(repository: ClientRepository())),
           BlocProvider<PharmacyBloc>(
               create: (context) =>
                   PharmacyBloc(pharmacyRepository: PharmacyRepository())
@@ -87,10 +94,10 @@ class MyApp extends StatelessWidget {
                     ..add(LoadAmbulances())),
           //authentication status
           BlocProvider<AuthStatusBloc>(
-            create: (context) =>
-                AuthStatusBloc(authRepository: AuthenticationRepository())
-                  ..add(CheckUserStatus()),
-          ),
+              create: (context) =>
+                  AuthStatusBloc(authRepository: AuthenticationRepository())
+                    ..add(CheckUserStatus())),
+
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider<SignUpHelperCubit>(

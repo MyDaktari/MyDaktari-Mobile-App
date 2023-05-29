@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '/mock/models/doctor_model.dart';
+import '../../../../../models/doctor_profile_model.dart';
 import '../../../../../constants/routes/app_route.dart' as route;
 
 class DoctorResultWidget1 extends StatelessWidget {
@@ -9,7 +9,7 @@ class DoctorResultWidget1 extends StatelessWidget {
     super.key,
     required this.doctor,
   });
-  final DoctorModel doctor;
+  final DoctorProfileModel doctor;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class DoctorResultWidget1 extends StatelessWidget {
                   height: 10,
                 ),
                 SvgPicture.asset(
-                  doctor.image!,
+                  doctor.image.toString(),
                   height: 150,
                 )
               ],

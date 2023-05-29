@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../models/doctor_profile_model.dart';
 import '../../doctorsTab/views/select_session.dart';
-import '/mock/models/doctor_model.dart';
 
 class DoctorProfilePage extends StatelessWidget {
   const DoctorProfilePage({super.key, required this.doctor});
-  final DoctorModel doctor;
+  final DoctorProfileModel doctor;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,11 +26,8 @@ class DoctorProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Center(
-                    child: Image.asset(
-                      'assets/images/male-user.png',
-                      height: 180,
-                      fit: BoxFit.fitHeight,
-                    ),
+                    child: Image.asset('assets/images/male-user.png',
+                        height: 180, fit: BoxFit.fitHeight),
                   ),
                   // const SizedBox(
                   //   height: 20,
@@ -39,57 +36,47 @@ class DoctorProfilePage extends StatelessWidget {
                   // const SizedBox(
                   //           height: 10,
                   //      ),
-                  Text(
-                    doctor.title ?? '',
-                    style: textTheme.titleLarge
-                        ?.copyWith(fontSize: 12, fontWeight: FontWeight.w300),
-                  ),
+                  Text(doctor.title ?? '',
+                      style: textTheme.titleLarge?.copyWith(
+                          fontSize: 15, fontWeight: FontWeight.w300)),
                   // const SizedBox(
                   //           height: 10,
                   //      ),
-                  Text(doctor.institution ?? ''),
+                  //Text(doctor.institution ?? ''),
                   // const SizedBox(
                   //           height: 10,
                   //      ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(
-                            Icons.schedule,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(doctor.openingHours?.weekdays ?? '')
-                        ],
-                      ),
-                      Container(
-                        height: 20,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Center(
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: const [
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 15,
-                              ),
-                              Text(
-                                '5.0',
-                                style: TextStyle(fontSize: 9),
-                              )
-                            ])),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.schedule,
+                                color: Theme.of(context).primaryColor),
+                            const SizedBox(width: 5),
+                            Text(doctor.openingHours?.weekdays ?? '')
+                          ],
+                        ),
+                        Container(
+                          height: 20,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 2, color: Colors.grey),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Center(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: const [
+                                Icon(Icons.star, color: Colors.amber, size: 15),
+                                Text('5.0', style: TextStyle(fontSize: 9))
+                              ])),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     width: size.width,
@@ -146,20 +133,20 @@ class DoctorProfilePage extends StatelessWidget {
                     ),
                   ),
                 )),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor),
-                onPressed: () => showModalBottomSheet(
-                      barrierColor: Colors.transparent,
-                      useSafeArea: true,
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => SelectSession(
-                        doctor: doctor,
-                      ),
-                    ),
-                child: const SizedBox(
-                    width: 120, child: Center(child: Text('Book'))))
+            // ElevatedButton(
+            //     style: ElevatedButton.styleFrom(
+            //         backgroundColor: Theme.of(context).primaryColor),
+            //     onPressed: () => showModalBottomSheet(
+            //           barrierColor: Colors.transparent,
+            //           useSafeArea: true,
+            //           context: context,
+            //           isScrollControlled: true,
+            //           builder: (context) => SelectSession(
+            //             doctor: doctor,
+            //           ),
+            //         ),
+            //     child: const SizedBox(
+            //         width: 120, child: Center(child: Text('Book'))))
           ],
         ),
       ),

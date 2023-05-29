@@ -5,6 +5,7 @@ import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
 import 'package:my_daktari/presentations/home/views/homeTab/views/symptomChecker/symptoms_samples.dart';
 
 import '../../mock/models/doctor_model.dart';
+import '../../models/doctor_profile_model.dart';
 import '../../presentations/auth/views/login_screen.dart';
 import '../../presentations/auth/views/sign_up_screen.dart';
 import '../../presentations/home/views/appointments/appointment_details.dart';
@@ -47,8 +48,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case doctorProfile:
         return MaterialPageRoute(
-            builder: (_) =>
-                DoctorProfilePage(doctor: settings.arguments as DoctorModel));
+            builder: (_) => DoctorProfilePage(
+                doctor: settings.arguments as DoctorProfileModel));
       case symptomChecker:
         return MaterialPageRoute(builder: (_) => SymptomChecker());
       case symptomSamples:

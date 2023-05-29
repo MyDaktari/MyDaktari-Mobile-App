@@ -36,5 +36,9 @@ const String otpVerificationUrl =
 
 const String ambulanceUrl =
     'https://mydoc.my-daktari.com/new_api/ambulances.php';
+const String searchDoctorsUrl =
+    'https://mydoc.my-daktari.com/new_api/searchDoctor.php';
+const String fetchDoctorsUrl =
+    'https://mydoc.my-daktari.com/new_api/viewDoctors.php';
 const String pharmacyUrl =
     'https://mydoc.my-daktari.com/new_api/pharmacies.php';

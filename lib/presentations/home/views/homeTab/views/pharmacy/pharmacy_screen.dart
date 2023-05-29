@@ -15,12 +15,16 @@ class PharmacyScreen extends StatelessWidget {
       body: BlocBuilder<PharmacyBloc, PharmacyState>(
         builder: (context, state) {
           if (state is PharmacyLoaded) {
-            return ListView.builder(
-              itemCount: state.pharmacyList.length,
-              itemBuilder: (context, index) {
-                return PharmacyCard(
-                    pharmacy: state.pharmacyList.elementAt(index));
-              },
+            return RefreshIndicator(
+              onRefresh: () async =>
+                  context.read<PharmacyBloc>().add(LoadPharmacy()),
+              child: ListView.builder(
+                itemCount: state.pharmacyList.length,
+                itemBuilder: (context, index) {
+                  return PharmacyCard(
+                      pharmacy: state.pharmacyList.elementAt(index));
+                },
+              ),
             );
           } else if (state is PharmacyLoading) {
             return Center(child: CustomLoading());

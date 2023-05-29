@@ -15,12 +15,16 @@ class AmbulanceScreen extends StatelessWidget {
       body: BlocBuilder<AmbulanceBloc, AmbulanceState>(
         builder: (context, state) {
           if (state is AmbulanceLoaded) {
-            return ListView.builder(
-              itemCount: state.ambulances.length,
-              itemBuilder: (context, index) {
-                return AmbulanceCard(
-                    ambulance: state.ambulances.elementAt(index));
-              },
+            return RefreshIndicator(
+              onRefresh: () async =>
+                  context.read<AmbulanceBloc>().add(LoadAmbulances()),
+              child: ListView.builder(
+                itemCount: state.ambulances.length,
+                itemBuilder: (context, index) {
+                  return AmbulanceCard(
+                      ambulance: state.ambulances.elementAt(index));
+                },
+              ),
             );
           } else if (state is AmbulanceLoading) {
             return Center(child: CustomLoading());

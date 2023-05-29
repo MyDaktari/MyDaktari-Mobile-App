@@ -35,17 +35,14 @@ class PharmacyCard extends StatelessWidget {
       height: size.height * .15,
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                Icons.local_pharmacy,
-                size: iconSize,
-                color: primaryColor,
-              ),
+              Icon(Icons.local_pharmacy, size: iconSize, color: primaryColor),
               SizedBox(width: 8),
               Expanded(
                 child: Column(

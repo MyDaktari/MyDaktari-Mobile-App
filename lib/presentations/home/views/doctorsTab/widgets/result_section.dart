@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/presentations/custom_loading.dart';
 
 import '../../../../../logic/bloc/client/search_doctor/search_doctor_bloc.dart';
 import '../../doctorsTab/views/all_results.dart';
@@ -15,7 +16,7 @@ class ResultSection extends StatelessWidget {
     return BlocBuilder<SearchDoctorBloc, SearchDoctorState>(
       builder: (context, state) {
         if (state is SearchDoctorLoading) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CustomLoading());
         } else if (state is SearchDoctorLoaded) {
           return Visibility(
             visible: state.doctors.isNotEmpty,
@@ -63,7 +64,7 @@ class ResultSection extends StatelessWidget {
         } else if (state is SearchDoctorInitialized) {
           return SizedBox();
         } else if (state is SearchDoctorLoadingError) {
-          return Text(state.errorMessage);
+          return Center(child: Text(state.errorMessage));
         } else {
           return Text('Something went wrong');
         }

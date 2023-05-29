@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/presentations/custom_loading.dart';
 import 'package:my_daktari/presentations/home/views/homeTab/views/ambulance/ambulance_card.dart';
 
 import '../../../../../../logic/bloc/ambulance/ambulance_bloc.dart';
@@ -22,7 +23,7 @@ class AmbulanceScreen extends StatelessWidget {
               },
             );
           } else if (state is AmbulanceLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CustomLoading());
           } else {
             return Text('Something went Wrong');
           }

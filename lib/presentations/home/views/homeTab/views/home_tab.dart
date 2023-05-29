@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
+import 'package:my_daktari/presentations/custom_loading.dart';
 import 'package:my_daktari/presentations/home/widgets/scroll_behavior.dart';
 
 import '../../../../../logic/bloc/blog/blog_bloc.dart';
@@ -89,7 +90,7 @@ class HomeTabView extends StatelessWidget {
           Expanded(child: BlocBuilder<BlogBloc, BlogState>(
             builder: (context, state) {
               if (state is BlogLoading) {
-                return Center(child: const CircularProgressIndicator());
+                return Center(child: const CustomLoading());
               } else if (state is BlogLoaded) {
                 return ScrollConfiguration(
                   behavior: MyBehavior(),

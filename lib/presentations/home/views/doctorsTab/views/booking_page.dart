@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import '/mock/models/doctor_model.dart';
+import '../../../../../models/doctor_profile_model.dart';
 
 class DoctorBookingView extends StatelessWidget {
   DoctorBookingView({super.key, required this.doctor});
-  final DoctorModel doctor;
+  final DoctorProfileModel doctor;
   final List<String> _availablSlots = [
     '11:00 AM',
     '02:30 PM',

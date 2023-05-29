@@ -30,13 +30,10 @@ import 'services/auth_page_provider.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AuthPageProvider.instance()),
-        ChangeNotifierProvider(create: (_) => GetDoctor())
-      ],
-      child: const MyApp(),
-    ),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => AuthPageProvider.instance()),
+      ChangeNotifierProvider(create: (_) => GetDoctor())
+    ], child: const MyApp()),
   );
 }
 

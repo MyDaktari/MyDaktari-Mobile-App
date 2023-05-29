@@ -19,7 +19,8 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
       List<BlogModel> blogs = await _blogRepository.getBlogs();
       emit(BlogLoaded(blogs: blogs));
     } catch (error) {
-      emit(BlogLoadingError(message: error.toString()));
+      String errorMessage = error.toString().split(':').last;
+      emit(BlogLoadingError(message: errorMessage));
     }
   }
 }

@@ -20,7 +20,8 @@ class PharmacyBloc extends Bloc<PharmacyEvent, PharmacyState> {
           await _pharmacyRepository.getPharmacy();
       emit(PharmacyLoaded(pharmacyList: pharmacyList));
     } catch (error) {
-      emit(PharmacyLoadingError(message: error.toString()));
+      String errorMessage = error.toString().split(':').last;
+      emit(PharmacyLoadingError(message: errorMessage));
     }
   }
 }

@@ -41,8 +41,9 @@ class AuthenticationBloc
       emit(AuthenticationLoaded(
           userType: userTypeCubit.state.userType, user: client));
     } catch (error) {
+      String errorMessage = error.toString().split(':').last;
       emit(AuthenticationError(
-          errorMessage: '$error', userType: userTypeCubit.state.userType));
+          errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
   }
 
@@ -60,8 +61,9 @@ class AuthenticationBloc
       emit(AuthenticationLoaded(
           userType: userTypeCubit.state.userType, user: doctor));
     } catch (error) {
+      String errorMessage = error.toString().split(':').last;
       emit(AuthenticationError(
-          errorMessage: '$error', userType: userTypeCubit.state.userType));
+          errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
   }
 
@@ -84,8 +86,9 @@ class AuthenticationBloc
             userType: userTypeCubit.state.userType));
       }
     } catch (error) {
+      String errorMessage = error.toString().split(':').last;
       emit(AuthenticationError(
-          errorMessage: '$error', userType: userTypeCubit.state.userType));
+          errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
   }
 }

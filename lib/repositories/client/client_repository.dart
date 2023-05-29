@@ -35,6 +35,8 @@ class ClientRepository extends BaseClientRepository {
       List<DoctorProfileModel> doctors =
           doctorData.map((data) => DoctorProfileModel.fromJson(data)).toList();
       return doctors;
+    } else if (response.statusCode == 404) {
+      throw Exception('Doctor Not found');
     } else {
       throw Exception('Failed to search doctors');
     }

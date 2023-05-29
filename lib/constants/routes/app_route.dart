@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:my_daktari/models/appointment.dart';
 import 'package:my_daktari/models/blog.dart';
 import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
+import 'package:my_daktari/presentations/home/views/homeTab/views/ambulance/ambulance_screen.dart';
 import 'package:my_daktari/presentations/home/views/homeTab/views/symptomChecker/symptoms_samples.dart';
 
-import '../../mock/models/doctor_model.dart';
 import '../../models/doctor_profile_model.dart';
 import '../../presentations/auth/views/login_screen.dart';
 import '../../presentations/auth/views/sign_up_screen.dart';
 import '../../presentations/home/views/appointments/appointment_details.dart';
 import '../../presentations/home/views/doctorsTab/views/doctor_profile_page.dart';
 import '../../presentations/home/views/homeTab/views/blog_screen.dart';
+import '../../presentations/home/views/homeTab/views/pharmacy/pharmacy_screen.dart';
 import '../../presentations/home/views/homeTab/views/symptomChecker/symptom_checker.dart';
 import '../../presentations/landing_screen.dart';
 import '../../presentations/welcome_screen.dart';
@@ -20,6 +21,8 @@ const String loginScreen = 'loginPage';
 const String otpScreen = 'otpPage';
 const String welcome = 'welcome';
 const String homePage = 'homePage';
+const String ambulancePage = 'ambulance';
+const String pharmacyPage = 'pharmacy';
 const String blogScreen = 'blogScreen';
 const String doctorProfile = 'doctorProfile';
 const String symptomChecker = 'symptomChecker';
@@ -37,6 +40,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case otpScreen:
         return MaterialPageRoute(builder: (_) => OtpScreen());
+      case ambulancePage:
+        return MaterialPageRoute(builder: (_) => AmbulanceScreen());
+      case pharmacyPage:
+        return MaterialPageRoute(builder: (_) => PharmacyScreen());
       case blogScreen:
         return MaterialPageRoute(
             builder: (_) => BlogScreen(blog: settings.arguments as BlogModel));

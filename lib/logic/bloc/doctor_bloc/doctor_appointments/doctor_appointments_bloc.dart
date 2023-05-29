@@ -23,7 +23,8 @@ class DoctorAppointmentsBloc
           .getDoctorAppointments(doctorId: event.doctorId);
       emit(DoctorAppointmentsLoaded(appointments: appointments));
     } catch (error) {
-      emit(DoctorAppointmentsLoadingError(message: error.toString()));
+      String errorMessage = error.toString().split(':').last;
+      emit(DoctorAppointmentsLoadingError(message: errorMessage));
     }
   }
 }

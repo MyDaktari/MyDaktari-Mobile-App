@@ -21,7 +21,8 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
           await _ambulanceRepository.getAmbulances();
       emit(AmbulanceLoaded(ambulances: ambulance));
     } catch (error) {
-      emit(AmbulanceLoadingError(message: error.toString()));
+      String errorMessage = error.toString().split(':').last;
+      emit(AmbulanceLoadingError(message: errorMessage));
     }
   }
 }

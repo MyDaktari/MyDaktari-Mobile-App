@@ -21,12 +21,12 @@ class HomeTabView extends StatelessWidget {
     {
       'image': 'assets/images/graph-report.png',
       'title': 'Call an Ambulance',
-      'route': 'CallanAmbulance'
+      'route': 'ambulance'
     },
     {
       'image': 'assets/images/engage.png',
-      'title': 'Pharmarcies',
-      'route': 'Pharmarcies'
+      'title': 'Pharmacies',
+      'route': 'pharmacy'
     },
     // {
     //   'image': 'assets/images/pharmacist.png',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/presentations/home/views/doctorsTab/views/select_session.dart';
 
 import '../../../../../models/doctor_profile_model.dart';
-import '../../doctorsTab/views/select_session.dart';
 
 class DoctorProfilePage extends StatelessWidget {
   const DoctorProfilePage({super.key, required this.doctor});
@@ -133,20 +133,20 @@ class DoctorProfilePage extends StatelessWidget {
                     ),
                   ),
                 )),
-            // ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //         backgroundColor: Theme.of(context).primaryColor),
-            //     onPressed: () => showModalBottomSheet(
-            //           barrierColor: Colors.transparent,
-            //           useSafeArea: true,
-            //           context: context,
-            //           isScrollControlled: true,
-            //           builder: (context) => SelectSession(
-            //             doctor: doctor,
-            //           ),
-            //         ),
-            //     child: const SizedBox(
-            //         width: 120, child: Center(child: Text('Book'))))
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor),
+                onPressed: () => showModalBottomSheet(
+                      barrierColor: Colors.transparent,
+                      useSafeArea: true,
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => SelectSession(
+                        doctor: doctor,
+                      ),
+                    ),
+                child: const SizedBox(
+                    width: 120, child: Center(child: Text('Book'))))
           ],
         ),
       ),

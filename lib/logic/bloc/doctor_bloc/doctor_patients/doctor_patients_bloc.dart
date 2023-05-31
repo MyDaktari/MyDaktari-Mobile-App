@@ -22,7 +22,8 @@ class DoctorPatientsBloc
           await doctorRepository.getDoctorPatients(doctorId: event.doctorId);
       emit(DoctorPatientsLoaded(patients: patients));
     } catch (error) {
-      emit(DoctorPatientsLoadingError(message: error.toString()));
+      String errorMessage = error.toString().split(':').last;
+      emit(DoctorPatientsLoadingError(message: errorMessage));
     }
   }
 }

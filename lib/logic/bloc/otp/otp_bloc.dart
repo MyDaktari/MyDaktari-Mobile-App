@@ -33,7 +33,8 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       print(message);
       emit(OtpLoaded());
     } catch (error) {
-      emit(OtpLoadingError(errorMessage: error.toString()));
+      String errorMessage = error.toString().split(':').last;
+      emit(OtpLoadingError(errorMessage: errorMessage));
     }
   }
 }

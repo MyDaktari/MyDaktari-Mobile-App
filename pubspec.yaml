@@ -46,6 +46,8 @@ dependencies:
   fluttertoast: ^8.2.1
   shared_preferences: ^2.1.1
   date_field: ^3.0.5
+  url_launcher: ^6.1.11
+  flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
@@ -89,6 +91,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

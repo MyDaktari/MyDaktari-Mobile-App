@@ -1,17 +1,18 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
-import 'package:my_daktari/presentations/doctor_side/schedule/widgets/schedule_screen_body.dart';
+import 'package:my_daktari/presentations/doctor_side/charges/charge_card.dart';
+import 'package:my_daktari/presentations/doctor_side/personnal_info/widgets/text_field.dart';
 
-class ScheduleScreen extends StatelessWidget {
-  const ScheduleScreen({Key? key}) : super(key: key);
+import '../../auth/widgets/sex_menu.dart';
+
+class ChargesScreen extends StatelessWidget {
+  const ChargesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Manage Appointments",
+          title: const Text("Set Your Fees",
               style: TextStyle(fontWeight: FontWeight.bold)),
           centerTitle: true),
       body: SingleChildScrollView(
@@ -28,16 +29,18 @@ class ScheduleScreen extends StatelessWidget {
                     textAlign: TextAlign.center),
               ),
               const SizedBox(height: 20),
-              const ScheduleTimes(),
+              ChargeWidget(title: 'Chat'),
+              const SizedBox(height: 30),
+              ChargeWidget(title: 'Phone Call'),
+              const SizedBox(height: 30),
+              ChargeWidget(title: 'Video Call'),
               const SizedBox(height: 30),
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: 0.9 * MediaQuery.of(context).size.width,
                   child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, route.charges);
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff0154ba),
                         padding: const EdgeInsets.all(14),

@@ -18,6 +18,7 @@ import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
 import 'logic/bloc/pharmacy/pharmacy_bloc.dart';
+import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/otp_timer/otp_timer_cubit.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
 import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
@@ -94,6 +95,8 @@ class MyApp extends StatelessWidget {
 
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+          BlocProvider<DropChargesCubit>(
+              create: (context) => DropChargesCubit()),
           BlocProvider<SignUpHelperCubit>(
               create: (context) => SignUpHelperCubit()),
           BlocProvider<TabUpdateCubit>(create: (context) => TabUpdateCubit()),

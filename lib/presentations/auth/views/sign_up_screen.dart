@@ -154,10 +154,7 @@ class SignUpScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SexMenu(size: size),
-                              SizedBox(height: 15)
-                            ],
+                            children: [SexMenu(), SizedBox(height: 15)],
                           ),
                         )
                       ],

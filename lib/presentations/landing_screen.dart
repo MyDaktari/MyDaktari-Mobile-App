@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/presentations/home/views/appointments/patient_appointments.dart';
-import 'package:my_daktari/presentations/home/views/patients/patients.dart';
+import 'package:my_daktari/presentations/doctor_side/appointments/appointments_tab2.dart';
+import 'package:my_daktari/presentations/doctor_side/patients/patients.dart';
 
 import '../constants/enums.dart';
 import '../logic/cubit/page_update/page_update_cubit.dart';
 import '../logic/cubit/user_type/user_type_cubit.dart';
-import 'home/widgets/disclaimer.dart';
+import 'widgets/disclaimer.dart';
 import '/constants/constants.dart' as constants;
-import '../constants/routes/app_route.dart' as routes;
-import 'home/views/ayaTab/views/aya_tab.dart';
-import 'home/views/doctorsTab/views/doctors_tab.dart';
-import 'home/views/homeTab/views/home_tab.dart';
-import 'home/views/profileTab/views/profile_tab.dart';
+import '../constants/routes/route.dart' as routes;
+import 'ayaTab/views/aya_tab.dart';
+import 'client_side/doctorsTab/views/doctors_tab.dart';
+import 'client_side/homeTab/views/home_tab.dart';
+import 'profileTab/views/profile_tab.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
 import './mock/service/get_doctor_service.dart';
-import 'constants/routes/app_route.dart' as route;
+import 'constants/routes/route.dart' as route;
 import 'logic/bloc/ambulance/ambulance_bloc.dart';
 import 'logic/bloc/blocs.dart';
 import 'logic/bloc/client/search_doctor/search_doctor_bloc.dart';
@@ -26,14 +26,12 @@ import 'logic/cubit/theme/theme_cubit.dart';
 import 'logic/cubit/user_type/user_type_cubit.dart';
 import 'repositories/blog/blog_repository.dart';
 import 'repositories/repositories.dart';
-import 'services/auth_page_provider.dart';
 
 void main() {
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => AuthPageProvider.instance()),
-      ChangeNotifierProvider(create: (_) => GetDoctor())
-    ], child: const MyApp()),
+    MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => GetDoctor())],
+        child: const MyApp()),
   );
 }
 
@@ -42,7 +40,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthenticationRepository>(

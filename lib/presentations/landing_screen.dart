@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/presentations/doctor_side/appointments/appointments_tab2.dart';
+import 'package:my_daktari/presentations/doctor_side/appointments/appointments_tabs.dart';
 import 'package:my_daktari/presentations/doctor_side/patients/patients.dart';
 
 import '../constants/enums.dart';

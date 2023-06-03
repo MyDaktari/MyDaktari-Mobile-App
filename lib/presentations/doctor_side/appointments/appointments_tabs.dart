@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 
 import '../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import '../../../logic/cubit/tab_update/tab_update_cubit.dart';
@@ -42,7 +43,7 @@ class PatientAppointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> tabs(int tabValue) {
-      List<String> titles = ['Today', 'Upcoming', 'Pending', 'History'];
+      List<String> titles = ['Upcoming', 'Pending', 'Past'];
       return titles.map((title) {
         int index = titles.indexOf(title);
         return tab(title, index, tabValue, context);
@@ -57,12 +58,19 @@ class PatientAppointment extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Appointments', style: textTheme.titleLarge),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  'You have the following appointments',
-                  style: textTheme.bodyMedium?.copyWith(fontSize: 21),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Appointments',
+                      style: textTheme.bodyMedium?.copyWith(fontSize: 21),
+                    ),
+                    Text('See All',
+                        style: TextStyle(
+                            color: primaryColor, fontWeight: FontWeight.w600)),
+                  ],
                 ),
               ),
               Padding(
@@ -83,7 +91,12 @@ class PatientAppointment extends StatelessWidget {
               BlocBuilder<DoctorAppointmentsBloc, DoctorAppointmentsState>(
                 builder: (context, state) {
                   if (state is DoctorAppointmentsLoading) {
-                    return Center(child: CircularProgressIndicator());
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [CustomLoading()],
+                      ),
+                    );
                   } else if (state is DoctorAppointmentsLoaded) {
                     return Expanded(
                         child: PageView(
@@ -92,7 +105,6 @@ class PatientAppointment extends StatelessWidget {
                         context.read<TabUpdateCubit>().setTabValue(val);
                       },
                       children: [
-                        AppointmentTab(list: []),
                         AppointmentTab(list: []),
                         AppointmentTab(
                             list: state.appointments

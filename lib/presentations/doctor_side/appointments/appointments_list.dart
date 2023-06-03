@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
 import 'appointment_card.dart';
 
@@ -17,12 +18,15 @@ class AppointmentTab extends StatelessWidget {
             })
         : Center(
             child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('You\'ve got nothing yet'),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, route.personalInfo);
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                 child: Text('Complete your profile'),
               )
             ],

@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 class TextWidget extends StatelessWidget {
   final String label;
   final int maxLines;
-  const TextWidget({super.key, required this.label, this.maxLines = 1});
+  final bool isNumber;
+  const TextWidget(
+      {super.key,
+      required this.label,
+      this.maxLines = 1,
+      this.isNumber = false});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       maxLines: maxLines,
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
         labelText: label,
         filled: true,

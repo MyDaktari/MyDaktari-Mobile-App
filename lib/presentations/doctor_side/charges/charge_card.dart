@@ -16,7 +16,8 @@ class ChargeWidget extends StatelessWidget {
         SizedBox(height: 10),
         Row(
           children: [
-            Container(width: 200, child: TextWidget(label: 'Ksh ')),
+            Container(
+                width: 200, child: TextWidget(label: 'Ksh ', isNumber: true)),
             ChargeDropDown(title: title)
           ],
         )

@@ -24,10 +24,10 @@ class AppointmentTab extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, route.personalInfo);
+                  Navigator.pushNamed(context, route.schedule);
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                child: Text('Complete your profile'),
+                child: Text('Manage Appointments'),
               )
             ],
           ));

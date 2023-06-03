@@ -4,6 +4,7 @@ import 'package:my_daktari/models/blog.dart';
 import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/ambulance_screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
+import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
 
 import '../../models/doctor_profile_model.dart';
 import '../../presentations/auth/views/login_screen.dart';
@@ -22,6 +23,7 @@ const String loginScreen = 'loginPage';
 const String otpScreen = 'otpPage';
 const String welcome = 'welcome';
 const String personalInfo = 'personalInfo';
+const String schedule = 'schedule';
 const String homePage = 'homePage';
 const String ambulancePage = 'ambulance';
 const String pharmacyPage = 'pharmacy';
@@ -46,6 +48,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => AmbulanceScreen());
       case pharmacyPage:
         return MaterialPageRoute(builder: (_) => PharmacyScreen());
+      case schedule:
+        return MaterialPageRoute(builder: (_) => ScheduleScreen());
       case personalInfo:
         return MaterialPageRoute(
             builder: (context) => const PersonalDetailsScreen());

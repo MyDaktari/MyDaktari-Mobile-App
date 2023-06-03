@@ -1,3 +1,5 @@
 enum UserType { doctor, client, unchoise }
 
 enum Sex { male, female, undefined }
+
+enum DropCharges { Per_session, Per_hour }

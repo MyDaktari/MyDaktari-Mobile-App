@@ -5,12 +5,11 @@ import '../../../constants/enums.dart';
 import '../../../logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 
 class SexMenu extends StatelessWidget {
-  const SexMenu({super.key, required this.size});
-
-  final Size size;
+  const SexMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final signUpHelperCubit = context.watch<SignUpHelperCubit>();
     return InkWell(
       onTapDown: (TapDownDetails details) => showMenu<Sex>(

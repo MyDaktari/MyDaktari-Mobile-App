@@ -14,6 +14,7 @@ import '../../presentations/client_side/doctorsTab/views/doctor_profile_page.dar
 import '../../presentations/client_side/homeTab/views/blog_screen.dart';
 import '../../presentations/client_side/homeTab/views/pharmacy/pharmacy_screen.dart';
 import '../../presentations/client_side/homeTab/views/symptomChecker/symptom_checker.dart';
+import '../../presentations/doctor_side/charges/charges_screen.dart';
 import '../../presentations/doctor_side/personnal_info/information_screen.dart';
 import '../../presentations/landing_screen.dart';
 import '../../presentations/welcome_screen.dart';
@@ -22,6 +23,7 @@ const String signUpScreen = 'authPage';
 const String loginScreen = 'loginPage';
 const String otpScreen = 'otpPage';
 const String welcome = 'welcome';
+const String charges = 'charges';
 const String personalInfo = 'personalInfo';
 const String schedule = 'schedule';
 const String homePage = 'homePage';
@@ -50,6 +52,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PharmacyScreen());
       case schedule:
         return MaterialPageRoute(builder: (_) => ScheduleScreen());
+      case charges:
+        return MaterialPageRoute(builder: (_) => ChargesScreen());
       case personalInfo:
         return MaterialPageRoute(
             builder: (context) => const PersonalDetailsScreen());

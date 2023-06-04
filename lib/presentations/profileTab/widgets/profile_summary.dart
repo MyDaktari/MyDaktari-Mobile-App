@@ -8,7 +8,6 @@ import '../../../models/doctor.dart';
 import '../../widgets/tab_header_bar.dart';
 import '/constants/constants.dart' as constants;
 import '../../../constants/routes/route.dart' as routes;
-import 'log_out_dialog.dart';
 
 class ProfileSummary extends StatelessWidget {
   const ProfileSummary({super.key});
@@ -22,78 +21,79 @@ class ProfileSummary extends StatelessWidget {
       child: BlocBuilder<AuthStatusBloc, AuthStatusState>(
           builder: (context, state) {
         if (state is UserAuthenticated) {
-          return Container(
-            height: size.height * .18,
-            width: size.width,
-            decoration: const BoxDecoration(color: constants.primaryColor),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 28.0),
+          return SafeArea(
+            child: Container(
+              height: size.height * .1,
+              width: size.width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                            ((state.userType == UserType.client)
-                                    ? (state.user as ClientModel).name
-                                    : (state.user as DoctorModel).name)
-                                .toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 10),
-                        Text(state.user?.email ?? '',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                letterSpacing: .8,
-                                fontWeight: FontWeight.w600)),
-                        ElevatedButton(
-                          onPressed: () => logOutDialog(context),
-                          child: Text('Sign Out'),
-                        )
-                      ],
-                    ),
+                  Container(
+                      height: size.height * .08,
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Image.asset('assets/images/male-user.png')),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          ((state.userType == UserType.client)
+                                  ? (state.user as ClientModel).name
+                                  : (state.user as DoctorModel).name)
+                              .toString(),
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(height: 5),
+                      Text(state.user?.email ?? '',
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                              letterSpacing: .8,
+                              fontWeight: FontWeight.w600)),
+                      // ElevatedButton(
+                      //   onPressed: () => logOutDialog(context),
+                      //   child: Text('Sign Out'),
+                      // )
+                    ],
                   ),
-                  Expanded(
-                      flex: 2,
-                      child: Image.asset('assets/images/male-user.png'))
+                  Spacer(),
+                  Icon(Icons.calendar_month_outlined,
+                      size: 35, color: Colors.grey),
+                  Icon(Icons.notifications, size: 35, color: Colors.grey),
                 ],
               ),
             ),
           );
         } else {
-          return TabHeader(
-            size: size,
-            title: Text(
-              'Create Your Profile,',
-              style: textTheme.titleLarge?.copyWith(fontSize: 22),
+          return SafeArea(
+            child: TabHeader(
+              size: size,
+              title: Text(
+                'Create Your Profile,',
+                style: textTheme.titleLarge?.copyWith(fontSize: 22),
+              ),
+              subtitle: Text('save your important information',
+                  style: textTheme.titleMedium?.copyWith(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontWeight: FontWeight.normal)),
+              button: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(21)),
+                      backgroundColor: constants.greenish),
+                  onPressed: () {
+                    Navigator.pushNamed(context, routes.loginScreen);
+                  },
+                  child: const Text('Sign In')),
+              image: Image.asset('assets/images/telehealth.png'),
             ),
-            subtitle: Text('save your important information',
-                style: textTheme.titleMedium?.copyWith(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal)),
-            button: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(21)),
-                    backgroundColor: constants.greenish),
-                onPressed: () {
-                  Navigator.pushNamed(context, routes.loginScreen);
-                },
-                child: const Text('Sign In')),
-            image: Image.asset('assets/images/telehealth.png'),
           );
         }
       }),

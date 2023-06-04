@@ -1,103 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/constants/enums.dart';
+import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../logic/cubit/user_type/user_type_cubit.dart';
+import '../widgets/log_out_dialog.dart';
 import '../widgets/profile_summary.dart';
 
 class ProfileTab extends StatelessWidget {
   ProfileTab({super.key});
 
-  final List<Map<String, dynamic>> tools = [
-    {
-      'title': 'Take Your Meds',
-      'route': '',
-    },
-    {
-      'title': 'Screening and Procedures',
-      'route': '',
-    },
-    {
-      'title': 'Medical Support Team',
-      'route': '',
-    },
-    {
-      'title': 'Track Symptoms',
-      'route': '',
-    },
+  static const List<Map<String, dynamic>> doctorPages = [
+    {"schedule": "Schedule"},
+    {"appointments": "My Appointments"},
+    {"profile": "Basic info"},
+    {"articles": "Articles"}
   ];
-  final List<Map<String, dynamic>> saved = [
-    {
-      'title': 'Conditions',
-      'image': 'assets/images/reminder.png',
-    },
-    {
-      'title': 'Drugs',
-      'image': 'assets/images/virus.png',
-    },
-    {
-      'title': 'Articles',
-      'image': 'assets/images/graph-report.png',
-    },
+  static const List<Map<String, dynamic>> patientPages = [
+    {"appointments": "My Appointments"},
+    {"profile": "Basic info"},
+    {"articles": "Articles"}
   ];
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    final userTypeCubit = context.watch<UserTypeCubit>();
     return Column(
       children: [
         ProfileSummary(),
+        const SizedBox(height: 20),
         Expanded(
-          child: ListView(
-            children: [
-              const SizedBox(height: 15),
-              Center(
-                child: Text('Tools',
-                    style: textTheme.titleLarge?.copyWith(fontSize: 15)),
-              ),
-              const SizedBox(height: 15),
-              const Divider(),
-              SizedBox(
-                height: 190,
-                child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => Center(
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(tools[index]['title']))),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
-                  itemCount: tools.length,
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: userTypeCubit.state.userType == UserType.doctor
+                ? doctorPages.length
+                : patientPages.length,
+            itemBuilder: (context, index) {
+              final route = userTypeCubit.state.userType == UserType.doctor
+                  ? doctorPages[index].keys.first
+                  : patientPages[index].keys.first;
+              final title = userTypeCubit.state.userType == UserType.doctor
+                  ? doctorPages[index].values.first
+                  : patientPages[index].values.first;
+              ;
+              return Container(
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(width: 0.1))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(10),
+                    leading: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: const Icon(Icons.calendar_today_rounded,
+                            color: Colors.blue)),
+                    title: Text(title,
+                        style: const TextStyle(color: Colors.black)),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      // Handle list item tap
+                      // You can navigate to the corresponding route using Navigator
+                      Navigator.pushNamed(context, route);
+                    },
+                  ),
                 ),
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 15,
-              ),
-              Center(
-                  child: Text('Saved',
-                      style: textTheme.titleLarge?.copyWith(fontSize: 15))),
-              const SizedBox(height: 15),
-              const Divider(),
-              SizedBox(
-                height: 190,
-                child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => Center(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Image.asset(saved[index]['image'], height: 20),
-                        Text(saved[index]['title'])
-                      ],
-                    ),
-                  )),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
-                  itemCount: saved.length,
-                ),
-              ),
-              const Divider(),
-            ],
+              );
+            },
           ),
         ),
+        BlocBuilder<AuthStatusBloc, AuthStatusState>(
+          builder: (context, state) {
+            return Visibility(
+              visible: state is UserAuthenticated,
+              child: TextButton(
+                onPressed: () => logOutDialog(context),
+                child: const Text('Logout',
+                    style: TextStyle(fontSize: 18, color: Colors.red)),
+              ),
+            );
+          },
+        ),
+        SizedBox(height: 20)
       ],
     );
   }

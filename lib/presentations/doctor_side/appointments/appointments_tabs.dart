@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/presentations/profileTab/widgets/profile_summary.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 
 import '../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
@@ -53,86 +54,85 @@ class PatientAppointment extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     return BlocBuilder<TabUpdateCubit, TabUpdateState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProfileSummary(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Appointments',
+                    style: textTheme.bodyMedium?.copyWith(fontSize: 21),
+                  ),
+                  Text('See All',
+                      style: TextStyle(
+                          color: primaryColor, fontWeight: FontWeight.w600)),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: SizedBox(
+                height: 50,
+                width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Appointments',
-                      style: textTheme.bodyMedium?.copyWith(fontSize: 21),
+                  children: tabs(state.tabValue)
+                      .map((tab) => Expanded(
+                            child: tab,
+                          ))
+                      .toList(),
+                ),
+              ),
+            ),
+            BlocBuilder<DoctorAppointmentsBloc, DoctorAppointmentsState>(
+              builder: (context, state) {
+                if (state is DoctorAppointmentsLoading) {
+                  return Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [CustomLoading()],
                     ),
-                    Text('See All',
-                        style: TextStyle(
-                            color: primaryColor, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: tabs(state.tabValue)
-                        .map((tab) => Expanded(
-                              child: tab,
-                            ))
-                        .toList(),
-                  ),
-                ),
-              ),
-              BlocBuilder<DoctorAppointmentsBloc, DoctorAppointmentsState>(
-                builder: (context, state) {
-                  if (state is DoctorAppointmentsLoading) {
-                    return Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [CustomLoading()],
-                      ),
-                    );
-                  } else if (state is DoctorAppointmentsLoaded) {
-                    return Expanded(
-                        child: PageView(
-                      controller: _pageController,
-                      onPageChanged: (val) {
-                        context.read<TabUpdateCubit>().setTabValue(val);
-                      },
-                      children: [
-                        AppointmentTab(list: []),
-                        AppointmentTab(
-                            list: state.appointments
-                                .where((element) =>
-                                    (element.appointmentStatus ?? '')
-                                        .toLowerCase() ==
-                                    'pending')
-                                .toList()),
-                        AppointmentTab(
-                            list: state.appointments
-                                .where((element) =>
-                                    (element.appointmentStatus ?? '')
-                                        .toLowerCase() ==
-                                    'done')
-                                .toList()),
-                      ],
-                    ));
-                  } else if (state is DoctorAppointmentsLoadingError) {
-                    return Center(child: Text(state.message));
-                  } else {
-                    return Center(
-                        child: Text(
-                            'An error Occured which fetching your appointment'));
-                  }
-                },
-              )
-            ],
-          ),
+                  );
+                } else if (state is DoctorAppointmentsLoaded) {
+                  return Expanded(
+                      child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (val) {
+                      context.read<TabUpdateCubit>().setTabValue(val);
+                    },
+                    children: [
+                      AppointmentTab(list: []),
+                      AppointmentTab(
+                          list: state.appointments
+                              .where((element) =>
+                                  (element.appointmentStatus ?? '')
+                                      .toLowerCase() ==
+                                  'pending')
+                              .toList()),
+                      AppointmentTab(
+                          list: state.appointments
+                              .where((element) =>
+                                  (element.appointmentStatus ?? '')
+                                      .toLowerCase() ==
+                                  'done')
+                              .toList()),
+                    ],
+                  ));
+                } else if (state is DoctorAppointmentsLoadingError) {
+                  return Center(child: Text(state.message));
+                } else {
+                  return Center(
+                      child: Text(
+                          'An error Occured which fetching your appointment'));
+                }
+              },
+            )
+          ],
         );
       },
     );

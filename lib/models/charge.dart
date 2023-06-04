@@ -1,16 +1,11 @@
 class DoctorChargesModel {
-  String? chargesId;
   String? doctorId;
   String? phoneCall;
   String? videoCall;
   String? chat;
 
   DoctorChargesModel(
-      {this.chargesId,
-      this.doctorId,
-      this.phoneCall,
-      this.videoCall,
-      this.chat});
+      {this.doctorId, this.phoneCall, this.videoCall, this.chat});
 
   DoctorChargesModel.fromJson(Map<String, dynamic> json) {
     doctorId = json['doctorID'];

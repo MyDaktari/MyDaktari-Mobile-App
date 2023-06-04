@@ -85,10 +85,8 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: Text(
-                  _selectedIndex == 2 ? 'Save' : 'Continue',
-                  style: const TextStyle(color: Colors.white),
-                ),
+                child: Text(_selectedIndex == 2 ? 'Save' : 'Continue',
+                    style: const TextStyle(color: Colors.white)),
               ),
             ),
           ],

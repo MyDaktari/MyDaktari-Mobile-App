@@ -80,7 +80,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
       DoctorModel doctor = DoctorModel.fromJson(responseBody['doctor']);

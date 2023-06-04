@@ -42,3 +42,5 @@ const String fetchDoctorsUrl =
     'https://mydoc.my-daktari.com/new_api/viewDoctors.php';
 const String pharmacyUrl =
     'https://mydoc.my-daktari.com/new_api/pharmacies.php';
+const String setDoctorAvailabilityUrl =
+    'https://mydoc.my-daktari.com/new_api/addDoctorAvailability.php';

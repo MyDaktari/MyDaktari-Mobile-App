@@ -16,7 +16,7 @@ abstract class BaseDoctorRepository {
   Future<List<PatientModel>?> getDoctorPatients(
       {required String doctorId}) async {}
   Future<String?> addDoctorAvailability(
-      {required String doctorId,
-      required String duration,
-      required Map<String, dynamic> data}) async {}
+      {required int doctorId,
+      required int duration,
+      required Map<String, List<Map<String, dynamic>>> data}) async {}
 }

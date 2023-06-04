@@ -58,14 +58,41 @@ class DoctorRepository extends BaseDoctorRepository {
 
   //add charges.
   @override
-  Future<String> addDoctorCharges({required DoctorChargesModel charges}) async {
+  Future<String> addDoctorAvailability(
+      {required String doctorId,
+      required String duration,
+      required Map<String, dynamic> data}) async {
     final response = await http.post(Uri.parse(addDoctorChargesUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          "doctorID": charges.doctorId,
-          "phoneCall": charges.phoneCall,
-          "videoCall": charges.videoCall,
-          "chat": charges.chat
+          "doctorID": doctorId,
+          "duration": duration, //should be in minutes
+          "availability": data,
+        }));
+    if (response.statusCode == 201) {
+      final jsonData = jsonDecode(response.body)['message'] as String;
+      final message = jsonData;
+      return message;
+    } else {
+      // Error occurred while setting availability
+      throw Exception('Failed to set doctor availability');
+    }
+  }
+
+  //add charges.
+  @override
+  Future<String> addDoctorCharges(
+      {required String doctorId,
+      required String phoneCallCost,
+      required String videoCallCost,
+      required String chatCost}) async {
+    final response = await http.post(Uri.parse(addDoctorChargesUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "doctorID": doctorId,
+          "phoneCall": phoneCallCost,
+          "videoCall": videoCallCost,
+          "chat": chatCost
         }));
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['message'] as String;
@@ -79,8 +106,8 @@ class DoctorRepository extends BaseDoctorRepository {
       throw Exception('Failed to record new charges');
     }
   }
-  //edit charges.
 
+  //edit charges.
   @override
   Future<String> editDoctorCharges({required String chargesId}) async {
     final response = await http.post(Uri.parse(editDoctorChargesUrl),

@@ -6,10 +6,17 @@ abstract class BaseDoctorRepository {
   Future<List<AppointmentModel>?> getDoctorAppointments(
       {required String doctorId}) async {}
   Future<String?> addDoctorCharges(
-      {required DoctorChargesModel charges}) async {}
+      {required String doctorId,
+      required String phoneCallCost,
+      required String videoCallCost,
+      required String chatCost}) async {}
   Future<String?> editDoctorCharges({required String chargesId}) async {}
   Future<DoctorChargesModel?> getDoctorCharges(
       {required String doctorId}) async {}
   Future<List<PatientModel>?> getDoctorPatients(
       {required String doctorId}) async {}
+  Future<String?> addDoctorAvailability(
+      {required String doctorId,
+      required String duration,
+      required Map<String, dynamic> data}) async {}
 }

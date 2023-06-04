@@ -17,4 +17,10 @@ class PageUpdateCubit extends Cubit<PageUpdateState> {
   int getPageIndex() {
     return state.index;
   }
+
+  @override
+  Future<void> close() {
+    state.pageController.dispose();
+    return super.close();
+  }
 }

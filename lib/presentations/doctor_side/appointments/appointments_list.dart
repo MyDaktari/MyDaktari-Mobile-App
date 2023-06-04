@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
+
 import 'appointment_card.dart';
 
 class AppointmentTab extends StatelessWidget {
@@ -23,8 +25,8 @@ class AppointmentTab extends StatelessWidget {
               Text('You\'ve got nothing yet'),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, route.personalInfo);
+                onPressed: () async {
+                  Navigator.pushReplacementNamed(context, route.personalInfo);
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                 child: Text('Complete your profile'),

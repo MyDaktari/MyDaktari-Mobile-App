@@ -38,68 +38,63 @@ class HomePage extends StatelessWidget {
           Color color(int index) =>
               state.index == index ? constants.primaryColor : Colors.grey;
           return Scaffold(
-            appBar: AppBar(
-              toolbarHeight:
-                  (state.index == 1 && userState.userType == UserType.client)
-                      ? 0
-                      : Theme.of(context).appBarTheme.toolbarHeight,
-              elevation: 0,
-              leading: SizedBox(),
-              leadingWidth: 0,
-              title: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Builder(builder: (context) {
-                  switch (state.index) {
-                    case 0:
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Visibility(
-                          visible: userState.userType == UserType.client,
-                          child: Expanded(
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                  hintText:
-                                      'Search symptoms, medication, news...',
-                                  hintStyle: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w300,
-                                      letterSpacing: 1),
-                                  border: InputBorder.none,
-                                  filled: true,
-                                  fillColor:
-                                      Color.fromARGB(255, 224, 224, 224)),
-                            ),
-                          ),
+            appBar: userState.userType == UserType.client
+                ? state.index == 0
+                    ? AppBar(
+                        toolbarHeight: (state.index == 1 &&
+                                userState.userType == UserType.client)
+                            ? 0
+                            : Theme.of(context).appBarTheme.toolbarHeight,
+                        elevation: 0,
+                        leading: SizedBox(),
+                        leadingWidth: 0,
+                        title: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Builder(builder: (context) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Visibility(
+                                visible: userState.userType == UserType.client,
+                                child: Expanded(
+                                  child: const TextField(
+                                    decoration: InputDecoration(
+                                        hintText:
+                                            'Search symptoms, medication, news...',
+                                        hintStyle: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w300,
+                                            letterSpacing: 1),
+                                        border: InputBorder.none,
+                                        filled: true,
+                                        fillColor:
+                                            Color.fromARGB(255, 224, 224, 224)),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
                         ),
-                      );
-                    case 2:
-                      return const Text('Aya');
-                    case 3:
-                      return const Text('Profile');
-                    default:
-                      return const SizedBox();
-                  }
-                }),
-              ),
-              actions: state == 3
-                  ? [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                  context, routes.signUpScreen);
-                            },
-                            child: const Text('Sign In',
-                                style: TextStyle(fontSize: 18))),
+                        actions: state == 3
+                            ? [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pushReplacementNamed(
+                                            context, routes.signUpScreen);
+                                      },
+                                      child: const Text('Sign In',
+                                          style: TextStyle(fontSize: 18))),
+                                )
+                              ]
+                            : [
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.notifications, size: 40))
+                              ],
                       )
-                    ]
-                  : [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.notifications, size: 40))
-                    ],
-            ),
+                    : null
+                : null,
             body: PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: pageCubit.state.pageController,

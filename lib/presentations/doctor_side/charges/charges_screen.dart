@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/presentations/doctor_side/charges/charge_card.dart';
-import 'package:my_daktari/presentations/doctor_side/personnal_info/widgets/text_field.dart';
-
-import '../../auth/widgets/sex_menu.dart';
 
 class ChargesScreen extends StatelessWidget {
   const ChargesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
           title: const Text("Set Your Fees",

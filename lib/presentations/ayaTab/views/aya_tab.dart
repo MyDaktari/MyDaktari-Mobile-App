@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/presentations/profileTab/widgets/profile_summary.dart';
 import '/constants/constants.dart' as constants;
 
 class AyaTab extends StatelessWidget {
@@ -11,6 +12,7 @@ class AyaTab extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
+        ProfileSummary(),
         Expanded(
             child: Image.asset('assets/images/aya-half.png',
                 fit: BoxFit.fitHeight)),

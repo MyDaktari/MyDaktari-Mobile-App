@@ -7,8 +7,6 @@ import 'package:my_daktari/logic/bloc/otp/otp_bloc.dart';
 
 import '../../../constants/enums.dart';
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
-import '../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
-import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import '../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../widgets/otp_input_field.dart';
@@ -127,17 +125,21 @@ class OtpScreen extends StatelessWidget {
                           if (state is OtpLoaded) {
                             if (userTypeCubit.state.userType ==
                                 UserType.doctor) {
-                              context.read<DoctorAppointmentsBloc>().add(
-                                  LoadDoctorAppointments(doctorId: userId));
+                              Navigator.pushReplacementNamed(
+                                  context, route.personalInfo);
+                              // context.read<DoctorAppointmentsBloc>().add(
+                              //     LoadDoctorAppointments(doctorId: userId));
+                              // context
+                              //     .read<DoctorPatientsBloc>()
+                              //     .add(LoadDoctorPatients(doctorId: userId));
+                            } else if (userTypeCubit.state.userType ==
+                                UserType.client) {
                               context
-                                  .read<DoctorPatientsBloc>()
-                                  .add(LoadDoctorPatients(doctorId: userId));
+                                  .read<AuthStatusBloc>()
+                                  .add(CheckUserStatus());
+                              Navigator.pushReplacementNamed(
+                                  context, route.homePage);
                             }
-                            context
-                                .read<AuthStatusBloc>()
-                                .add(CheckUserStatus());
-                            Navigator.pushReplacementNamed(
-                                context, route.homePage);
                           }
                           if (state is OtpLoadingError) {
                             Fluttertoast.showToast(

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:intl/intl.dart';
 
+import '../models/models.dart';
 import '../presentations/doctor_side/schedule/models/dayschedule.dart';
 
 const Color primaryColor = Color(0xff0154BA);
@@ -11,6 +12,7 @@ const Color greenish = Color(0xFF00ECB6); // Hex: #00ECB6
 
 String userId = '';
 String userPhoneNumber = '';
+DoctorModel doctor = DoctorModel();
 List<DaySchedule> schedulesConstant = [];
 
 String formatRelativeTime(DateTime dateTime) {

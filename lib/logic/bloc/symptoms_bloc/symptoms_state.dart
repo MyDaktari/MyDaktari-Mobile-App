@@ -11,10 +11,25 @@ class SymptomsLoading extends SymptomsState {}
 
 class SymptomsLoaded extends SymptomsState {
   final List<SymptomModel> symptoms;
+  final List<Symptoms> selectedSymptoms;
 
-  const SymptomsLoaded({this.symptoms = const <SymptomModel>[]});
+  const SymptomsLoaded({
+    this.symptoms = const <SymptomModel>[],
+    this.selectedSymptoms = const <Symptoms>[],
+  });
+
+  SymptomsLoaded copyWith({
+    List<SymptomModel>? symptoms,
+    List<Symptoms>? selectedSymptoms,
+  }) {
+    return SymptomsLoaded(
+      symptoms: symptoms ?? this.symptoms,
+      selectedSymptoms: selectedSymptoms ?? this.selectedSymptoms,
+    );
+  }
+
   @override
-  List<Object> get props => [symptoms];
+  List<Object> get props => [symptoms, selectedSymptoms];
 }
 
 class SymptomsLoadingError extends SymptomsState {

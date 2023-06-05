@@ -1,196 +1,250 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/bloc/symptoms_bloc/symptoms_bloc.dart';
-import 'package:my_daktari/mock/models/symptom_model.dart';
 import 'package:my_daktari/constants/constants.dart' as constants;
-import 'package:provider/provider.dart';
 
-import '../../../../../mock/service/get_doctor_service.dart';
+import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
+import '../../../../../mock/models/symptom_model.dart';
+import '../../../../widgets/custom_loading.dart';
 import '../../../doctorsTab/views/all_results.dart';
 import 'symptom_checker.dart';
 
-class SymptomSamples extends StatelessWidget {
-  SymptomSamples({super.key, required this.bodyPartNotifier});
-  final BodyPartNotifier bodyPartNotifier;
-  // final List<SymptomModel> _symptoms =
-  //     symptoms.map((json) => SymptomModel.fromJson(json)).toList();
-  final ActiveSymptom _activeSymptom = ActiveSymptom([]);
+class SymptomSamples extends StatefulWidget {
+  SymptomSamples({required this.bodyPartNotifier});
 
+  final BodyPartNotifier bodyPartNotifier;
+
+  @override
+  State<SymptomSamples> createState() => _SymptomSamplesState();
+}
+
+class _SymptomSamplesState extends State<SymptomSamples> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<SymptomsBloc, SymptomsState>(builder: (context, state) {
-      if (state is SymptomsLoaded) {
-        final List<SymptomModel> _symptoms =
-            state.symptoms.map((symptom) => symptom).toList();
-        return ValueListenableBuilder(
-            valueListenable: bodyPartNotifier,
-            builder: (context, _bodyPart, _) {
-              return ValueListenableBuilder(
-                  valueListenable: _activeSymptom,
-                  builder: (context, value, _) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: Text('Symptoms'),
-                      ),
-                      body: Column(
+
+    final selectedSymptoms = context.read<SymptomsCubit>();
+    return Scaffold(
+      appBar: AppBar(title: Text('Symptoms')),
+      body: BlocBuilder<SymptomsBloc, SymptomsState>(
+        builder: (context, state) {
+          if (state is SymptomsLoading) {
+            return CustomLoading();
+          } else if (state is SymptomsLoadingError) {
+            return Center(
+              child: Text(state.message),
+            );
+          } else if (state is SymptomsLoaded) {
+            final List<SymptomModel> symptoms = state.symptoms;
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(14),
+                  height: MediaQuery.of(context).size.height * .8,
+                  child: ListView.builder(
+                    itemCount: symptoms.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ListView(
-                              children: (_bodyPart != null
-                                      ? !_bodyPart
-                                              .toLowerCase()
-                                              .contains('not sure')
-                                          ? _symptoms.where(
-                                              (x) => x.bodyPart == _bodyPart)
-                                          : _symptoms
-                                      : _symptoms)
-                                  .map((symptoms) => Padding(
-                                        padding:
-                                            EdgeInsets.all(size.width * .01),
-                                        child: SizedBox(
-                                          width: size.width,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                symptoms.bodyPart!,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
-                                              ),
-                                              Wrap(
-                                                alignment: WrapAlignment.start,
-                                                runSpacing: 10,
-                                                spacing: 10,
-                                                children: symptoms.symptoms!
-                                                    .map((symptom) => InkWell(
-                                                          onTap: () {
-                                                            _activeSymptom
-                                                                .addSymtom(
-                                                                    symptom);
-                                                          },
-                                                          child: SizedBox(
-                                                            width: size.width *
-                                                                .95 /
-                                                                2,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(5.0),
-                                                              child: Stack(
-                                                                children: [
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      const Divider(
-                                                                        thickness:
-                                                                            2,
-                                                                        color: constants
-                                                                            .primaryColor,
-                                                                      ),
-                                                                      Text(
-                                                                        symptom
-                                                                            .symptom!,
-                                                                        style: const TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: constants.primaryColor),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                        height:
-                                                                            5,
-                                                                      ),
-                                                                      Text(symptom
-                                                                          .description!)
-                                                                    ],
-                                                                  ),
-                                                                  Visibility(
-                                                                    // visible: value
-                                                                    //     .contains(
-                                                                    //         symptom),
-                                                                    child:
-                                                                        Align(
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .topRight,
-                                                                      child:
-                                                                          Container(
-                                                                        height:
-                                                                            40,
-                                                                        width:
-                                                                            40,
-                                                                        decoration: BoxDecoration(
-                                                                            color: value.contains(symptom)
-                                                                                ? constants.primaryColor
-                                                                                : Colors.grey.withOpacity(.5),
-                                                                            shape: BoxShape.circle),
-                                                                        child:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .check,
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ))
-                                                    .toList(),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
+                          Text(
+                            symptoms[index].bodyPart as String,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Consumer<GetDoctor>(builder: (context, getDoctor, _) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: constants.primaryColor),
-                                  onPressed: value.isEmpty
-                                      ? null
-                                      : () {
-                                          getDoctor.search('dr');
-                                          showModalBottomSheet(
-                                            barrierColor: Colors.transparent,
-                                            useSafeArea: true,
-                                            context: context,
-                                            isScrollControlled: true,
-                                            builder: (context) =>
-                                                const AllResults(),
-                                          );
-                                        },
-                                  child: Text('Continue')),
-                            );
-                          })
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Wrap(
+                            children: symptoms[index].symptoms!.map((symptom) {
+                              return Container(
+                                width: (size.width) * .4,
+                                height: 200,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    selectedSymptoms.addSymptoms(symptom);
+                                    setState(() {});
+                                  },
+                                  child: Card(
+                                    shadowColor: constants.primaryColor,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                symptom.symptom ?? "No title",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        constants.primaryColor),
+                                              ),
+                                              context
+                                                      .read<SymptomsCubit>()
+                                                      .selected(symptom)
+                                                  ? Icon(
+                                                      Icons
+                                                          .check_circle_outline,
+                                                    )
+                                                  : Icon(
+                                                      Icons.check_circle,
+                                                      color: constants
+                                                          .primaryColor,
+                                                    )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Text(
+                                            symptom.description ??
+                                                "No description",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          )
                         ],
-                      ),
-                    );
-                  });
-            });
-      } else {
-        return SizedBox();
-      }
-    });
+                      );
+                    },
+                  ),
+                ),
+                BlocBuilder<SymptomsBloc, SymptomsState>(
+                  builder: (context, state) {
+                    if (state is SymptomsLoaded) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: constants.primaryColor,
+                          ),
+                          onPressed: () {
+                            final selectedSymptoms = state.selectedSymptoms;
+                            if (selectedSymptoms.isNotEmpty) {
+                              // getDoctor.search('dr');
+                              showModalBottomSheet(
+                                barrierColor: Colors.transparent,
+                                useSafeArea: true,
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) => const AllResults(),
+                              );
+                            }
+                          },
+                          child: Text('Continue'),
+                        ),
+                      );
+                    } else if (state is SymptomsLoading) {
+                      return Center(
+                          child: CupertinoActivityIndicator(
+                        radius: 30,
+                      ));
+                    } else if (state is SymptomsLoadingError) {
+                      return Center(
+                        child: Text(state.message),
+                      );
+                    } else {
+                      return Center(
+                        child: Text('Could not load symptoms'),
+                      );
+                    }
+                  },
+                ),
+              ],
+            );
+          } else {
+            return Center(child: Text('An unknown error'));
+          }
+        },
+      ),
+    );
   }
 }
 
-class ActiveSymptom extends ValueNotifier<List<Symptoms?>> {
-  ActiveSymptom(List<Symptoms> value) : super(value);
-
-  void addSymtom(Symptoms symptom) {
-    value.contains(symptom) ? value.remove(symptom) : value.add(symptom);
-    notifyListeners();
-  }
-}
+// symptom.symptoms!
+//                                           .map((s) => InkWell(
+//                                                 onTap: () {
+//                                                   BlocProvider.of<SymptomsBloc>(
+//                                                           context)
+//                                                       .add(SelectSymptom(
+//                                                           symptom: s));
+//                                                 },
+//                                                 child: SizedBox(
+//                                                   width: size.width * .95 / 2,
+//                                                   child: Padding(
+//                                                     padding:
+//                                                         const EdgeInsets.all(
+//                                                             5.0),
+//                                                     child: Stack(
+//                                                       children: [
+//                                                         Column(
+//                                                           crossAxisAlignment:
+//                                                               CrossAxisAlignment
+//                                                                   .start,
+//                                                           children: [
+//                                                             const Divider(
+//                                                               thickness: 2,
+//                                                               color: constants
+//                                                                   .primaryColor,
+//                                                             ),
+//                                                             Text(
+//                                                               s.symptom!,
+//                                                               style:
+//                                                                   const TextStyle(
+//                                                                 fontWeight:
+//                                                                     FontWeight
+//                                                                         .bold,
+//                                                                 color: constants
+//                                                                     .primaryColor,
+//                                                               ),
+//                                                             ),
+//                                                             const SizedBox(
+//                                                               height: 5,
+//                                                             ),
+//                                                             Text(
+//                                                                 s.description!),
+//                                                           ],
+//                                                         ),
+//                                                         BlocBuilder<
+//                                                             SymptomsBloc,
+//                                                             SymptomsState>(
+//                                                           builder:
+//                                                               (context, state) {
+//                                                             if (state
+//                                                                 is SymptomsLoaded) {
+//                                                               final selectedSymptoms =
+//                                                                   state
+//                                                                       .selectedSymptoms;
+//                                                               final isSelected =
+//                                                                   selectedSymptoms
+//                                                                       .contains(
+//                                                                           s.symptomID);
+//                                                               
+//                                                             } else {
+//                                                               return SizedBox();
+//                                                             }
+//                                                           },
+//                                                         ),
+//                                                       ],
+//                                                     ),
+//                                                   ),
+//                                                 ),
+//                                               ))
+//                                           .toList(),

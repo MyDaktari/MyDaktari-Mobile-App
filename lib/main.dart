@@ -35,6 +35,7 @@ import 'logic/cubit/otp_timer/otp_timer_cubit.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
 import 'logic/cubit/personal_info/personal_info_cubit.dart';
 import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
+import 'logic/cubit/symptoms/symptoms_cubit_cubit.dart';
 import 'logic/cubit/tab_update/tab_update_cubit.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
 import 'logic/cubit/user_type/user_type_cubit.dart';
@@ -135,6 +136,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<InfoPageUpdateCubit>(
               create: (context) => InfoPageUpdateCubit()),
           BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),
+          BlocProvider<SymptomsCubit>(create: (context) => SymptomsCubit()),
           BlocProvider<ScheduleCubit>(
             create: (context) => ScheduleCubit(daysOfWeek.map((day) {
               return DaySchedule(

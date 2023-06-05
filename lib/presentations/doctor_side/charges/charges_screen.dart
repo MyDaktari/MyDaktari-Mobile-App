@@ -9,11 +9,11 @@ import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
 
 class ChargesScreen extends StatelessWidget {
-  ChargesScreen({super.key});
+   ChargesScreen({super.key});
 
-  TextEditingController chatCotroller = TextEditingController();
-  TextEditingController phoneCotroller = TextEditingController();
-  TextEditingController videoCotroller = TextEditingController();
+  final TextEditingController chatCotroller = TextEditingController();
+  final TextEditingController phoneCotroller = TextEditingController();
+  final TextEditingController videoCotroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

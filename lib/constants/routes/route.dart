@@ -60,16 +60,6 @@ class AppRouter {
       case charges:
         return MaterialPageRoute(builder: (_) => ChargesScreen());
       case personalInfo:
-        return MaterialPageRoute(
-            builder: (context) => const PersonalDetailsScreen());
-      case profile:
-        return MaterialPageRoute(builder: (context) {
-          final userType = context.read<UserTypeCubit>().getUserType();
-          return ProfilePage(
-            userType: userType,
-            userData: DoctorModel(),
-          );
-        });
       case blogScreen:
         return MaterialPageRoute(
             builder: (_) => BlogScreen(blog: settings.arguments as BlogModel));

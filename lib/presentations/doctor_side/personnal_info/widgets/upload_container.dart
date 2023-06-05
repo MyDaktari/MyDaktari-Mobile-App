@@ -25,34 +25,21 @@ class UploadContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(
-              document,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(document,
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 12.0),
-            Text(
-              description,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
+            Text(description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 14, color: Colors.grey)),
             const SizedBox(height: 16.0),
             Container(
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(.09),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.add,
-                color: Colors.lightBlue,
-                size: 40.0,
-              ),
-            ),
+                decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(.09),
+                    shape: BoxShape.circle),
+                child:
+                    const Icon(Icons.add, color: Colors.lightBlue, size: 40.0)),
           ],
         ),
       ),

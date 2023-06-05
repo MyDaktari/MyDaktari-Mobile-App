@@ -50,6 +50,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   dotted_border: ^2.0.0+3
   cached_network_image: ^3.2.3
+  file_picker: ^5.3.1
+  mime: ^1.0.4
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"

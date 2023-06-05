@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -143,11 +145,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           onPressed: () {
                             final availability =
                                 <String, List<Map<String, String>>>{};
-
-                            final schedules =
-                                BlocProvider.of<ScheduleCubit>(context).state;
-
-                            for (final schedule in schedules) {
+                            // print(schedulesConstant.first.startTime);
+                            for (final schedule in schedulesConstant) {
                               final dayAbbreviated = schedule.day;
                               final dayFullName =
                                   dayFullNameMap[dayAbbreviated];
@@ -158,17 +157,29 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                 availability[dayFullName!] ??= [];
                                 availability[dayFullName]!
                                     .add({'start': start, 'end': end});
+                              } else {
+                                availability[dayFullName!] ??= [];
                               }
                             }
 
                             // Print the availability in the desired format
-                            // print('Availability: $availability');
+                            int formattedSelectedTime =
+                                int.parse(selectedTime.split(" ")[0]);
+                            // print(jsonEncode({
+                            //   "doctorId": int.parse(userId),
+                            //   "duration": selectedTime.contains("hrs")
+                            //       ? formattedSelectedTime * 60
+                            //       : formattedSelectedTime,
+                            //   "availability": availability,
+                            // }));
+
                             context
                                 .read<DoctorAvailabilityBloc>()
                                 .add(AddDoctorAvailability(
-                                  doctorId: 12,
-                                  duration:
-                                      int.parse(selectedTime.split(" ")[0]),
+                                  doctorId: int.parse(userId),
+                                  duration: selectedTime.contains("hrs")
+                                      ? formattedSelectedTime * 60
+                                      : formattedSelectedTime,
                                   availability: availability,
                                 ));
                             // Navigator.pushNamed(context, route.charges);

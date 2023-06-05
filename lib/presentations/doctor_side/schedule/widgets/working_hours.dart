@@ -45,7 +45,7 @@ class _ScheduleRowState extends State<ScheduleRow> {
         children: [
           BlocBuilder<ScheduleCubit, List<DaySchedule>>(
             builder: (context, schedules) {
-              print(schedules.first.startTime);
+              schedulesConstant = schedules;
               return Column(
                 children: [
                   for (final schedule in schedules)

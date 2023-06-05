@@ -58,6 +58,7 @@ class AppRouter {
       case charges:
         return MaterialPageRoute(builder: (_) => ChargesScreen());
       case personalInfo:
+        return MaterialPageRoute(builder: (_) => PersonalDetailsScreen());
       case blogScreen:
         return MaterialPageRoute(
             builder: (_) => BlogScreen(blog: settings.arguments as BlogModel));

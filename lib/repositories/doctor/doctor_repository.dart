@@ -56,12 +56,104 @@ class DoctorRepository extends BaseDoctorRepository {
     }
   }
 
+//   }
+//   {
+//   "doctorID": 12,
+//   "duration":20,//should be in minutes
+//   "availability": {
+//     "Monday": [
+//       {
+//         "start": "09:00",
+//         "end": "12:00"
+//       },
+//       {
+//         "start": "14:00",
+//         "end": "17:00"
+//       },
+//        {
+//         "start": "19:00",
+//         "end": "20:00"
+//       },
+//       {
+//         "start": "21:00",
+//         "end": "23:00"
+//       }
+//     ],
+//     "Tuesday": [
+//       {
+//         "start": "08:30",
+//         "end": "13:00"
+//       }
+//     ],
+//     "Wednesday": [
+//       {
+//         "start": "08:30",
+//         "end": "13:00"
+//       }
+//     ],
+//     "Thursday": [
+//       {
+//         "start": "09:00",
+//         "end": "12:00"
+//       },
+//       {
+//         "start": "14:00",
+//         "end": "17:00"
+//       }
+//     ],"Friday": [
+//       {
+//         "start": "09:00",
+//         "end": "12:00"
+//       },
+//       {
+//         "start": "14:00",
+//         "end": "17:00"
+//       },
+//        {
+//         "start": "19:00",
+//         "end": "20:00"
+//       },
+//       {
+//         "start": "21:00",
+//         "end": "23:00"
+//       }
+//     ],
+//     "Saturday": [
+//       {
+//         "start": "09:00",
+//         "end": "12:00"
+//       },
+//       {
+//         "start": "14:00",
+//         "end": "17:00"
+//       },
+//        {
+//         "start": "19:00",
+//         "end": "20:00"
+//       },
+//       {
+//         "start": "21:00",
+//         "end": "23:00"
+//       }
+//     ]
+//   }
+// }
+  String extractJsonFromWarning(String warningMessage) {
+    final regex = RegExp(r'{.*}');
+    final match = regex.firstMatch(warningMessage);
+    if (match != null) {
+      final jsonStr = match.group(0);
+      return jsonStr ?? '';
+    }
+    return '';
+  }
+
   //add charges.
   @override
   Future<String> addDoctorAvailability(
-      {required String doctorId,
-      required String duration,
-      required Map<String, dynamic> data}) async {
+      {required int doctorId,
+      required int duration,
+      required Map<String, List<Map<String, dynamic>>> data}) async {
     final response = await http.post(Uri.parse(addDoctorChargesUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
@@ -69,13 +161,14 @@ class DoctorRepository extends BaseDoctorRepository {
           "duration": duration, //should be in minutes
           "availability": data,
         }));
-    if (response.statusCode == 201) {
-      final jsonData = jsonDecode(response.body)['message'] as String;
+    final formattedData = jsonDecode(extractJsonFromWarning(response.body));
+    if (response.statusCode == 200) {
+      final jsonData = formattedData['message'] as String;
       final message = jsonData;
       return message;
     } else {
       // Error occurred while setting availability
-      throw Exception('Failed to set doctor availability');
+      throw Exception(formattedData["message"]);
     }
   }
 

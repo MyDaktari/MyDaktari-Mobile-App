@@ -43,8 +43,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
               children: [
                 Container(
                   padding: EdgeInsets.all(14),
-                  
-                  height: MediaQuery.of(context).size.height * .7,
+                  height: MediaQuery.of(context).size.height * .8,
                   child: ListView.builder(
                     itemCount: symptoms.length,
                     itemBuilder: (context, index) {

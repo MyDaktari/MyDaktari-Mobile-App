@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../../../repositories/doctor/doctor_repository.dart';
+import '../../../../repositories/doctor/doctor_repository.dart';
 
 part 'doctor_availability_event.dart';
 part 'doctor_availability_state.dart';
@@ -12,7 +12,7 @@ class DoctorAvailabilityBloc
   final DoctorRepository doctorRepository;
   DoctorAvailabilityBloc({required DoctorRepository doctorRepository})
       : doctorRepository = doctorRepository,
-        super(DoctorAvailabilityLoading()) {
+        super(DoctorAvailabilityInitial()) {
     on<AddDoctorAvailability>(_onAddDoctorAvailability);
     on<LoadDoctorAvailability>(_onLoadDoctorAvailability);
   }
@@ -32,7 +32,6 @@ class DoctorAvailabilityBloc
       Emitter<DoctorAvailabilityState> emit) async {
     emit(DoctorAvailabilityLoading());
     try {
-      print("Hellooooooooo");
       final result = await doctorRepository.addDoctorAvailability(
           doctorId: event.doctorId,
           duration: event.duration,

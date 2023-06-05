@@ -50,9 +50,7 @@ class _ScheduleRowState extends State<ScheduleRow> {
                 children: [
                   for (final schedule in schedules)
                     ScheduleItemWidget(
-                      schedule: schedule,
-                      timeIntervals: timeIntervals,
-                    ),
+                        schedule: schedule, timeIntervals: timeIntervals),
                 ],
               );
             },

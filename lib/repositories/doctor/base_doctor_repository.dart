@@ -5,7 +5,7 @@ import '../../models/models.dart';
 abstract class BaseDoctorRepository {
   Future<List<AppointmentModel>?> getDoctorAppointments(
       {required String doctorId}) async {}
-  Future<String?> addDoctorCharges(
+  Future<DoctorChargesModel?> addDoctorCharges(
       {required String doctorId,
       required String phoneCallCost,
       required String videoCallCost,

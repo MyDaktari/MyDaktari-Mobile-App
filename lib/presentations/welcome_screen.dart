@@ -20,8 +20,7 @@ class WelcomePage extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage(
-                        'https://www.safetyandhealthmagazine.com/ext/resources/images/news/healthcare/female-nurse.jpg?1494948091?1494948091'),
+                    image: AssetImage('assets/images/welcome.png'),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25),
@@ -32,14 +31,12 @@ class WelcomePage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'mydaktari',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                    child: Text('mydaktari',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
                   ),
                 ),
               ),

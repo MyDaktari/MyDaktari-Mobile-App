@@ -33,14 +33,13 @@ class ScheduleItemWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Switch(
-                    value: schedule.isEnabled,
-                    onChanged: (value) {
-                      final updatedSchedule =
-                          schedule.copyWith(isEnabled: value);
-                      updateScheduleState(updatedSchedule);
-                    },
-                    activeColor: primaryColor,
-                  ),
+                      value: schedule.isEnabled,
+                      onChanged: (value) {
+                        final updatedSchedule =
+                            schedule.copyWith(isEnabled: value);
+                        updateScheduleState(updatedSchedule);
+                      },
+                      activeColor: primaryColor),
                   const SizedBox(width: 8),
                   Text(schedule.day),
                 ],
@@ -69,7 +68,6 @@ class ScheduleItemWidget extends StatelessWidget {
                 onPressed: (selectedTime) {
                   final updatedSchedule =
                       schedule.copyWith(endTime: selectedTime);
-
                   updateScheduleState(updatedSchedule);
                 },
               ),
@@ -82,7 +80,8 @@ class ScheduleItemWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       // Add button pressed
-                      // scheduleCubit.addSchedule(schedule);
+                      BlocProvider.of<ScheduleCubit>(context)
+                          .addSchedule(schedule);
                     },
                     child: const Icon(Icons.add),
                   ),

@@ -27,7 +27,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         response.statusCode == 400) {
       throw Exception('Incorrect username or password');
     } else {
-      print(response.statusCode);
       throw Exception('Failed to login');
     }
   }
@@ -79,11 +78,15 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     final response = await http.post(Uri.parse('$loginDoctorUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
+
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      DoctorModel doctor = DoctorModel.fromJson(responseBody['doctor']);
-      preferences.setString('user', jsonEncode(responseBody['doctor']));
+
+      DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
+
+      preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
       return doctor;
     } else if (response.statusCode == 401 ||
@@ -117,7 +120,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         }));
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    print(response.body);
+
     if (response.statusCode == 201 || response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
@@ -130,7 +133,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     } else if (response.statusCode == 409) {
       throw Exception('Email already exist');
     } else {
-      print(response.statusCode);
       throw Exception('Failed to login');
     }
   }
@@ -171,8 +173,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     final response = await http.post(Uri.parse('$otpRequestUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"phone": phoneNumber}));
-
-    print(response.body);
     if (response.statusCode == 201 || response.statusCode == 200) {
       String message = jsonDecode(response.body)['message'];
       return message;

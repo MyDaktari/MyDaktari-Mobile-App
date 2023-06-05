@@ -20,7 +20,8 @@ import 'logic/bloc/blocs.dart';
 import 'logic/bloc/bodyparts_bloc/body_parts_bloc.dart';
 import 'logic/bloc/client/search_doctor/search_doctor_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
-import 'logic/bloc/doctor_bloc/doctor_availability/bloc/doctor_availability_bloc.dart';
+import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
+import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
 import 'logic/bloc/pharmacy/pharmacy_bloc.dart';
@@ -82,11 +83,9 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   DoctorPatientsBloc(doctorRepository: DoctorRepository())
                     ..add(LoadDoctorPatients(doctorId: userId))),
-
           BlocProvider<BlogBloc>(
               create: (context) =>
                   BlogBloc(blogRepository: BlogRepository())..add(LoadBlogs())),
-
           BlocProvider<SearchDoctorBloc>(
               create: (context) =>
                   SearchDoctorBloc(repository: ClientRepository())),
@@ -94,7 +93,6 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   PharmacyBloc(pharmacyRepository: PharmacyRepository())
                     ..add(LoadPharmacy())),
-
           BlocProvider<AmbulanceBloc>(
               create: (context) =>
                   AmbulanceBloc(ambulanceRepository: AmbulanceRepository())
@@ -112,9 +110,11 @@ class MyApp extends StatelessWidget {
                   AuthStatusBloc(authRepository: AuthenticationRepository())
                     ..add(CheckUserStatus())),
           BlocProvider<DoctorAvailabilityBloc>(
-            create: (context) =>
-                DoctorAvailabilityBloc(doctorRepository: DoctorRepository()),
-          ),
+              create: (context) =>
+                  DoctorAvailabilityBloc(doctorRepository: DoctorRepository())),
+          BlocProvider<DoctorChargesBloc>(
+              create: (context) =>
+                  DoctorChargesBloc(doctorRepository: DoctorRepository())),
 
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),

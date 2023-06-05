@@ -13,7 +13,6 @@ class DoctorRepository extends BaseDoctorRepository {
   Future<List<AppointmentModel>> getDoctorAppointments(
       {required String doctorId}) async {
     List<AppointmentModel> appointments = List.empty();
-    print('user:$userId');
     final response = await http.post(
       Uri.parse(doctorAppointmentsUrl),
       headers: {'Content-Type': 'application/json'},
@@ -56,88 +55,6 @@ class DoctorRepository extends BaseDoctorRepository {
     }
   }
 
-//   }
-//   {
-//   "doctorID": 12,
-//   "duration":20,//should be in minutes
-//   "availability": {
-//     "Monday": [
-//       {
-//         "start": "09:00",
-//         "end": "12:00"
-//       },
-//       {
-//         "start": "14:00",
-//         "end": "17:00"
-//       },
-//        {
-//         "start": "19:00",
-//         "end": "20:00"
-//       },
-//       {
-//         "start": "21:00",
-//         "end": "23:00"
-//       }
-//     ],
-//     "Tuesday": [
-//       {
-//         "start": "08:30",
-//         "end": "13:00"
-//       }
-//     ],
-//     "Wednesday": [
-//       {
-//         "start": "08:30",
-//         "end": "13:00"
-//       }
-//     ],
-//     "Thursday": [
-//       {
-//         "start": "09:00",
-//         "end": "12:00"
-//       },
-//       {
-//         "start": "14:00",
-//         "end": "17:00"
-//       }
-//     ],"Friday": [
-//       {
-//         "start": "09:00",
-//         "end": "12:00"
-//       },
-//       {
-//         "start": "14:00",
-//         "end": "17:00"
-//       },
-//        {
-//         "start": "19:00",
-//         "end": "20:00"
-//       },
-//       {
-//         "start": "21:00",
-//         "end": "23:00"
-//       }
-//     ],
-//     "Saturday": [
-//       {
-//         "start": "09:00",
-//         "end": "12:00"
-//       },
-//       {
-//         "start": "14:00",
-//         "end": "17:00"
-//       },
-//        {
-//         "start": "19:00",
-//         "end": "20:00"
-//       },
-//       {
-//         "start": "21:00",
-//         "end": "23:00"
-//       }
-//     ]
-//   }
-// }
   String extractJsonFromWarning(String warningMessage) {
     final regex = RegExp(r'{.*}');
     final match = regex.firstMatch(warningMessage);
@@ -158,8 +75,8 @@ class DoctorRepository extends BaseDoctorRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "doctorID": doctorId,
-          "duration": duration, //should be in minutes
-          "availability": data,
+          "duration": duration,
+          "availability": data
         }));
     // print(extractJsonFromWarning(response.body));
     final formattedData = jsonDecode(response.body);
@@ -175,7 +92,7 @@ class DoctorRepository extends BaseDoctorRepository {
 
   //add charges.
   @override
-  Future<String> addDoctorCharges(
+  Future<DoctorChargesModel> addDoctorCharges(
       {required String doctorId,
       required String phoneCallCost,
       required String videoCallCost,
@@ -188,11 +105,11 @@ class DoctorRepository extends BaseDoctorRepository {
           "videoCall": videoCallCost,
           "chat": chatCost
         }));
-    if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body)['message'] as String;
-      final message = jsonData;
-
-      return message;
+    if (response.statusCode == 201) {
+      final jsonData = jsonDecode(response.body);
+      DoctorChargesModel charges =
+          DoctorChargesModel.fromJson(jsonData['data']);
+      return charges;
     } else if (response.statusCode == 400 || response.statusCode == 409) {
       throw Exception('You already have these charges');
     } else {

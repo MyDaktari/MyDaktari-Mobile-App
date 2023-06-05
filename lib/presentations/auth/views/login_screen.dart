@@ -157,8 +157,7 @@ class LoginScreen extends StatelessWidget {
                                   builder: (context, state) {
                                     return state is AuthenticationLoading
                                         ? CupertinoActivityIndicator(
-                                            color: Colors.white,
-                                          )
+                                            color: Colors.white)
                                         : Text('Sign In',
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,

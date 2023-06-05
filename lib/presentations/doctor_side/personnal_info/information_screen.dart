@@ -18,7 +18,7 @@ class PersonalDetailsScreen extends StatefulWidget {
 class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   int _selectedIndex = 0;
 
-  final pages = [const Personal(), const Specialty(), const DocumentUpload()];
+  final pages = [Personal(), Specialty(), const DocumentUpload()];
 
   @override
   Widget build(BuildContext context) {

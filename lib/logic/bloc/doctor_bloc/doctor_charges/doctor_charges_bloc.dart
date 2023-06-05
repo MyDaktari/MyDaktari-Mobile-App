@@ -32,14 +32,12 @@ class DoctorChargesBloc extends Bloc<DoctorChargesEvent, DoctorChargesState> {
       SetDoctorCharges event, Emitter<DoctorChargesState> emit) async {
     emit(DoctorChargesLoading());
     try {
-      final message = await doctorRepository.addDoctorCharges(
-          doctorId: event.doctorId,
-          chatCost: event.chatCost,
-          videoCallCost: event.videoCallCost,
-          phoneCallCost: event.phoneCallCost);
-      print(message);
-      DoctorChargesModel charges =
-          await doctorRepository.getDoctorCharges(doctorId: event.doctorId);
+      final DoctorChargesModel charges =
+          await doctorRepository.addDoctorCharges(
+              doctorId: event.doctorId,
+              chatCost: event.chatCost,
+              videoCallCost: event.videoCallCost,
+              phoneCallCost: event.phoneCallCost);
       emit(DoctorChargesLoaded(charges: charges));
     } catch (error) {
       String errorMessage = error.toString().split(':').last;

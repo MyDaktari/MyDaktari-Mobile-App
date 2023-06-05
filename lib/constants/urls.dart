@@ -17,7 +17,7 @@ const String loginDoctorUrl =
     'https://mydoc.my-daktari.com/new_api/loginDoctor.php';
 const String doctorAppointmentsUrl =
     'https://mydoc.my-daktari.com/new_api/appointments.php';
-    const String addDoctorAvailabilityUrl =
+const String addDoctorAvailabilityUrl =
     'https://mydoc.my-daktari.com/new_api/addDoctorAvailability.php';
 const String addDoctorChargesUrl =
     'https://mydoc.my-daktari.com/new_api/addCharge.php';

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_availability/bloc/doctor_availability_bloc.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/clickable_times.dart';
-import 'package:my_daktari/presentations/doctor_side/schedule/widgets/schedule_screen_body.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/working_hours.dart';
 
 import '../../../constants/constants.dart';

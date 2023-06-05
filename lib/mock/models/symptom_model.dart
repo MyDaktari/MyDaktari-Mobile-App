@@ -27,18 +27,21 @@ class SymptomModel {
 class Symptoms {
   String? symptom;
   String? description;
+  int? symptomID;
 
-  Symptoms({this.symptom, this.description});
+  Symptoms({this.symptom, this.description, this.symptomID});
 
   Symptoms.fromJson(Map<String, dynamic> json) {
     symptom = json['symptom'];
     description = json['description'];
+    symptomID = json['symptomID'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['symptom'] = symptom;
     data['description'] = description;
+    data['symptomID'] = symptomID;
     return data;
   }
 }

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_availability/bloc/doctor_availability_bloc.dart';
-import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
+
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
+import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
 import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
+import 'package:my_daktari/repositories/symptoms/symptoms_repository.dart';
 import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
@@ -54,6 +55,10 @@ class MyApp extends StatelessWidget {
             create: (_) => AmbulanceRepository()),
         RepositoryProvider<PharmacyRepository>(
             create: (_) => PharmacyRepository()),
+        RepositoryProvider<BodyPartsRepository>(
+            create: (_) => BodyPartsRepository()),
+        RepositoryProvider<SymptomsRepository>(
+            create: (_) => SymptomsRepository())
       ],
       child: MultiBlocProvider(
         providers: [
@@ -90,6 +95,13 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   AmbulanceBloc(ambulanceRepository: AmbulanceRepository())
                     ..add(LoadAmbulances())),
+          BlocProvider<BodyPartsBloc>(
+              create: (context) =>
+                  BodyPartsBloc(bodyPartsRepository: BodyPartsRepository())
+                    ..add(LoadBodyParts())),
+          BlocProvider<SymptomsBloc>(
+              create: (context) =>
+                  SymptomsBloc(symptomsRepository: SymptomsRepository())),
           //authentication status
           BlocProvider<AuthStatusBloc>(
               create: (context) =>

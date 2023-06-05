@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
-import 'package:my_daktari/mock/models/doctor_model.dart';
+
 import 'package:my_daktari/models/appointment.dart';
 import 'package:my_daktari/models/blog.dart';
 import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
@@ -20,7 +18,7 @@ import '../../presentations/client_side/homeTab/views/symptomChecker/symptom_che
 import '../../presentations/doctor_side/charges/charges_screen.dart';
 import '../../presentations/doctor_side/personnal_info/information_screen.dart';
 import '../../presentations/landing_screen.dart';
-import '../../presentations/profileTab/views/profile_page.dart';
+
 import '../../presentations/welcome_screen.dart';
 
 const String signUpScreen = 'authPage';
@@ -79,6 +77,10 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => SymptomSamples(
                 bodyPartNotifier: settings.arguments as BodyPartNotifier));
+
+      case profile:
+        return MaterialPageRoute(builder: (context) => PersonalDetailsScreen());
+
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

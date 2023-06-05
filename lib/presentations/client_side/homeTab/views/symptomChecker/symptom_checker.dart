@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/bodyparts_bloc/body_parts_bloc.dart';
 import 'package:my_daktari/logic/bloc/symptoms_bloc/symptoms_bloc.dart';
@@ -88,16 +91,31 @@ class SymptomChecker extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor),
                             onPressed: () {
+                              print(jsonEncode({
+                                "bodyParts": _bodyPart,
+                                "symptoms": _symptomsController.text.trim()
+                              }));
                               context.read<SymptomsBloc>().add(
                                       LoadSymptoms(query: {
                                     "bodyParts": _bodyPart,
                                     "symptoms": _symptomsController.text.trim()
                                   }));
-                              Navigator.pushNamed(
-                                  context, routes.symptomSamples,
-                                  arguments: _bodyPartNotifier);
                             },
-                            child: Text('Continue')),
+                            child: BlocListener<SymptomsBloc, SymptomsState>(
+                              listener: (context, state) {
+                                if (state is SymptomsLoaded) {
+                                  print(_bodyPartNotifier);
+                                  Fluttertoast.showToast(
+                                      msg: 'Symptoms loaded successfully');
+                                  Navigator.pushNamed(
+                                    context,
+                                    routes.symptomSamples,
+                                    arguments: _bodyPartNotifier,
+                                  );
+                                }
+                              },
+                              child: Text('Continue'),
+                            )),
                         const SizedBox(
                           height: 15,
                         ),

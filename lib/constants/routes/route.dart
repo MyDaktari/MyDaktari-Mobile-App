@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
+import 'package:my_daktari/mock/models/doctor_model.dart';
 import 'package:my_daktari/models/appointment.dart';
 import 'package:my_daktari/models/blog.dart';
 import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
@@ -17,6 +20,7 @@ import '../../presentations/client_side/homeTab/views/symptomChecker/symptom_che
 import '../../presentations/doctor_side/charges/charges_screen.dart';
 import '../../presentations/doctor_side/personnal_info/information_screen.dart';
 import '../../presentations/landing_screen.dart';
+import '../../presentations/profileTab/views/profile_page.dart';
 import '../../presentations/welcome_screen.dart';
 
 const String signUpScreen = 'authPage';
@@ -34,6 +38,7 @@ const String doctorProfile = 'doctorProfile';
 const String symptomChecker = 'symptomChecker';
 const String symptomSamples = 'symptomSamples';
 const String appointmentDetails = 'appointmentDetails';
+const String profile = "profile";
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -57,6 +62,14 @@ class AppRouter {
       case personalInfo:
         return MaterialPageRoute(
             builder: (context) => const PersonalDetailsScreen());
+      case profile:
+        return MaterialPageRoute(builder: (context) {
+          final userType = context.read<UserTypeCubit>().getUserType();
+          return ProfilePage(
+            userType: userType,
+            userData: DoctorModel(),
+          );
+        });
       case blogScreen:
         return MaterialPageRoute(
             builder: (_) => BlogScreen(blog: settings.arguments as BlogModel));

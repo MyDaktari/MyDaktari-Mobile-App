@@ -8,10 +8,11 @@ class SymptomsRepository {
     List<SymptomModel> symptoms = List.empty();
     final response = await http.post(
         Uri.parse('https://mydoc.my-daktari.com/new_api/reportSymptoms.php'),
-        headers: {'Content-Type': 'application/json'});
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(query));
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
-      print(jsonData);
+
       symptoms =
           jsonData.map((symptom) => SymptomModel.fromJson(symptom)).toList();
       return symptoms;

@@ -55,20 +55,18 @@ class HomePage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12),
                               child: Visibility(
                                 visible: userState.userType == UserType.client,
-                                child: Expanded(
-                                  child: const TextField(
-                                    decoration: InputDecoration(
-                                        hintText:
-                                            'Search symptoms, medication, news...',
-                                        hintStyle: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            letterSpacing: 1),
-                                        border: InputBorder.none,
-                                        filled: true,
-                                        fillColor:
-                                            Color.fromARGB(255, 224, 224, 224)),
-                                  ),
+                                child: const TextField(
+                                  decoration: InputDecoration(
+                                      hintText:
+                                          'Search symptoms, medication, news...',
+                                      hintStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                          letterSpacing: 1),
+                                      border: InputBorder.none,
+                                      filled: true,
+                                      fillColor:
+                                          Color.fromARGB(255, 224, 224, 224)),
                                 ),
                               ),
                             );

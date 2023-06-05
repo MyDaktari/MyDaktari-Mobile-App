@@ -13,3 +13,10 @@ class LoadSymptoms extends SymptomsEvent {
   @override
   List<Object> get props => [query];
 }
+
+class SelectSymptom extends SymptomsEvent {
+  final Symptoms symptom;
+  const SelectSymptom({required this.symptom});
+  @override
+  List<Object> get props => [symptom];
+}

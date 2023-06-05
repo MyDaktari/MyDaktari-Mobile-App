@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 
 part 'personal_info_state.dart';
 
@@ -12,8 +13,8 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
             experience: 0,
             location: '',
             specialty: '',
-            nationalId: File(''),
-            profilePicture: File('')));
+            nationalId: PlatformFile(name: '', size: 0),
+            profilePicture: PlatformFile(name: '', size: 0)));
 
   void updatePersonalInfo({
     required String specialty,
@@ -29,7 +30,8 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
   }
 
   void updatePersonalFile(
-      {required File profilePicture, required File nationalId}) {
+      {required PlatformFile profilePicture,
+      required PlatformFile nationalId}) {
     emit(
         state.copyWith(profilePicture: profilePicture, nationalId: nationalId));
   }

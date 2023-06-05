@@ -4,7 +4,7 @@ class PersonalInfoState extends Equatable {
   final String specialty, careerOverview;
   final int experience;
   final String location;
-  final File profilePicture, nationalId;
+  final PlatformFile profilePicture, nationalId;
   PersonalInfoState({
     required this.specialty,
     required this.experience,
@@ -18,8 +18,8 @@ class PersonalInfoState extends Equatable {
     String? carrerOverview,
     int? experience,
     String? location,
-    File? profilePicture,
-    File? nationalId,
+    PlatformFile? profilePicture,
+    PlatformFile? nationalId,
   }) {
     return PersonalInfoState(
         specialty: specialty ?? this.specialty,

@@ -15,8 +15,7 @@ class AppointmentTab extends StatelessWidget {
             itemCount: list.length,
             itemBuilder: (context, index) {
               return DoctorAppointmentCard(
-                doctorAppointment: list.elementAt(index),
-              );
+                  doctorAppointment: list.elementAt(index));
             })
         : Center(
             child: Column(
@@ -24,13 +23,13 @@ class AppointmentTab extends StatelessWidget {
             children: [
               Text('You\'ve got nothing yet'),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.pushReplacementNamed(context, route.personalInfo);
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                child: Text('Complete your profile'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     Navigator.pushReplacementNamed(context, route.personalInfo);
+              //   },
+              //   style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+              //   child: Text('Complete your profile'),
+              // ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {

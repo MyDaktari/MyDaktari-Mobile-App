@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/logic/bloc/bodyparts_bloc/body_parts_bloc.dart';
-import 'package:my_daktari/logic/bloc/symptoms_bloc/symptoms_bloc.dart';
+
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
@@ -23,6 +22,7 @@ import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
 import 'logic/bloc/pharmacy/pharmacy_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
+import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
 import 'logic/cubit/otp_timer/otp_timer_cubit.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
 import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
@@ -107,6 +107,10 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   AuthStatusBloc(authRepository: AuthenticationRepository())
                     ..add(CheckUserStatus())),
+          BlocProvider<DoctorAvailabilityBloc>(
+            create: (context) =>
+                DoctorAvailabilityBloc(doctorRepository: DoctorRepository()),
+          ),
 
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
@@ -118,6 +122,18 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpTimerCubit>(create: (context) => OtpTimerCubit()),
           BlocProvider<PageUpdateCubit>(create: (context) => PageUpdateCubit()),
           BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),
+          BlocProvider<ScheduleCubit>(
+            create: (context) => ScheduleCubit(
+              daysOfWeek.map((day) {
+                return DaySchedule(
+                  day: day,
+                  isEnabled: true,
+                  startTime: timeIntervals.first,
+                  endTime: timeIntervals.first,
+                );
+              }).toList(),
+            ),
+          ),
         ],
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(

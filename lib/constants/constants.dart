@@ -64,3 +64,13 @@ final List<String> timeIntervals = [
   '4:00 PM',
   '5:00 PM'
 ];
+
+final dayFullNameMap = {
+  'Mon': 'Monday',
+  'Tue': 'Tuesday',
+  'Wed': 'Wednesday',
+  'Thur': 'Thursday',
+  'Fri': 'Friday',
+  'Sat': 'Saturday',
+  'Sun': 'Sunday',
+};

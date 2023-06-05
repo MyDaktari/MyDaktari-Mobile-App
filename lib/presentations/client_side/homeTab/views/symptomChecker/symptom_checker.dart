@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/bodyparts_bloc/body_parts_bloc.dart';
 import 'package:my_daktari/logic/bloc/symptoms_bloc/symptoms_bloc.dart';
-import 'package:my_daktari/mock/models/symptom_model.dart';
-import 'package:my_daktari/mock/symptoms/symptoms.dart' as s;
 import 'package:my_daktari/constants/routes/route.dart' as routes;
 
 class SymptomChecker extends StatelessWidget {

@@ -154,14 +154,15 @@ class DoctorRepository extends BaseDoctorRepository {
       {required int doctorId,
       required int duration,
       required Map<String, List<Map<String, dynamic>>> data}) async {
-    final response = await http.post(Uri.parse(addDoctorChargesUrl),
+    final response = await http.post(Uri.parse(addDoctorAvailabilityUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "doctorID": doctorId,
           "duration": duration, //should be in minutes
           "availability": data,
         }));
-    final formattedData = jsonDecode(extractJsonFromWarning(response.body));
+    // print(extractJsonFromWarning(response.body));
+    final formattedData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       final jsonData = formattedData['message'] as String;
       final message = jsonData;

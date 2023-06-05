@@ -4,7 +4,6 @@ import 'package:my_daktari/presentations/doctor_side/schedule/widgets/time_dropd
 
 import '../../../../constants/constants.dart';
 
-
 import '../../../../logic/cubit/doctor_schedules/doctor_schedule.dart';
 import '../models/dayschedule.dart';
 
@@ -70,6 +69,7 @@ class ScheduleItemWidget extends StatelessWidget {
                 onPressed: (selectedTime) {
                   final updatedSchedule =
                       schedule.copyWith(endTime: selectedTime);
+
                   updateScheduleState(updatedSchedule);
                 },
               ),

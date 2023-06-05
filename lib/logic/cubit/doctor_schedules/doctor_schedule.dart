@@ -21,6 +21,8 @@ class ScheduleCubit extends Cubit<List<DaySchedule>> {
       final updatedSchedule = state[index].copyWith(
         startTime: schedule.startTime,
         endTime: schedule.endTime,
+        isEnabled: schedule.isEnabled,
+        day: schedule.day,
       );
       state[index] = updatedSchedule;
       emit(List.from(state));

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/bloc/symptoms_bloc/symptoms_bloc.dart';
 import 'package:my_daktari/mock/models/symptom_model.dart';
-import 'package:my_daktari/mock/symptoms/symptoms.dart';
 import 'package:my_daktari/constants/constants.dart' as constants;
 import 'package:provider/provider.dart';
 

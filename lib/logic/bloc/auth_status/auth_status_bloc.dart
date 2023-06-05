@@ -20,19 +20,34 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
   void _onCheckUserStatus(
       CheckUserStatus event, Emitter<AuthStatusState> emit) async {
     emit(AuthStatusLoding());
+    bool profileCompleted = false;
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
+      print(response);
       if (response['user'] != null && response['userType'] != null) {
         if (response['userType'] == UserType.client) {
           userId = (response['user'] as ClientModel).userID.toString();
           userPhoneNumber = (response['user'] as ClientModel).phone.toString();
+          emit(UserAuthenticated(
+              user: response['user'], userType: response['userType']));
         } else {
-          userId = (response['user'] as DoctorModel).id.toString();
-          userPhoneNumber = (response['user'] as DoctorModel).phone.toString();
+          try {
+            userId = (response['user'] as DoctorModel).id.toString();
+            doctor = response['user'] as DoctorModel;
+            profileCompleted = bool.parse(response['profileCompleted']);
+            userPhoneNumber =
+                (response['user'] as DoctorModel).phone.toString();
+          } catch (e) {
+            print(e.toString());
+          }
+          print('6666');
+          emit(UserAuthenticated(
+              user: response['user'],
+              userType: response['userType'],
+              profileCompleted: profileCompleted));
         }
-        emit(UserAuthenticated(
-            user: response['user'], userType: response['userType']));
       } else {
+        print('4');
         userId = '';
         emit(UserUnauthenticated());
       }

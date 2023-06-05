@@ -60,6 +60,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       ClientModel client = ClientModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.client.name);
+
       userPhoneNumber = client.phone!;
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
@@ -83,11 +84,11 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
-
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
+      preferences.setString(
+          'profileCompleted', jsonEncode(responseBody['profile_completed']));
       return doctor;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -126,6 +127,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
+      preferences.setString(
+          'profileCompleted', jsonEncode(responseBody['profile_completed']));
       userPhoneNumber = doctor.phone!;
       return doctor;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
@@ -143,6 +146,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? userFromPrefs = preferences.getString('user');
     String? userTypeFromPrefs = preferences.getString('userType');
+    String? profileCompletedFromPrefs =
+        preferences.getString('profileCompleted');
     dynamic user;
 
     if (userTypeFromPrefs != null) {
@@ -159,9 +164,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       }
       return {
         'user': user,
+        'profileCompleted': profileCompletedFromPrefs,
         'userType': (userTypeFromPrefs == UserType.client.name)
             ? UserType.client
-            : UserType.doctor,
+            : UserType.doctor
       };
     } else {
       throw Exception('User Not Authenticated');

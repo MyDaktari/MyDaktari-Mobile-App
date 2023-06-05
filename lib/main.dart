@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/constants/enums.dart';
+import 'package:provider/provider.dart';
+
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
-
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
 import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
 import 'package:my_daktari/repositories/symptoms/symptoms_repository.dart';
-import 'package:provider/provider.dart';
 
 import './constants/theme/app_theme.dart';
 import './mock/service/get_doctor_service.dart';
@@ -28,8 +29,11 @@ import 'logic/bloc/pharmacy/pharmacy_bloc.dart';
 import 'logic/bloc/symptoms_bloc/symptoms_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
+import 'logic/cubit/file_name/file_name_cubit.dart';
+import 'logic/cubit/infor_page_update/info_page_update_cubit.dart';
 import 'logic/cubit/otp_timer/otp_timer_cubit.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
+import 'logic/cubit/personal_info/personal_info_cubit.dart';
 import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 import 'logic/cubit/tab_update/tab_update_cubit.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
@@ -118,6 +122,9 @@ class MyApp extends StatelessWidget {
 
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+          BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),
+          BlocProvider<PersonalInfoCubit>(
+              create: (context) => PersonalInfoCubit()),
           BlocProvider<DropChargesCubit>(
               create: (context) => DropChargesCubit()),
           BlocProvider<SignUpHelperCubit>(
@@ -125,18 +132,17 @@ class MyApp extends StatelessWidget {
           BlocProvider<TabUpdateCubit>(create: (context) => TabUpdateCubit()),
           BlocProvider<OtpTimerCubit>(create: (context) => OtpTimerCubit()),
           BlocProvider<PageUpdateCubit>(create: (context) => PageUpdateCubit()),
+          BlocProvider<InfoPageUpdateCubit>(
+              create: (context) => InfoPageUpdateCubit()),
           BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),
           BlocProvider<ScheduleCubit>(
-            create: (context) => ScheduleCubit(
-              daysOfWeek.map((day) {
-                return DaySchedule(
+            create: (context) => ScheduleCubit(daysOfWeek.map((day) {
+              return DaySchedule(
                   day: day,
                   isEnabled: true,
                   startTime: timeIntervals.first,
-                  endTime: timeIntervals.first,
-                );
-              }).toList(),
-            ),
+                  endTime: timeIntervals.first);
+            }).toList()),
           ),
         ],
         child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -154,6 +160,10 @@ class MyApp extends StatelessWidget {
             },
             builder: (context, authState) {
               if (authState is UserAuthenticated) {
+                print('**********************');
+                print(authState.profileCompleted);
+                print(authState.userType);
+                print('**********************');
                 return BlocBuilder<ThemeCubit, ThemeState>(
                   builder: (context, state) {
                     return MaterialApp(
@@ -162,7 +172,11 @@ class MyApp extends StatelessWidget {
                         theme: AppTheme().lightTheme,
                         themeMode: state.themeMode,
                         onGenerateRoute: route.AppRouter.generateRoute,
-                        initialRoute: route.homePage);
+                        initialRoute: authState.userType == UserType.client
+                            ? route.homePage
+                            : authState.profileCompleted
+                                ? route.homePage
+                                : route.personalInfo);
                   },
                 );
               } else {

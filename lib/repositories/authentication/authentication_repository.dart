@@ -213,18 +213,19 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     bool logUerOut = await preferences.remove('user');
     return deleteUseType && logUerOut;
   }
+
   @override
-  Future<String> sendToken({required email}) async {
+  Future<String> sendResetToken({required email}) async {
     final response = await http.post(
       Uri.parse(resetPasswordUrl),
       body: jsonEncode(
-        {"email": email, "send_token": true},
+        {"email": email},
       ),
     );
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['message'];
       return jsonData;
-    } else if (response.statusCode == 401 || response.statusCode == 422) {
+    } else if (response.statusCode == 401 || response.statusCode == 400) {
       throw Exception(jsonDecode(response.body)['message']);
     } else {
       throw Exception(

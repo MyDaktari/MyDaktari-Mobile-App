@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/logic/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:my_daktari/constants/constants.dart';
@@ -80,6 +81,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpBloc>(
               create: (context) =>
                   OtpBloc(authRepository: AuthenticationRepository())),
+           BlocProvider<ForgotPasswordBloc>(
+              create: (context) =>
+                  ForgotPasswordBloc(authenticationRepository: AuthenticationRepository())),
           BlocProvider<DoctorAppointmentsBloc>(
               create: (context) =>
                   DoctorAppointmentsBloc(doctorRepository: DoctorRepository())

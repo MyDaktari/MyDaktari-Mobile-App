@@ -4,7 +4,7 @@ import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/presentations/widgets/scroll_behavior.dart';
 
-import '../../../../logic/bloc/blog/blog_bloc.dart';
+import '../../../../logic/bloc/client_bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '../widgets/blog_card.dart';
 import '../widgets/grid_item.dart';

@@ -1,5 +1,6 @@
 class DoctorModel {
   String? name;
+  String? id;
   String? speciality;
   int? experienceYears;
   String? institution;
@@ -9,6 +10,10 @@ class DoctorModel {
   String? overview;
   Charges? charges;
   OpeningHours? openingHours;
+
+  String? lat;
+
+  String? lng;
 
   DoctorModel(
       {this.name,
@@ -38,6 +43,18 @@ class DoctorModel {
         ? OpeningHours.fromJson(json['opening_hours'])
         : null;
   }
+
+  String? get profile_completed => null;
+
+  String? get email => null;
+
+  String? get phone => null;
+
+  String? get dob => null;
+
+  String? get gender => null;
+
+  String? get description => null;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

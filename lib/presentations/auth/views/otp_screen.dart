@@ -138,7 +138,7 @@ class OtpScreen extends StatelessWidget {
                                   .read<AuthStatusBloc>()
                                   .add(CheckUserStatus());
                               Navigator.pushReplacementNamed(
-                                  context, route.homePage);
+                                  context, route.homeScreen);
                             }
                           }
                           if (state is OtpLoadingError) {

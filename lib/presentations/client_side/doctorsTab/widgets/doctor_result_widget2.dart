@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/models/models.dart';
 
-import '/mock/models/doctor_model.dart';
 import '../../../../constants/routes/route.dart' as route;
 
 class DoctorResultWidget2 extends StatelessWidget {
-  const DoctorResultWidget2({
-    super.key,
-    required this.doctor,
-  });
+  const DoctorResultWidget2({super.key, required this.doctor});
 
-  final DoctorModel doctor;
+  final DoctorProfileModel doctor;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +36,7 @@ class DoctorResultWidget2 extends StatelessWidget {
               ),
               Text(
                   '${doctor.experienceYears?.toString() ?? ''} Years Experience | 12.7 Km'),
-              Text(doctor.institution ?? ''),
+              Text(doctor.speciality ?? ''),
               Container(
                 height: 20,
                 width: 40,

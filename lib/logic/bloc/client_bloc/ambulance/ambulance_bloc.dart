@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../models/ambulance.dart';
-import '../../../repositories/ambulance/ambulance_repository.dart';
+import 'package:my_daktari/models/ambulance.dart';
+import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 
 part 'ambulance_event.dart';
 part 'ambulance_state.dart';

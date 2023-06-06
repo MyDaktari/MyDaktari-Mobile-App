@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -76,7 +78,7 @@ class DocumentUpload extends StatelessWidget {
                   onPressed: () {
                     if (fileNameCubit.state.certificate.isNotEmpty &&
                         fileNameCubit.state.nationalId.isNotEmpty) {
-                      Navigator.pushNamed(context, route.homePage);
+                      Navigator.pushNamed(context, route.homeScreen);
                     } else {
                       Fluttertoast.showToast(msg: 'Kindly upload both files');
                     }

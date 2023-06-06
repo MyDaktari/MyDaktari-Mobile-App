@@ -77,7 +77,7 @@ class _ScheduleTimesState extends State<ScheduleTimes> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 20),
-        const ScheduleRow()
+         ScheduleRow()
       ],
     );
   }

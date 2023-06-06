@@ -1,6 +1,6 @@
 // authentication urls
 const String resetPasswordUrl =
-    'https://mydoc.my-daktari.com/new_api/api_reset_password.php';
+    'https://mydoc.my-daktari.com/new_api/forgotPasswordDoctor.php';
 
 //Client Urls
 const String registerClientUrl =

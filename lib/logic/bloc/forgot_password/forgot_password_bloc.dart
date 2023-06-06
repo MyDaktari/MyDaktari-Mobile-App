@@ -13,10 +13,10 @@ class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
   final AuthenticationRepository _authenticationRepository;
   ForgotPasswordBloc({
-    required AuthenticationRepository userRepository,
-  })  : _authenticationRepository = userRepository,
+    required AuthenticationRepository authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
         super(ForgotPasswordInitial()) {
-    on<SendTokenEvent>(_sendToken);
+    on<SendResetTokenEvent>(_sendResetToken);
     on<ResendTokenEvent>(_resendToken);
     on<ResetPasswordEvent>(_resetPassword);
   }
@@ -24,10 +24,16 @@ class ForgotPasswordBloc
     emit(ForgotPasswordInitial());
   }
 
-  void _sendToken(SendTokenEvent event, Emitter emit) async {
+  void _sendResetToken(SendResetTokenEvent event, Emitter emit) async {
     emit(ForgotPasswordLoading());
     try {
-      final data = await _authenticationRepository.sendToken(
+      if (event.email.isEmpty) {
+        Fluttertoast.showToast(
+          msg: 'Enter an email address',
+        );
+        return emit(ErrorState(message: 'Fill out the email'));
+      }
+      final data = await _authenticationRepository.sendResetToken(
         email: event.email,
       );
 

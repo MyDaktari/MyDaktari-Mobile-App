@@ -24,7 +24,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('Uppppppppppppppppppppppp');
 
     return Scaffold(
       appBar: AppBar(elevation: 0, backgroundColor: primaryColor),
@@ -103,7 +102,10 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed(route.resetPassword);
+                                  },
                                   child: Text('Forgot password ?'))
                             ]),
                         Padding(

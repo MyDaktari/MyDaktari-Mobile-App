@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:my_daktari/constants/constants.dart';
@@ -80,17 +81,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpBloc>(
               create: (context) =>
                   OtpBloc(authRepository: AuthenticationRepository())),
-          BlocProvider<AuthStatusBloc>(
-              create: (context) =>
-                  AuthStatusBloc(authRepository: AuthenticationRepository())
-                    ..add(CheckUserStatus())),
-          //doctors
-          BlocProvider<DoctorAvailabilityBloc>(
-              create: (context) =>
-                  DoctorAvailabilityBloc(doctorRepository: DoctorRepository())),
-          BlocProvider<DoctorChargesBloc>(
-              create: (context) =>
-                  DoctorChargesBloc(doctorRepository: DoctorRepository())),
+
           BlocProvider<DoctorAppointmentsBloc>(
               create: (context) =>
                   DoctorAppointmentsBloc(doctorRepository: DoctorRepository())

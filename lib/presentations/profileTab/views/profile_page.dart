@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/enums.dart';
 
 import '../../../models/client.dart';
 import '../../../models/doctor.dart';
 
 class ProfilePage extends StatelessWidget {
-  final UserType userType;
-  final dynamic userData;
-
-  ProfilePage({required this.userType, required this.userData});
+  ProfilePage();
 
   @override
   Widget build(BuildContext context) {
@@ -17,43 +15,52 @@ class ProfilePage extends StatelessWidget {
         title: Text(
           'Profile',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
         ),
-        backgroundColor: Colors.blue,
         elevation: 0,
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  userType == UserType.client
-                      ? 'Client Profile'
-                      : 'Doctor Profile',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
+      body: BlocBuilder<AuthStatusBloc, AuthStatusState>(
+        builder: (context, state) {
+          if (state is UserAuthenticated) {
+            final userType = state.userType;
+            final userData = state.user;
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Text(
+                        userType == UserType.client
+                            ? 'Client Profile'
+                            : 'Doctor Profile',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                    buildProfileFields(userType, userData),
+                  ],
                 ),
               ),
-              buildProfileFields(),
-            ],
-          ),
-        ),
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
 
-  Widget buildProfileFields() {
+  Widget buildProfileFields(UserType userType, dynamic userData) {
     if (userType == UserType.client && userData is ClientModel) {
       final client = userData as ClientModel;
       return Column(

@@ -84,7 +84,7 @@ class WelcomePage extends StatelessWidget {
                         context
                             .read<UserTypeCubit>()
                             .switchToUser(userType: UserType.client);
-                        Navigator.pushNamed(context, route.homePage);
+                        Navigator.pushNamed(context, route.homeScreen);
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,

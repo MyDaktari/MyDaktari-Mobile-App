@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/logic/bloc/symptoms_bloc/symptoms_bloc.dart';
 import 'package:my_daktari/constants/constants.dart' as constants;
 
+import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
 import '../../../../../mock/models/symptom_model.dart';
 import '../../../../widgets/custom_loading.dart';
-import '../../../doctorsTab/views/all_results.dart';
-import 'symptom_checker.dart';
+import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'symptom_checker_Screen.dart';
 
 class SymptomSamples extends StatefulWidget {
   SymptomSamples({required this.bodyPartNotifier});
@@ -40,10 +39,8 @@ class _SymptomSamplesState extends State<SymptomSamples> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  Text(
-                    'Click on one or more of the options',
-                    style: TextStyle(),
-                  ),
+                  Text('Click on one or more of the options',
+                      style: TextStyle()),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 1),
                     height: MediaQuery.of(context).size.height * .8,
@@ -55,13 +52,9 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                             Text(
                               symptoms[index].bodyPart as String,
                               style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             Wrap(
                               alignment: WrapAlignment.start,
                               children:
@@ -69,7 +62,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                 final isSelected = context
                                     .read<SymptomsCubit>()
                                     .selected(symptom);
-                                print(isSelected);
+
                                 return Container(
                                   width: (size.width) * .49,
                                   height: 200,
@@ -90,29 +83,23 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  symptom.symptom ?? "No title",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: constants
-                                                          .primaryColor),
-                                                ),
-                                                isSelected
-                                                    ? Icon(
-                                                        Icons.check_circle,
+                                                    symptom.symptom ??
+                                                        "No title",
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                         color: constants
-                                                            .primaryColor,
-                                                      )
-                                                    : Icon(
-                                                        Icons
-                                                            .check_circle_outline,
-                                                      )
+                                                            .primaryColor)),
+                                                isSelected
+                                                    ? Icon(Icons.check_circle,
+                                                        color: constants
+                                                            .primaryColor)
+                                                    : Icon(Icons
+                                                        .check_circle_outline)
                                               ],
                                             ),
-                                            SizedBox(
-                                              height: 30,
-                                            ),
+                                            SizedBox(height: 30),
                                             Text(
                                               symptom.description ??
                                                   "No description",
@@ -150,34 +137,19 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                             onPressed: selectedSymptoms.isEmpty
                                 ? null
                                 : () {
-                                    if (selectedSymptoms.isNotEmpty) {
-                                      // getDoctor.search('dr');
-                                      showModalBottomSheet(
-                                        barrierColor: Colors.transparent,
-                                        useSafeArea: true,
-                                        context: context,
-                                        isScrollControlled: true,
-                                        builder: (context) =>
-                                            const AllResults(),
-                                      );
-                                    }
+                                    // getDoctor.search('dr');
+                                    Navigator.pushNamed(
+                                        context, route.doctorBySymptomsScreen);
                                   },
                             child: Text('Continue'),
                           ),
                         );
                       } else if (state is SymptomsLoading) {
-                        return Center(
-                            child: CupertinoActivityIndicator(
-                          radius: 30,
-                        ));
+                        return CustomLoading();
                       } else if (state is SymptomsLoadingError) {
-                        return Center(
-                          child: Text(state.message),
-                        );
+                        return Center(child: Text(state.message));
                       } else {
-                        return Center(
-                          child: Text('Could not load symptoms'),
-                        );
+                        return Center(child: Text('Could not load symptoms'));
                       }
                     },
                   ),

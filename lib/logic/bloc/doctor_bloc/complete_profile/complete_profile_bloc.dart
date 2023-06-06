@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../repositories/doctor/doctor_repository.dart';
+import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 
 part 'complete_profile_event.dart';
 part 'complete_profile_state.dart';

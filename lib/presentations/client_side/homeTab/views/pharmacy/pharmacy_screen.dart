@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/pharmacy/pharmacy_card.dart';
 
-import '../../../../../logic/bloc/pharmacy/pharmacy_bloc.dart';
+import '../../../../../logic/bloc/client_bloc/pharmacy/pharmacy_bloc.dart';
 
 class PharmacyScreen extends StatelessWidget {
   const PharmacyScreen({super.key});

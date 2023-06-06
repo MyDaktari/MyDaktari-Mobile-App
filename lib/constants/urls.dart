@@ -9,6 +9,8 @@ const String reportSymptomsUrl =
     'https://mydoc.my-daktari.com/new_api/reportSymptoms.php';
 const String showDoctorsBySymptomsUrl =
     'https://mydoc.my-daktari.com/new_api/showDoctorsFromSymptoms.php';
+const String getDoctorAvailabilityUrl =
+    'https://mydoc.my-daktari.com/new_api/showDrAvailability.php';
 
 //Doctor Urls
 const String registerDoctorUrl =
@@ -40,6 +42,8 @@ const String ambulanceUrl =
     'https://mydoc.my-daktari.com/new_api/ambulances.php';
 const String searchDoctorsUrl =
     'https://mydoc.my-daktari.com/new_api/searchDoctor.php';
+const String showDoctorsFromSymptomsUrl =
+    'https://mydoc.my-daktari.com/new_api/showDoctorsFromSymptoms.php';
 const String fetchDoctorsUrl =
     'https://mydoc.my-daktari.com/new_api/viewDoctors.php';
 const String pharmacyUrl =

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/logic/bloc/client/search_doctor/search_doctor_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
 import '../widgets/result_section.dart';
 import '/constants/constants.dart' as constants;
 

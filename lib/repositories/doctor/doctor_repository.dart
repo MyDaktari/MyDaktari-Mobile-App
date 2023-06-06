@@ -162,7 +162,7 @@ class DoctorRepository extends BaseDoctorRepository {
 
   //funtion to update the infomation about the doctor to complete the profile
   @override
-  Future<DoctorProfileModel?> AddDoctorAvailability({
+  Future<DoctorProfileModel?> completeDoctorProfile({
     required String specialty,
     required String careerOverview,
     required String location,

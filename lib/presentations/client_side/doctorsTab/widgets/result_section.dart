@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 
-import '../../../../logic/bloc/client/search_doctor/search_doctor_bloc.dart';
-import '../../doctorsTab/views/all_results.dart';
+import '../../../../logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
+import '../../homeTab/views/symptomChecker/doctor_by_symptoms_screen.dart';
 import 'doctor_result_widget1.dart';
 
 class ResultSection extends StatelessWidget {
@@ -46,7 +46,8 @@ class ResultSection extends StatelessWidget {
                                   useSafeArea: true,
                                   context: context,
                                   isScrollControlled: true,
-                                  builder: (context) => const AllResults(),
+                                  builder: (context) =>
+                                      const DoctorBySymptomsScreen(),
                                 ),
                             child: const Text('See All')))
                   ],

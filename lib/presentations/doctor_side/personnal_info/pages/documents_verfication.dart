@@ -76,7 +76,7 @@ class DocumentUpload extends StatelessWidget {
                   onPressed: () {
                     if (fileNameCubit.state.certificate.isNotEmpty &&
                         fileNameCubit.state.nationalId.isNotEmpty) {
-                      Navigator.pushNamed(context, route.homePage);
+                      Navigator.pushNamed(context, route.homeScreen);
                     } else {
                       Fluttertoast.showToast(msg: 'Kindly upload both files');
                     }

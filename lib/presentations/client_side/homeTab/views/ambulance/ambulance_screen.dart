@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/ambulance_card.dart';
 
-import '../../../../../logic/bloc/ambulance/ambulance_bloc.dart';
+import '../../../../../logic/bloc/client_bloc/ambulance/ambulance_bloc.dart';
 
 class AmbulanceScreen extends StatelessWidget {
   const AmbulanceScreen({super.key});

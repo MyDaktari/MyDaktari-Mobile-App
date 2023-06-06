@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_daktari/constants/constants.dart';
 
@@ -157,46 +158,46 @@ class DoctorRepository extends BaseDoctorRepository {
   }
 
   //funtion to update the infomation about the doctor to complete the profile
-  // @override
-  // Future<DoctorProfileModel> AddDoctorAvailability({
-  //   required String specialty,
-  //   required String careerOverview,
-  //   required String location,
-  //   required int experience,
-  //   required PlatformFile profilePicture,
-  //   required PlatformFile nationalId,
-  // }) async {
-  //   var request = http.MultipartRequest('POST',
-  //       Uri.parse('https://hub.blinkhub.co.ke/endpoints/api_add_supplier.php'));
-  //   Map<String, dynamic> jsonData = {
-  //     "supplier_name": name,
-  //     "product_name": productName,
-  //     "supplier_email": email,
-  //     "user_id": currentUser.userId,
-  //     "supplier_type": supplierType.name.toString().trim(),
-  //   };
-  //   final file = platformFileToFile(platformFile);
-  //   // Add file to the request
-  //   var fileStream = http.ByteStream(Stream.castFrom(file.openRead()));
-  //   var fileSize = await file.length();
-  //   var mimeType = lookupMimeType(file.path);
-  //   var fileUpload = http.MultipartFile(
-  //       'supplier_document', fileStream, fileSize,
-  //       filename: file.path, contentType: MediaType.parse(mimeType.toString()));
-  //   request.files.add(fileUpload);
+  @override
+  Future<DoctorProfileModel?> completeDoctorProfile({
+    required String specialty,
+    required String careerOverview,
+    required String location,
+    required int experience,
+    required PlatformFile profilePicture,
+    required PlatformFile nationalId,
+  }) async {
+    // var request = http.MultipartRequest('POST',
+    //     Uri.parse('https://hub.blinkhub.co.ke/endpoints/api_add_supplier.php'));
+    // Map<String, dynamic> jsonData = {
+    //   "supplier_name": name,
+    //   "product_name": productName,
+    //   "supplier_email": email,
+    //   "user_id": currentUser.userId,
+    //   "supplier_type": supplierType.name.toString().trim(),
+    // };
+    // final file = platformFileToFile(platformFile);
+    // // Add file to the request
+    // var fileStream = http.ByteStream(Stream.castFrom(file.openRead()));
+    // var fileSize = await file.length();
+    // var mimeType = lookupMimeType(file.path);
+    // var fileUpload = http.MultipartFile(
+    //     'supplier_document', fileStream, fileSize,
+    //     filename: file.path, contentType: MediaType.parse(mimeType.toString()));
+    // request.files.add(fileUpload);
 
-  //   // Add JSON data to the request
-  //   request.fields['data'] = jsonEncode(jsonData);
-  //   var response = await request.send();
-  //   if (response.statusCode == 201) {
-  //     return 'File and data uploaded successfully';
-  //   } else {
-  //     String error = await response.stream.bytesToString();
-  //     String errorDecoded = jsonDecode(error)['message'].toString();
-  //     throw (errorDecoded);
-  //   }
-  // }
-}
+    //   // Add JSON data to the request
+    //   request.fields['data'] = jsonEncode(jsonData);
+    //   var response = await request.send();
+    //   if (response.statusCode == 201) {
+    //     return 'File and data uploaded successfully';
+    //   } else {
+    //     String error = await response.stream.bytesToString();
+    //     String errorDecoded = jsonDecode(error)['message'].toString();
+    //     throw (errorDecoded);
+    //   }
+    // }
+  }
 
 // //function to convert the file type from platformFile to File
 // File platformFileToFile(PlatformFile platformFile) {
@@ -205,9 +206,4 @@ class DoctorRepository extends BaseDoctorRepository {
 //   final file = File(filePath.toString());
 //   return file;
 // }
-
-
-
-
-
-
+}

@@ -9,7 +9,7 @@ import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
 
 class ChargesScreen extends StatelessWidget {
-   ChargesScreen({super.key});
+  ChargesScreen({super.key});
 
   final TextEditingController chatCotroller = TextEditingController();
   final TextEditingController phoneCotroller = TextEditingController();
@@ -80,7 +80,7 @@ class ChargesScreen extends StatelessWidget {
                             successDialog(
                                 success: true,
                                 context: context,
-                                route: route.homePage,
+                                route: route.homeScreen,
                                 message: 'Successfully Saved !',
                                 title: 'MyDaktory');
                           }

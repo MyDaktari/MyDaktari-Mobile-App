@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_daktari/constants/constants.dart';
 
@@ -190,15 +189,15 @@ class DoctorRepository extends BaseDoctorRepository {
   }
 
   //funtion to update the infomation about the doctor to complete the profile
-  @override
-  Future<DoctorProfileModel?> completeDoctorProfile({
-    required String specialty,
-    required String careerOverview,
-    required String location,
-    required int experience,
-    required PlatformFile profilePicture,
-    required PlatformFile nationalId,
-  }) async {
+  // @override
+  // Future<DoctorProfileModel> completeDoctorProfile({
+  //   required String specialty,
+  //   required String careerOverview,
+  //   required String location,
+  //   required int experience,
+  //   required PlatformFile profilePicture,
+  //   required PlatformFile nationalId,
+  // }) async {
     // var request = http.MultipartRequest('POST',
     //     Uri.parse('https://hub.blinkhub.co.ke/endpoints/api_add_supplier.php'));
     // Map<String, dynamic> jsonData = {
@@ -238,4 +237,3 @@ class DoctorRepository extends BaseDoctorRepository {
 //   final file = File(filePath.toString());
 //   return file;
 // }
-}

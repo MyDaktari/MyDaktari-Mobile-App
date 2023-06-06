@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:provider/provider.dart';
+import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/logic/bloc/forgot_password/forgot_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
@@ -15,7 +15,6 @@ import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
 import 'package:my_daktari/repositories/symptoms/symptoms_repository.dart';
 
 import './constants/theme/app_theme.dart';
-import './mock/service/get_doctor_service.dart';
 import 'constants/routes/route.dart' as route;
 import 'logic/bloc/auth_status/auth_status_bloc.dart';
 import 'logic/bloc/authentication/authentication_bloc.dart';
@@ -81,7 +80,20 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpBloc>(
               create: (context) =>
                   OtpBloc(authRepository: AuthenticationRepository())),
-
+          BlocProvider<ForgotPasswordBloc>(
+              create: (context) => ForgotPasswordBloc(
+                  authenticationRepository: AuthenticationRepository())),
+          BlocProvider<AuthStatusBloc>(
+              create: (context) =>
+                  AuthStatusBloc(authRepository: AuthenticationRepository())
+                    ..add(CheckUserStatus())),
+          //doctors
+          BlocProvider<DoctorAvailabilityBloc>(
+              create: (context) =>
+                  DoctorAvailabilityBloc(doctorRepository: DoctorRepository())),
+          BlocProvider<DoctorChargesBloc>(
+              create: (context) =>
+                  DoctorChargesBloc(doctorRepository: DoctorRepository())),
           BlocProvider<DoctorAppointmentsBloc>(
               create: (context) =>
                   DoctorAppointmentsBloc(doctorRepository: DoctorRepository())

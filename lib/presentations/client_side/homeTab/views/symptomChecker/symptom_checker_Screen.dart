@@ -106,23 +106,20 @@ class SymptomChecker extends StatelessWidget {
                               }
                             },
                             child: BlocListener<SymptomsBloc, SymptomsState>(
-                              listener: (context, state) {
-                                if (state is SymptomsLoaded) {
-                                  print(_bodyPartNotifier);
-                                  // Fluttertoast.showToast(
-                                  //     msg: 'Symptoms loaded successfully');
-                                  Navigator.pushNamed(
-                                    context,
-                                    routes.symptomSamples,
-                                    arguments: _bodyPartNotifier,
-                                  );
-                                }
-                              },
-                              child: Text('Continue'),
-                            )),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                                listener: (context, state) {
+                                  if (state is SymptomsLoaded) {
+                                    print(_bodyPartNotifier);
+                                    // Fluttertoast.showToast(
+                                    //     msg: 'Symptoms loaded successfully');
+                                    Navigator.pushNamed(
+                                      context,
+                                      routes.symptomSamples,
+                                      arguments: _bodyPartNotifier,
+                                    );
+                                  }
+                                },
+                                child: Text('Continue'))),
+                        const SizedBox(height: 15),
                         RichText(
                           text: TextSpan(
                             children: [

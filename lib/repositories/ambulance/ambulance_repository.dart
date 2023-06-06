@@ -20,8 +20,7 @@ class AmbulanceRepository extends BaseAmbulanceRepository {
     } else if (response.statusCode == 404) {
       return ambulances = List.empty();
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to login');
+      throw Exception('failed to get Ambulances ${response.statusCode}');
     }
   }
 }

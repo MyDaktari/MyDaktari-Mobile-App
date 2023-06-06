@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart' as constants;
+import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
+import 'package:my_daktari/logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
+import 'package:my_daktari/presentations/client_side/homeTab/widgets/authentication_dialog.dart';
 
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
@@ -128,21 +131,51 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                             .read<SymptomsCubit>()
                             .state
                             .selectedSymptoms;
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: constants.primaryColor,
-                            ),
-                            onPressed: selectedSymptoms.isEmpty
-                                ? null
-                                : () {
-                                    // getDoctor.search('dr');
-                                    Navigator.pushNamed(
-                                        context, route.doctorBySymptomsScreen);
-                                  },
-                            child: Text('Continue'),
-                          ),
+                        return BlocBuilder<AuthStatusBloc, AuthStatusState>(
+                          builder: (context, state) {
+                            return state is UserAuthenticated
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: constants.primaryColor,
+                                      ),
+                                      onPressed: selectedSymptoms.isEmpty
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<DoctorsBySymptomsBloc>()
+                                                  .add(SearchDoctorsBySymptoms(
+                                                      symptomId:
+                                                          selectedSymptoms
+                                                              .first.symptomID
+                                                              .toString(),
+                                                      context: context));
+                                              //clear it here
+                                              context
+                                                  .read<SymptomsCubit>()
+                                                  .clearSelectedSymptoms();
+                                              Navigator.pushNamed(context,
+                                                  route.doctorBySymptomsScreen);
+                                            },
+                                      child: Text('Continue'),
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: constants.primaryColor,
+                                      ),
+                                      onPressed: selectedSymptoms.isEmpty
+                                          ? null
+                                          : () {
+                                              loginDialog(context);
+                                            },
+                                      child: Text('Continue'),
+                                    ),
+                                  );
+                          },
                         );
                       } else if (state is SymptomsLoading) {
                         return CustomLoading();
@@ -223,7 +256,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
 //                                                                   selectedSymptoms
 //                                                                       .contains(
 //                                                                           s.symptomID);
-//                                                               
+//
 //                                                             } else {
 //                                                               return SizedBox();
 //                                                             }

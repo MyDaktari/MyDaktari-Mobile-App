@@ -7,10 +7,10 @@ abstract class ForgotPasswordEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SendTokenEvent extends ForgotPasswordEvent {
+class SendResetTokenEvent extends ForgotPasswordEvent {
   final String email;
 
-  const SendTokenEvent({required this.email});
+  const SendResetTokenEvent({required this.email});
 }
 
 class ResetPasswordEvent extends ForgotPasswordEvent {

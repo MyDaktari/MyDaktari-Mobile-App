@@ -19,8 +19,7 @@ class SymptomsRepository {
     } else if (response.statusCode == 404) {
       return symptoms = List.empty();
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to fetch symptoms');
+      throw Exception('Failed to fetch symptoms ${response.statusCode}');
     }
   }
 }

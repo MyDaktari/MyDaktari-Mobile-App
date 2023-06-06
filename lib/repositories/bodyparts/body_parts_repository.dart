@@ -20,8 +20,7 @@ class BodyPartsRepository extends BaseBodyPartsRepository {
     } else if (response.statusCode == 404) {
       return bodyParts = List.empty();
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to fetch body parts');
+      throw Exception('Failed to fetch body parts ${response.statusCode}');
     }
   }
 }

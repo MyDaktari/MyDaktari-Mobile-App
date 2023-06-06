@@ -19,5 +19,11 @@ class SymptomsCubit extends Cubit<SymptomsCubitState> {
     emit(SymptomsCubitState(selectedSymptoms: state.selectedSymptoms));
   }
 
-   bool selected(Symptoms symptom) => state.containsSymptom(symptom);
+  void clearSelectedSymptoms() {
+    state.selectedSymptoms.clear();
+
+    emit(SymptomsCubitState(selectedSymptoms: state.selectedSymptoms));
+  }
+
+  bool selected(Symptoms symptom) => state.containsSymptom(symptom);
 }

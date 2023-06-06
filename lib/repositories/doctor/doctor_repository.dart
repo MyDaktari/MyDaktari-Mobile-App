@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_daktari/constants/constants.dart';
-
+import 'package:http_parser/http_parser.dart';
 import '../../constants/urls.dart';
 import '../../models/models.dart';
 import 'base_doctor_repository.dart';
@@ -27,11 +28,11 @@ class DoctorRepository extends BaseDoctorRepository {
           .toList();
       return appointments;
     } else if (response.statusCode == 404 || response.statusCode == 400) {
-      print(response.statusCode);
+      print('Empty appointments ${response.statusCode}');
       return appointments = List.empty();
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to load your Appointments');
+      throw Exception(
+          'Failed to load your Appointments ${response.statusCode}');
     }
   }
 
@@ -114,8 +115,7 @@ class DoctorRepository extends BaseDoctorRepository {
     } else if (response.statusCode == 400 || response.statusCode == 409) {
       throw Exception('You already have these charges');
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to record new charges');
+      throw Exception('Failed to record new charges ${response.statusCode}');
     }
   }
 
@@ -133,8 +133,7 @@ class DoctorRepository extends BaseDoctorRepository {
     } else if (response.statusCode == 400 || response.statusCode == 409) {
       throw Exception('Record Not found');
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to edit the record');
+      throw Exception('Failed to edit the record ${response.statusCode}');
     }
   }
 
@@ -152,14 +151,46 @@ class DoctorRepository extends BaseDoctorRepository {
     } else if (response.statusCode == 404) {
       throw Exception('No Charges found');
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to load your charges');
+      throw Exception('Failed to load your charges ${response.statusCode}');
     }
   }
 
-  //funtion to update the infomation about the doctor to complete the profile
+  Future<String?> bookAppointment({
+    required String userID,
+    required String doctorID,
+    required String startTime,
+    required String endTime,
+    required String symptomID,
+    required String description,
+    required String date,
+    required String meetingOption,
+  }) async {
+    final apiUrl = bookAppointmentUrl;
+
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'userID': userID,
+          'doctorID': doctorID,
+          'startTime': startTime,
+          'endTime': endTime,
+          'symptomID': symptomID,
+          'description': description,
+          'date': date,
+          'meetingOption': meetingOption
+        }));
+    if (response.statusCode == 201) {
+      final data = json.decode(response.body);
+      return data['message'];
+    } else {
+      throw Exception('Failed to book your appointment');
+    }
+  }
+
+  // funtion to update the infomation about the doctor to complete the profile
   @override
-  Future<DoctorProfileModel?> completeDoctorProfile({
+  Future<DoctorProfileModel> completeDoctorProfile({
+    required String doctorId,
     required String specialty,
     required String careerOverview,
     required String location,
@@ -167,43 +198,61 @@ class DoctorRepository extends BaseDoctorRepository {
     required PlatformFile profilePicture,
     required PlatformFile nationalId,
   }) async {
-    // var request = http.MultipartRequest('POST',
-    //     Uri.parse('https://hub.blinkhub.co.ke/endpoints/api_add_supplier.php'));
-    // Map<String, dynamic> jsonData = {
-    //   "supplier_name": name,
-    //   "product_name": productName,
-    //   "supplier_email": email,
-    //   "user_id": currentUser.userId,
-    //   "supplier_type": supplierType.name.toString().trim(),
-    // };
-    // final file = platformFileToFile(platformFile);
-    // // Add file to the request
-    // var fileStream = http.ByteStream(Stream.castFrom(file.openRead()));
-    // var fileSize = await file.length();
-    // var mimeType = lookupMimeType(file.path);
-    // var fileUpload = http.MultipartFile(
-    //     'supplier_document', fileStream, fileSize,
-    //     filename: file.path, contentType: MediaType.parse(mimeType.toString()));
-    // request.files.add(fileUpload);
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('https://mydoc.my-daktari.com/new_api/updateDoctorProfile.php'),
+    );
 
-    //   // Add JSON data to the request
-    //   request.fields['data'] = jsonEncode(jsonData);
-    //   var response = await request.send();
-    //   if (response.statusCode == 201) {
-    //     return 'File and data uploaded successfully';
-    //   } else {
-    //     String error = await response.stream.bytesToString();
-    //     String errorDecoded = jsonDecode(error)['message'].toString();
-    //     throw (errorDecoded);
-    //   }
-    // }
+    final profileFile = platformFileToFile(profilePicture);
+    final natIdFile = platformFileToFile(nationalId);
+
+    // Add files to the request
+    request.files.add(
+      http.MultipartFile(
+        'nationalID',
+        profileFile.readAsBytes().asStream(),
+        profileFile.lengthSync(),
+        filename: profileFile.path.split('/').last,
+        contentType: MediaType('image', 'jpeg'),
+      ),
+    );
+    request.files.add(
+      http.MultipartFile(
+        'certificates',
+        natIdFile.readAsBytes().asStream(),
+        natIdFile.lengthSync(),
+        filename: natIdFile.path.split('/').last,
+        contentType: MediaType('image', 'jpeg'),
+      ),
+    );
+
+    // Add form data fields
+    request.fields['doctorID'] = doctorId;
+    request.fields['title'] = specialty;
+    request.fields['overview'] = careerOverview;
+    request.fields['location'] = location;
+    request.fields['experience'] = experience.toString();
+
+    var response = await request.send();
+    var message = await response.stream.bytesToString();
+    print(message);
+    if (response.statusCode == 200) {
+      //final jsonData = jsonDecode(response.stream.bytesToString())['data'];
+      // final doctor = DoctorProfileModel.fromJson(jsonData);
+
+      return DoctorProfileModel();
+    } else {
+      String error = message;
+      String errorDecoded = jsonDecode(error)['message'].toString();
+      throw (errorDecoded);
+    }
   }
 
-// //function to convert the file type from platformFile to File
-// File platformFileToFile(PlatformFile platformFile) {
-//   final filePath = platformFile.path;
-//   // final fileName = path.basename(filePath.toString());
-//   final file = File(filePath.toString());
-//   return file;
-// }
+//function to convert the file type from platformFile to File
+  File platformFileToFile(PlatformFile platformFile) {
+    final filePath = platformFile.path;
+    // final fileName = path.basename(filePath.toString());
+    final file = File(filePath.toString());
+    return file;
+  }
 }

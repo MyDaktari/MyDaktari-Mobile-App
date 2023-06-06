@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+
+import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/logic/bloc/forgot_password/forgot_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
@@ -14,7 +15,6 @@ import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
 import 'package:my_daktari/repositories/symptoms/symptoms_repository.dart';
 
 import './constants/theme/app_theme.dart';
-import './mock/service/get_doctor_service.dart';
 import 'constants/routes/route.dart' as route;
 import 'logic/bloc/auth_status/auth_status_bloc.dart';
 import 'logic/bloc/authentication/authentication_bloc.dart';
@@ -23,8 +23,10 @@ import 'logic/bloc/client_bloc/blog/blog_bloc.dart';
 import 'logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';
 import 'logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'logic/bloc/client_bloc/pharmacy/pharmacy_bloc.dart';
+import 'logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
 import 'logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
+import 'logic/bloc/doctor_bloc/complete_profile/complete_profile_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
@@ -80,11 +82,18 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpBloc>(
               create: (context) =>
                   OtpBloc(authRepository: AuthenticationRepository())),
+          BlocProvider<ForgotPasswordBloc>(
+              create: (context) => ForgotPasswordBloc(
+                  authenticationRepository: AuthenticationRepository())),
           BlocProvider<AuthStatusBloc>(
               create: (context) =>
                   AuthStatusBloc(authRepository: AuthenticationRepository())
                     ..add(CheckUserStatus())),
+
           //doctors
+          BlocProvider<CompleteProfileBloc>(
+              create: (context) =>
+                  CompleteProfileBloc(doctorRepository: DoctorRepository())),
           BlocProvider<DoctorAvailabilityBloc>(
               create: (context) =>
                   DoctorAvailabilityBloc(doctorRepository: DoctorRepository())),
@@ -104,6 +113,12 @@ class MyApp extends StatelessWidget {
           BlocProvider<SearchDoctorBloc>(
               create: (context) =>
                   SearchDoctorBloc(repository: ClientRepository())),
+          BlocProvider<DoctorTimeSlotsBloc>(
+              create: (context) =>
+                  DoctorTimeSlotsBloc(repository: ClientRepository())),
+          BlocProvider<DoctorsBySymptomsBloc>(
+              create: (context) =>
+                  DoctorsBySymptomsBloc(repository: ClientRepository())),
           BlocProvider<DoctorsBySymptomsBloc>(
               create: (context) =>
                   DoctorsBySymptomsBloc(repository: ClientRepository())),

@@ -29,23 +29,10 @@ class DoctorProfilePage extends StatelessWidget {
                     child: Image.asset('assets/images/male-user.png',
                         height: 180, fit: BoxFit.fitHeight),
                   ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
                   Text(doctor.name ?? ''),
-                  // const SizedBox(
-                  //           height: 10,
-                  //      ),
                   Text(doctor.title ?? '',
                       style: textTheme.titleLarge?.copyWith(
                           fontSize: 15, fontWeight: FontWeight.w300)),
-                  // const SizedBox(
-                  //           height: 10,
-                  //      ),
-                  //Text(doctor.institution ?? ''),
-                  // const SizedBox(
-                  //           height: 10,
-                  //      ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -141,9 +128,7 @@ class DoctorProfilePage extends StatelessWidget {
                       useSafeArea: true,
                       context: context,
                       isScrollControlled: true,
-                      builder: (context) => SelectSession(
-                        doctor: doctor,
-                      ),
+                      builder: (context) => SelectSession(doctor: doctor),
                     ),
                 child: const SizedBox(
                     width: 120, child: Center(child: Text('Book'))))

@@ -11,7 +11,7 @@ class DoctorUpdateProfile extends CompleteProfileEvent {
   final String specialty, careerOverview, doctorId;
   final int experience;
   final String location;
-  final File profilePicture, nationalId;
+  final PlatformFile profilePicture, nationalId;
 
   const DoctorUpdateProfile({
     required this.doctorId,

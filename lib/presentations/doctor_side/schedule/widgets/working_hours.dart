@@ -7,35 +7,22 @@ import '../../../../constants/constants.dart';
 import '../../../../logic/cubit/doctor_schedules/doctor_schedule.dart';
 
 class ScheduleRow extends StatefulWidget {
-  const ScheduleRow({Key? key}) : super(key: key);
+  ScheduleRow({Key? key}) : super(key: key);
 
   @override
-  _ScheduleRowState createState() => _ScheduleRowState();
+  State<ScheduleRow> createState() => _ScheduleRowState();
 }
 
 class _ScheduleRowState extends State<ScheduleRow> {
-  late final ScheduleCubit scheduleCubit;
-
-  @override
-  void dispose() {
-    scheduleCubit.close();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize the schedules with default values
-    final initialSchedules = daysOfWeek.map((day) {
-      return DaySchedule(
-        day: day,
-        isEnabled: true,
-        startTime: timeIntervals.first,
-        endTime: timeIntervals.first,
-      );
-    }).toList();
-    scheduleCubit = ScheduleCubit(initialSchedules);
-  }
+  final ScheduleCubit scheduleCubit = ScheduleCubit(daysOfWeek.map((day) {
+    return DaySchedule(
+      id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
+      day: day,
+      isEnabled: true,
+      startTime: timeIntervals.first,
+      endTime: timeIntervals.first,
+    );
+  }).toList());
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +33,44 @@ class _ScheduleRowState extends State<ScheduleRow> {
           BlocBuilder<ScheduleCubit, List<DaySchedule>>(
             builder: (context, schedules) {
               schedulesConstant = schedules;
+              final Map<String, int> dayPriority = {
+                'Mon': 1,
+                'Tue': 2,
+                'Wed': 3,
+                'Thur': 4,
+                'Fri': 5,
+                'Sat': 6,
+                'Sun': 7,
+              };
+
+              schedules.sort((a, b) {
+                // Compare the days using the priority map table
+                int dayComparison =
+                    dayPriority[a.day]!.compareTo(dayPriority[b.day]!);
+                if (dayComparison != 0) {
+                  return dayComparison;
+                }
+
+                // If the days are equal, compare the start times
+                int startTimeComparison = a.startTime.compareTo(b.startTime);
+                if (startTimeComparison != 0) {
+                  return startTimeComparison;
+                }
+
+                // If the start times are also equal, compare the end times
+                return a.endTime.compareTo(b.endTime);
+              });
+
               return Column(
                 children: [
-                  for (final schedule in schedules)
+                  for (int i = 0; i < schedules.length; i++)
                     ScheduleItemWidget(
-                        schedule: schedule, timeIntervals: timeIntervals),
+                      schedule: schedules[i],
+                      timeIntervals: timeIntervals,
+                      
+                      isDuplicate:
+                          i > 0 && schedules[i].day == schedules[i - 1].day,
+                    ),
                 ],
               );
             },

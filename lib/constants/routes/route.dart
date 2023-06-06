@@ -22,6 +22,7 @@ import '../../presentations/doctor_side/charges/charges_screen.dart';
 import '../../presentations/doctor_side/personnal_info/information_screen.dart';
 import '../../presentations/landing_screen.dart';
 
+import '../../presentations/profileTab/views/profile_page.dart';
 import '../../presentations/welcome_screen.dart';
 
 const String signUpScreen = 'authPage';
@@ -93,7 +94,7 @@ class AppRouter {
                 bodyPartNotifier: settings.arguments as BodyPartNotifier));
 
       case profile:
-        return MaterialPageRoute(builder: (context) => PersonalDetailsScreen());
+        return MaterialPageRoute(builder: (context) => ProfilePage());
 
       default:
         return MaterialPageRoute(

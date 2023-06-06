@@ -1,4 +1,7 @@
+
+
 class DaySchedule {
+  String id;
   final String day;
   bool isEnabled;
   String startTime;
@@ -9,6 +12,7 @@ class DaySchedule {
     required this.isEnabled,
     required this.startTime,
     required this.endTime,
+    required this.id
   });
 
   DaySchedule copyWith({
@@ -16,8 +20,10 @@ class DaySchedule {
     bool? isEnabled,
     String? startTime,
     String? endTime,
+    String? id
   }) {
     return DaySchedule(
+      id: id ?? this.id,
       day: day ?? this.day,
       isEnabled: isEnabled ?? this.isEnabled,
       startTime: startTime ?? this.startTime,

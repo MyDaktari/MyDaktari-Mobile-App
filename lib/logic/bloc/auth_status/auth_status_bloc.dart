@@ -1,3 +1,5 @@
+// ignore_for_file: sdk_version_since
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/constants.dart';

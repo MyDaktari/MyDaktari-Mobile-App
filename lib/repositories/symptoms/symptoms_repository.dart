@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:my_daktari/mock/models/symptom_model.dart';
+import 'package:my_daktari/models/symptom_model.dart';
 import 'package:http/http.dart' as http;
 
 class SymptomsRepository {

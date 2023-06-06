@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:my_daktari/mock/models/symptom_model.dart';
+import 'package:my_daktari/models/symptom_model.dart';
 
 part 'symptoms_cubit_state.dart';
 

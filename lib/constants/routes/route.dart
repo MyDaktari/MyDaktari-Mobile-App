@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:my_daktari/models/appointment.dart';
 import 'package:my_daktari/models/blog.dart';
 import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
-import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/doctor_by_symptoms_screen.dart';
+
 import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/ambulance_screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
 
 import '../../models/doctor_profile_model.dart';
+import '../../presentations/auth/views/forgot_password.dart';
 import '../../presentations/auth/views/login_screen.dart';
 import '../../presentations/auth/views/sign_up_screen.dart';
 import '../../presentations/doctor_side/appointments/appointment_details.dart';
@@ -39,6 +40,7 @@ const String symptomCheckerScreen = 'symptomChecker';
 const String symptomSamples = 'symptomSamples';
 const String appointmentDetails = 'appointmentDetails';
 const String profile = "profile";
+const String resetPassword = "resetPassword";
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -47,6 +49,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const WelcomePage());
       case signUpScreen:
         return MaterialPageRoute(builder: (_) => SignUpScreen());
+      case resetPassword:
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case otpScreen:

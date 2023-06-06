@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/presentations/auth/views/reset_password.dart';
+import '../../../constants/constants.dart' as constants;
 
 import '../../../logic/bloc/forgot_password/forgot_password_bloc.dart';
 
@@ -15,7 +16,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Forgot Password'),
-          backgroundColor: Colors.red, // Set the app bar background color
+          // Set the app bar background color
           elevation: 0, // Remove app bar elevation
         ),
         body: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
@@ -50,11 +51,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                   onPressed: () {
                     final String email = emailController.text;
                     context.read<ForgotPasswordBloc>().add(
-                          SendTokenEvent(email: email),
+                          SendResetTokenEvent(email: email),
                         );
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    backgroundColor:
+                        MaterialStateProperty.all(constants.primaryColor),
                     padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                     ),

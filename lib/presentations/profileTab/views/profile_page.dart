@@ -5,6 +5,8 @@ import '../../../constants/enums.dart';
 import '../../../models/client.dart';
 import '../../../models/doctor.dart';
 
+import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
+
 class ProfilePage extends StatelessWidget {
   ProfilePage();
 

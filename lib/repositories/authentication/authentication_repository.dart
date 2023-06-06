@@ -8,6 +8,7 @@ import '../../models/models.dart';
 import './base_authentication_repository.dart';
 
 class AuthenticationRepository extends BaseAuthenticationRepository {
+  final baseUrl = "https://goldeneaglespurs.vesencomputing.com";
   //client
   @override
   Future<ClientModel> loginClient(
@@ -211,5 +212,52 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     bool deleteUseType = await preferences.remove('userType');
     bool logUerOut = await preferences.remove('user');
     return deleteUseType && logUerOut;
+  }
+  @override
+  Future<String> sendToken({required email}) async {
+    final response = await http.post(
+      Uri.parse(resetPasswordUrl),
+      body: jsonEncode(
+        {"email": email, "send_token": true},
+      ),
+    );
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body)['message'];
+      return jsonData;
+    } else if (response.statusCode == 401 || response.statusCode == 422) {
+      throw Exception(jsonDecode(response.body)['message']);
+    } else {
+      throw Exception(
+          "Service unavailable. we'll be back soon ${response.statusCode}");
+    }
+  }
+
+  @override
+  Future<String> resetPassword(
+      {required token,
+      required password,
+      required confirmPassword,
+      required email}) async {
+    final response = await http.post(
+      Uri.parse(resetPasswordUrl),
+      body: jsonEncode(
+        {
+          "token": token,
+          "password": password,
+          "confirm_password": confirmPassword,
+          "email": email,
+          "reset": true
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body)['message'];
+      return jsonData;
+    } else if (response.statusCode == 401 || response.statusCode == 422) {
+      throw Exception(jsonDecode(response.body)['message']);
+    } else {
+      throw Exception(
+          "Service unavailable. we'll be back soon ${response.statusCode}");
+    }
   }
 }

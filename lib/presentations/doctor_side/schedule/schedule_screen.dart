@@ -34,6 +34,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     // Initialize the schedules with default values
     final initialSchedules = daysOfWeek.map((day) {
       return DaySchedule(
+        id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
         day: day,
         isEnabled: true,
         startTime: timeIntervals.first,
@@ -124,7 +125,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     const Text("Working Hours",
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 20),
-                    SingleChildScrollView(child: const ScheduleRow())
+                    SingleChildScrollView(child:  ScheduleRow())
                   ],
                 ),
                 const SizedBox(height: 30),

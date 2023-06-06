@@ -10,11 +10,12 @@ import '../models/dayschedule.dart';
 class ScheduleItemWidget extends StatelessWidget {
   final DaySchedule schedule;
   final List<String> timeIntervals;
+  final bool isDuplicate;
 
-  const ScheduleItemWidget({
-    required this.schedule,
-    required this.timeIntervals,
-  });
+  const ScheduleItemWidget(
+      {required this.schedule,
+      required this.timeIntervals,
+      this.isDuplicate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -77,14 +78,23 @@ class ScheduleItemWidget extends StatelessWidget {
               child: Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: InkWell(
-                    onTap: () {
-                      // Add button pressed
-                      BlocProvider.of<ScheduleCubit>(context)
-                          .addSchedule(schedule);
-                    },
-                    child: const Icon(Icons.add),
-                  ),
+                  child: isDuplicate
+                      ? InkWell(
+                          onTap: () {
+                            // Add button pressed
+                            BlocProvider.of<ScheduleCubit>(context)
+                                .removeSchedule(schedule);
+                          },
+                          child: const Icon(Icons.remove),
+                        )
+                      : InkWell(
+                          onTap: () {
+                            // Add button pressed
+                            BlocProvider.of<ScheduleCubit>(context)
+                                .addSchedule(schedule);
+                          },
+                          child: const Icon(Icons.add),
+                        ),
                 ),
               ),
             ),

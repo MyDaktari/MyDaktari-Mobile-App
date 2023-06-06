@@ -160,6 +160,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<ScheduleCubit>(
             create: (context) => ScheduleCubit(daysOfWeek.map((day) {
               return DaySchedule(
+                id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
                   day: day,
                   isEnabled: true,
                   startTime: timeIntervals.first,

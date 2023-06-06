@@ -190,7 +190,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   successDialog(
                                       context: context,
                                       message: state.message,
-                                      title: 'MyDaktary');
+                                      title: 'My Daktari');
                                 }
                               },
                               builder: (context, state) {

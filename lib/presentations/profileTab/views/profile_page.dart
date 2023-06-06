@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../constants/enums.dart';
-import '../../../mock/models/doctor_model.dart';
 
 import '../../../models/client.dart';
+import '../../../models/doctor.dart';
 
 class ProfilePage extends StatelessWidget {
   final UserType userType;

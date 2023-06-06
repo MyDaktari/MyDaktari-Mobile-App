@@ -7,7 +7,7 @@ import 'package:my_daktari/presentations/client_side/homeTab/widgets/authenticat
 
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
-import '../../../../../mock/models/symptom_model.dart';
+import '../../../../../models/symptom_model.dart';
 import '../../../../widgets/custom_loading.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
 import 'symptom_checker_Screen.dart';

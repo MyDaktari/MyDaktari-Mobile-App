@@ -45,7 +45,7 @@ class ClientRepository extends BaseClientRepository {
       String symptomsId) async {
     final response = await http.post(Uri.parse(showDoctorsBySymptomsUrl),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode({'searchTerm': symptomsId}));
+        body: json.encode({"symptomID": symptomsId}));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final List<dynamic> doctorData = jsonData['data'];
@@ -71,13 +71,18 @@ class ClientRepository extends BaseClientRepository {
           'date': DateFormat('yyyy-MM-dd').format(date)
         }));
 
+    print(response.body);
+    print(DateFormat('yyyy-MM-dd').format(date));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<String> timeSlots = List<String>.from(data['data']);
       final formattedTimeSlots = timeSlots.map((time) {
         return convertToAmPm(time);
       }).toList();
+
       return formattedTimeSlots;
+    } else if (response.statusCode == 404) {
+      throw Exception('Doctor not available on the selected date');
     } else {
       throw Exception('Failed to fetch doctor availability');
     }

@@ -42,6 +42,10 @@ const String symptomSamples = 'symptomSamples';
 const String appointmentDetails = 'appointmentDetails';
 const String profile = "profile";
 const String resetPassword = "resetPassword";
+// const String appointments = "appointments";
+// const String articles = "articles";
+// you are breaking code
+// you are breaking code 😅😅😅
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {

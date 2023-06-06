@@ -6,25 +6,26 @@ import '../../doctorsTab/views/booking_page.dart';
 class SelectSession extends StatelessWidget {
   SelectSession({super.key, required this.doctor});
   final DoctorProfileModel doctor;
-  final List<Map<String, dynamic>> sessions = [
-    {
-      'title': 'Chat',
-      'price': '2500',
-      'description': 'Pricing is done per session'
-    },
-    {
-      'title': 'Phone call',
-      'price': '2500',
-      'description': 'Pricing is done per session'
-    },
-    {
-      'title': 'Video call',
-      'price': '2500',
-      'description': 'Pricing is done per session'
-    },
-  ];
+
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> sessions = [
+      {
+        'title': 'Chat',
+        'price': doctor.charges!.first.chat,
+        'description': 'Pricing is done per session'
+      },
+      {
+        'title': 'Phone call',
+        'price': doctor.charges!.first.phoneCall,
+        'description': 'Pricing is done per session'
+      },
+      {
+        'title': 'Video call',
+        'price': doctor.charges!.first.videoCall,
+        'description': 'Pricing is done per session'
+      },
+    ];
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Padding(
@@ -51,8 +52,8 @@ class SelectSession extends StatelessWidget {
                             context: context,
                             isScrollControlled: true,
                             builder: (context) => DoctorBookingView(
-                              doctor: doctor,
-                            ),
+                                doctor: doctor,
+                                meetingOption: session['title'].toString()),
                           );
                         },
                         child: Padding(

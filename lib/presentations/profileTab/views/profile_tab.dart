@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/enums.dart';
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
+import '../../client_side/homeTab/widgets/authentication_dialog.dart';
 import '../widgets/log_out_dialog.dart';
 import '../widgets/profile_summary.dart';
 
@@ -47,19 +48,27 @@ class ProfileTab extends StatelessWidget {
                     border: Border(bottom: BorderSide(width: 0.1))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(10),
-                    leading: CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        child: const Icon(Icons.calendar_today_rounded,
-                            color: Colors.blue)),
-                    title: Text(title,
-                        style: const TextStyle(color: Colors.black)),
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                    onTap: () {
-                      // Handle list item tap
-                      // You can navigate to the corresponding route using Navigator
-                      Navigator.pushNamed(context, route);
+                  child: BlocBuilder<AuthStatusBloc, AuthStatusState>(
+                    builder: (context, state) {
+                      return ListTile(
+                        contentPadding: const EdgeInsets.all(10),
+                        leading: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            child: const Icon(Icons.calendar_today_rounded,
+                                color: Colors.blue)),
+                        title: Text(title,
+                            style: const TextStyle(color: Colors.black)),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          // Handle list item tap
+                          // You can navigate to the corresponding route using Navigator
+                          if (state is UserAuthenticated) {
+                            Navigator.pushNamed(context, route);
+                          } else if (state is UserUnauthenticated) {
+                            loginDialog(context);
+                          }
+                        },
+                      );
                     },
                   ),
                 ),
@@ -84,3 +93,5 @@ class ProfileTab extends StatelessWidget {
     );
   }
 }
+// loginDialog(context);
+

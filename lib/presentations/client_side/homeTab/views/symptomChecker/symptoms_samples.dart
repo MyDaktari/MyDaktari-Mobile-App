@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart' as constants;
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
+import 'package:my_daktari/logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/widgets/authentication_dialog.dart';
 
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
@@ -142,7 +143,18 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                       onPressed: selectedSymptoms.isEmpty
                                           ? null
                                           : () {
-                                              // getDoctor.search('dr');
+                                              context
+                                                  .read<DoctorsBySymptomsBloc>()
+                                                  .add(SearchDoctorsBySymptoms(
+                                                      symptomId:
+                                                          selectedSymptoms
+                                                              .first.symptomID
+                                                              .toString(),
+                                                      context: context));
+                                              //clear it here
+                                              context
+                                                  .read<SymptomsCubit>()
+                                                  .clearSelectedSymptoms();
                                               Navigator.pushNamed(context,
                                                   route.doctorBySymptomsScreen);
                                             },
@@ -244,7 +256,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
 //                                                                   selectedSymptoms
 //                                                                       .contains(
 //                                                                           s.symptomID);
-//                                                               
+//
 //                                                             } else {
 //                                                               return SizedBox();
 //                                                             }

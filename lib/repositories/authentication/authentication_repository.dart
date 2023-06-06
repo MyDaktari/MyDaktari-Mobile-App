@@ -69,7 +69,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     } else if (response.statusCode == 409) {
       throw Exception('Email already exist');
     } else {
-      throw Exception('Failed to login');
+      throw Exception('Failed to register user');
     }
   }
 
@@ -96,8 +96,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         response.statusCode == 400) {
       throw Exception('Incorrect username or password');
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to login');
+      throw Exception('Failed to login ${response.statusCode}');
     }
   }
 
@@ -137,7 +136,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     } else if (response.statusCode == 409) {
       throw Exception('Email already exist');
     } else {
-      throw Exception('Failed to login');
+      throw Exception('Failed to register doctor');
     }
   }
 
@@ -184,8 +183,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       String message = jsonDecode(response.body)['message'];
       return message;
     } else {
-      print(response.statusCode);
-      throw Exception('Fail to send OTP');
+      throw Exception('Fail to send OTP ${response.statusCode}');
     }
   }
 
@@ -201,8 +199,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       String message = jsonDecode(response.body)['message'];
       return message;
     } else {
-      print(response.statusCode);
-      throw Exception('Invalid OTP');
+      throw Exception('Invalid OTP ${response.statusCode}');
     }
   }
 

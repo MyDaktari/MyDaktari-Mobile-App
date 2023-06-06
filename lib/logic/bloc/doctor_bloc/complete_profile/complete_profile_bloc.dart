@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 
@@ -19,12 +18,15 @@ class CompleteProfileBloc
       DoctorUpdateProfile event, Emitter<CompleteProfileState> emit) async {
     emit(CompleteProfileLoading());
     try {
-      // await doctorRepository.supply(
-      //     name: event.name,
-      //     email: event.email,
-      //     productName: event.productName,
-      //     supplierType: event.supplierType,
-      //     platformFile: event.file);
+      await doctorRepository.completeDoctorProfile(
+        doctorId: event.doctorId,
+        specialty: event.specialty,
+        careerOverview: event.careerOverview,
+        experience: event.experience,
+        location: event.location,
+        nationalId: event.nationalId,
+        profilePicture: event.profilePicture,
+      );
       emit(CompleteProfileLoaded());
     } catch (error) {
       emit(CompleteProfileLoadError(message: error.toString()));

@@ -20,8 +20,7 @@ class PharmacyRepository extends BasePharmacyRepository {
     } else if (response.statusCode == 404) {
       return pharmacyList = List.empty();
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to login');
+      throw Exception('Failed to get pharmacy ${response.statusCode}');
     }
   }
 }

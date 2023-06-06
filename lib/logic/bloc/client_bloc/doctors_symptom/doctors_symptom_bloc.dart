@@ -17,6 +17,7 @@ class DoctorsBySymptomsBloc
   }
   void _onSearchDoctors(SearchDoctorsBySymptoms event,
       Emitter<DoctorsBySymptomsState> emit) async {
+    emit(DoctorsBySymptomsLoading());
     try {
       List<DoctorProfileModel> doctors =
           await repository.showDoctorsBySyptoms(event.symptomId);

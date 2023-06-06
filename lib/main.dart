@@ -23,8 +23,10 @@ import 'logic/bloc/client_bloc/blog/blog_bloc.dart';
 import 'logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';
 import 'logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'logic/bloc/client_bloc/pharmacy/pharmacy_bloc.dart';
+import 'logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
 import 'logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
+import 'logic/bloc/doctor_bloc/complete_profile/complete_profile_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
@@ -87,7 +89,11 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   AuthStatusBloc(authRepository: AuthenticationRepository())
                     ..add(CheckUserStatus())),
+
           //doctors
+          BlocProvider<CompleteProfileBloc>(
+              create: (context) =>
+                  CompleteProfileBloc(doctorRepository: DoctorRepository())),
           BlocProvider<DoctorAvailabilityBloc>(
               create: (context) =>
                   DoctorAvailabilityBloc(doctorRepository: DoctorRepository())),
@@ -107,6 +113,12 @@ class MyApp extends StatelessWidget {
           BlocProvider<SearchDoctorBloc>(
               create: (context) =>
                   SearchDoctorBloc(repository: ClientRepository())),
+          BlocProvider<DoctorTimeSlotsBloc>(
+              create: (context) =>
+                  DoctorTimeSlotsBloc(repository: ClientRepository())),
+          BlocProvider<DoctorsBySymptomsBloc>(
+              create: (context) =>
+                  DoctorsBySymptomsBloc(repository: ClientRepository())),
           BlocProvider<DoctorsBySymptomsBloc>(
               create: (context) =>
                   DoctorsBySymptomsBloc(repository: ClientRepository())),

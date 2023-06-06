@@ -20,8 +20,7 @@ class BlogRepository extends BaseBlogRepository {
     } else if (response.statusCode == 404) {
       return blogs = List.empty();
     } else {
-      print(response.statusCode);
-      throw Exception('Failed to login');
+      throw Exception('Failed to get Blogs ${response.statusCode}');
     }
   }
 }

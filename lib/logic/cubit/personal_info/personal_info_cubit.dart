@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
@@ -29,9 +28,10 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
   }
 
   void updatePersonalFile(
-      {required PlatformFile profilePicture,
-      required PlatformFile nationalId}) {
-    emit(
-        state.copyWith(profilePicture: profilePicture, nationalId: nationalId));
+      {PlatformFile? profilePicture, PlatformFile? nationalId}) {
+    emit(state.copyWith(
+      profilePicture: profilePicture,
+      nationalId: nationalId,
+    ));
   }
 }

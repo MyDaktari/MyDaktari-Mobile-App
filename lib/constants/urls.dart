@@ -15,6 +15,8 @@ const String showDoctorsBySymptomsUrl =
     'https://mydoc.my-daktari.com/new_api/showDoctorsFromSymptoms.php';
 const String getDoctorAvailabilityUrl =
     'https://mydoc.my-daktari.com/new_api/showDrAvailability.php';
+const String bookAppointmentUrl =
+    'https://mydoc.my-daktari.com/new_api/addAppointment.php';
 
 //Doctor Urls
 const String registerDoctorUrl =

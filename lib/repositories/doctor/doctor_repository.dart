@@ -156,6 +156,38 @@ class DoctorRepository extends BaseDoctorRepository {
     }
   }
 
+  Future<String?> bookAppointment({
+    required String userID,
+    required String doctorID,
+    required String startTime,
+    required String endTime,
+    required String symptomID,
+    required String description,
+    required String date,
+    required String meetingOption,
+  }) async {
+    final apiUrl = bookAppointmentUrl;
+
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'userID': userID,
+          'doctorID': doctorID,
+          'startTime': startTime,
+          'endTime': endTime,
+          'symptomID': symptomID,
+          'description': description,
+          'date': date,
+          'meetingOption': meetingOption
+        }));
+    if (response.statusCode == 201) {
+      final data = json.decode(response.body);
+      return data['message'];
+    } else {
+      throw Exception('Failed to book your appointment');
+    }
+  }
+
   //funtion to update the infomation about the doctor to complete the profile
   // @override
   // Future<DoctorProfileModel> completeDoctorProfile({

@@ -82,13 +82,13 @@ class ChargesScreen extends StatelessWidget {
                                 context: context,
                                 route: route.homeScreen,
                                 message: 'Successfully Saved !',
-                                title: 'MyDaktory');
+                                title: 'My Daktari');
                           }
                           if (state is DoctorChargesLoadError) {
                             successDialog(
                                 context: context,
                                 message: state.message,
-                                title: 'MyDaktory');
+                                title: 'My Daktari');
                           }
                         },
                         builder: (context, state) {

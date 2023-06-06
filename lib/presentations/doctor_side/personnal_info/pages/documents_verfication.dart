@@ -41,7 +41,7 @@ class DocumentUpload extends StatelessWidget {
                     successDialog(
                         context: context,
                         message: 'Coudn\'t upload your document',
-                        title: 'Blink Hub');
+                        title: 'My Daktari');
                   }
                 },
                 child: UploadContainer(
@@ -64,7 +64,7 @@ class DocumentUpload extends StatelessWidget {
                       successDialog(
                           context: context,
                           message: 'Coudn\'t upload your document',
-                          title: 'MyDaktari');
+                          title: 'My Daktari');
                     }
                   },
                   child: UploadContainer(

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/complete_profile/complete_profile_bloc.dart';
+import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
 import '../../../../logic/cubit/file_name/file_name_cubit.dart';
 import '../../../../logic/cubit/infor_page_update/info_page_update_cubit.dart';
 import '../../../../constants/routes/route.dart' as route;
@@ -21,6 +22,7 @@ class DocumentUpload extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthenticationRepository authRepository = AuthenticationRepository();
     final personalInfo = context.watch<PersonalInfoCubit>();
     final fileNameCubit = context.watch<FileNameCubit>();
     final pageCubit = context.watch<InfoPageUpdateCubit>();
@@ -91,6 +93,7 @@ class DocumentUpload extends StatelessWidget {
                           .read<CompleteProfileBloc>()
                           .add(DoctorUpdateProfile(
                             doctorId: userId,
+                            title: personalInfo.state.title,
                             specialty: personalInfo.state.specialty,
                             experience: personalInfo.state.experience,
                             careerOverview: personalInfo.state.careerOverview,
@@ -119,6 +122,7 @@ class DocumentUpload extends StatelessWidget {
                             title: 'My Daktari');
                       }
                       if (state is CompleteProfileLoaded) {
+                        authRepository.updateUserProfile();
                         Navigator.pushNamed(context, route.homeScreen);
                       }
                     },
@@ -127,8 +131,7 @@ class DocumentUpload extends StatelessWidget {
                           ? CupertinoActivityIndicator(color: Colors.white)
                           : Text(
                               pageCubit.state.index == 2 ? 'Save' : 'Continue',
-                              style: const TextStyle(color: Colors.white),
-                            );
+                              style: const TextStyle(color: Colors.white));
                     },
                   ),
                 ),

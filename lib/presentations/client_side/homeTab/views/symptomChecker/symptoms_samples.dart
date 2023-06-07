@@ -34,159 +34,179 @@ class _SymptomSamplesState extends State<SymptomSamples> {
           if (state is SymptomsLoading) {
             return CustomLoading();
           } else if (state is SymptomsLoadingError) {
-            return Center(
-              child: Text(state.message),
-            );
+            return Center(child: Text(state.message));
           } else if (state is SymptomsLoaded) {
             final List<SymptomModel> symptoms = state.symptoms;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text('Click on one or more of the options',
-                      style: TextStyle()),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 1),
-                    height: MediaQuery.of(context).size.height * .8,
-                    child: ListView.builder(
-                      itemCount: symptoms.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Text(
-                              symptoms[index].bodyPart as String,
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 10),
-                            Wrap(
-                              alignment: WrapAlignment.start,
-                              children:
-                                  symptoms[index].symptoms!.map((symptom) {
-                                final isSelected = context
-                                    .read<SymptomsCubit>()
-                                    .selected(symptom);
-
-                                return Container(
-                                  width: (size.width) * .49,
-                                  height: 200,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      selectedSymptoms.addSymptoms(symptom);
-                                      setState(() {});
-                                    },
-                                    child: Card(
-                                      shadowColor: constants.primaryColor,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(1.0),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                    symptom.symptom ??
-                                                        "No title",
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: constants
-                                                            .primaryColor)),
-                                                isSelected
-                                                    ? Icon(Icons.check_circle,
-                                                        color: constants
-                                                            .primaryColor)
-                                                    : Icon(Icons
-                                                        .check_circle_outline)
-                                              ],
-                                            ),
-                                            SizedBox(height: 30),
-                                            Text(
-                                              symptom.description ??
-                                                  "No description",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
+            return ScrollConfiguration(
+              behavior: ScrollBehavior(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text('Click on one or more of the options',
+                        style: TextStyle()),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 1),
+                      height: MediaQuery.of(context).size.height * .8,
+                      child: ListView.builder(
+                        itemCount: symptoms.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              Center(
+                                child: Text(symptoms[index].bodyPart as String,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              SizedBox(height: 10),
+                              Wrap(
+                                alignment: WrapAlignment.spaceBetween,
+                                children:
+                                    symptoms[index].symptoms!.map((symptom) {
+                                  final isSelected = context
+                                      .read<SymptomsCubit>()
+                                      .selected(symptom);
+                                  return Container(
+                                    width: size.width * .48,
+                                    height: size.height * .2,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        selectedSymptoms.addSymptoms(symptom);
+                                        setState(() {});
+                                      },
+                                      child: Card(
+                                        shadowColor: constants.primaryColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                        symptom.symptom ??
+                                                            "No title",
+                                                        style: TextStyle(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: constants
+                                                                .primaryColor)),
+                                                  ),
+                                                  isSelected
+                                                      ? Icon(Icons.check_circle,
+                                                          color: constants
+                                                              .primaryColor)
+                                                      : Icon(
+                                                          Icons
+                                                              .check_circle_outline,
+                                                          color: Colors.grey)
+                                                ],
+                                              ),
+                                              SizedBox(height: 5),
+                                              Text(
+                                                symptom.description ??
+                                                    "No description",
+                                                textAlign: TextAlign.left,
+                                                maxLines: 5,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
-                            )
-                          ],
-                        );
+                                  );
+                                }).toList(),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    BlocBuilder<SymptomsBloc, SymptomsState>(
+                      builder: (context, state) {
+                        if (state is SymptomsLoaded) {
+                          final selectedSymptoms = context
+                              .read<SymptomsCubit>()
+                              .state
+                              .selectedSymptoms;
+                          return BlocBuilder<AuthStatusBloc, AuthStatusState>(
+                            builder: (context, state) {
+                              return state is UserAuthenticated
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                constants.primaryColor),
+                                        onPressed: selectedSymptoms.isEmpty
+                                            ? null
+                                            : () {
+                                                context
+                                                    .read<
+                                                        DoctorsBySymptomsBloc>()
+                                                    .add(
+                                                        SearchDoctorsBySymptoms(
+                                                            symptomId:
+                                                                selectedSymptoms
+                                                                    .first
+                                                                    .symptomID
+                                                                    .toString(),
+                                                            context: context));
+                                                //clear it here
+                                                context
+                                                    .read<SymptomsCubit>()
+                                                    .clearSelectedSymptoms();
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    route
+                                                        .doctorBySymptomsScreen);
+                                              },
+                                        child: Text('Continue'),
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              constants.primaryColor,
+                                        ),
+                                        onPressed: selectedSymptoms.isEmpty
+                                            ? null
+                                            : () {
+                                                loginDialog(context);
+                                              },
+                                        child: Text('Continue'),
+                                      ),
+                                    );
+                            },
+                          );
+                        } else if (state is SymptomsLoading) {
+                          return CustomLoading();
+                        } else if (state is SymptomsLoadingError) {
+                          return Center(child: Text(state.message));
+                        } else {
+                          return Center(child: Text('Could not load symptoms'));
+                        }
                       },
                     ),
-                  ),
-                  BlocBuilder<SymptomsBloc, SymptomsState>(
-                    builder: (context, state) {
-                      if (state is SymptomsLoaded) {
-                        final selectedSymptoms = context
-                            .read<SymptomsCubit>()
-                            .state
-                            .selectedSymptoms;
-                        return BlocBuilder<AuthStatusBloc, AuthStatusState>(
-                          builder: (context, state) {
-                            return state is UserAuthenticated
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: constants.primaryColor,
-                                      ),
-                                      onPressed: selectedSymptoms.isEmpty
-                                          ? null
-                                          : () {
-                                              context
-                                                  .read<DoctorsBySymptomsBloc>()
-                                                  .add(SearchDoctorsBySymptoms(
-                                                      symptomId:
-                                                          selectedSymptoms
-                                                              .first.symptomID
-                                                              .toString(),
-                                                      context: context));
-                                              //clear it here
-                                              context
-                                                  .read<SymptomsCubit>()
-                                                  .clearSelectedSymptoms();
-                                              Navigator.pushNamed(context,
-                                                  route.doctorBySymptomsScreen);
-                                            },
-                                      child: Text('Continue'),
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: constants.primaryColor,
-                                      ),
-                                      onPressed: selectedSymptoms.isEmpty
-                                          ? null
-                                          : () {
-                                              loginDialog(context);
-                                            },
-                                      child: Text('Continue'),
-                                    ),
-                                  );
-                          },
-                        );
-                      } else if (state is SymptomsLoading) {
-                        return CustomLoading();
-                      } else if (state is SymptomsLoadingError) {
-                        return Center(child: Text(state.message));
-                      } else {
-                        return Center(child: Text('Could not load symptoms'));
-                      }
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           } else {

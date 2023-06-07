@@ -191,6 +191,7 @@ class DoctorRepository extends BaseDoctorRepository {
   @override
   Future<DoctorProfileModel> completeDoctorProfile({
     required String doctorId,
+    required String title,
     required String specialty,
     required String careerOverview,
     required String location,
@@ -228,9 +229,10 @@ class DoctorRepository extends BaseDoctorRepository {
 
     // Add form data fields
     request.fields['doctorID'] = doctorId;
-    request.fields['title'] = specialty;
+    request.fields['title'] = title;
     request.fields['overview'] = careerOverview;
     request.fields['location'] = location;
+    request.fields['speciality'] = specialty;
     request.fields['experience'] = experience.toString();
 
     var response = await request.send();

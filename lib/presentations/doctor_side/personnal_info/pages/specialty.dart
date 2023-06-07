@@ -11,6 +11,7 @@ import '../widgets/text_field.dart';
 class Specialty extends StatelessWidget {
   Specialty({Key? key}) : super(key: key);
   TextEditingController specialtyController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
   TextEditingController expController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController careerController = TextEditingController();
@@ -23,6 +24,10 @@ class Specialty extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextWidget(label: 'Title', controller: titleController)),
+          SizedBox(height: 16),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: TextWidget(
@@ -52,11 +57,13 @@ class Specialty extends StatelessWidget {
             width: 0.8 * MediaQuery.of(context).size.width,
             child: ElevatedButton(
               onPressed: () {
-                if (specialtyController.text.isNotEmpty &&
+                if (titleController.text.isNotEmpty &&
+                    specialtyController.text.isNotEmpty &&
                     locationController.text.isNotEmpty &&
                     careerController.text.isNotEmpty &&
                     expController.text.isNotEmpty) {
                   context.read<PersonalInfoCubit>().updatePersonalInfo(
+                      title: titleController.text,
                       specialty: specialtyController.text,
                       careerOverview: careerController.text,
                       location: locationController.text,

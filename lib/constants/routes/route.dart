@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/presentations/auth/views/forgot_password/password_otp_screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/doctor_by_symptoms_screen.dart';
 
 import 'package:my_daktari/models/appointment.dart';
@@ -10,7 +11,7 @@ import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecke
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
 
 import '../../models/doctor_profile_model.dart';
-import '../../presentations/auth/views/forgot_password.dart';
+import '../../presentations/auth/views/forgot_password/forgot_password.dart';
 import '../../presentations/auth/views/login_screen.dart';
 import '../../presentations/auth/views/sign_up_screen.dart';
 import '../../presentations/doctor_side/appointments/appointment_details.dart';
@@ -28,6 +29,7 @@ import '../../presentations/welcome_screen.dart';
 const String signUpScreen = 'authPage';
 const String loginScreen = 'loginPage';
 const String otpScreen = 'otpPage';
+const String passwordOtpScreen = 'passwordOtpPage';
 const String welcomeScreen = 'welcome';
 const String charges = 'charges';
 const String personalInfo = 'personalInfo';
@@ -61,6 +63,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case otpScreen:
         return MaterialPageRoute(builder: (_) => OtpScreen());
+      // case passwordOtpScreen:
+      //   return MaterialPageRoute(builder: (_) => PasswordOtpScreen());
       case ambulanceScreen:
         return MaterialPageRoute(builder: (_) => AmbulanceScreen());
       case pharmacyScreen:

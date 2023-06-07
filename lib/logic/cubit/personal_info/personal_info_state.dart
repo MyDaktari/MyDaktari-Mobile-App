@@ -1,11 +1,12 @@
 part of 'personal_info_cubit.dart';
 
 class PersonalInfoState extends Equatable {
-  final String specialty, careerOverview;
+  final String specialty, careerOverview, title;
   final int experience;
   final String location;
   final PlatformFile profilePicture, nationalId;
   PersonalInfoState({
+    required this.title,
     required this.specialty,
     required this.experience,
     required this.careerOverview,
@@ -14,6 +15,7 @@ class PersonalInfoState extends Equatable {
     required this.profilePicture,
   });
   PersonalInfoState copyWith({
+    String? title,
     String? specialty,
     String? carrerOverview,
     int? experience,
@@ -22,6 +24,7 @@ class PersonalInfoState extends Equatable {
     PlatformFile? nationalId,
   }) {
     return PersonalInfoState(
+        title: title ?? this.title,
         specialty: specialty ?? this.specialty,
         experience: experience ?? this.experience,
         careerOverview: carrerOverview ?? this.careerOverview,
@@ -32,6 +35,7 @@ class PersonalInfoState extends Equatable {
 
   @override
   List<Object> get props => [
+        title,
         specialty,
         experience,
         careerOverview,

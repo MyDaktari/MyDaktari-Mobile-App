@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:my_daktari/constants/enums.dart';
-import 'package:my_daktari/logic/bloc/forgot_password/forgot_password_bloc.dart';
+import 'package:my_daktari/logic/bloc/forgot_password/reset_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
@@ -32,6 +32,7 @@ import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart
 import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
+import 'logic/bloc/password_otp/password_otp_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
 import 'logic/cubit/file_name/file_name_cubit.dart';
@@ -82,8 +83,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<OtpBloc>(
               create: (context) =>
                   OtpBloc(authRepository: AuthenticationRepository())),
-          BlocProvider<ForgotPasswordBloc>(
-              create: (context) => ForgotPasswordBloc(
+          BlocProvider<PasswordOtpBloc>(
+              create: (context) =>
+                  PasswordOtpBloc(authRepository: AuthenticationRepository())),
+          BlocProvider<ResetPasswordBloc>(
+              create: (context) => ResetPasswordBloc(
                   authenticationRepository: AuthenticationRepository())),
           BlocProvider<AuthStatusBloc>(
               create: (context) =>
@@ -160,7 +164,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<ScheduleCubit>(
             create: (context) => ScheduleCubit(daysOfWeek.map((day) {
               return DaySchedule(
-                id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
+                  id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
                   day: day,
                   isEnabled: true,
                   startTime: timeIntervals.first,

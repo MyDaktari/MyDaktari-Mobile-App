@@ -1,6 +1,6 @@
 class DoctorModel {
   String? name;
-  String? profile_completed;
+
   int? id;
   String? email;
   String? phone;
@@ -8,14 +8,13 @@ class DoctorModel {
   String? gender;
   String? speciality;
   String? description;
-  Map<String, dynamic>? location;
+  String? location;
   String? lat;
   String? lng;
 
   DoctorModel(
       {this.name,
       this.id,
-      this.profile_completed,
       this.email,
       this.phone,
       this.dob,
@@ -29,7 +28,6 @@ class DoctorModel {
   DoctorModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     id = json['id'];
-    profile_completed = json['profile_completed'];
     email = json['email'];
     phone = json['phone'];
     dob = json['dob'];
@@ -51,7 +49,6 @@ class DoctorModel {
     data['gender'] = this.gender;
     data['speciality'] = this.speciality;
     data['description'] = this.description;
-    data['profile_completed'] = this.profile_completed;
     data['location'] = this.location;
     data['lat'] = this.lat;
     data['lng'] = this.lng;

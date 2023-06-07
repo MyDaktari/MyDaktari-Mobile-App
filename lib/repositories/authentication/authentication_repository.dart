@@ -212,6 +212,45 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
+  Future<String> passwordOtpVerification(
+      {required String email, required String otp}) async {
+    final response = await http.post(
+        Uri.parse(
+            "https://mydoc.my-daktari.com/new_api/verifyForgotPasswordOTP.php"),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"identifier": email, "otp": otp}));
+
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      String message = jsonDecode(response.body)['UserID'].toString();
+
+      return message;
+    } else {
+      throw Exception('Invalid OTP');
+    }
+  }
+
+  @override
+  Future<String> passwordOtpRequest(
+      {required String email, required UserType userType}) async {
+    const String clientUrl =
+        'https://mydoc.my-daktari.com/new_api/forgotPasswordClient.php';
+    const String doctorUrl =
+        'https://mydoc.my-daktari.com/new_api/forgotPasswordDoctor.php';
+    final response = await http.post(
+        Uri.parse(userType == UserType.client ? clientUrl : doctorUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"email": email}));
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      String message = jsonDecode(response.body)['message'];
+      return message;
+    } else {
+      throw Exception('Fail to send OTP');
+    }
+  }
+
+  @override
   Future<bool> logOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool deleteUseType = await preferences.remove('userType');
@@ -242,39 +281,20 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
-  Future<String> sendResetToken({required email}) async {
-    final response = await http.post(
-      Uri.parse(resetPasswordUrl),
-      body: jsonEncode(
-        {"email": email},
-      ),
-    );
-    if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body)['message'];
-      return jsonData;
-    } else if (response.statusCode == 401 || response.statusCode == 400) {
-      throw Exception(jsonDecode(response.body)['message']);
-    } else {
-      throw Exception(
-          "Service unavailable. we'll be back soon ${response.statusCode}");
-    }
-  }
-
-  @override
   Future<String> resetPassword(
-      {required token,
-      required password,
-      required confirmPassword,
-      required email}) async {
+      {required String userId,
+      required String password,
+      required UserType userType}) async {
+    const String clientUrl =
+        'https://mydoc.my-daktari.com/new_api/updatePasswordClient.php';
+    const String doctorUrl =
+        'https://mydoc.my-daktari.com/new_api/updatePasswordDoctor.php';
     final response = await http.post(
-      Uri.parse(resetPasswordUrl),
+      Uri.parse(userType == UserType.client ? clientUrl : doctorUrl),
       body: jsonEncode(
         {
-          "token": token,
+          "userID": userId,
           "password": password,
-          "confirm_password": confirmPassword,
-          "email": email,
-          "reset": true
         },
       ),
     );
@@ -284,8 +304,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     } else if (response.statusCode == 401 || response.statusCode == 422) {
       throw Exception(jsonDecode(response.body)['message']);
     } else {
-      throw Exception(
-          "Service unavailable. we'll be back soon ${response.statusCode}");
+      throw Exception("Service unavailable. Try again later");
     }
   }
 }

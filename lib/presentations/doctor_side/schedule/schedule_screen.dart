@@ -125,7 +125,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     const Text("Working Hours",
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 20),
-                    SingleChildScrollView(child:  ScheduleRow())
+                    SingleChildScrollView(child: ScheduleRow())
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -139,7 +139,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                             onPressed: () {
                               final availability =
                                   <String, List<Map<String, String>>>{};
-                              // print(schedulesConstant.first.startTime);
                               for (final schedule in schedulesConstant) {
                                 final dayAbbreviated = schedule.day;
                                 final dayFullName =
@@ -156,16 +155,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                 }
                               }
 
-                              // Print the availability in the desired format
                               int formattedSelectedTime =
                                   int.parse(selectedTime.split(" ")[0]);
-                              // print(jsonEncode({
-                              //   "doctorId": int.parse(userId),
-                              //   "duration": selectedTime.contains("hrs")
-                              //       ? formattedSelectedTime * 60
-                              //       : formattedSelectedTime,
-                              //   "availability": availability,
-                              // }));
                               context
                                   .read<DoctorAvailabilityBloc>()
                                   .add(AddDoctorAvailability(

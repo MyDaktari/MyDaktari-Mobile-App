@@ -85,11 +85,14 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
+      print(response.body);
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
       preferences.setString(
           'profileCompleted', jsonEncode(responseBody['profile_completed']));
+      preferences.setString('fullProfileCompleted',
+          jsonEncode(responseBody['full_profile_completed']));
       return doctor;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -129,6 +132,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       preferences.setString('userType', UserType.doctor.name);
       preferences.setString(
           'profileCompleted', jsonEncode(responseBody['profile_completed']));
+      preferences.setString('fullProfileCompleted',
+          jsonEncode(responseBody['full_profile_completed']));
       userPhoneNumber = doctor.phone!;
       return doctor;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
@@ -148,6 +153,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     String? userTypeFromPrefs = preferences.getString('userType');
     String? profileCompletedFromPrefs =
         preferences.getString('profileCompleted');
+    String? fullProfileCompletedFromPrefs =
+        preferences.getString('fullProfileCompleted');
     dynamic user;
 
     if (userTypeFromPrefs != null) {
@@ -165,6 +172,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       return {
         'user': user,
         'profileCompleted': profileCompletedFromPrefs,
+        'fullProfileCompleted': fullProfileCompletedFromPrefs,
         'userType': (userTypeFromPrefs == UserType.client.name)
             ? UserType.client
             : UserType.doctor
@@ -208,7 +216,29 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool deleteUseType = await preferences.remove('userType');
     bool logUerOut = await preferences.remove('user');
-    return deleteUseType && logUerOut;
+    bool removeProfileStatus = await preferences.remove('profileCompleted');
+    bool removeFullProfileStatus =
+        await preferences.remove('fullProfileCompleted');
+    return deleteUseType &&
+        logUerOut &&
+        removeProfileStatus &&
+        removeFullProfileStatus;
+  }
+
+  Future<bool> updateUserProfile({bool fullProfile = false}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool userProfile = fullProfile
+        ? await preferences.setString('fullProfileCompleted', 'true')
+        : await preferences.setString('profileCompleted', 'true');
+
+    String? profileCompletedFromPrefs =
+        preferences.getString('profileCompleted');
+    String? fullProfileCompletedFromPrefs =
+        preferences.getString('fullProfileCompleted');
+    print('Checking ###########');
+    print("Profile Completed: $profileCompletedFromPrefs");
+    print("Full Profile Completed: $fullProfileCompletedFromPrefs");
+    return userProfile;
   }
 
   @override

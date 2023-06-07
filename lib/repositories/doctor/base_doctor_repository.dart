@@ -34,6 +34,7 @@ abstract class BaseDoctorRepository {
       required Map<String, List<Map<String, dynamic>>> data}) async {}
   Future<DoctorProfileModel?> completeDoctorProfile({
     required String doctorId,
+    required String title,
     required String specialty,
     required String careerOverview,
     required String location,

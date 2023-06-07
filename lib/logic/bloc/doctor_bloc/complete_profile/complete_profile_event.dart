@@ -8,13 +8,14 @@ abstract class CompleteProfileEvent extends Equatable {
 }
 
 class DoctorUpdateProfile extends CompleteProfileEvent {
-  final String specialty, careerOverview, doctorId;
+  final String title, specialty, careerOverview, doctorId;
   final int experience;
   final String location;
   final PlatformFile profilePicture, nationalId;
 
   const DoctorUpdateProfile({
     required this.doctorId,
+    required this.title,
     required this.specialty,
     required this.experience,
     required this.careerOverview,
@@ -25,6 +26,7 @@ class DoctorUpdateProfile extends CompleteProfileEvent {
   @override
   List<Object> get props => [
         doctorId,
+        title,
         specialty,
         experience,
         careerOverview,

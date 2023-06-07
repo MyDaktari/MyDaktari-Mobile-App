@@ -23,6 +23,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
       CheckUserStatus event, Emitter<AuthStatusState> emit) async {
     emit(AuthStatusLoding());
     bool profileCompleted = false;
+    bool fullProfileCompleted = false;
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
       print(response);
@@ -37,16 +38,20 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
             userId = (response['user'] as DoctorModel).id.toString();
             doctor = response['user'] as DoctorModel;
             profileCompleted = bool.parse(response['profileCompleted']);
+            fullProfileCompleted = bool.parse(response['fullProfileCompleted']);
             userPhoneNumber =
                 (response['user'] as DoctorModel).phone.toString();
+            print('##########Profile');
+            print('Profile: $profileCompleted');
+            print('Full Profile: $fullProfileCompleted');
           } catch (e) {
             print(e.toString());
           }
-          print('6666');
           emit(UserAuthenticated(
               user: response['user'],
               userType: response['userType'],
-              profileCompleted: profileCompleted));
+              profileCompleted: profileCompleted,
+              fullProfileCompleted: fullProfileCompleted));
         }
       } else {
         print('4');

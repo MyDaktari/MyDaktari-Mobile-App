@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 
@@ -20,6 +21,7 @@ class CompleteProfileBloc
     try {
       await doctorRepository.completeDoctorProfile(
         doctorId: event.doctorId,
+        title: event.title,
         specialty: event.specialty,
         careerOverview: event.careerOverview,
         experience: event.experience,

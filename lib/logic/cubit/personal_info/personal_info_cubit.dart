@@ -7,6 +7,7 @@ part 'personal_info_state.dart';
 class PersonalInfoCubit extends Cubit<PersonalInfoState> {
   PersonalInfoCubit()
       : super(PersonalInfoState(
+            title: '',
             careerOverview: '',
             experience: 0,
             location: '',
@@ -15,12 +16,14 @@ class PersonalInfoCubit extends Cubit<PersonalInfoState> {
             profilePicture: PlatformFile(name: '', size: 0)));
 
   void updatePersonalInfo({
+    required String title,
     required String specialty,
     required String careerOverview,
     required String location,
     required int experience,
   }) {
     emit(state.copyWith(
+        title: title,
         specialty: specialty,
         carrerOverview: careerOverview,
         experience: experience,

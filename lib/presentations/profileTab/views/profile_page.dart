@@ -74,7 +74,6 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildProfileField('Name', doctor.name),
-          buildProfileField('Profile Completed', doctor.profile_completed),
           buildProfileField('ID', doctor.id.toString()),
           buildProfileField('Email', doctor.email),
           buildProfileField('Phone', doctor.phone),

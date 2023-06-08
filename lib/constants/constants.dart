@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:intl/intl.dart';
-
 import '../models/models.dart';
 import '../presentations/doctor_side/schedule/models/dayschedule.dart';
 
@@ -13,7 +11,54 @@ const Color greenish = Color(0xFF00ECB6); // Hex: #00ECB6
 String userId = '';
 String userPhoneNumber = '';
 DoctorModel doctor = DoctorModel();
-List<DaySchedule> schedulesConstant = [];
+List<DaySchedule> schedulesConstant = daysOfWeek.map((day) {
+  return DaySchedule(
+    id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
+    day: day,
+    isEnabled: true,
+    startTime: timeIntervals.first,
+    endTime: timeIntervals.last,
+  );
+}).toList();
+
+// String convertTo12HourFormat(String time24Hr) {
+//   final dateFormat = DateFormat('HH:mm');
+//   final parsedTime = dateFormat.parse(time24Hr);
+//   final format12Hr = DateFormat('h:mm a');
+
+//   return format12Hr.format(parsedTime);
+// }
+//09:00:00
+String convertTo12HourFormat(String time24Hr) {
+  try {
+    final dateFormat = DateFormat('HH:mm');
+    final dateTime = dateFormat.parse(time24Hr);
+    print(dateTime);
+    String formattedTime = DateFormat('h:mm a').format(dateTime);
+    print('###@@@@@@@@@@@@@@@@@');
+    print(formattedTime);
+    return formattedTime;
+  } on Exception catch (e) {
+    print('1111111111111111111');
+    print(e.toString());
+    return time24Hr;
+  }
+}
+
+String convertTo24HourFormat(String time12Hr) {
+  try {
+    final dateFormat = DateFormat('h:mm a');
+    final parsedTime = dateFormat.parse(time12Hr);
+    final format24Hr = DateFormat('HH:mm');
+    print('###@@@@2222222222222@@@@@@');
+    print(format24Hr.format(parsedTime));
+    return format24Hr.format(parsedTime);
+  } on Exception catch (e) {
+    print('2222222222222222222221');
+    print(e.toString());
+    return time12Hr;
+  }
+}
 
 String formatRelativeTime(DateTime dateTime) {
   final now = DateTime.now();

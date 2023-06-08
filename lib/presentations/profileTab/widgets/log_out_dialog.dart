@@ -23,11 +23,8 @@ Future<dynamic> logOutDialog(BuildContext context) {
                         .copyWith(color: primaryColor, fontSize: 25)),
                 IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
-                      Icons.cancel,
-                      size: 35,
-                      color: primaryColor,
-                    ))
+                    icon:
+                        const Icon(Icons.cancel, size: 35, color: primaryColor))
               ],
             ),
             const Divider(thickness: 2),

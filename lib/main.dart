@@ -162,14 +162,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),
           BlocProvider<SymptomsCubit>(create: (context) => SymptomsCubit()),
           BlocProvider<ScheduleCubit>(
-            create: (context) => ScheduleCubit(daysOfWeek.map((day) {
-              return DaySchedule(
-                  id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
-                  day: day,
-                  isEnabled: true,
-                  startTime: timeIntervals.first,
-                  endTime: timeIntervals.first);
-            }).toList()),
+            create: (context) => ScheduleCubit(schedulesConstant),
           ),
         ],
         child: AnnotatedRegion<SystemUiOverlayStyle>(

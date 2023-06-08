@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/urls.dart';
 import '../../models/models.dart';
@@ -80,12 +81,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     final response = await http.post(Uri.parse('$loginDoctorUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
-
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      print(response.body);
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
@@ -93,6 +92,14 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           'profileCompleted', jsonEncode(responseBody['profile_completed']));
       preferences.setString('fullProfileCompleted',
           jsonEncode(responseBody['full_profile_completed']));
+      //Doctor Availability
+      bool fullProfileCompleted = responseBody['full_profile_completed'];
+      if (fullProfileCompleted) {
+        schedulesConstant = availabilityToSchedules(
+            responseBody['data']['doctorAvailability'] as Map<String, dynamic>);
+        preferences.setString('schedules',
+            jsonEncode(responseBody['data']['doctorAvailability']));
+      }
       return doctor;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -155,6 +162,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         preferences.getString('profileCompleted');
     String? fullProfileCompletedFromPrefs =
         preferences.getString('fullProfileCompleted');
+    String? doctorSchedules = preferences.getString('schedules');
+
     dynamic user;
 
     if (userTypeFromPrefs != null) {
@@ -173,6 +182,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         'user': user,
         'profileCompleted': profileCompletedFromPrefs,
         'fullProfileCompleted': fullProfileCompletedFromPrefs,
+        'doctorSchedule': doctorSchedules,
         'userType': (userTypeFromPrefs == UserType.client.name)
             ? UserType.client
             : UserType.doctor
@@ -219,7 +229,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
             "https://mydoc.my-daktari.com/new_api/verifyForgotPasswordOTP.php"),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"identifier": email, "otp": otp}));
-
     print(response.body);
     print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200) {
@@ -256,11 +265,27 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     bool deleteUseType = await preferences.remove('userType');
     bool logUerOut = await preferences.remove('user');
     bool removeProfileStatus = await preferences.remove('profileCompleted');
+    bool removeDoctorSchedule = await preferences.remove('schedules');
     bool removeFullProfileStatus =
         await preferences.remove('fullProfileCompleted');
+
+    userId = '';
+    userPhoneNumber = '';
+    doctor = DoctorModel();
+    schedulesConstant = daysOfWeek.map((day) {
+      return DaySchedule(
+        id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
+        day: day,
+        isEnabled: true,
+        startTime: timeIntervals.first,
+        endTime: timeIntervals.last,
+      );
+    }).toList();
+
     return deleteUseType &&
         logUerOut &&
         removeProfileStatus &&
+        removeDoctorSchedule &&
         removeFullProfileStatus;
   }
 
@@ -269,11 +294,11 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     bool userProfile = fullProfile
         ? await preferences.setString('fullProfileCompleted', 'true')
         : await preferences.setString('profileCompleted', 'true');
-
     String? profileCompletedFromPrefs =
         preferences.getString('profileCompleted');
     String? fullProfileCompletedFromPrefs =
         preferences.getString('fullProfileCompleted');
+
     print('Checking ###########');
     print("Profile Completed: $profileCompletedFromPrefs");
     print("Full Profile Completed: $fullProfileCompletedFromPrefs");

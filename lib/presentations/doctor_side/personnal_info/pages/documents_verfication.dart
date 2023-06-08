@@ -123,7 +123,8 @@ class DocumentUpload extends StatelessWidget {
                       }
                       if (state is CompleteProfileLoaded) {
                         authRepository.updateUserProfile();
-                        Navigator.pushNamed(context, route.homeScreen);
+                        Navigator.pushReplacementNamed(
+                            context, route.homeScreen);
                       }
                     },
                     builder: (context, state) {

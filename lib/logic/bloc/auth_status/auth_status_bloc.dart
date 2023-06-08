@@ -27,6 +27,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
       print(response);
+      print('###############');
       if (response['user'] != null && response['userType'] != null) {
         if (response['userType'] == UserType.client) {
           userId = (response['user'] as ClientModel).userID.toString();
@@ -37,15 +38,20 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
           try {
             userId = (response['user'] as DoctorModel).id.toString();
             doctor = response['user'] as DoctorModel;
-            profileCompleted = bool.parse(response['profileCompleted']);
-            fullProfileCompleted = bool.parse(response['fullProfileCompleted']);
+            print(doctor.id);
+            profileCompleted =
+                bool.parse(response['profileCompleted'] ?? 'false');
+            print('11');
+            fullProfileCompleted =
+                bool.parse(response['fullProfileCompleted'] ?? 'false');
+            print('111');
             userPhoneNumber =
                 (response['user'] as DoctorModel).phone.toString();
             print('##########Profile');
             print('Profile: $profileCompleted');
             print('Full Profile: $fullProfileCompleted');
           } catch (e) {
-            print(e.toString());
+            print("Error: ${e.toString()}");
           }
           emit(UserAuthenticated(
               user: response['user'],

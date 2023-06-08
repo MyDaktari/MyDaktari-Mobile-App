@@ -14,15 +14,7 @@ class ScheduleRow extends StatefulWidget {
 }
 
 class _ScheduleRowState extends State<ScheduleRow> {
-  final ScheduleCubit scheduleCubit = ScheduleCubit(daysOfWeek.map((day) {
-    return DaySchedule(
-      id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
-      day: day,
-      isEnabled: true,
-      startTime: timeIntervals.first,
-      endTime: timeIntervals.first,
-    );
-  }).toList());
+  final ScheduleCubit scheduleCubit = ScheduleCubit(schedulesConstant);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +24,6 @@ class _ScheduleRowState extends State<ScheduleRow> {
         children: [
           BlocBuilder<ScheduleCubit, List<DaySchedule>>(
             builder: (context, schedules) {
-              schedulesConstant = schedules;
               final Map<String, int> dayPriority = {
                 'Mon': 1,
                 'Tue': 2,
@@ -67,7 +58,6 @@ class _ScheduleRowState extends State<ScheduleRow> {
                     ScheduleItemWidget(
                       schedule: schedules[i],
                       timeIntervals: timeIntervals,
-                      
                       isDuplicate:
                           i > 0 && schedules[i].day == schedules[i - 1].day,
                     ),

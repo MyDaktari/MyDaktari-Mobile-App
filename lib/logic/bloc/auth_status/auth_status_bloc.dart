@@ -1,9 +1,12 @@
 // ignore_for_file: sdk_version_since
 
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 
 import '../../../models/models.dart';
 import '../../../repositories/authentication/authentication_repository.dart';
@@ -26,26 +29,32 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
     bool fullProfileCompleted = false;
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
-      print(response);
+
       if (response['user'] != null && response['userType'] != null) {
+        //if user is a client
         if (response['userType'] == UserType.client) {
           userId = (response['user'] as ClientModel).userID.toString();
           userPhoneNumber = (response['user'] as ClientModel).phone.toString();
           emit(UserAuthenticated(
               user: response['user'], userType: response['userType']));
         } else {
+          //if user is a docotr
           try {
             userId = (response['user'] as DoctorModel).id.toString();
             doctor = response['user'] as DoctorModel;
-            profileCompleted = bool.parse(response['profileCompleted']);
-            fullProfileCompleted = bool.parse(response['fullProfileCompleted']);
+            profileCompleted =
+                bool.parse(response['profileCompleted'] ?? 'false');
+            fullProfileCompleted =
+                bool.parse(response['fullProfileCompleted'] ?? 'false');
             userPhoneNumber =
                 (response['user'] as DoctorModel).phone.toString();
-            print('##########Profile');
-            print('Profile: $profileCompleted');
-            print('Full Profile: $fullProfileCompleted');
+            //get the doctor schedule availability from shared preferencea, then convert it back to Schedules models.
+            if (response['doctorSchedule'] != null) {
+              schedulesConstant = availabilityToSchedules(
+                  jsonDecode(response['doctorSchedule']));
+            }
           } catch (e) {
-            print(e.toString());
+            print("Error: ${e.toString()}");
           }
           emit(UserAuthenticated(
               user: response['user'],

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/clickable_times.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/working_hours.dart';
@@ -31,17 +32,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize the schedules with default values
-    final initialSchedules = daysOfWeek.map((day) {
-      return DaySchedule(
-        id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
-        day: day,
-        isEnabled: true,
-        startTime: timeIntervals.first,
-        endTime: timeIntervals.first,
-      );
-    }).toList();
-    scheduleCubit = ScheduleCubit(initialSchedules);
+    scheduleCubit = ScheduleCubit(schedulesConstant);
   }
 
   String selectedTime = '30 min';
@@ -137,26 +128,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         width: 0.9 * MediaQuery.of(context).size.width,
                         child: ElevatedButton(
                             onPressed: () {
-                              final availability =
-                                  <String, List<Map<String, String>>>{};
-                              for (final schedule in schedulesConstant) {
-                                final dayAbbreviated = schedule.day;
-                                final dayFullName =
-                                    dayFullNameMap[dayAbbreviated];
-                                final start = schedule.startTime;
-                                final end = schedule.endTime;
-                                final isEnabled = schedule.isEnabled;
-                                if (isEnabled) {
-                                  availability[dayFullName!] ??= [];
-                                  availability[dayFullName]!
-                                      .add({'start': start, 'end': end});
-                                } else {
-                                  availability[dayFullName!] ??= [];
-                                }
-                              }
-
+                              final Map<String, List<Map<String, String>>>
+                                  availability =
+                                  schedulesToAvailability(schedulesConstant);
                               int formattedSelectedTime =
                                   int.parse(selectedTime.split(" ")[0]);
+                              print('object');
+                              print(userId);
                               context
                                   .read<DoctorAvailabilityBloc>()
                                   .add(AddDoctorAvailability(
@@ -190,8 +168,21 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   return CupertinoActivityIndicator(
                                       color: Colors.white);
                                 } else {
-                                  return Text('Save',
-                                      style: TextStyle(color: Colors.white));
+                                  return BlocBuilder<AuthStatusBloc,
+                                      AuthStatusState>(
+                                    builder: (context, state) {
+                                      if (state is UserAuthenticated) {
+                                        return Text(
+                                            state.fullProfileCompleted
+                                                ? 'Update'
+                                                : 'Save',
+                                            style:
+                                                TextStyle(color: Colors.white));
+                                      } else {
+                                        return const SizedBox();
+                                      }
+                                    },
+                                  );
                                 }
                               },
                             )),

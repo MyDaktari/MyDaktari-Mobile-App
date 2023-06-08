@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 
@@ -22,11 +23,8 @@ Future<dynamic> logOutDialog(BuildContext context) {
                         .copyWith(color: primaryColor, fontSize: 25)),
                 IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
-                      Icons.cancel,
-                      size: 35,
-                      color: primaryColor,
-                    ))
+                    icon:
+                        const Icon(Icons.cancel, size: 35, color: primaryColor))
               ],
             ),
             const Divider(thickness: 2),
@@ -49,6 +47,7 @@ Future<dynamic> logOutDialog(BuildContext context) {
                     const Text('Stay', style: TextStyle(color: Colors.black))),
             TextButton(
               onPressed: () {
+                context.read<PageUpdateCubit>().setPageIndex(0);
                 context.read<AuthStatusBloc>().add(logUserOut());
                 Navigator.pop(context);
               },

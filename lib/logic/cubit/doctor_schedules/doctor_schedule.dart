@@ -1,36 +1,55 @@
+import 'dart:convert';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../constants/constants.dart';
 import '../../../presentations/doctor_side/schedule/models/dayschedule.dart';
 
 class ScheduleCubit extends Cubit<List<DaySchedule>> {
   ScheduleCubit(List<DaySchedule> initialSchedules) : super(initialSchedules);
 
+  void saveScheduleToMemory(List<DaySchedule> schedule) async {
+    final convertedString = schedulesToAvailability(schedule);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString("schedules", jsonEncode(convertedString));
+    print("saving and getting from memorrrrrrrrrrrrrrrrry");
+    print(prefs.getString("schedules"));
+  }
+
   void addSchedule(DaySchedule schedule) {
     state.add(schedule.copyWith(id: UniqueKey().toString()));
-    emit(List.from(state));
+    schedulesConstant = List.from(state);
+    saveScheduleToMemory(schedulesConstant);
+    emit(schedulesConstant);
   }
 
   void removeSchedule(DaySchedule schedule) {
     state.removeWhere((s) => s.id == schedule.id);
-    emit(List.from(state));
+    schedulesConstant = List.from(state);
+    saveScheduleToMemory(schedulesConstant);
+    emit(schedulesConstant);
   }
 
   void updateSchedule(DaySchedule schedule) {
     final index = state.indexWhere((s) => s.id == schedule.id);
     if (index != -1) {
-      final timeFormat = DateFormat('h:mm a');
+      final timeFormat = DateFormat('HH:mm');
       final startTime = timeFormat.parse(schedule.startTime);
       final endTime = timeFormat.parse(schedule.endTime);
 
       // Check if the start time is earlier than the end time
-      if (startTime.isAfter(endTime)) {
+
+      final changingEnabled = state[index].isEnabled == schedule.isEnabled;
+      if (startTime.isAfter(endTime) && !changingEnabled) {
         Fluttertoast.showToast(msg: 'End time needs to be after start time');
         return;
       } // Check if the start time is equal to the end time
-      if (startTime == endTime) {
+      if (startTime == endTime && !changingEnabled) {
         Fluttertoast.showToast(
             msg: 'Start time cannot be the same as end time');
         return;
@@ -42,7 +61,9 @@ class ScheduleCubit extends Cubit<List<DaySchedule>> {
         isEnabled: schedule.isEnabled,
       );
       state[index] = updatedSchedule;
-      emit(List.from(state));
+      schedulesConstant = List.from(state);
+      saveScheduleToMemory(schedulesConstant);
+      emit(schedulesConstant);
     }
   }
 }

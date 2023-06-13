@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget buildProfileFields(UserType userType, dynamic userData) {
     if (userType == UserType.client && userData is ClientModel) {
-      final client = userData as ClientModel;
+      final client = userData;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -78,7 +78,7 @@ class ProfilePage extends StatelessWidget {
         ],
       );
     } else if (userType == UserType.doctor && userData is DoctorModel) {
-      final doctor = userData as DoctorModel;
+      final doctor = userData;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

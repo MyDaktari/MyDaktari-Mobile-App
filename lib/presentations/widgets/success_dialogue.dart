@@ -35,7 +35,10 @@ Future<dynamic> successDialog(
                       fontSize: 24, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
               Text(message,
-                  style: const TextStyle(fontSize: 16),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center),
             ],
           ),
@@ -51,6 +54,9 @@ Future<dynamic> successDialog(
                           context, route, (Route route) => route.isFirst);
                       Navigator.pop(context);
                     },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+              ),
               child: const Text('OK'),
             ),
           ],

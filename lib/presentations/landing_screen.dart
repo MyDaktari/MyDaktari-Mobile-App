@@ -10,7 +10,7 @@ import 'widgets/disclaimer.dart';
 import '/constants/constants.dart' as constants;
 import '../constants/routes/route.dart' as routes;
 import 'ayaTab/views/aya_tab.dart';
-import 'client_side/doctorsTab/views/doctors_tab.dart';
+import 'client_side/doctorsTab/views/search_doctors_tab..dart';
 import 'client_side/homeTab/views/home_tab.dart';
 import 'profileTab/views/profile_tab.dart';
 

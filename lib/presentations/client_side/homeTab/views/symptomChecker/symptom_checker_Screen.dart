@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/routes/route.dart' as routes;
+import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 
 import '../../../../../logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
@@ -42,11 +43,10 @@ class SymptomChecker extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: size.width * .21),
-                          child: Image.asset(
-                              'assets/images/my_daktari_blue.png',
-                              height: 200),
-                        ),
+                            padding: EdgeInsets.only(left: size.width * .21),
+                            child: Image.asset(
+                                'assets/images/my_daktari_blue.png',
+                                height: 200)),
                         SizedBox(height: size.height * .1),
                         DropdownButtonFormField<String>(
                           style: TextStyle(color: Colors.grey),
@@ -56,9 +56,7 @@ class SymptomChecker extends StatelessWidget {
                           },
                           items: _bodyParts.map((option) {
                             return DropdownMenuItem<String>(
-                              value: option,
-                              child: Text(option),
-                            );
+                                value: option, child: Text(option));
                           }).toList(),
                           decoration: InputDecoration(
                               labelText: 'Most affected body part',
@@ -73,6 +71,9 @@ class SymptomChecker extends StatelessWidget {
                           child: TextField(
                             controller: _symptomsController,
                             style: TextStyle(color: Colors.grey),
+                            onChanged: (value) => context
+                                .read<BookingInfoCubit>()
+                                .updateBookingInfo(description: value),
                             maxLines: null, // allow unlimited number of lines
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -86,7 +87,9 @@ class SymptomChecker extends StatelessWidget {
                         const SizedBox(height: 15),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: primaryColor),
+                              backgroundColor: primaryColor,
+                              fixedSize: Size(size.width * .8, 50),
+                            ),
                             onPressed: () {
                               print(jsonEncode({
                                 "bodyParts": _bodyPart,
@@ -112,10 +115,8 @@ class SymptomChecker extends StatelessWidget {
                                     // Fluttertoast.showToast(
                                     //     msg: 'Symptoms loaded successfully');
                                     Navigator.pushNamed(
-                                      context,
-                                      routes.symptomSamples,
-                                      arguments: _bodyPartNotifier,
-                                    );
+                                        context, routes.symptomSamples,
+                                        arguments: _bodyPartNotifier);
                                   }
                                 },
                                 child: Text('Continue'))),
@@ -124,9 +125,8 @@ class SymptomChecker extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Not sure What to say? ',
-                                style: TextStyle(color: Colors.black),
-                              ),
+                                  text: 'Not sure What to say? ',
+                                  style: TextStyle(color: Colors.black)),
                               TextSpan(
                                 text: 'Check out our sample symptoms.',
                                 style: TextStyle(color: primaryColor),

@@ -9,4 +9,16 @@ abstract class BaseClientRepository {
       String symptomsId) async {}
   Future<List<String>?> fetchDoctorAvailability(
       {required String doctorId, required DateTime date}) async {}
+  Future<String?> makePayment(
+      {required String appointmentID,
+      required String amount,
+      required String phoneNumber}) async {}
+  Future<Map<String, dynamic>?> addNewAppointment(
+      {required DateTime date,
+      required String time,
+      required String userId,
+      required String doctorId,
+      required String symptomID,
+      required String description,
+      required String meetingOption}) async {}
 }

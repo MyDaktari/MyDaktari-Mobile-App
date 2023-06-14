@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/presentations/client_side/doctorsTab/views/select_session.dart';
 
+import '../../../../logic/cubit/booking_info/booking_info_cubit.dart';
 import '../../../../models/doctor_profile_model.dart';
 
-class DoctorProfilePage extends StatelessWidget {
-  const DoctorProfilePage({super.key, required this.doctor});
+class DoctorProfileSummaryPage extends StatelessWidget {
+  const DoctorProfileSummaryPage({super.key, required this.doctor});
   final DoctorProfileModel doctor;
   @override
   Widget build(BuildContext context) {
@@ -26,9 +29,8 @@ class DoctorProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Center(
-                    child: Image.asset('assets/images/male-user.png',
-                        height: 180, fit: BoxFit.fitHeight),
-                  ),
+                      child: Image.asset('assets/images/male-user.png',
+                          height: 180, fit: BoxFit.fitHeight)),
                   Text(doctor.name ?? ''),
                   Text(doctor.title ?? '',
                       style: textTheme.titleLarge?.copyWith(
@@ -122,14 +124,20 @@ class DoctorProfilePage extends StatelessWidget {
                 )),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor),
-                onPressed: () => showModalBottomSheet(
-                      barrierColor: Colors.transparent,
-                      useSafeArea: true,
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => SelectSession(doctor: doctor),
-                    ),
+                    backgroundColor: primaryColor,
+                    fixedSize: Size(size.width * .8, 50)),
+                onPressed: () {
+                  print(doctor.name);
+                  context.read<BookingInfoCubit>().updateBookingInfo(
+                      userId: userId, doctorId: doctor.doctorID.toString());
+                  showModalBottomSheet(
+                    barrierColor: Colors.transparent,
+                    useSafeArea: true,
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => SelectSession(doctor: doctor),
+                  );
+                },
                 child: const SizedBox(
                     width: 120, child: Center(child: Text('Book'))))
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/presentations/auth/views/forgot_password/password_otp_screen.dart';
+import 'package:my_daktari/presentations/client_side/doctorsTab/views/booking_Screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/doctor_by_symptoms_screen.dart';
 
 import 'package:my_daktari/models/appointment.dart';
@@ -8,6 +8,7 @@ import 'package:my_daktari/presentations/auth/views/otp_screen.dart';
 
 import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/ambulance_screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
+import 'package:my_daktari/presentations/client_side/payment/payment_screen.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
 
 import '../../models/doctor_profile_model.dart';
@@ -15,7 +16,7 @@ import '../../presentations/auth/views/forgot_password/forgot_password.dart';
 import '../../presentations/auth/views/login_screen.dart';
 import '../../presentations/auth/views/sign_up_screen.dart';
 import '../../presentations/doctor_side/appointments/appointment_details.dart';
-import '../../presentations/client_side/doctorsTab/views/doctor_profile_page.dart';
+import '../../presentations/client_side/doctorsTab/views/doctor_profile_summary_Screen.dart';
 import '../../presentations/client_side/homeTab/views/blog_screen.dart';
 import '../../presentations/client_side/homeTab/views/pharmacy/pharmacy_screen.dart';
 import '../../presentations/client_side/homeTab/views/symptomChecker/symptom_checker_Screen.dart';
@@ -44,6 +45,8 @@ const String symptomCheckerScreen = 'symptomChecker';
 const String symptomSamples = 'symptomSamples';
 const String appointmentDetails = 'appointmentDetails';
 const String profile = "profile";
+const String bookingScreen = "booking";
+const String paymentScreen = "payment";
 const String resetPassword = "resetPassword";
 // const String appointments = "appointments";
 // const String articles = "articles";
@@ -67,6 +70,10 @@ class AppRouter {
       //   return MaterialPageRoute(builder: (_) => PasswordOtpScreen());
       case ambulanceScreen:
         return MaterialPageRoute(builder: (_) => AmbulanceScreen());
+      case paymentScreen:
+        return MaterialPageRoute(builder: (_) => PaymentScreen());
+      case bookingScreen:
+        return MaterialPageRoute(builder: (_) => BookingScreen());
       case pharmacyScreen:
         return MaterialPageRoute(builder: (_) => PharmacyScreen());
       case schedule:
@@ -88,7 +95,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case doctorProfile:
         return MaterialPageRoute(
-            builder: (_) => DoctorProfilePage(
+            builder: (_) => DoctorProfileSummaryPage(
                 doctor: settings.arguments as DoctorProfileModel));
       case symptomCheckerScreen:
         return MaterialPageRoute(builder: (_) => SymptomChecker());

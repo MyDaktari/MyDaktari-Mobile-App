@@ -11,14 +11,14 @@ import 'package:my_daktari/presentations/auth/views/forgot_password/reset_passwo
 import 'package:my_daktari/presentations/auth/widgets/otp_input_field.dart';
 
 class PasswordOtpScreen extends StatelessWidget {
-  PasswordOtpScreen({super.key, required this.email});
+  PasswordOtpScreen({super.key, required this.phoneNumber});
   final TextEditingController _fieldOne = TextEditingController();
   final TextEditingController _fieldTwo = TextEditingController();
   final TextEditingController _fieldThree = TextEditingController();
   final TextEditingController _fieldFour = TextEditingController();
   final TextEditingController _fieldFive = TextEditingController();
   final TextEditingController _fieldSix = TextEditingController();
-  final String email;
+  final String phoneNumber;
   @override
   Widget build(BuildContext context) {
     OtpTimerCubit otpTimerCubit = context.watch<OtpTimerCubit>()..startTimer();
@@ -47,10 +47,10 @@ class PasswordOtpScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18, letterSpacing: 2),
                 children: [
                   TextSpan(
-                      text: 'We have sent a 6-digit code to the email ',
+                      text: 'We have sent a 6-digit code to ',
                       style: TextStyle(color: Colors.black, fontSize: 15)),
                   TextSpan(
-                    text: email,
+                    text: phoneNumber,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -87,10 +87,10 @@ class PasswordOtpScreen extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         // Resend OTP request
-                        if (email.isNotEmpty) {
+                        if (phoneNumber.isNotEmpty) {
                           context.read<PasswordOtpBloc>().add(
                               RequestPasswordOtp(
-                                  email: email,
+                                  phoneNumber: phoneNumber,
                                   userType: userTypeCubit.state.userType));
                           otpTimerCubit.resetTimer();
                         } else {
@@ -120,7 +120,7 @@ class PasswordOtpScreen extends StatelessWidget {
                           _fieldSix.text;
                       if (inputOTP.length == 6) {
                         context.read<PasswordOtpBloc>().add(VerifyPasswordOtp(
-                            email: email, PasswordOtp: inputOTP));
+                            phoneNumber: phoneNumber, PasswordOtp: inputOTP));
                       } else {
                         Fluttertoast.showToast(msg: '6-digit otp required!');
                       }

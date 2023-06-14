@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
+import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 
 import '../../../../models/doctor_profile_model.dart';
-import '../../doctorsTab/views/booking_page.dart';
+import 'package:my_daktari/constants/routes/route.dart' as route;
 
 class SelectSession extends StatelessWidget {
   SelectSession({super.key, required this.doctor});
@@ -16,7 +19,7 @@ class SelectSession extends StatelessWidget {
         'description': 'Pricing is done per session'
       },
       {
-        'title': 'Phone call',
+        'title': 'Phone Call',
         'price': doctor.charges!.first.phoneCall,
         'description': 'Pricing is done per session'
       },
@@ -45,16 +48,24 @@ class SelectSession extends StatelessWidget {
               children: sessions
                   .map((session) => GestureDetector(
                         onTap: () {
+                          print(session['title'].toString());
                           Navigator.pop(context);
-                          showModalBottomSheet(
-                            barrierColor: Colors.transparent,
-                            useSafeArea: true,
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) => DoctorBookingView(
-                                doctor: doctor,
-                                meetingOption: session['title'].toString()),
-                          );
+                          context.read<DoctorTimeSlotsBloc>().add(
+                              LoadDoctorTimeSlots(
+                                  doctorId: doctor.doctorID.toString(),
+                                  date: DateTime.now()));
+                          context.read<BookingInfoCubit>().updateBookingInfo(
+                              meetingOption: session['title'].toString());
+                          Navigator.pushNamed(context, route.bookingScreen);
+                          // showModalBottomSheet(
+                          //   barrierColor: Colors.transparent,
+                          //   useSafeArea: true,
+                          //   context: context,
+                          //   isScrollControlled: true,
+                          //   builder: (context) => DoctorBookingView(
+                          //       doctor: doctor,
+                          //       meetingOption: session['title'].toString()),
+                          // );
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

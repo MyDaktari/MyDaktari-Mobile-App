@@ -33,6 +33,7 @@ Future<dynamic> loginDialog(BuildContext context) {
                   style: Theme.of(context).textTheme.bodyLarge),
             ],
           ),
+          actionsAlignment: MainAxisAlignment.center,
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),

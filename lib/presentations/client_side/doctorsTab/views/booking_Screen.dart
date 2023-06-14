@@ -54,7 +54,7 @@ class BookingScreen extends StatelessWidget {
                         onValueChanged: (value) {
                           final selectedDate =
                               value.isNotEmpty == true ? value.first : null;
-                          print(selectedDate);
+
                           context
                               .read<BookingInfoCubit>()
                               .updateBookingInfo(date: selectedDate, time: '');

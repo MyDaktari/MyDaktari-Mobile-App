@@ -35,7 +35,7 @@ abstract class BaseAuthenticationRepository {
       required String password,
       required UserType userType}) async {}
   Future<String?> passwordOtpVerification(
-      {required String email, required String otp}) async {}
+      {required String phoneNumber, required String otp}) async {}
   Future<String?> passwordOtpRequest(
-      {required String email, required UserType userType}) async {}
+      {required String phoneNumber, required UserType userType}) async {}
 }

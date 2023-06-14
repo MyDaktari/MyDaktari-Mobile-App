@@ -223,12 +223,12 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
   @override
   Future<String> passwordOtpVerification(
-      {required String email, required String otp}) async {
+      {required String phoneNumber, required String otp}) async {
     final response = await http.post(
         Uri.parse(
             "https://mydoc.my-daktari.com/new_api/verifyForgotPasswordOTP.php"),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"identifier": email, "otp": otp}));
+        body: jsonEncode({"identifier": phoneNumber, "otp": otp}));
     print(response.body);
     print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200) {
@@ -242,18 +242,25 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
   @override
   Future<String> passwordOtpRequest(
-      {required String email, required UserType userType}) async {
+      {required String phoneNumber, required UserType userType}) async {
+    print('jskjdskjdnbj');
+    print(phoneNumber);
     const String clientUrl =
         'https://mydoc.my-daktari.com/new_api/forgotPasswordClient.php';
     const String doctorUrl =
         'https://mydoc.my-daktari.com/new_api/forgotPasswordDoctor.php';
+
     final response = await http.post(
         Uri.parse(userType == UserType.client ? clientUrl : doctorUrl),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"email": email}));
+        body: jsonEncode({"phone": phoneNumber}));
+    print(response.body);
     if (response.statusCode == 201 || response.statusCode == 200) {
       String message = jsonDecode(response.body)['message'];
       return message;
+    } else if (response.statusCode == 401) {
+      throw Exception(
+          'No account found for the provided number. Please check the number and try again.');
     } else {
       throw Exception('Fail to send OTP');
     }

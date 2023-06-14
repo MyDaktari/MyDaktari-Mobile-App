@@ -8,16 +8,16 @@ abstract class PasswordOtpEvent extends Equatable {
 }
 
 class RequestPasswordOtp extends PasswordOtpEvent {
-  final String email;
+  final String phoneNumber;
   final UserType userType;
-  RequestPasswordOtp({required this.email, required this.userType});
+  RequestPasswordOtp({required this.phoneNumber, required this.userType});
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [phoneNumber];
 }
 
 class VerifyPasswordOtp extends PasswordOtpEvent {
-  final String email, PasswordOtp;
-  VerifyPasswordOtp({required this.email, required this.PasswordOtp});
+  final String phoneNumber, PasswordOtp;
+  VerifyPasswordOtp({required this.phoneNumber, required this.PasswordOtp});
   @override
-  List<Object> get props => [email, PasswordOtp];
+  List<Object> get props => [phoneNumber, PasswordOtp];
 }

@@ -99,7 +99,7 @@ class PaymentScreen extends StatelessWidget {
                             context.read<PaymentBloc>().add(MakePayment(
                                 amount: appState.amount,
                                 appointmentID: appState.appointmentId,
-                                userPhoneNumber: userPhoneNumber));
+                                userPhoneNumber: numberController.text));
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: primaryColor,

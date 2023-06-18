@@ -14,16 +14,12 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
-        elevation: 0,
-      ),
+          title: Text('Profile',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24)),
+          elevation: 0),
       backgroundColor: Colors.white,
       body: BlocBuilder<AuthStatusBloc, AuthStatusState>(
         builder: (context, state) {
@@ -106,22 +102,14 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[800],
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800])),
           SizedBox(height: 4),
-          Text(
-            value ?? '',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey[600],
-            ),
-          ),
+          Text(value ?? '',
+              style: TextStyle(fontSize: 18, color: Colors.grey[600])),
         ],
       ),
     );

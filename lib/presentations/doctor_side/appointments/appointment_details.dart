@@ -11,10 +11,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Details'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: Text('Details'), elevation: 0),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * .04),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -103,10 +100,9 @@ class AppointmentDetailsScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(10)),
                 child: Transform.rotate(
-                  angle: 90 * pi / 180,
-                  child: Icon(Icons.local_offer_rounded,
-                      color: Colors.grey, size: 35),
-                ),
+                    angle: 90 * pi / 180,
+                    child: Icon(Icons.local_offer_rounded,
+                        color: Colors.grey, size: 35)),
               ),
               Text('${appointment.conditions} - Call',
                   style: Theme.of(context)
@@ -179,15 +175,10 @@ class AppointmentDetailsScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    fixedSize: Size(150, 45), backgroundColor: primaryColor),
+                    fixedSize: Size(size.width * .8, 45),
+                    backgroundColor: primaryColor),
                 child: Text('Reschedule'),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(150, 45), backgroundColor: greenish),
-                child: Text('Decline'),
-              )
             ],
           )
         ]),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_summary.dart';
 import '/constants/constants.dart' as constants;
 
@@ -37,10 +40,19 @@ class AyaTab extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: textTheme.titleMedium?.copyWith(color: Colors.white),
                   ),
-                  ElevatedButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, route.loginScreen),
-                      child: const Text('Continue to Chat'))
+                  BlocBuilder<AuthStatusBloc, AuthStatusState>(
+                    builder: (context, state) {
+                      return ElevatedButton(
+                          onPressed: state is UserAuthenticated
+                              ? () =>
+                                  Fluttertoast.showToast(msg: 'Coming Soon!')
+                              : () =>
+                                  Fluttertoast.showToast(msg: 'Coming Soon!'),
+                          // Navigator.pushNamed(
+                          //     context, route.loginScreen),
+                          child: const Text('Continue to Chat'));
+                    },
+                  )
                 ],
               ),
             ),

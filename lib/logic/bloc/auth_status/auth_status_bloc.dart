@@ -34,6 +34,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
         //if user is a client
         if (response['userType'] == UserType.client) {
           userId = (response['user'] as ClientModel).userID.toString();
+          print(userId);
           userPhoneNumber = (response['user'] as ClientModel).phone.toString();
           emit(UserAuthenticated(
               user: response['user'], userType: response['userType']));

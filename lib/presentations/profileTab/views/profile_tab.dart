@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/logic/bloc/client_bloc/client_appointment/client_appointments_bloc.dart';
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../../client_side/homeTab/widgets/authentication_dialog.dart';
@@ -17,7 +19,7 @@ class ProfileTab extends StatelessWidget {
     {"articles": "Articles"}
   ];
   static const List<Map<String, dynamic>> patientPages = [
-    {"appointments": "My Appointments"},
+    {"clientAppointments": "My Appointments"},
     {"profile": "Basic info"},
     {"articles": "Articles"}
   ];
@@ -42,7 +44,6 @@ class ProfileTab extends StatelessWidget {
               final title = userTypeCubit.state.userType == UserType.doctor
                   ? doctorPages[index].values.first
                   : patientPages[index].values.first;
-              ;
               return Container(
                 decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(width: 0.1))),
@@ -64,6 +65,10 @@ class ProfileTab extends StatelessWidget {
                           // You can navigate to the corresponding route using Navigator
                           if (state is UserAuthenticated) {
                             Navigator.pushNamed(context, route);
+                            if (route == 'clientAppointments') {
+                              context.read<ClientAppointmentsBloc>().add(
+                                  LoadClientAppointments(cleintId: userId));
+                            }
                           } else if (state is UserUnauthenticated) {
                             loginDialog(context);
                           }

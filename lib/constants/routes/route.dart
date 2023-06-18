@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/presentations/client_side/appointments/client_appointment_screen.dart';
 import 'package:my_daktari/presentations/client_side/doctorsTab/views/booking_Screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/doctor_by_symptoms_screen.dart';
 
@@ -48,7 +49,7 @@ const String profile = "profile";
 const String bookingScreen = "booking";
 const String paymentScreen = "payment";
 const String resetPassword = "resetPassword";
-// const String appointments = "appointments";
+const String clientAppointments = "clientAppointments";
 // const String articles = "articles";
 // you are breaking code
 // you are breaking code 😅😅😅
@@ -66,8 +67,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case otpScreen:
         return MaterialPageRoute(builder: (_) => OtpScreen());
-      // case passwordOtpScreen:
-      //   return MaterialPageRoute(builder: (_) => PasswordOtpScreen());
+      case clientAppointments:
+        return MaterialPageRoute(builder: (_) => ClientAppointmentsScreen());
       case ambulanceScreen:
         return MaterialPageRoute(builder: (_) => AmbulanceScreen());
       case paymentScreen:

@@ -124,3 +124,6 @@ final dayFullNameMap = {
   'Sat': 'Saturday',
   'Sun': 'Sunday',
 };
+
+const String doctorWelcomeMessage =
+    "We're delighted to have you as part of our medical community. With My Daktari, you now have the power to streamline your practice, enhance patient care, and embrace the future of healthcare.\nOur intuitive platform allows you to effortlessly connect with your patients, access their medical records securely, schedule appointments with ease, and even provide remote consultations through our telehealth feature.\nHowever, we may encounter occasional bugs or functionality issues as we continue to refine and improve our platform. Rest assured, we are dedicated to delivering the best user experience possible, and our team is working diligently to address any issues that arise. We value your feedback and encourage you to reach out to our support team if you have any questions or encounter any challenges.\nThank you for your understanding and for partnering with us on our journey to improving patient outcomes and access to care.\nWishing you a successful and fulfilling experience with My Daktari.\nBest regards,\nThe Dream team,\nMy Daktari";

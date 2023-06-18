@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
+import 'package:my_daktari/logic/cubit/welcome_message/welcome_message_cubit.dart';
 import '../../../constants/constants.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
 
@@ -140,6 +141,11 @@ class LoginScreen extends StatelessWidget {
                                       context
                                           .read<AuthStatusBloc>()
                                           .add(CheckUserStatus());
+                                      context
+                                          .read<WelcomeMessageCubit>()
+                                          .setMessage(
+                                              showMessafe: true,
+                                              userType: userState.userType);
                                       if (userState.userType ==
                                           UserType.doctor) {
                                         context

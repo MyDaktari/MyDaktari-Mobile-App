@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/book_appointment/book_appointment_bloc.dart';
+import 'package:my_daktari/logic/bloc/client_bloc/client_appointment/client_appointments_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/payment/payment_bloc.dart';
 import 'package:my_daktari/logic/bloc/forgot_password/reset_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
+import 'package:my_daktari/logic/cubit/welcome_message/welcome_message_cubit.dart';
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
@@ -124,6 +126,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<BookAppointmentBloc>(
               create: (context) =>
                   BookAppointmentBloc(repository: ClientRepository())),
+          BlocProvider<ClientAppointmentsBloc>(
+              create: (context) =>
+                  ClientAppointmentsBloc(repository: ClientRepository())),
           BlocProvider<DoctorTimeSlotsBloc>(
               create: (context) =>
                   DoctorTimeSlotsBloc(repository: ClientRepository())),
@@ -154,6 +159,8 @@ class MyApp extends StatelessWidget {
 
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+          BlocProvider<WelcomeMessageCubit>(
+              create: (context) => WelcomeMessageCubit()),
           BlocProvider<BookingInfoCubit>(
               create: (context) => BookingInfoCubit()),
           BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),

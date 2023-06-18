@@ -10,14 +10,13 @@ abstract class AuthenticationEvent extends Equatable {
 //Doctor events
 class RegisterDoctor extends AuthenticationEvent {
   final String name, password, phone, dob, gender, email;
-  RegisterDoctor({
-    required this.name,
-    required this.password,
-    required this.phone,
-    required this.dob,
-    required this.gender,
-    required this.email,
-  });
+  RegisterDoctor(
+      {required this.name,
+      required this.password,
+      required this.phone,
+      required this.dob,
+      required this.gender,
+      required this.email});
   List<Object> get props => [name, password, phone, dob, gender, email];
 }
 

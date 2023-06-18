@@ -50,7 +50,7 @@ class DoctorAppointmentCard extends StatelessWidget {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600)),
                           SizedBox(width: 10),
-                          Text('${doctorAppointment.startTime!}AM - 10AM',
+                          Text('${doctorAppointment.startTime!}',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600)),

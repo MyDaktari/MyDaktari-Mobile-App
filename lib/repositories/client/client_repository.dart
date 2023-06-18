@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
+import 'package:my_daktari/models/client_appointment.dart';
 
 import '../../constants/urls.dart';
 import '../../models/doctor_profile_model.dart';
@@ -68,10 +69,6 @@ class ClientRepository extends BaseClientRepository {
         headers: {'Content-Type': 'application/json'},
         body: json.encode(
             {'doctorID': 29, 'date': DateFormat('yyyy-MM-dd').format(date)}));
-
-    print('##################');
-    print(doctorId);
-    print(response.body);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<String> timeSlots = List<String>.from(data['data']);
@@ -83,6 +80,30 @@ class ClientRepository extends BaseClientRepository {
       throw Exception('Doctor not available on the selected date');
     } else {
       throw Exception('Failed to fetch doctor availability');
+    }
+  }
+
+  Future<List<ClientAppointment>> fetchClientAppointments(
+      {required String clientID}) async {
+    final apiUrl = 'https://mydoc.my-daktari.com/new_api/patientDetails.php';
+
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({"userid": clientID}));
+
+    print('##################');
+    print(clientID);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final List<dynamic> appointments = jsonData['data']['appointments'];
+      List<ClientAppointment> clientAppointments =
+          appointments.map((data) => ClientAppointment.fromJson(data)).toList();
+      return clientAppointments;
+    } else if (response.statusCode == 404) {
+      throw Exception('No Appointment found');
+    } else {
+      throw Exception('Failed to fetch your appointments');
     }
   }
 

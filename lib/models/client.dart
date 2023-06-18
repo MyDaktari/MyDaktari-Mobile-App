@@ -17,7 +17,7 @@ class ClientModel {
       this.gender});
 
   ClientModel.fromJson(Map<String, dynamic> json) {
-    userID = json['userID'];
+    userID = json['id'];
     name = json['name'];
     email = json['email'];
     address = json['address'];
@@ -28,7 +28,7 @@ class ClientModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userID'] = this.userID;
+    data['id'] = this.userID;
     data['name'] = this.name;
     data['email'] = this.email;
     data['address'] = this.address;

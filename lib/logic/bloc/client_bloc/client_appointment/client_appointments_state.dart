@@ -11,7 +11,12 @@ class ClientAppointmentsInitial extends ClientAppointmentsState {}
 
 class ClientAppointmentsLoading extends ClientAppointmentsState {}
 
-class ClientAppointmentsLoaded extends ClientAppointmentsState {}
+class ClientAppointmentsLoaded extends ClientAppointmentsState {
+  final List<ClientAppointment> clientAppointments;
+  const ClientAppointmentsLoaded({required this.clientAppointments});
+  @override
+  List<Object> get props => [clientAppointments];
+}
 
 class ClientAppointmentsLoadError extends ClientAppointmentsState {
   final String message;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/models/models.dart';
@@ -53,8 +54,26 @@ class BlogScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text('Author ${blog.content}',
-                      style: Theme.of(context).textTheme.bodyLarge),
+                  Html(
+                    data: blog.content,
+                    style: {
+                      'body': Style(
+                        fontSize: FontSize(16.0),
+                        margin: Margins.all(8.0),
+                      ),
+                      'p': Style(
+                        fontSize: FontSize(16.0),
+                        margin: Margins.only(bottom: 8.0),
+                      ),
+                      'h1': Style(
+                        fontSize: FontSize(20.0),
+                        fontWeight: FontWeight.bold,
+                        margin: Margins.symmetric(vertical: 16.0),
+                      ),
+                    },
+                  ),
+                  // Text('Author ${blog.content}',
+                  //     style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
             )

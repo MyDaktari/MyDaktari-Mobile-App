@@ -53,7 +53,13 @@ import 'repositories/blog/blog_repository.dart';
 import 'repositories/repositories.dart';
 
 void main() {
-  runApp(const MyApp());
+  // Step 2
+  WidgetsFlutterBinding.ensureInitialized();
+  // Step 3
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((value) => runApp(MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -156,7 +162,6 @@ class MyApp extends StatelessWidget {
           BlocProvider<SymptomsBloc>(
               create: (context) =>
                   SymptomsBloc(symptomsRepository: SymptomsRepository())),
-
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
           BlocProvider<WelcomeMessageCubit>(

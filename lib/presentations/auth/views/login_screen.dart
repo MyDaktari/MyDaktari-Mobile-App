@@ -13,6 +13,7 @@ import '../../../constants/enums.dart';
 import '../../../logic/bloc/authentication/authentication_bloc.dart';
 import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
+import '../widgets/password_input.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -81,23 +82,8 @@ class LoginScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15))),
                         ),
                         const SizedBox(height: 15),
-                        TextFormField(
-                          controller: passwordController,
-                          validator: (val) {
-                            return val?.isEmpty ?? true
-                                ? 'Invalid password format'
-                                : null;
-                          },
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          decoration: InputDecoration(
-                              hintText: 'Password',
-                              hintStyle:
-                                  const TextStyle(fontWeight: FontWeight.w300),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15))),
-                        ),
+                        PasswordTextFormField(
+                            passwordController: passwordController),
                         const SizedBox(height: 15),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.end,

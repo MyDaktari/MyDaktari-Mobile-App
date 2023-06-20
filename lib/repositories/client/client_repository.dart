@@ -155,7 +155,7 @@ class ClientRepository extends BaseClientRepository {
         }));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      //  final data = json.decode(response.body);
       return 'We have sent a secure M-Pesa payment request to the provided number. Please enter your PIN to finalize your booking.';
     } else {
       throw Exception('Failed to make your request, try again');

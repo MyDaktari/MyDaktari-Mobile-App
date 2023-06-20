@@ -17,7 +17,10 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
     emit(BlogLoading());
     try {
       List<BlogModel> blogs = await _blogRepository.getBlogs();
-      emit(BlogLoaded(blogs: blogs));
+      List<BlogModel> sortedBlogs = List.from(blogs);
+      sortedBlogs
+          .sort((a, b) => b.date!.compareTo(a.date!)); // Reverse the comparison
+      emit(BlogLoaded(blogs: sortedBlogs));
     } catch (error) {
       String errorMessage = error.toString().split(':').last;
       emit(BlogLoadingError(message: errorMessage));

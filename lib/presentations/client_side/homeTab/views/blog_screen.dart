@@ -9,6 +9,10 @@ class BlogScreen extends StatelessWidget {
   final BlogModel blog;
   @override
   Widget build(BuildContext context) {
+    final style = '''
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+${blog.content}
+    ''';
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -55,7 +59,7 @@ class BlogScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Html(
-                    data: blog.content,
+                    data: style,
                     style: {
                       'body': Style(
                         fontSize: FontSize(16.0),

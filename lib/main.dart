@@ -163,6 +163,7 @@ class MyApp extends StatelessWidget {
                   SymptomsBloc(symptomsRepository: SymptomsRepository())),
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+
           BlocProvider<BookingInfoCubit>(
               create: (context) => BookingInfoCubit()),
           BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),
@@ -207,9 +208,7 @@ class MyApp extends StatelessWidget {
                         themeMode: state.themeMode,
                         onGenerateRoute: route.AppRouter.generateRoute,
                         initialRoute: authState.userType == UserType.client
-                            ? authState.showMessage
-                                ? route.welcomeMessageScreen
-                                : route.homeScreen
+                            ? route.homeScreen
                             : authState.profileCompleted
                                 ? route.homeScreen
                                 : route.personalInfo);

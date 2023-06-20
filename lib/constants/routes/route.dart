@@ -116,8 +116,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => Scaffold(
                 appBar: AppBar(),
-                body: Center(
-                    child: Text('No route defined for ${settings.name}'))));
+                body: Center(child: Text('${settings.name} coming soon!'))));
     }
   }
 }

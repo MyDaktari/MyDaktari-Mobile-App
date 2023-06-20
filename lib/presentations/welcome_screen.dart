@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
@@ -11,6 +12,12 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+      systemNavigationBarColor:
+          Colors.black, // Customize the system navigation bar color
+      systemNavigationBarIconBrightness:
+          Brightness.light, // Set the toolbar icons to white
+    ));
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(

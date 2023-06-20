@@ -30,8 +30,12 @@ class PersonalDetailsScreen extends StatelessWidget {
               logOutDialog(context);
             }
           },
-          child: Icon(Icons.arrow_back),
+          child: Visibility(
+            visible: pageCubit.state.index != 0,
+            child: Icon(Icons.arrow_back),
+          ),
         ),
+        leadingWidth: pageCubit.state.index != 0 ? 56 : 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -12,7 +12,7 @@ String doctorHtmlContent = '''
           <style>
             
           </style>
-           <p>Dear ${doctor.name ?? ''},</p>
+           <p>Dear ${doctor.name ?? 'Doctor'},</p>
           <p>We're delighted to have you as part of our medical community. With My Daktari, you now have the power to streamline your practice, enhance patient care, and embrace the future of healthcare.</p>
           <p>Our intuitive platform allows you to effortlessly connect with your patients, access their medical records securely, schedule appointments with ease, and even provide remote consultations through our telehealth feature.</p>
           <p>However, we may encounter occasional bugs or functionality issues as we continue to refine and improve our platform. Rest assured, we are dedicated to delivering the best user experience possible, and our team is working diligently to address any issues that arise. We value your feedback and encourage you to reach out to our support team if you have any questions or encounter any challenges.</p>
@@ -34,7 +34,7 @@ String clientHtmlContent = '''
     }
   </style>
   <h1>We care for you!</h1>
-  <p>Dear ${client.name ?? ''},</p>
+  <p>Dear ${client.name ?? 'User'},</p>
   <p>We are delighted to have you join our community of individuals committed to their health and well-being. Congratulations on taking a step towards a healthier and happier life!</p>
   <p>Like you, we understand that your health is your most precious asset, and we are here to support you every step of the way. Whether you're seeking convenient access to healthcare services, tracking your wellness goals, or staying informed about your medical journey, our app is designed to empower you.</p>
   <p>As you explore My Daktari, you'll discover a range of features and resources tailored to meet your needs:</p>

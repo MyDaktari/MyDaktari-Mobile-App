@@ -125,6 +125,9 @@ class OtpScreen extends StatelessWidget {
                           if (state is OtpLoaded) {
                             if (userTypeCubit.state.userType ==
                                 UserType.doctor) {
+                              context
+                                  .read<AuthStatusBloc>()
+                                  .add(CheckUserStatus(showMessage: true));
                               Navigator.pushReplacementNamed(
                                   context, route.personalInfo);
                               // context.read<DoctorAppointmentsBloc>().add(

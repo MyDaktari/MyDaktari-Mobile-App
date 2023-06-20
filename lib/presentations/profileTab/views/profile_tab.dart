@@ -14,7 +14,7 @@ class ProfileTab extends StatelessWidget {
 
   static const List<Map<String, dynamic>> doctorPages = [
     {"schedule": "Schedule"},
-    {"appointments": "My Appointments"},
+    // {"appointments": "My Appointments"},
     {"profile": "Basic info"},
     {"articles": "Articles"}
   ];

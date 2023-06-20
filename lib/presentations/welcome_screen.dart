@@ -16,11 +16,11 @@ class WelcomePage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            flex: 55,
+            flex: 60,
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/welcome.png'),
+                    image: AssetImage('assets/images/cover_photo.jpg'),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25),
@@ -31,7 +31,7 @@ class WelcomePage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
-                    child: Text('mydaktari',
+                    child: Text('My Daktari',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 24,
@@ -43,7 +43,7 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 45,
+            flex: 40,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16),
@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: size.height * .02),
-                  const Text('Welcome to MyDaktari',
+                  const Text('Welcome to My Daktari',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   SizedBox(height: size.height * .02),

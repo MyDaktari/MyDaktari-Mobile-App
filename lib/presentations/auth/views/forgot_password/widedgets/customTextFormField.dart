@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
-  bool phone;
+  final bool phone;
   final TextEditingController controller;
 
   CustomTextFormField(

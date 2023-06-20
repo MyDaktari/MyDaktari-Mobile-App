@@ -45,17 +45,26 @@ class BlogCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        blog.title ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall!
-                            .copyWith(fontSize: 16, color: Colors.black),
-                      ),
-                      Text(blog.content ?? '',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                      Text(blog.title ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis),
+                      // Container(
+                      //   height: 30,
+                      //   color: Colors.amber,
+                      //   width: double.infinity,
+                      //   child: Html(data: blog.content),
+                      // ),
+                      // Text(blog.content ?? '',
+                      //     style: Theme.of(context).textTheme.bodyLarge,
+                      //     maxLines: 2,
+                      //     overflow: TextOverflow.ellipsis),
                       SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

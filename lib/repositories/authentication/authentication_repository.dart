@@ -243,8 +243,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   @override
   Future<String> passwordOtpRequest(
       {required String phoneNumber, required UserType userType}) async {
-    print('jskjdskjdnbj');
-    print(phoneNumber);
     const String clientUrl =
         'https://mydoc.my-daktari.com/new_api/forgotPasswordClient.php';
     const String doctorUrl =

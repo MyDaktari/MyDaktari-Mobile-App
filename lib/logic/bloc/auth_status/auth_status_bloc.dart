@@ -34,10 +34,12 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
         //if user is a client
         if (response['userType'] == UserType.client) {
           userId = (response['user'] as ClientModel).userID.toString();
-          print(userId);
+          client = response['user'] as ClientModel;
           userPhoneNumber = (response['user'] as ClientModel).phone.toString();
           emit(UserAuthenticated(
-              user: response['user'], userType: response['userType']));
+              user: response['user'],
+              userType: response['userType'],
+              showMessage: event.showMessage));
         } else {
           //if user is a docotr
           try {
@@ -64,7 +66,6 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
               fullProfileCompleted: fullProfileCompleted));
         }
       } else {
-        print('4');
         userId = '';
         emit(UserUnauthenticated());
       }

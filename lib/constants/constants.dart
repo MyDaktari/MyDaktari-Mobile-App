@@ -10,6 +10,7 @@ const Color greenish = Color(0xFF00ECB6); // Hex: #00ECB6
 
 String userId = '';
 String userPhoneNumber = '';
+ClientModel client = ClientModel();
 DoctorModel doctor = DoctorModel();
 List<DaySchedule> schedulesConstant = daysOfWeek.map((day) {
   return DaySchedule(

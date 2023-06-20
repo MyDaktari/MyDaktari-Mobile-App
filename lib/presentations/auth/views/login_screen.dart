@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
-import 'package:my_daktari/logic/cubit/welcome_message/welcome_message_cubit.dart';
 import '../../../constants/constants.dart';
 import 'package:my_daktari/constants/routes/route.dart' as route;
 
@@ -26,7 +25,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(elevation: 0, backgroundColor: primaryColor),
       body: BlocBuilder<UserTypeCubit, UserTypeState>(
@@ -84,7 +82,6 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 15),
                         PasswordTextFormField(
                             passwordController: passwordController),
-                        const SizedBox(height: 15),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -93,73 +90,62 @@ class LoginScreen extends StatelessWidget {
                                     Navigator.of(context)
                                         .pushNamed(route.resetPassword);
                                   },
-                                  child: Text('Forgot password ?'))
+                                  child: Text('Forgot password?'))
                             ]),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(right: 80.0, left: 80.0),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read<AuthenticationBloc>().add(
-                                      LoginUser(
-                                          userType: userState.userType,
-                                          username: emailController.text.trim(),
-                                          password:
-                                              passwordController.text.trim()));
-                                } else {
-                                  print('all fields are required');
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  fixedSize: Size(120, 50),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18))),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: BlocConsumer<AuthenticationBloc,
-                                    AuthenticationState>(
-                                  listener: (context, state) {
-                                    if (state is AuthenticationLoaded) {
-                                      Navigator.pop(context);
+                        const SizedBox(height: 15),
+                        ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<AuthenticationBloc>().add(
+                                    LoginUser(
+                                        userType: userState.userType,
+                                        username: emailController.text.trim(),
+                                        password:
+                                            passwordController.text.trim()));
+                              } else {
+                                print('all fields are required');
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).primaryColor,
+                                fixedSize: Size(size.width * 0.8, 50),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: BlocConsumer<AuthenticationBloc,
+                                  AuthenticationState>(
+                                listener: (context, state) {
+                                  if (state is AuthenticationLoaded) {
+                                    Navigator.pop(context);
+                                    context
+                                        .read<AuthStatusBloc>()
+                                        .add(CheckUserStatus());
+                                    if (userState.userType == UserType.doctor) {
                                       context
-                                          .read<AuthStatusBloc>()
-                                          .add(CheckUserStatus());
-                                      context
-                                          .read<WelcomeMessageCubit>()
-                                          .setMessage(
-                                              showMessafe: true,
-                                              userType: userState.userType);
-                                      if (userState.userType ==
-                                          UserType.doctor) {
-                                        context
-                                            .read<DoctorAppointmentsBloc>()
-                                            .add(LoadDoctorAppointments(
-                                                doctorId: userId));
-                                        context.read<DoctorPatientsBloc>().add(
-                                            LoadDoctorPatients(
-                                                doctorId: userId));
-                                      }
+                                          .read<DoctorAppointmentsBloc>()
+                                          .add(LoadDoctorAppointments(
+                                              doctorId: userId));
+                                      context.read<DoctorPatientsBloc>().add(
+                                          LoadDoctorPatients(doctorId: userId));
                                     }
-                                    if (state is AuthenticationError) {
-                                      Fluttertoast.showToast(
-                                          msg: state.errorMessage);
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return state is AuthenticationLoading
-                                        ? CupertinoActivityIndicator(
-                                            color: Colors.white)
-                                        : Text('Sign In',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16));
-                                  },
-                                ),
-                              )),
-                        ),
+                                  }
+                                  if (state is AuthenticationError) {
+                                    Fluttertoast.showToast(
+                                        msg: state.errorMessage);
+                                  }
+                                },
+                                builder: (context, state) {
+                                  return state is AuthenticationLoading
+                                      ? CupertinoActivityIndicator(
+                                          color: Colors.white)
+                                      : Text('Sign In',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16));
+                                },
+                              ),
+                            )),
                         SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

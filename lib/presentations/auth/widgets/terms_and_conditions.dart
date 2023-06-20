@@ -24,21 +24,16 @@ class TermsAndConditions extends StatelessWidget {
               TextSpan(
                 text: ' \nTerms & Conditions',
                 style: const TextStyle(
-                  color: Color.fromARGB(255, 1, 84, 186),
-                  fontSize: 14,
-                ),
+                    color: Color.fromARGB(255, 1, 84, 186), fontSize: 14),
                 recognizer: TapGestureRecognizer()..onTap = () {},
               ),
               const TextSpan(
-                text: ' and ',
-                style: TextStyle(color: Colors.grey, fontSize: 13),
-              ),
+                  text: ' and ',
+                  style: TextStyle(color: Colors.grey, fontSize: 13)),
               TextSpan(
                 text: 'Privacy Policy',
                 style: const TextStyle(
-                  color: Color.fromARGB(255, 1, 84, 186),
-                  fontSize: 14,
-                ),
+                    color: Color.fromARGB(255, 1, 84, 186), fontSize: 14),
                 recognizer: TapGestureRecognizer()..onTap = () {},
               ),
             ],

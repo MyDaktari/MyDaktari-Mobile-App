@@ -30,11 +30,10 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final signUpHelperCubit = context.watch<SignUpHelperCubit>();
     final userTypeCubit = context.watch<UserTypeCubit>();
-
-    return Padding(
-      padding: const EdgeInsets.only(right: 80.0, left: 80.0),
-      child: ElevatedButton(
-        onPressed: () {
+    Size size = MediaQuery.of(context).size;
+    return ElevatedButton(
+      onPressed: () {
+        if (signUpHelperCubit.state.termsAccepted) {
           if (formKey.currentState!.validate()) {
             if (userTypeCubit.state.userType == UserType.doctor) {
               context.read<AuthenticationBloc>().add(RegisterDoctor(
@@ -64,31 +63,34 @@ class SignUpButton extends StatelessWidget {
           } else {
             print('all fields are required');
           }
-        },
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).primaryColor,
-            fixedSize: Size(120, 50),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18))),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state) {
-              if (state is AuthenticationLoaded) {
-                Navigator.pushNamed(context, route.otpScreen);
-              }
-              if (state is AuthenticationError) {
-                Fluttertoast.showToast(msg: state.errorMessage);
-              }
-            },
-            builder: (context, state) {
-              return state is AuthenticationLoading
-                  ? CupertinoActivityIndicator(color: Colors.white)
-                  : Text('Sign Up',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16));
-            },
-          ),
+        } else {
+          Fluttertoast.showToast(
+              msg: 'Please accept the Terms & Conditions to continue');
+        }
+      },
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).primaryColor,
+          fixedSize: Size(size.width * 0.8, 50),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) {
+            if (state is AuthenticationLoaded) {
+              Navigator.pushNamed(context, route.otpScreen);
+            }
+            if (state is AuthenticationError) {
+              Fluttertoast.showToast(msg: state.errorMessage);
+            }
+          },
+          builder: (context, state) {
+            return state is AuthenticationLoading
+                ? CupertinoActivityIndicator(color: Colors.white)
+                : Text('Sign Up',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16));
+          },
         ),
       ),
     );

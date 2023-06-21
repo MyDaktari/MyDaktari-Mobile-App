@@ -17,11 +17,13 @@ class UserUnauthenticated extends AuthStatusState {
 class UserAuthenticated extends AuthStatusState {
   final dynamic user;
   final UserType userType;
+  final bool showMessage;
   final bool profileCompleted;
   final bool fullProfileCompleted;
   const UserAuthenticated({
     required this.userType,
     required this.user,
+    this.showMessage = false,
     this.profileCompleted = false,
     this.fullProfileCompleted = false,
   });

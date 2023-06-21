@@ -10,7 +10,6 @@ import 'package:my_daktari/logic/bloc/forgot_password/reset_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
-import 'package:my_daktari/logic/cubit/welcome_message/welcome_message_cubit.dart';
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
@@ -164,8 +163,7 @@ class MyApp extends StatelessWidget {
                   SymptomsBloc(symptomsRepository: SymptomsRepository())),
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-          BlocProvider<WelcomeMessageCubit>(
-              create: (context) => WelcomeMessageCubit()),
+
           BlocProvider<BookingInfoCubit>(
               create: (context) => BookingInfoCubit()),
           BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),

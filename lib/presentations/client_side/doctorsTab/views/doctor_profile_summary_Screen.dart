@@ -122,24 +122,32 @@ class DoctorProfileSummaryPage extends StatelessWidget {
                     ),
                   ),
                 )),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    fixedSize: Size(size.width * .8, 50)),
-                onPressed: () {
-                  print(doctor.name);
-                  context.read<BookingInfoCubit>().updateBookingInfo(
-                      userId: userId, doctorId: doctor.doctorID.toString());
-                  showModalBottomSheet(
-                    barrierColor: Colors.transparent,
-                    useSafeArea: true,
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => SelectSession(doctor: doctor),
-                  );
-                },
-                child: const SizedBox(
-                    width: 120, child: Center(child: Text('Book'))))
+            BlocBuilder<BookingInfoCubit, BookingInfoState>(
+              builder: (context, state) {
+                return Visibility(
+                  visible: state.symptomID.isNotEmpty,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          fixedSize: Size(size.width * .8, 50)),
+                      onPressed: () {
+                        print(doctor.name);
+                        context.read<BookingInfoCubit>().updateBookingInfo(
+                            userId: userId,
+                            doctorId: doctor.doctorID.toString());
+                        showModalBottomSheet(
+                          barrierColor: Colors.transparent,
+                          useSafeArea: true,
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => SelectSession(doctor: doctor),
+                        );
+                      },
+                      child: const SizedBox(
+                          width: 120, child: Center(child: Text('Book')))),
+                );
+              },
+            )
           ],
         ),
       ),

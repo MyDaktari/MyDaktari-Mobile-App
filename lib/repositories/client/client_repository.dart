@@ -90,10 +90,6 @@ class ClientRepository extends BaseClientRepository {
     final response = await http.post(Uri.parse(apiUrl),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({"userid": clientID}));
-
-    print('##################');
-    print(clientID);
-    print(response.body);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final List<dynamic> appointments = jsonData['data']['appointments'];

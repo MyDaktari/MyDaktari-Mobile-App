@@ -185,6 +185,7 @@ class SignUpScreen extends StatelessWidget {
                     ]),
                     const SizedBox(height: 10),
                     const TermsAndConditions(),
+                    const SizedBox(height: 10),
                     SignUpButton(
                         formKey: _formKey,
                         nameController: nameController,

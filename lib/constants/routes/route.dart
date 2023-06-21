@@ -11,6 +11,7 @@ import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/amb
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
 import 'package:my_daktari/presentations/client_side/payment/payment_screen.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
+import 'package:my_daktari/presentations/welcome_message_screen.dart';
 
 import '../../models/doctor_profile_model.dart';
 import '../../presentations/auth/views/forgot_password/forgot_password.dart';
@@ -33,6 +34,7 @@ const String loginScreen = 'loginPage';
 const String otpScreen = 'otpPage';
 const String passwordOtpScreen = 'passwordOtpPage';
 const String welcomeScreen = 'welcome';
+const String welcomeMessageScreen = 'welcomeMessage';
 const String charges = 'charges';
 const String personalInfo = 'personalInfo';
 const String schedule = 'schedule';
@@ -59,6 +61,8 @@ class AppRouter {
     switch (settings.name) {
       case welcomeScreen:
         return MaterialPageRoute(builder: (_) => const WelcomePage());
+      case welcomeMessageScreen:
+        return MaterialPageRoute(builder: (_) => const WelcomeMessageScreen());
       case signUpScreen:
         return MaterialPageRoute(builder: (_) => SignUpScreen());
       case resetPassword:
@@ -112,8 +116,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => Scaffold(
                 appBar: AppBar(),
-                body: Center(
-                    child: Text('No route defined for ${settings.name}'))));
+                body: Center(child: Text('${settings.name} coming soon!'))));
     }
   }
 }

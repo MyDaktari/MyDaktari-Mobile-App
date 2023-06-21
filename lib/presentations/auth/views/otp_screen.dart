@@ -42,7 +42,7 @@ class OtpScreen extends StatelessWidget {
                       .displaySmall!
                       .copyWith(fontSize: 32, fontWeight: FontWeight.w900)),
               Text(
-                'We have sent a 6-digit code to \nyour mobile divice.',
+                'We have sent a 6-digit code to \nyour mobile device.',
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontSize: 18,
@@ -125,6 +125,9 @@ class OtpScreen extends StatelessWidget {
                           if (state is OtpLoaded) {
                             if (userTypeCubit.state.userType ==
                                 UserType.doctor) {
+                              context
+                                  .read<AuthStatusBloc>()
+                                  .add(CheckUserStatus(showMessage: true));
                               Navigator.pushReplacementNamed(
                                   context, route.personalInfo);
                               // context.read<DoctorAppointmentsBloc>().add(
@@ -136,9 +139,9 @@ class OtpScreen extends StatelessWidget {
                                 UserType.client) {
                               context
                                   .read<AuthStatusBloc>()
-                                  .add(CheckUserStatus());
+                                  .add(CheckUserStatus(showMessage: true));
                               Navigator.pushReplacementNamed(
-                                  context, route.homeScreen);
+                                  context, route.welcomeMessageScreen);
                             }
                           }
                           if (state is OtpLoadingError) {

@@ -116,16 +116,18 @@ List<DaySchedule> availabilityToSchedules(Map<String, dynamic> availability) {
 
   // Add empty DaySchedule objects for days not found in availability
   for (final entry in dayFullNameMap.entries) {
+    print(entry);
     final dayFullName = entry.value;
     final dayAbbreviated = entry.key;
 
     if (!availability.containsKey(dayFullName)) {
+      print("heyyyy");
       final schedule = DaySchedule(
         day: dayAbbreviated,
         isEnabled: false,
         startTime: timeIntervals.first,
         endTime: timeIntervals.last,
-        id: '${dayAbbreviated}-${timeIntervals.first}-${timeIntervals.last}', // Set the appropriate ID here
+        id: UniqueKey().toString(), // Set the appropriate ID here
       );
       schedules.add(schedule);
     }

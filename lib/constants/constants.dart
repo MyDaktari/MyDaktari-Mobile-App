@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/models.dart';
 import '../presentations/doctor_side/schedule/models/dayschedule.dart';
@@ -12,9 +13,12 @@ String userId = '';
 String userPhoneNumber = '';
 ClientModel client = ClientModel();
 DoctorModel doctor = DoctorModel();
+var index = 0;
 List<DaySchedule> schedulesConstant = daysOfWeek.map((day) {
+  // var id = '${day}-$index';
+  index++;
   return DaySchedule(
-    id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
+    id: UniqueKey().toString(),
     day: day,
     isEnabled: true,
     startTime: timeIntervals.first,

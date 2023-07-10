@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -106,7 +107,7 @@ List<DaySchedule> availabilityToSchedules(Map<String, dynamic> availability) {
           isEnabled: true,
           startTime: start,
           endTime: end,
-          id: '${dayAbbreviated}-${timeIntervals.first}-${timeIntervals.first}', // Set the appropriate ID here
+          id: UniqueKey().toString(), // Set the appropriate ID here
         );
         schedules.add(schedule);
       }

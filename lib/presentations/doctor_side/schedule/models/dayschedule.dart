@@ -121,7 +121,6 @@ List<DaySchedule> availabilityToSchedules(Map<String, dynamic> availability) {
     final dayAbbreviated = entry.key;
 
     if (!availability.containsKey(dayFullName)) {
-      print("heyyyy");
       final schedule = DaySchedule(
         day: dayAbbreviated,
         isEnabled: false,

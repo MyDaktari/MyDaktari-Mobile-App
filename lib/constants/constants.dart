@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/models.dart';
@@ -55,12 +55,8 @@ String convertTo24HourFormat(String time12Hr) {
     final dateFormat = DateFormat('h:mm a');
     final parsedTime = dateFormat.parse(time12Hr);
     final format24Hr = DateFormat('HH:mm');
-    print('###@@@@2222222222222@@@@@@');
-    print(format24Hr.format(parsedTime));
     return format24Hr.format(parsedTime);
-  } on Exception catch (e) {
-    print('2222222222222222222221');
-    print(e.toString());
+  } on Exception {
     return time12Hr;
   }
 }

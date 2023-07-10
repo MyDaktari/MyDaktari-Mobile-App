@@ -111,14 +111,13 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
-  Future<DoctorModel> registerDoctor({
-    required String name,
-    required String password,
-    required String phone,
-    required String dob,
-    required String gender,
-    required String email,
-  }) async {
+  Future<DoctorModel> registerDoctor(
+      {required String name,
+      required String password,
+      required String phone,
+      required String dob,
+      required String gender,
+      required String email}) async {
     final response = await http.post(Uri.parse('$registerDoctorUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
@@ -174,6 +173,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           user = client;
         } else {
           final userString = jsonDecode(userFromPrefs);
+
           DoctorModel doctor = DoctorModel.fromJson(userString);
           user = doctor;
         }
@@ -229,11 +229,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
             "https://mydoc.my-daktari.com/new_api/verifyForgotPasswordOTP.php"),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"identifier": phoneNumber, "otp": otp}));
-    print(response.body);
-    print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200) {
       String message = jsonDecode(response.body)['UserID'].toString();
-
       return message;
     } else {
       throw Exception('Invalid OTP');
@@ -252,7 +249,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         Uri.parse(userType == UserType.client ? clientUrl : doctorUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"phone": phoneNumber}));
-    print(response.body);
     if (response.statusCode == 201 || response.statusCode == 200) {
       String message = jsonDecode(response.body)['message'];
       return message;
@@ -299,14 +295,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     bool userProfile = fullProfile
         ? await preferences.setString('fullProfileCompleted', 'true')
         : await preferences.setString('profileCompleted', 'true');
-    String? profileCompletedFromPrefs =
-        preferences.getString('profileCompleted');
-    String? fullProfileCompletedFromPrefs =
-        preferences.getString('fullProfileCompleted');
-
-    print('Checking ###########');
-    print("Profile Completed: $profileCompletedFromPrefs");
-    print("Full Profile Completed: $fullProfileCompletedFromPrefs");
     return userProfile;
   }
 

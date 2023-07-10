@@ -40,6 +40,7 @@ class DoctorRepository extends BaseDoctorRepository {
   @override
   Future<List<PatientModel>> getDoctorPatients(
       {required String doctorId}) async {
+    print('doctor: ## $doctorId');
     List<PatientModel> patients = List.empty();
     final response = await http.post(Uri.parse(getDoctorPatientsUrl),
         headers: {'Content-Type': 'application/json'},
@@ -80,7 +81,6 @@ class DoctorRepository extends BaseDoctorRepository {
           "duration": duration,
           "availability": data
         }));
-    // print(extractJsonFromWarning(response.body));
     final formattedData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       final jsonData = formattedData['message'] as String;

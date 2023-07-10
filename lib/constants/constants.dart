@@ -38,14 +38,10 @@ String convertTo12HourFormat(String time24Hr) {
   try {
     final dateFormat = DateFormat('HH:mm');
     final dateTime = dateFormat.parse(time24Hr);
-    print(dateTime);
     String formattedTime = DateFormat('h:mm a').format(dateTime);
-    print('###@@@@@@@@@@@@@@@@@');
-    print(formattedTime);
     return formattedTime;
-  } on Exception catch (e) {
-    print('1111111111111111111');
-    print(e.toString());
+  } on Exception {
+
     return time24Hr;
   }
 }

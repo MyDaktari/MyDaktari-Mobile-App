@@ -95,6 +95,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       //Doctor Availability
       bool fullProfileCompleted = responseBody['full_profile_completed'];
       if (fullProfileCompleted) {
+        print(responseBody['data']);
         schedulesConstant = availabilityToSchedules(
             responseBody['data']['doctorAvailability'] as Map<String, dynamic>);
         preferences.setString('schedules',

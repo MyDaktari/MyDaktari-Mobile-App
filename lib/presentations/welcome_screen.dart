@@ -5,7 +5,7 @@ import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/routes/route.dart' as route;
+import '../constants/route.dart' as route;
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

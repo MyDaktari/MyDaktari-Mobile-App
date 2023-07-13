@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/routes/route.dart' as route;
+import '../../../constants/route.dart' as route;
 import 'package:my_daktari/models/appointment.dart';
 
 import '../../../constants/constants.dart';

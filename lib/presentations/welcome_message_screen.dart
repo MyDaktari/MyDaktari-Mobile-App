@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 
 import '../constants/constants.dart';
 import '../logic/bloc/auth_status/auth_status_bloc.dart';

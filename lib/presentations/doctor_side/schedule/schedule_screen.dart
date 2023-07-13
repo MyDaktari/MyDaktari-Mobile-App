@@ -8,7 +8,7 @@ import 'package:my_daktari/presentations/doctor_side/schedule/widgets/working_ho
 
 import '../../../constants/constants.dart';
 import '../../../logic/cubit/doctor_schedules/doctor_schedule.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 
 import '../../widgets/success_dialogue.dart';
 import 'models/dayschedule.dart';

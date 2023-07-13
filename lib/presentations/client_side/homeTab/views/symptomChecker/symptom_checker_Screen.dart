@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/constants/routes/route.dart' as routes;
+import 'package:my_daktari/constants/route.dart' as routes;
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 
 import '../../../../../logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';

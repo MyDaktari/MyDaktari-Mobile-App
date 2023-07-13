@@ -4,7 +4,7 @@ import 'package:my_daktari/logic/bloc/client_bloc/doctor_time_slots/doctor_time_
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 
 import '../../../../models/doctor_profile_model.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 
 class SelectSession extends StatelessWidget {
   SelectSession({super.key, required this.doctor});

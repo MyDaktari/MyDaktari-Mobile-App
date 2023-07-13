@@ -13,21 +13,22 @@ import 'package:my_daktari/presentations/client_side/payment/payment_screen.dart
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
 import 'package:my_daktari/presentations/welcome_message_screen.dart';
 
-import '../../models/doctor_profile_model.dart';
-import '../../presentations/auth/views/forgot_password/forgot_password.dart';
-import '../../presentations/auth/views/login_screen.dart';
-import '../../presentations/auth/views/sign_up_screen.dart';
-import '../../presentations/doctor_side/appointments/appointment_details.dart';
-import '../../presentations/client_side/doctorsTab/views/doctor_profile_summary_Screen.dart';
-import '../../presentations/client_side/homeTab/views/blog_screen.dart';
-import '../../presentations/client_side/homeTab/views/pharmacy/pharmacy_screen.dart';
-import '../../presentations/client_side/homeTab/views/symptomChecker/symptom_checker_Screen.dart';
-import '../../presentations/doctor_side/charges/charges_screen.dart';
-import '../../presentations/doctor_side/personnal_info/information_screen.dart';
-import '../../presentations/landing_screen.dart';
+import '../models/doctor_profile_model.dart';
+import '../presentations/auth/views/forgot_password/forgot_password.dart';
+import '../presentations/auth/views/login_screen.dart';
+import '../presentations/auth/views/sign_up_screen.dart';
+import '../presentations/doctor_side/appointments/appointment_details.dart';
+import '../presentations/client_side/doctorsTab/views/doctor_profile_summary_Screen.dart';
+import '../presentations/client_side/homeTab/views/blog_screen.dart';
+import '../presentations/client_side/homeTab/views/pharmacy/pharmacy_screen.dart';
+import '../presentations/client_side/homeTab/views/symptomChecker/symptom_checker_Screen.dart';
+import '../presentations/doctor_side/charges/charges_screen.dart';
+import '../presentations/doctor_side/personnal_info/information_screen.dart';
+import '../presentations/landing_screen.dart';
 
-import '../../presentations/profileTab/views/profile_page.dart';
-import '../../presentations/welcome_screen.dart';
+import '../presentations/profileTab/views/pages/articles_page.dart';
+import '../presentations/profileTab/views/pages/profile_page.dart';
+import '../presentations/welcome_screen.dart';
 
 const String signUpScreen = 'authPage';
 const String loginScreen = 'loginPage';
@@ -52,9 +53,8 @@ const String bookingScreen = "booking";
 const String paymentScreen = "payment";
 const String resetPassword = "resetPassword";
 const String clientAppointments = "clientAppointments";
-// const String articles = "articles";
+const String articles = "articles";
 // you are breaking code
-// you are breaking code 😅😅😅
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -111,6 +111,8 @@ class AppRouter {
 
       case profile:
         return MaterialPageRoute(builder: (context) => ProfilePage());
+      case articles:
+        return MaterialPageRoute(builder: (context) => ArticlesPage());
 
       default:
         return MaterialPageRoute(

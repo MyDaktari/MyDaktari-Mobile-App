@@ -8,7 +8,7 @@ import '../logic/cubit/page_update/page_update_cubit.dart';
 import '../logic/cubit/user_type/user_type_cubit.dart';
 import 'widgets/disclaimer.dart';
 import '/constants/constants.dart' as constants;
-import '../constants/routes/route.dart' as routes;
+import '../constants/route.dart' as routes;
 import 'ayaTab/views/aya_tab.dart';
 import 'client_side/doctorsTab/views/search_doctors_tab..dart';
 import 'client_side/homeTab/views/home_tab.dart';
@@ -29,7 +29,6 @@ class HomePage extends StatelessWidget {
       }
     });
     final pageCubit = context.watch<PageUpdateCubit>();
-
     return BlocBuilder<UserTypeCubit, UserTypeState>(
       builder: (context, userState) {
         return BlocBuilder<PageUpdateCubit, PageUpdateState>(

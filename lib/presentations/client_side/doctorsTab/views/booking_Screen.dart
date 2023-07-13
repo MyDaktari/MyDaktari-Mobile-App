@@ -8,7 +8,7 @@ import 'package:my_daktari/logic/bloc/client_bloc/book_appointment/book_appointm
 import 'package:my_daktari/logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 
 class BookingScreen extends StatelessWidget {
   BookingScreen({super.key});

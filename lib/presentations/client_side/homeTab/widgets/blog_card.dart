@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 
 import '../../../../constants/constants.dart';
 import '../../../../models/blog.dart';
@@ -19,8 +19,9 @@ class BlogCard extends StatelessWidget {
         onTap: () =>
             Navigator.pushNamed(context, route.blogScreen, arguments: blog),
         child: Card(
+          elevation: 1,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: SizedBox(
             height: 250,
             width: size.width,
@@ -34,9 +35,9 @@ class BlogCard extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 5),
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25)),
-                        color: Colors.blue),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        color: primaryColor),
                     child:
                         Image.network(blog.featuredImage!, fit: BoxFit.cover)),
                 Padding(

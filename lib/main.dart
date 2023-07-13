@@ -18,7 +18,7 @@ import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
 import 'package:my_daktari/repositories/symptoms/symptoms_repository.dart';
 
 import './constants/theme/app_theme.dart';
-import 'constants/routes/route.dart' as route;
+import 'constants/route.dart' as route;
 import 'logic/bloc/auth_status/auth_status_bloc.dart';
 import 'logic/bloc/authentication/authentication_bloc.dart';
 import 'logic/bloc/client_bloc/ambulance/ambulance_bloc.dart';
@@ -52,9 +52,7 @@ import 'repositories/blog/blog_repository.dart';
 import 'repositories/repositories.dart';
 
 void main() {
-  // Step 2
   WidgetsFlutterBinding.ensureInitialized();
-  // Step 3
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((value) => runApp(MyApp()));
@@ -62,7 +60,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -162,7 +159,6 @@ class MyApp extends StatelessWidget {
                   SymptomsBloc(symptomsRepository: SymptomsRepository())),
           //Cubits
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-
           BlocProvider<BookingInfoCubit>(
               create: (context) => BookingInfoCubit()),
           BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),

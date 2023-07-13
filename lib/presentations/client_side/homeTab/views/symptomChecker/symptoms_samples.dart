@@ -11,7 +11,7 @@ import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
 import '../../../../../models/symptom_model.dart';
 import '../../../../widgets/custom_loading.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 import 'symptom_checker_Screen.dart';
 
 class SymptomSamples extends StatefulWidget {

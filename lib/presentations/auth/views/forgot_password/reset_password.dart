@@ -7,7 +7,7 @@ import 'package:my_daktari/presentations/auth/views/forgot_password/widedgets/cu
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 
 import '../../../../logic/bloc/forgot_password/reset_password_bloc.dart';
-import '../../../../constants/routes/route.dart' as route;
+import '../../../../constants/route.dart' as route;
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key, required this.userId});

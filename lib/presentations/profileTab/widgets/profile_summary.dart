@@ -7,7 +7,7 @@ import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../models/doctor.dart';
 import '../../widgets/tab_header_bar.dart';
 import '/constants/constants.dart' as constants;
-import '../../../constants/routes/route.dart' as routes;
+import '../../../constants/route.dart' as routes;
 
 class ProfileSummary extends StatelessWidget {
   const ProfileSummary({super.key});

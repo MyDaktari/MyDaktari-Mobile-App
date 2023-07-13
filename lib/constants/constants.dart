@@ -1,4 +1,5 @@
-import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/models.dart';
 import '../presentations/doctor_side/schedule/models/dayschedule.dart';
@@ -12,9 +13,12 @@ String userId = '';
 String userPhoneNumber = '';
 ClientModel client = ClientModel();
 DoctorModel doctor = DoctorModel();
+var index = 0;
 List<DaySchedule> schedulesConstant = daysOfWeek.map((day) {
+  // var id = '${day}-$index';
+  index++;
   return DaySchedule(
-    id: '${day}-${timeIntervals.first}-${timeIntervals.first}',
+    id: UniqueKey().toString(),
     day: day,
     isEnabled: true,
     startTime: timeIntervals.first,
@@ -34,14 +38,10 @@ String convertTo12HourFormat(String time24Hr) {
   try {
     final dateFormat = DateFormat('HH:mm');
     final dateTime = dateFormat.parse(time24Hr);
-    print(dateTime);
     String formattedTime = DateFormat('h:mm a').format(dateTime);
-    print('###@@@@@@@@@@@@@@@@@');
-    print(formattedTime);
     return formattedTime;
-  } on Exception catch (e) {
-    print('1111111111111111111');
-    print(e.toString());
+  } on Exception {
+
     return time24Hr;
   }
 }
@@ -51,12 +51,8 @@ String convertTo24HourFormat(String time12Hr) {
     final dateFormat = DateFormat('h:mm a');
     final parsedTime = dateFormat.parse(time12Hr);
     final format24Hr = DateFormat('HH:mm');
-    print('###@@@@2222222222222@@@@@@');
-    print(format24Hr.format(parsedTime));
     return format24Hr.format(parsedTime);
-  } on Exception catch (e) {
-    print('2222222222222222222221');
-    print(e.toString());
+  } on Exception {
     return time12Hr;
   }
 }

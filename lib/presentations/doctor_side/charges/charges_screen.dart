@@ -7,7 +7,7 @@ import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'package:my_daktari/presentations/doctor_side/charges/charge_card.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
 
 class ChargesScreen extends StatelessWidget {

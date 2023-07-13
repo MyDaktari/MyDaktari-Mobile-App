@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 
 import '../../../../constants/constants.dart';
 
@@ -106,7 +107,7 @@ List<DaySchedule> availabilityToSchedules(Map<String, dynamic> availability) {
           isEnabled: true,
           startTime: start,
           endTime: end,
-          id: '${dayAbbreviated}-${timeIntervals.first}-${timeIntervals.first}', // Set the appropriate ID here
+          id: UniqueKey().toString(), // Set the appropriate ID here
         );
         schedules.add(schedule);
       }
@@ -115,6 +116,7 @@ List<DaySchedule> availabilityToSchedules(Map<String, dynamic> availability) {
 
   // Add empty DaySchedule objects for days not found in availability
   for (final entry in dayFullNameMap.entries) {
+    print(entry);
     final dayFullName = entry.value;
     final dayAbbreviated = entry.key;
 
@@ -124,7 +126,7 @@ List<DaySchedule> availabilityToSchedules(Map<String, dynamic> availability) {
         isEnabled: false,
         startTime: timeIntervals.first,
         endTime: timeIntervals.last,
-        id: '${dayAbbreviated}-${timeIntervals.first}-${timeIntervals.last}', // Set the appropriate ID here
+        id: UniqueKey().toString(), // Set the appropriate ID here
       );
       schedules.add(schedule);
     }

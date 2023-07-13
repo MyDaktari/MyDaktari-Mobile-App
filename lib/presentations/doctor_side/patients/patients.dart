@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/presentations/doctor_side/patients/patient_card.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_summary.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
@@ -17,9 +18,8 @@ class PatientsTab extends StatelessWidget {
       children: [
         ProfileSummary(),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Patients', style: textTheme.titleLarge),
-        ),
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Patients', style: textTheme.titleLarge)),
         Expanded(
           child: BlocBuilder<DoctorPatientsBloc, DoctorPatientsState>(
             builder: (context, state) {
@@ -37,10 +37,35 @@ class PatientsTab extends StatelessWidget {
                             }),
                       )
                     : Center(
-                        child: Text('You got no patients yet'),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('You got no patients yet'),
+                            IconButton(
+                                onPressed: () {
+                                  context.read<DoctorPatientsBloc>().add(
+                                      LoadDoctorPatients(
+                                          doctorId: doctor.id.toString()));
+                                },
+                                icon: Icon(Icons.refresh))
+                          ],
+                        ),
                       );
               } else if (state is DoctorPatientsLoadingError) {
-                return Center(child: Text(state.message));
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(state.message),
+                    IconButton(
+                        onPressed: () {
+                          context.read<DoctorPatientsBloc>().add(
+                              LoadDoctorPatients(
+                                  doctorId: doctor.id.toString()));
+                        },
+                        icon: Icon(Icons.refresh))
+                  ],
+                ));
               } else {
                 return Center(child: Text('We could not load your patients'));
               }

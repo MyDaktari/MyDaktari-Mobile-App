@@ -29,10 +29,14 @@ class ScheduleCubit extends Cubit<List<DaySchedule>> {
   }
 
   void removeSchedule(DaySchedule schedule) {
-    state.removeWhere((s) => s.id == schedule.id);
-    schedulesConstant = List.from(state);
-    saveScheduleToMemory(schedulesConstant);
-    emit(schedulesConstant);
+    if (state.any((s) => s.day == schedule.day && s.id != schedule.id)) {
+      state.removeWhere((s) => s.id == schedule.id);
+      schedulesConstant = List.from(state);
+      saveScheduleToMemory(schedulesConstant);
+      emit(schedulesConstant);
+    } else {
+      Fluttertoast.showToast(msg: 'Disable day instead');
+    }
   }
 
   void updateSchedule(DaySchedule schedule) {
@@ -45,11 +49,11 @@ class ScheduleCubit extends Cubit<List<DaySchedule>> {
       // Check if the start time is earlier than the end time
 
       final changingEnabled = state[index].isEnabled == schedule.isEnabled;
-      if (startTime.isAfter(endTime) && !changingEnabled) {
+      if (startTime.isAfter(endTime) && changingEnabled) {
         Fluttertoast.showToast(msg: 'End time needs to be after start time');
         return;
       } // Check if the start time is equal to the end time
-      if (startTime == endTime && !changingEnabled) {
+      if (startTime == endTime && changingEnabled) {
         Fluttertoast.showToast(
             msg: 'Start time cannot be the same as end time');
         return;

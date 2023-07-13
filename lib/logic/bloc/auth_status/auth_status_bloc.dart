@@ -45,8 +45,6 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
           try {
             userId = (response['user'] as DoctorModel).id.toString();
             doctor = response['user'] as DoctorModel;
-            print('##############################');
-            print(doctor.toJson());
             profileCompleted =
                 bool.parse(response['profileCompleted'] ?? 'false');
             fullProfileCompleted =

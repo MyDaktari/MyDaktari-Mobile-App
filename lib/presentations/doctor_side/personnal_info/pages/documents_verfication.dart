@@ -9,7 +9,7 @@ import 'package:my_daktari/logic/bloc/doctor_bloc/complete_profile/complete_prof
 import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
 import '../../../../logic/cubit/file_name/file_name_cubit.dart';
 import '../../../../logic/cubit/infor_page_update/info_page_update_cubit.dart';
-import '../../../../constants/routes/route.dart' as route;
+import '../../../../constants/route.dart' as route;
 import '../../../../logic/cubit/personal_info/personal_info_cubit.dart';
 import '../../../widgets/success_dialogue.dart';
 import '../widgets/upload_container.dart';

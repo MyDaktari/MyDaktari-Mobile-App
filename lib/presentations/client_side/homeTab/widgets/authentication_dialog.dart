@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/constants/routes/route.dart' as route;
+import 'package:my_daktari/constants/route.dart' as route;
 
 Future<dynamic> loginDialog(BuildContext context) {
   return showDialog(

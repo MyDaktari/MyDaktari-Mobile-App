@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/models/models.dart';
 
-import '../../../../constants/routes/route.dart' as route;
+import '../../../../constants/route.dart' as route;
 
 class DoctorResultWidget2 extends StatelessWidget {
   const DoctorResultWidget2({super.key, required this.doctor});

@@ -57,7 +57,6 @@ class _ScheduleRowState extends State<ScheduleRow> {
                   for (int i = 0; i < schedules.length; i++)
                     ScheduleItemWidget(
                       schedule: schedules[i],
-                    
                       timeIntervals: timeIntervals,
                       isDuplicate:
                           i > 0 && schedules[i].day == schedules[i - 1].day,

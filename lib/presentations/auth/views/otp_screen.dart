@@ -25,7 +25,6 @@ class OtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final otpTimerCubit = context.watch<OtpTimerCubit>()..startTimer();
     final userTypeCubit = context.watch<UserTypeCubit>();
-
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

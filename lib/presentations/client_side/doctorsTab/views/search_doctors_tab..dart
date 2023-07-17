@@ -51,7 +51,8 @@ class DoctorsTab extends StatelessWidget {
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
                       hintText: 'Search doctor or procedures',
-                      hintStyle: const TextStyle(fontSize: 12),
+                      hintStyle: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w600),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(21))),
                 ),

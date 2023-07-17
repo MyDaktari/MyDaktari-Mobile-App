@@ -9,6 +9,7 @@ class DoctorModel {
   String? speciality;
   String? description;
   String? location;
+  String? image;
   String? lat;
   String? lng;
 
@@ -16,6 +17,7 @@ class DoctorModel {
       {this.name,
       this.id,
       this.email,
+      this.image,
       this.phone,
       this.dob,
       this.gender,
@@ -28,6 +30,7 @@ class DoctorModel {
   DoctorModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     id = json['id'];
+    image = json['image'];
     email = json['email'];
     phone = json['phone'];
     dob = json['dob'];
@@ -43,6 +46,7 @@ class DoctorModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['id'] = this.id;
+    data['image'] = this.image;
     data['email'] = this.email;
     data['phone'] = this.phone;
     data['dob'] = this.dob;

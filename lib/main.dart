@@ -117,7 +117,6 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   DoctorPatientsBloc(doctorRepository: DoctorRepository())
                     ..add(LoadDoctorPatients(doctorId: userId))),
-
           //clients
           BlocProvider<SearchDoctorBloc>(
               create: (context) =>

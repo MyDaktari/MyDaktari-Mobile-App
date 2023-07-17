@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_field.dart';
+import 'package:my_daktari/presentations/profileTab/widgets/profile_picture.dart';
 import '../../../../constants/enums.dart';
 
 import '../../../../models/client.dart';
@@ -55,21 +57,7 @@ class ProfilePage extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: CachedNetworkImage(
-              placeholder: (context, url) {
-                return const CircularProgressIndicator(strokeWidth: 1);
-              },
-              errorWidget: (context, url, error) =>
-                  const Image(image: AssetImage('assets/images/male-user.png')),
-              fit: BoxFit.contain,
-              imageUrl: client.userID.toString(),
-            ),
-          ),
+          ProfilePicture(imageUrl: client.profileImage.toString()),
           ProfileField(title: 'Your Name', value: client.name.toString()),
           ProfileField(title: 'Email Address', value: client.email.toString()),
           ProfileField(title: 'Phone Number', value: client.phone.toString()),
@@ -85,21 +73,7 @@ class ProfilePage extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: CachedNetworkImage(
-              placeholder: (context, url) {
-                return const CircularProgressIndicator(strokeWidth: 1);
-              },
-              errorWidget: (context, url, error) =>
-                  const Image(image: AssetImage('assets/images/male-user.png')),
-              fit: BoxFit.contain,
-              imageUrl: doctor.name.toString(),
-            ),
-          ),
+          ProfilePicture(imageUrl: ''),
           ProfileField(title: 'Your Name', value: doctor.name.toString()),
           ProfileField(title: 'Email Address', value: doctor.email.toString()),
           ProfileField(title: 'Phone Number', value: doctor.phone.toString()),

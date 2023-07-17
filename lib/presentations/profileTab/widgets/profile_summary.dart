@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/models/client.dart';
-
 import '../../../constants/enums.dart';
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../models/doctor.dart';
@@ -29,12 +30,29 @@ class ProfileSummary extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                      height: size.height * .08,
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Image.asset('assets/images/male-user.png')),
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: ClipOval(
+                      clipBehavior: Clip.antiAlias,
+                      child: Container(
+                        decoration: BoxDecoration(),
+                        height: 100,
+                        width: 80,
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) {
+                            return CupertinoActivityIndicator();
+                          },
+                          errorWidget: (context, url, error) => const Image(
+                              image: AssetImage('assets/images/male-user.png')),
+                          fit: BoxFit.cover,
+                          imageUrl: (state.userType == UserType.client)
+                              ? (state.user as ClientModel)
+                                  .profileImage
+                                  .toString()
+                              : (state.user as DoctorModel).image.toString(),
+                        ),
+                      ),
+                    ),
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,

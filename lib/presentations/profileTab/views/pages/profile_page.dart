@@ -32,13 +32,15 @@ class ProfilePage extends StatelessWidget {
                       .read<ProfileViewCubit>()
                       .switchToNextSession(profileIndex: 0),
               icon: Icon(Icons.arrow_back_rounded)),
-          actions: [
-            IconButton(
-                onPressed: () => context
-                    .read<ProfileViewCubit>()
-                    .switchToNextSession(profileIndex: 1),
-                icon: Icon(Icons.edit))
-          ],
+          actions: currentIndex == 0
+              ? [
+                  IconButton(
+                      onPressed: () => context
+                          .read<ProfileViewCubit>()
+                          .switchToNextSession(profileIndex: 1),
+                      icon: Icon(Icons.edit))
+                ]
+              : null,
           elevation: 0),
       backgroundColor: Colors.white,
       body: BlocBuilder<AuthStatusBloc, AuthStatusState>(

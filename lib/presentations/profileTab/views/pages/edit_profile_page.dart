@@ -6,31 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/update_profile/update_profile_bloc.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/custom_profile_tf.dart';
-import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/date_picker.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/gender_picker.dart';
 import '../../../../constants/enums.dart';
 import '../../../../logic/cubit/profile_page_view/profile_view_cubit.dart';
 import '../../../../logic/cubit/update_profile/update_profile_cubit.dart';
 import '../../../../models/client.dart';
+import '../../widgets/modal_bottom_sheet.dart';
 
 class EditClientProfilePage extends StatelessWidget {
   EditClientProfilePage(
       {super.key, required this.userType, required this.client});
   final UserType userType;
   final ClientModel client;
-  File? _image;
-  PickedFile? _pickedFile;
-  final _picker = ImagePicker();
-  DateTime? _selectedDate;
-  // Implementing the image picker
-  Future<void> _pickImage() async {
-    _pickedFile = _picker.pickImage(source: ImageSource.gallery) as PickedFile?;
-    if (_pickedFile != null) {
-      _image = File(_pickedFile!.path);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +28,8 @@ class EditClientProfilePage extends StatelessWidget {
         TextEditingController(text: client.name);
     TextEditingController phoneNumberController =
         TextEditingController(text: client.phone);
+    print('##############');
+    print(updateProfileCubit.state.imagePath.path);
     return Column(
       children: [
         Container(
@@ -68,9 +58,13 @@ class EditClientProfilePage extends StatelessWidget {
                 bottom: 0,
                 right: 0,
                 child: InkWell(
-                    onTap: () {
-                      _pickImage();
-                    },
+                    onTap: () => showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0))),
+                        builder: (BuildContext context) =>
+                            const ModalBottomSheet()),
                     borderRadius: BorderRadius.circular(20),
                     child: CircleAvatar(
                         backgroundColor: Color(0xfff0f3fc),
@@ -97,7 +91,7 @@ class EditClientProfilePage extends StatelessWidget {
                 dob: updateProfileCubit.state.birthDate,
                 gender: updateProfileCubit.state.sex.name,
                 phoneNumber: phoneNumberController.text,
-                profilePicture: _image!));
+                profilePicture: updateProfileCubit.state.imagePath));
           },
           style: ElevatedButton.styleFrom(fixedSize: Size(size.width * .5, 45)),
           child: BlocConsumer<UpdateProfileBloc, UpdateProfileState>(

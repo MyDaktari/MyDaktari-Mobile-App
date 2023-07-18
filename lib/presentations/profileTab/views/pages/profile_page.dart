@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_daktari/logic/cubit/profile_page_view/profile_view_cubit.dart';
+import 'package:my_daktari/presentations/profileTab/views/pages/edit_profile_page.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_field.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_picture.dart';
 import '../../../../constants/enums.dart';
@@ -14,9 +14,9 @@ import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage();
-
   @override
   Widget build(BuildContext context) {
+    int currentIndex = context.watch<ProfileViewCubit>().state.profileIndex;
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -25,6 +25,20 @@ class ProfilePage extends StatelessWidget {
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 18)),
+          leading: IconButton(
+              onPressed: () => (currentIndex == 0)
+                  ? Navigator.pop(context)
+                  : context
+                      .read<ProfileViewCubit>()
+                      .switchToNextSession(profileIndex: 0),
+              icon: Icon(Icons.arrow_back_rounded)),
+          actions: [
+            IconButton(
+                onPressed: () => context
+                    .read<ProfileViewCubit>()
+                    .switchToNextSession(profileIndex: 1),
+                icon: Icon(Icons.edit))
+          ],
           elevation: 0),
       backgroundColor: Colors.white,
       body: BlocBuilder<AuthStatusBloc, AuthStatusState>(
@@ -35,11 +49,18 @@ class ProfilePage extends StatelessWidget {
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildProfileFields(userType, userData),
-                  ],
+                child: BlocBuilder<ProfileViewCubit, ProfileViewState>(
+                  builder: (context, state) {
+                    if (state.profileIndex == 0) {
+                      return buildProfileFields(userType, userData);
+                    } else if (state.profileIndex == 1 &&
+                        userType == UserType.client) {
+                      return EditClientProfilePage(
+                          userType: userType, client: userData as ClientModel);
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
               ),
             );

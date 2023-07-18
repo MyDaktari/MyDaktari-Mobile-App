@@ -1,8 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_daktari/logic/cubit/profile_page_view/profile_view_cubit.dart';
+import 'package:my_daktari/presentations/profileTab/views/pages/edit_profile_page.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_field.dart';
+import 'package:my_daktari/presentations/profileTab/widgets/profile_picture.dart';
 import '../../../../constants/enums.dart';
 
 import '../../../../models/client.dart';
@@ -12,9 +14,9 @@ import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage();
-
   @override
   Widget build(BuildContext context) {
+    int currentIndex = context.watch<ProfileViewCubit>().state.profileIndex;
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -23,6 +25,22 @@ class ProfilePage extends StatelessWidget {
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 18)),
+          leading: IconButton(
+              onPressed: () => (currentIndex == 0)
+                  ? Navigator.pop(context)
+                  : context
+                      .read<ProfileViewCubit>()
+                      .switchToNextSession(profileIndex: 0),
+              icon: Icon(Icons.arrow_back_rounded)),
+          actions: currentIndex == 0
+              ? [
+                  IconButton(
+                      onPressed: () => context
+                          .read<ProfileViewCubit>()
+                          .switchToNextSession(profileIndex: 1),
+                      icon: Icon(Icons.edit))
+                ]
+              : null,
           elevation: 0),
       backgroundColor: Colors.white,
       body: BlocBuilder<AuthStatusBloc, AuthStatusState>(
@@ -33,11 +51,18 @@ class ProfilePage extends StatelessWidget {
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildProfileFields(userType, userData),
-                  ],
+                child: BlocBuilder<ProfileViewCubit, ProfileViewState>(
+                  builder: (context, state) {
+                    if (state.profileIndex == 0) {
+                      return buildProfileFields(userType, userData);
+                    } else if (state.profileIndex == 1 &&
+                        userType == UserType.client) {
+                      return EditClientProfilePage(
+                          userType: userType, client: userData as ClientModel);
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
               ),
             );
@@ -55,21 +80,7 @@ class ProfilePage extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: CachedNetworkImage(
-              placeholder: (context, url) {
-                return const CircularProgressIndicator(strokeWidth: 1);
-              },
-              errorWidget: (context, url, error) =>
-                  const Image(image: AssetImage('assets/images/male-user.png')),
-              fit: BoxFit.contain,
-              imageUrl: client.userID.toString(),
-            ),
-          ),
+          ProfilePicture(imageUrl: client.profileImage.toString()),
           ProfileField(title: 'Your Name', value: client.name.toString()),
           ProfileField(title: 'Email Address', value: client.email.toString()),
           ProfileField(title: 'Phone Number', value: client.phone.toString()),
@@ -85,21 +96,7 @@ class ProfilePage extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: CachedNetworkImage(
-              placeholder: (context, url) {
-                return const CircularProgressIndicator(strokeWidth: 1);
-              },
-              errorWidget: (context, url, error) =>
-                  const Image(image: AssetImage('assets/images/male-user.png')),
-              fit: BoxFit.contain,
-              imageUrl: doctor.name.toString(),
-            ),
-          ),
+          ProfilePicture(imageUrl: ''),
           ProfileField(title: 'Your Name', value: doctor.name.toString()),
           ProfileField(title: 'Email Address', value: doctor.email.toString()),
           ProfileField(title: 'Phone Number', value: doctor.phone.toString()),

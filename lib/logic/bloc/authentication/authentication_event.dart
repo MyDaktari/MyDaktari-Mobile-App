@@ -44,12 +44,12 @@ class RegisterClient extends AuthenticationEvent {
       [name, password, phone, dob, gender, email, address];
 }
 
-// class LoginClient extends AuthenticationEvent {
-//   final String username, password;
-//   const LoginClient({required this.username, required this.password});
-//   @override
-//   List<Object> get props => [username, password];
-// }
+class WelcomeUser extends AuthenticationEvent {
+  final BuildContext context;
+  const WelcomeUser({required this.context});
+  @override
+  List<Object> get props => [context];
+}
 
 class SendOTP extends AuthenticationEvent {
   final String phoneNumber;

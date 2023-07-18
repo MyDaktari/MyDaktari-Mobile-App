@@ -42,8 +42,7 @@ class SexMenu extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.w300)),
               if (signUpHelperCubit.state.sex != Sex.undefined)
-                Text(signUpHelperCubit.state.sex.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(signUpHelperCubit.state.sex.name),
             ],
           ),
         ),

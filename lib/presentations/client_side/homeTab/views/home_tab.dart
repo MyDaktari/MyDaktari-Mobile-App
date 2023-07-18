@@ -4,6 +4,7 @@ import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/presentations/widgets/scroll_behavior.dart';
 
+import '../../../../constants/constants.dart';
 import '../../../../logic/bloc/client_bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '../widgets/blog_card.dart';
@@ -52,7 +53,10 @@ class HomeTabView extends StatelessWidget {
             title: Text('Talk to Aya,',
                 style: Theme.of(context).textTheme.titleLarge),
             subtitle: Text('Your virtual assistant.',
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: greenish, fontWeight: FontWeight.w700)),
             button: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
@@ -112,7 +116,7 @@ class HomeTabView extends StatelessWidget {
                     IconButton(
                         onPressed: () =>
                             context.read<BlogBloc>().add(LoadBlogs()),
-                        icon: Icon(Icons.refresh_rounded))
+                        icon: Icon(Icons.refresh_rounded)),
                   ],
                 ));
               } else {

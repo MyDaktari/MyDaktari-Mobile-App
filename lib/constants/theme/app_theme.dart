@@ -8,12 +8,8 @@ class AppTheme {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(21)),
-                backgroundColor: constants.greenish)),
+                backgroundColor: constants.primaryColor)),
         textTheme: const TextTheme(
-            titleMedium: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 0, 236, 182)),
             titleLarge: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,

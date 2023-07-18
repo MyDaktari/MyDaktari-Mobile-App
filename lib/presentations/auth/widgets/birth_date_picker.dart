@@ -17,7 +17,6 @@ class BirthDatePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final signUpHelperCubit = context.watch<SignUpHelperCubit>();
     Size size = MediaQuery.of(context).size;
-
     return Column(
       children: [
         Container(

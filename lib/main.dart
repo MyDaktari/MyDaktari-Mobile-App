@@ -10,6 +10,7 @@ import 'package:my_daktari/logic/bloc/forgot_password/reset_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
+import 'package:my_daktari/logic/cubit/profile_page_view/profile_view_cubit.dart';
 import 'package:my_daktari/repositories/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
@@ -29,6 +30,7 @@ import 'logic/bloc/client_bloc/pharmacy/pharmacy_bloc.dart';
 import 'logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
 import 'logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
+import 'logic/bloc/client_bloc/update_profile/update_profile_bloc.dart';
 import 'logic/bloc/doctor_bloc/complete_profile/complete_profile_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
@@ -47,8 +49,10 @@ import 'logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 import 'logic/cubit/symptoms/symptoms_cubit_cubit.dart';
 import 'logic/cubit/tab_update/tab_update_cubit.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
+import 'logic/cubit/update_profile/update_profile_cubit.dart';
 import 'logic/cubit/user_type/user_type_cubit.dart';
 import 'repositories/blog/blog_repository.dart';
+import 'repositories/profile/profile_repository.dart';
 import 'repositories/repositories.dart';
 
 void main() {
@@ -99,6 +103,10 @@ class MyApp extends StatelessWidget {
                   AuthStatusBloc(authRepository: AuthenticationRepository())
                     ..add(CheckUserStatus())),
 
+          BlocProvider<UpdateProfileBloc>(
+              create: (context) =>
+                  UpdateProfileBloc(repository: ProfileRepository())),
+
           //doctors
           BlocProvider<CompleteProfileBloc>(
               create: (context) =>
@@ -117,7 +125,6 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   DoctorPatientsBloc(doctorRepository: DoctorRepository())
                     ..add(LoadDoctorPatients(doctorId: userId))),
-
           //clients
           BlocProvider<SearchDoctorBloc>(
               create: (context) =>
@@ -162,6 +169,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<BookingInfoCubit>(
               create: (context) => BookingInfoCubit()),
           BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),
+          BlocProvider<ProfileViewCubit>(
+              create: (context) => ProfileViewCubit()),
           BlocProvider<PersonalInfoCubit>(
               create: (context) => PersonalInfoCubit()),
           BlocProvider<DropChargesCubit>(
@@ -175,6 +184,8 @@ class MyApp extends StatelessWidget {
               create: (context) => InfoPageUpdateCubit()),
           BlocProvider<UserTypeCubit>(create: (context) => UserTypeCubit()),
           BlocProvider<SymptomsCubit>(create: (context) => SymptomsCubit()),
+          BlocProvider<UpdateProfileCubit>(
+              create: (context) => UpdateProfileCubit()),
           BlocProvider<ScheduleCubit>(
             create: (context) => ScheduleCubit(schedulesConstant),
           ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:my_daktari/constants/constants.dart';
 
 import '../../../../repositories/profile/profile_repository.dart';
 
@@ -20,6 +21,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   Future<void> _onUpdateClientProfile(
       UpdateClientProfile event, Emitter<UpdateProfileState> emit) async {
     try {
+      emit(UpdateProfileLoading());
       String response = await repo.updateClientProfile(
           userId: event.userId,
           name: event.name,
@@ -27,6 +29,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
           gender: event.gender,
           phoneNumber: event.phoneNumber,
           profilePicture: event.profilePicture);
+      client = await repo.getClientModelFromLocalStorage();
       emit(UpdateProfileLoaded());
     } catch (error) {
       emit(UpdateProfileLoadError(message: error.toString()));
@@ -36,6 +39,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
   void _onUpdateDoctorProfile(
       UpdateDoctorProfile event, Emitter<UpdateProfileState> emit) async {
     try {
+      emit(UpdateProfileLoading());
       String response = await repo.updateDoctorProfile(
           userId: event.userId,
           name: event.name,
@@ -43,6 +47,7 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
           gender: event.gender,
           phoneNumber: event.phoneNumber,
           profilePicture: event.profilePicture);
+      doctor = await repo.getDoctorModelFromLocalStorage();
       emit(UpdateProfileLoaded());
     } catch (error) {
       emit(UpdateProfileLoadError(message: error.toString()));

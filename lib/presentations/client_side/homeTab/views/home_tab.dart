@@ -85,7 +85,7 @@ class HomeTabView extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text('Top News',
+              child: Text('Top Articles',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
           ),

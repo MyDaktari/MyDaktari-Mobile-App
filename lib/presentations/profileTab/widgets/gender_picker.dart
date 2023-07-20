@@ -13,6 +13,7 @@ class GenderMenu extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     Size size = MediaQuery.of(context).size;
     final updateProfileCubit = context.watch<UpdateProfileCubit>();
+    context.read<UpdateProfileCubit>().updateSex(gender);
     return InkWell(
       onTapDown: (TapDownDetails details) => showMenu<Sex>(
           context: context,

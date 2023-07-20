@@ -121,6 +121,7 @@ class LoginScreen extends StatelessWidget {
                                 child: BlocConsumer<AuthenticationBloc,
                                     AuthenticationState>(
                                   listener: (context, state) {
+                                    welcomeDialog(context);
                                     if (state is AuthenticationLoaded) {
                                       welcomeDialog(context);
                                       //welcome message

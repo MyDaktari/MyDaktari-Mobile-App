@@ -17,6 +17,6 @@ class BaseProfileRepository {
     required String dob,
     required String gender,
     required String phoneNumber,
-    required PlatformFile profilePicture,
+    required File profilePicture,
   }) async {}
 }

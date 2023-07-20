@@ -1,6 +1,5 @@
 class DoctorModel {
   String? name;
-
   int? id;
   String? email;
   String? phone;

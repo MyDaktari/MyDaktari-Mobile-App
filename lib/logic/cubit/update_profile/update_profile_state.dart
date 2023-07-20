@@ -16,5 +16,5 @@ class UpdateProfileCState extends Equatable {
   }
 
   @override
-  List<Object> get props => [birthDate, sex];
+  List<Object> get props => [birthDate, sex, imagePath];
 }

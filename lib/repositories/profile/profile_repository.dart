@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../models/client.dart';
+import '../../models/doctor.dart';
 import 'base_profile_repository.dart';
 
 class ProfileRepository extends BaseProfileRepository {
@@ -35,13 +38,14 @@ class ProfileRepository extends BaseProfileRepository {
     request.fields['phoneNumber'] = phoneNumber;
     request.fields['dob'] = dob;
     request.fields['gender'] = gender;
-
     var response = await request.send();
     var message = await response.stream.bytesToString();
     print(message);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print(message);
     if (response.statusCode == 200) {
-      //final jsonData = jsonDecode(response.stream.bytesToString())['data'];
-      // final doctor = DoctorProfileModel.fromJson(jsonData);
+      var responseBody = jsonDecode(message);
+      preferences.setString('user', jsonEncode(responseBody['data']));
       return message;
     } else {
       String error = message;
@@ -57,11 +61,12 @@ class ProfileRepository extends BaseProfileRepository {
     required String dob,
     required String gender,
     required String phoneNumber,
-    required PlatformFile profilePicture,
+    required File profilePicture,
   }) async {
     var request = http.MultipartRequest('POST',
         Uri.parse('https://mydoc.my-daktari.com/new_api/updateDrProfile.php'));
-    final profileFile = platformFileToFile(profilePicture);
+    // final profileFile = platformFileToFile(profilePicture);
+    final profileFile = profilePicture;
     // Add files to the request
     request.files.add(
       http.MultipartFile('profileImages', profileFile.readAsBytes().asStream(),
@@ -78,10 +83,12 @@ class ProfileRepository extends BaseProfileRepository {
 
     var response = await request.send();
     var message = await response.stream.bytesToString();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     print(message);
     if (response.statusCode == 200) {
-      //final jsonData = jsonDecode(response.stream.bytesToString())['data'];
-      // final doctor = DoctorProfileModel.fromJson(jsonData);
+      // Store the 'data' part of the response in local storage
+      var responseBody = jsonDecode(message);
+      preferences.setString('user', jsonEncode(responseBody['data']));
       return message;
     } else {
       String error = message;
@@ -96,5 +103,37 @@ class ProfileRepository extends BaseProfileRepository {
     // final fileName = path.basename(filePath.toString());
     final file = File(filePath.toString());
     return file;
+  }
+
+  Future<ClientModel> getClientModelFromLocalStorage() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? userData = preferences.getString('user');
+    if (userData != null) {
+      try {
+        Map<String, dynamic> userDataMap = jsonDecode(userData);
+        return ClientModel.fromJson(userDataMap);
+      } catch (e) {
+        // Handle decoding error here (if needed)
+        throw ('Error decoding user data from local storage: $e');
+      }
+    } else {
+      throw ('Failed');
+    }
+  }
+
+  Future<DoctorModel> getDoctorModelFromLocalStorage() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? userData = preferences.getString('user');
+    if (userData != null) {
+      try {
+        Map<String, dynamic> userDataMap = jsonDecode(userData);
+        return DoctorModel.fromJson(userDataMap);
+      } catch (e) {
+        // Handle decoding error here (if needed)
+        throw ('Error decoding user data from local storage: $e');
+      }
+    } else {
+      throw ('Failed');
+    }
   }
 }

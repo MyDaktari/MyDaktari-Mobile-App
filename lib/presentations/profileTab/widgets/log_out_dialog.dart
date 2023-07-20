@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/logic/bloc/authentication/authentication_bloc.dart';
 import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
@@ -49,6 +50,9 @@ Future<dynamic> logOutDialog(BuildContext context) {
               onPressed: () {
                 context.read<PageUpdateCubit>().setPageIndex(0);
                 context.read<AuthStatusBloc>().add(logUserOut());
+                context
+                    .read<AuthenticationBloc>()
+                    .emit(AuthenticationInitial());
                 Navigator.pop(context);
               },
               style: TextButton.styleFrom(

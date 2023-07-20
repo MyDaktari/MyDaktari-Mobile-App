@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import '../../../constants/enums.dart';
-
 part 'update_profile_state.dart';
 
 class UpdateProfileCubit extends Cubit<UpdateProfileCState> {

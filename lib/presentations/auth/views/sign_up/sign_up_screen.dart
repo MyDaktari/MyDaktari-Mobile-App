@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:my_daktari/presentations/auth/widgets/sign_up_button.dart';
-import '../../../constants/enums.dart';
-import '../widgets/birth_date_picker.dart';
-import '../widgets/sex_menu.dart';
-import '../widgets/terms_and_conditions.dart';
+import '../../../../constants/enums.dart';
+import '../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
+import '../../widgets/birth_date_picker.dart';
+import '../../widgets/sex_menu.dart';
+
+import 'package:my_daktari/constants/route.dart' as route;
+import '../../widgets/terms_and_conditions.dart';
 
 // ignore: must_be_immutable
 class SignUpScreen extends StatelessWidget {
@@ -185,7 +188,14 @@ class SignUpScreen extends StatelessWidget {
                           children: [
                             Text('Already have an account? '),
                             TextButton(
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () {
+                                  //update the login status to false for the otp url to be for sign up
+                                  context
+                                      .read<OtpTimerCubit>()
+                                      .updateLoginStatus(true);
+                                  Navigator.pushReplacementNamed(
+                                      context, route.loginScreen);
+                                },
                                 child: Text('Sign In'))
                           ]),
                       const SizedBox(height: 10),

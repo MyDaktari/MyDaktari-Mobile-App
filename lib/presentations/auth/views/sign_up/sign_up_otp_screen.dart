@@ -5,15 +5,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/otp/otp_bloc.dart';
 
-import '../../../constants/enums.dart';
-import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
-import '../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
-import '../../../logic/cubit/user_type/user_type_cubit.dart';
-import '../widgets/otp_input_field.dart';
+import '../../../../constants/enums.dart';
+import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
+import '../../../../logic/cubit/user_type/user_type_cubit.dart';
+import '../../widgets/otp_input_field.dart';
 import 'package:my_daktari/constants/route.dart' as route;
 
-class OtpScreen extends StatelessWidget {
-  OtpScreen({Key? key}) : super(key: key);
+class SignUpOtpScreen extends StatelessWidget {
+  SignUpOtpScreen({Key? key}) : super(key: key);
   final TextEditingController _fieldOne = TextEditingController();
   final TextEditingController _fieldTwo = TextEditingController();
   final TextEditingController _fieldThree = TextEditingController();
@@ -110,7 +110,9 @@ class OtpScreen extends StatelessWidget {
                             _fieldSix.text;
                         if (inputOTP.length == 6) {
                           context.read<OtpBloc>().add(VerifyOtp(
-                              phoneNumber: userPhoneNumber, otp: inputOTP));
+                              phoneNumber: userPhoneNumber,
+                              otp: inputOTP,
+                              isLogIn: false));
                         } else {
                           Fluttertoast.showToast(msg: '6-digit otp required!');
                         }

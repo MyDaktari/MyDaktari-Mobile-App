@@ -78,7 +78,7 @@ class SignUpButton extends StatelessWidget {
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
             if (state is AuthenticationLoaded) {
-              Navigator.pushNamed(context, route.otpScreen);
+              Navigator.pushNamed(context, route.signUpOtpScreen);
             }
             if (state is AuthenticationError) {
               Fluttertoast.showToast(msg: state.errorMessage);

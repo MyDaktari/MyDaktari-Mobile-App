@@ -29,7 +29,9 @@ abstract class BaseAuthenticationRepository {
 
   Future<String?> otpRequest({required String phoneNumber}) async {}
   Future<String?> otpVerification(
-      {required String phoneNumber, required String otp}) async {}
+      {required String phoneNumber,
+      required String otp,
+      required bool isLogIn}) async {}
   Future<String?> resetPassword(
       {required String userId,
       required String password,

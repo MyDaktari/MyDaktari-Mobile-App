@@ -3,17 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
-import 'package:my_daktari/presentations/auth/widgets/welcome_dialog.dart';
-import '../../../constants/constants.dart';
+import '../../../../constants/constants.dart';
 import 'package:my_daktari/constants/route.dart' as route;
-
-import '../../../constants/enums.dart';
-import '../../../logic/bloc/authentication/authentication_bloc.dart';
-import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
-import '../../../logic/cubit/user_type/user_type_cubit.dart';
-import '../widgets/password_input.dart';
+import '../../../../constants/enums.dart';
+import '../../../../logic/bloc/authentication/authentication_bloc.dart';
+import '../../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
+import '../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
+import '../../../../logic/cubit/user_type/user_type_cubit.dart';
+import '../../widgets/password_input.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -121,26 +119,13 @@ class LoginScreen extends StatelessWidget {
                                 child: BlocConsumer<AuthenticationBloc,
                                     AuthenticationState>(
                                   listener: (context, state) {
-                                    welcomeDialog(context);
                                     if (state is AuthenticationLoaded) {
-                                      welcomeDialog(context);
-                                      //welcome message
+                                      //update the login status to false for the otp url to be for sign up
                                       context
-                                          .read<AuthenticationBloc>()
-                                          .add(WelcomeUser(context: context));
-                                      context
-                                          .read<AuthStatusBloc>()
-                                          .add(CheckUserStatus());
-                                      if (userState.userType ==
-                                          UserType.doctor) {
-                                        context
-                                            .read<DoctorAppointmentsBloc>()
-                                            .add(LoadDoctorAppointments(
-                                                doctorId: userId));
-                                        context.read<DoctorPatientsBloc>().add(
-                                            LoadDoctorPatients(
-                                                doctorId: userId));
-                                      }
+                                          .read<OtpTimerCubit>()
+                                          .updateLoginStatus(true);
+                                      Navigator.pushNamed(
+                                          context, route.loginOtpScreen);
                                     }
                                     if (state is AuthenticationError) {
                                       Fluttertoast.showToast(
@@ -165,6 +150,10 @@ class LoginScreen extends StatelessWidget {
                               Text('Don\'t have an account yet? '),
                               TextButton(
                                   onPressed: () {
+                                    //update the login status to false for the otp url to be for sign up
+                                    context
+                                        .read<OtpTimerCubit>()
+                                        .updateLoginStatus(false);
                                     Navigator.pushReplacementNamed(
                                         context, route.signUpScreen);
                                   },

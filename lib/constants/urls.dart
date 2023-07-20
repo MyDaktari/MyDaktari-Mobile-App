@@ -43,6 +43,8 @@ const String otpRequestUrl =
     'https://mydoc.my-daktari.com/new_api/sendRegisterOTP.php';
 const String otpVerificationUrl =
     'https://mydoc.my-daktari.com/new_api/verifyRegisterOTP.php';
+const String loginOtpVerificationUrl =
+    'https://mydoc.my-daktari.com/new_api/verifyLoginOTP.php';
 
 const String ambulanceUrl =
     'https://mydoc.my-daktari.com/new_api/ambulances.php';

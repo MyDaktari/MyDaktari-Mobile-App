@@ -19,8 +19,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
     if (response.statusCode == 200) {
+      preferences.setBool('otpVerified', false);
       final responseBody = jsonDecode(response.body);
       ClientModel client = ClientModel.fromJson(responseBody['user']);
+      userPhoneNumber = client.phone.toString().trim();
       preferences.setString('user', jsonEncode(responseBody['user']));
       preferences.setString('userType', UserType.client.name);
       return client;
@@ -58,11 +60,11 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     if (response.statusCode == 201) {
+      preferences.setBool('otpVerified', false);
       final responseBody = jsonDecode(response.body);
       ClientModel client = ClientModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.client.name);
-
       userPhoneNumber = client.phone!;
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
@@ -84,10 +86,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     //print(response.body);
     if (response.statusCode == 200) {
+      preferences.setBool('otpVerified', false);
       final responseBody = jsonDecode(response.body);
-      print('object1');
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data'][0]);
-      print('object2');
+      userPhoneNumber = doctor.phone.toString().trim();
       preferences.setString('user', jsonEncode(responseBody['data'][0]));
       preferences.setString('userType', UserType.doctor.name);
       preferences.setString(
@@ -139,6 +141,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.doctor.name);
+      preferences.setBool('otpVerified', false);
       preferences.setString(
           'profileCompleted', jsonEncode(responseBody['profile_completed']));
       preferences.setString('fullProfileCompleted',
@@ -165,10 +168,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     String? fullProfileCompletedFromPrefs =
         preferences.getString('fullProfileCompleted');
     String? doctorSchedules = preferences.getString('schedules');
-
+    bool? otpVerified = preferences.getBool('otpVerified');
     dynamic user;
 
-    if (userTypeFromPrefs != null) {
+    if (userTypeFromPrefs != null && otpVerified != null) {
       if (userFromPrefs != null) {
         if (userTypeFromPrefs == UserType.client.name) {
           final userString = jsonDecode(userFromPrefs);
@@ -183,6 +186,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       }
       return {
         'user': user,
+        'otpVerified': otpVerified,
         'profileCompleted': profileCompletedFromPrefs,
         'fullProfileCompleted': fullProfileCompletedFromPrefs,
         'doctorSchedule': doctorSchedules,
@@ -210,14 +214,18 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
 
   @override
   Future<String> otpVerification(
-      {required String phoneNumber, required String otp}) async {
-    final response = await http.post(Uri.parse('$otpVerificationUrl'),
+      {required String phoneNumber,
+      required String otp,
+      required bool isLogIn}) async {
+    final response = await http.post(
+        Uri.parse(isLogIn ? loginOtpVerificationUrl : otpVerificationUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"phone": phoneNumber, "otp": otp}));
 
-    print(response.body);
     if (response.statusCode == 201 || response.statusCode == 200) {
       String message = jsonDecode(response.body)['message'];
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setBool('otpVerified', true);
       return message;
     } else {
       throw Exception('Invalid OTP ${response.statusCode}');

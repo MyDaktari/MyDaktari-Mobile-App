@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/constants/urls.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 
 import '../../../models/models.dart';
@@ -27,9 +28,10 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
     emit(AuthStatusLoding());
     bool profileCompleted = false;
     bool fullProfileCompleted = false;
+    bool otpVerified = false;
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
-
+      otpVerified = bool.parse(response['otpVerified'] ?? 'false');
       if (response['user'] != null && response['userType'] != null) {
         //if user is a client
         if (response['userType'] == UserType.client) {
@@ -37,6 +39,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
           client = response['user'] as ClientModel;
           userPhoneNumber = (response['user'] as ClientModel).phone.toString();
           emit(UserAuthenticated(
+              optVerified: otpVerified,
               user: response['user'],
               userType: response['userType'],
               showMessage: event.showMessage));
@@ -63,7 +66,8 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
               user: response['user'],
               userType: response['userType'],
               profileCompleted: profileCompleted,
-              fullProfileCompleted: fullProfileCompleted));
+              fullProfileCompleted: fullProfileCompleted,
+              optVerified: otpVerified));
         }
       } else {
         userId = '';

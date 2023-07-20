@@ -7,7 +7,7 @@ part 'otp_timer_state.dart';
 class OtpTimerCubit extends Cubit<OtpTimerState> {
   Timer? _timer;
 
-  OtpTimerCubit() : super(OtpTimerState(counter: 0));
+  OtpTimerCubit() : super(OtpTimerState(counter: 0, isLongIn: true));
 
   void startTimer() {
     if (_timer != null && _timer!.isActive) {
@@ -23,8 +23,12 @@ class OtpTimerCubit extends Cubit<OtpTimerState> {
     });
   }
 
+  void updateLoginStatus(bool isLongIn) {
+    emit(state.copyWith(isLogIn: isLongIn));
+  }
+
   void resetTimer() {
-    emit(OtpTimerState(counter: 60));
+    emit(state.copyWith(counter: 60));
     _timer!.cancel();
   }
 

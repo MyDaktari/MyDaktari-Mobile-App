@@ -28,8 +28,12 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
   void _onVerifyOtp(VerifyOtp event, Emitter<OtpState> emit) async {
     emit(OtpLoading());
     try {
+      print(event.isLogIn);
+      print(event.phoneNumber);
       String message = await authenticationRepository.otpVerification(
-          phoneNumber: event.phoneNumber, otp: event.otp);
+          phoneNumber: event.phoneNumber,
+          otp: event.otp,
+          isLogIn: event.isLogIn);
       print(message);
       emit(OtpLoaded());
     } catch (error) {

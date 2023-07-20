@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/models/client.dart';
+import '../../../constants/constants.dart';
 import '../../../constants/enums.dart';
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../models/doctor.dart';
@@ -45,10 +46,8 @@ class ProfileSummary extends StatelessWidget {
                               image: AssetImage('assets/images/male-user.png')),
                           fit: BoxFit.cover,
                           imageUrl: (state.userType == UserType.client)
-                              ? (state.user as ClientModel)
-                                  .profileImage
-                                  .toString()
-                              : (state.user as DoctorModel).image.toString(),
+                              ? client.profileImage.toString()
+                              : doctor.image.toString(),
                         ),
                       ),
                     ),
@@ -59,8 +58,8 @@ class ProfileSummary extends StatelessWidget {
                     children: [
                       Text(
                           ((state.userType == UserType.client)
-                                  ? (state.user as ClientModel).name
-                                  : (state.user as DoctorModel).name)
+                                  ? client.name
+                                  : doctor.name)
                               .toString(),
                           style: const TextStyle(
                               color: Colors.black,

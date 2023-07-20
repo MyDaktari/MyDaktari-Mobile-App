@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/cubit/profile_page_view/profile_view_cubit.dart';
-import 'package:my_daktari/presentations/profileTab/views/pages/edit_profile_page.dart';
+import 'package:my_daktari/presentations/profileTab/views/pages/edit_client_profile_page.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_field.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/profile_picture.dart';
 import '../../../../constants/enums.dart';
@@ -11,6 +12,7 @@ import '../../../../models/client.dart';
 import '../../../../models/doctor.dart';
 
 import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import 'edit_doctor_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage();
@@ -58,7 +60,11 @@ class ProfilePage extends StatelessWidget {
                     } else if (state.profileIndex == 1 &&
                         userType == UserType.client) {
                       return EditClientProfilePage(
-                          userType: userType, client: userData as ClientModel);
+                          userType: userType, client: client);
+                    } else if (state.profileIndex == 1 &&
+                        userType == UserType.doctor) {
+                      return EditDoctorProfilePage(
+                          userType: userType, doctor: doctor);
                     } else {
                       return const SizedBox();
                     }
@@ -76,7 +82,6 @@ class ProfilePage extends StatelessWidget {
 
   Widget buildProfileFields(UserType userType, dynamic userData) {
     if (userType == UserType.client && userData is ClientModel) {
-      final client = userData;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -92,7 +97,6 @@ class ProfilePage extends StatelessWidget {
         ],
       );
     } else if (userType == UserType.doctor && userData is DoctorModel) {
-      final doctor = userData;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

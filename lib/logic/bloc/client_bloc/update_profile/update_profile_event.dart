@@ -23,7 +23,7 @@ class UpdateClientProfile extends UpdateProfileEvent {
 
 class UpdateDoctorProfile extends UpdateProfileEvent {
   final String userId, name, dob, gender, phoneNumber;
-  final PlatformFile profilePicture;
+  final File profilePicture;
   const UpdateDoctorProfile(
       {required this.userId,
       required this.name,

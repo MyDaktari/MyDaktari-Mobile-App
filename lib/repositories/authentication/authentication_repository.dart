@@ -82,11 +82,13 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
+    //print(response.body);
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
-      preferences.setString('user', jsonEncode(responseBody['data']));
+      print('object1');
+      DoctorModel doctor = DoctorModel.fromJson(responseBody['data'][0]);
+      print('object2');
+      preferences.setString('user', jsonEncode(responseBody['data'][0]));
       preferences.setString('userType', UserType.doctor.name);
       preferences.setString(
           'profileCompleted', jsonEncode(responseBody['profile_completed']));
@@ -96,10 +98,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       bool fullProfileCompleted = responseBody['full_profile_completed'];
       if (fullProfileCompleted) {
         print(responseBody['data']);
-        schedulesConstant = availabilityToSchedules(
-            responseBody['data']['doctorAvailability'] as Map<String, dynamic>);
+        schedulesConstant = availabilityToSchedules(responseBody['data'][0]
+            ['doctorAvailability'] as Map<String, dynamic>);
         preferences.setString('schedules',
-            jsonEncode(responseBody['data']['doctorAvailability']));
+            jsonEncode(responseBody['data'][0]['doctorAvailability']));
       }
       return doctor;
     } else if (response.statusCode == 401 ||

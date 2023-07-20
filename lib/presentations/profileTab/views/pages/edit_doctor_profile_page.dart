@@ -1,35 +1,31 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/logic/bloc/client_bloc/update_profile/update_profile_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/custom_profile_tf.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/date_picker.dart';
 import 'package:my_daktari/presentations/profileTab/widgets/gender_picker.dart';
 import '../../../../constants/enums.dart';
+import '../../../../logic/bloc/client_bloc/update_profile/update_profile_bloc.dart';
 import '../../../../logic/cubit/profile_page_view/profile_view_cubit.dart';
 import '../../../../logic/cubit/update_profile/update_profile_cubit.dart';
-import '../../../../models/client.dart';
+import '../../../../models/doctor.dart';
 import '../../widgets/modal_bottom_sheet.dart';
 
-class EditClientProfilePage extends StatelessWidget {
-  EditClientProfilePage(
-      {super.key, required this.userType, required this.client});
+class EditDoctorProfilePage extends StatelessWidget {
+  EditDoctorProfilePage(
+      {super.key, required this.userType, required this.doctor});
   final UserType userType;
-  final ClientModel client;
+  final DoctorModel doctor;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final updateProfileCubit = context.watch<UpdateProfileCubit>();
     TextEditingController nameController =
-        TextEditingController(text: client.name);
+        TextEditingController(text: doctor.name);
     TextEditingController phoneNumberController =
-        TextEditingController(text: client.phone);
-    print('##############');
-    print(updateProfileCubit.state.imagePath.path);
+        TextEditingController(text: doctor.phone);
     return Column(
       children: [
         Container(
@@ -52,7 +48,7 @@ class EditClientProfilePage extends StatelessWidget {
                     errorWidget: (context, url, error) => const Image(
                         image: AssetImage('assets/images/male-user.png')),
                     fit: BoxFit.cover,
-                    imageUrl: client.profileImage.toString()),
+                    imageUrl: doctor.image.toString()),
               ),
               Positioned(
                 bottom: 0,
@@ -63,8 +59,7 @@ class EditClientProfilePage extends StatelessWidget {
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.0))),
-                        builder: (BuildContext context) =>
-                            const ModalBottomSheet()),
+                        builder: (_) => ModalBottomSheet()),
                     borderRadius: BorderRadius.circular(20),
                     child: CircleAvatar(
                         backgroundColor: Color(0xfff0f3fc),
@@ -77,32 +72,42 @@ class EditClientProfilePage extends StatelessWidget {
             hintText: 'Full Name', controller: nameController),
         CustomProfileTextField(
             hintText: 'Phone Number', controller: phoneNumberController),
-        ProfileDatePicker(date: client.dob.toString()),
+        ProfileDatePicker(date: doctor.dob.toString()),
         GenderMenu(
-            gender: client.gender.toString().toLowerCase() == 'male'
+            gender: doctor.gender.toString().toLowerCase() == 'male'
                 ? Sex.male
                 : Sex.female),
         SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
-            context.read<UpdateProfileBloc>().add(UpdateClientProfile(
-                userId: client.id.toString(),
-                name: nameController.text,
-                dob: updateProfileCubit.state.birthDate,
-                gender: updateProfileCubit.state.sex.name,
-                phoneNumber: phoneNumberController.text,
-                profilePicture: updateProfileCubit.state.imagePath));
+            if (nameController.text.isNotEmpty &&
+                nameController.text.isNotEmpty &&
+                phoneNumberController.text.isNotEmpty &&
+                context.read<UpdateProfileCubit>().state.birthDate.isNotEmpty &&
+                context.read<UpdateProfileCubit>().state.sex.name.isNotEmpty) {
+              context.read<UpdateProfileBloc>().add(UpdateDoctorProfile(
+                  userId: doctor.id.toString(),
+                  name: nameController.text,
+                  dob: context.read<UpdateProfileCubit>().state.birthDate,
+                  gender: context.read<UpdateProfileCubit>().state.sex.name,
+                  phoneNumber: phoneNumberController.text,
+                  profilePicture:
+                      context.read<UpdateProfileCubit>().state.imagePath));
+            } else {
+              print('something is empty');
+            }
           },
           style: ElevatedButton.styleFrom(fixedSize: Size(size.width * .5, 45)),
           child: BlocConsumer<UpdateProfileBloc, UpdateProfileState>(
             listener: (context, state) {
               if (state is UpdateProfileLoaded) {
-                print('Okay');
+                Fluttertoast.showToast(msg: 'Profile Updated!');
                 context
                     .read<ProfileViewCubit>()
                     .switchToNextSession(profileIndex: 0);
               }
               if (state is UpdateProfileLoadError) {
+                print(state.message);
                 print('Not okay');
               }
             },

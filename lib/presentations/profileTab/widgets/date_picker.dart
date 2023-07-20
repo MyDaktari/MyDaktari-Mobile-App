@@ -1,5 +1,4 @@
 import 'package:date_field/date_field.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -16,10 +15,11 @@ class ProfileDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime d = DateTime.parse(date);
-    String formattedDate = DateFormat('yyyy-MM-dd').format(d);
+    String formattedDate =
+        DateFormat('yyyy-MM-dd').format(DateTime.parse(date));
     TextTheme textTheme = Theme.of(context).textTheme;
     final updateProfileCubit = context.watch<UpdateProfileCubit>();
+    context.read<UpdateProfileCubit>().updateBirthDate(formattedDate);
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),

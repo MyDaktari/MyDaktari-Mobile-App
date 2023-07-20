@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:my_daktari/constants/constants.dart';
 
 import '../../../../repositories/profile/profile_repository.dart';

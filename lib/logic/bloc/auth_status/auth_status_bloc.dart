@@ -6,7 +6,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
-import 'package:my_daktari/constants/urls.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 
 import '../../../models/models.dart';

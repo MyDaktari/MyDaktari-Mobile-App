@@ -3,12 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import '../../../../constants/constants.dart';
 import 'package:my_daktari/constants/route.dart' as route;
-import '../../../../constants/enums.dart';
 import '../../../../logic/bloc/authentication/authentication_bloc.dart';
-import '../../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import '../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
 import '../../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../../widgets/password_input.dart';
@@ -120,6 +117,9 @@ class LoginScreen extends StatelessWidget {
                                     AuthenticationState>(
                                   listener: (context, state) {
                                     if (state is AuthenticationLoaded) {
+                                      context
+                                          .read<AuthenticationBloc>()
+                                          .add(WelcomeUser(context: context));
                                       //update the login status to false for the otp url to be for sign up
                                       context
                                           .read<OtpTimerCubit>()

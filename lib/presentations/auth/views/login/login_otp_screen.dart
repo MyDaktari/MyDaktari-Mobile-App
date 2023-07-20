@@ -9,7 +9,6 @@ import '../../../../constants/enums.dart';
 import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import '../../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
-import '../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
 import '../../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../../widgets/otp_input_field.dart';
 import 'package:my_daktari/constants/route.dart' as route;
@@ -25,10 +24,9 @@ class LoginOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final otpTimerCubit = context.watch<OtpTimerCubit>()..startTimer();
+    //final otpTimerCubit = context.watch<OtpTimerCubit>()..startTimer();
     final userTypeCubit = context.watch<UserTypeCubit>();
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: SafeArea(
         child: Padding(

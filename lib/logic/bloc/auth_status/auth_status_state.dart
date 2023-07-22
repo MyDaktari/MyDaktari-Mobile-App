@@ -20,15 +20,24 @@ class UserAuthenticated extends AuthStatusState {
   final bool showMessage;
   final bool profileCompleted;
   final bool fullProfileCompleted;
+  final bool optVerified;
   const UserAuthenticated({
     required this.userType,
     required this.user,
+    this.optVerified = false,
     this.showMessage = false,
     this.profileCompleted = false,
     this.fullProfileCompleted = false,
   });
   @override
-  List<Object> get props => [user, userType];
+  List<Object> get props => [
+        user,
+        userType,
+        showMessage,
+        profileCompleted,
+        fullProfileCompleted,
+        optVerified
+      ];
 }
 
 class UserAuthStatusError extends AuthStatusState {

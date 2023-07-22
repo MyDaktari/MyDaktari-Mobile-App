@@ -213,11 +213,13 @@ class MyApp extends StatelessWidget {
                         theme: AppTheme().lightTheme,
                         themeMode: state.themeMode,
                         onGenerateRoute: route.AppRouter.generateRoute,
-                        initialRoute: authState.userType == UserType.client
-                            ? route.homeScreen
-                            : authState.profileCompleted
+                        initialRoute: authState.optVerified
+                            ? authState.userType == UserType.client
                                 ? route.homeScreen
-                                : route.personalInfo);
+                                : authState.profileCompleted
+                                    ? route.homeScreen
+                                    : route.personalInfo
+                            : route.welcomeScreen);
                   },
                 );
               } else {

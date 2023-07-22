@@ -9,6 +9,7 @@ class DoctorPatientCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       color: primaryColor,
@@ -46,10 +47,14 @@ class DoctorPatientCard extends StatelessWidget {
                           fontSize: 21,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      patient.description.toString(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.normal),
+                    SizedBox(
+                      width: size.width * .5,
+                      child: Text(
+                        patient.description.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.normal),
+                      ),
                     ),
                   ],
                 ),

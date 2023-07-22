@@ -16,7 +16,9 @@ class RequestOtp extends OtpEvent {
 
 class VerifyOtp extends OtpEvent {
   final String phoneNumber, otp;
-  VerifyOtp({required this.phoneNumber, required this.otp});
+  final bool isLogIn;
+  VerifyOtp(
+      {required this.phoneNumber, required this.otp, required this.isLogIn});
   @override
-  List<Object> get props => [phoneNumber, otp];
+  List<Object> get props => [phoneNumber, otp, isLogIn];
 }

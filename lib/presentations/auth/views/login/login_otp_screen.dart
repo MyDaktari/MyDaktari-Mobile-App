@@ -128,7 +128,7 @@ class LoginOtpScreen extends StatelessWidget {
                                 UserType.doctor) {
                               context
                                   .read<AuthStatusBloc>()
-                                  .add(CheckUserStatus(showMessage: true));
+                                  .add(CheckUserStatus());
                               Navigator.pushReplacementNamed(
                                   context, route.personalInfo);
                               context.read<DoctorAppointmentsBloc>().add(
@@ -141,7 +141,7 @@ class LoginOtpScreen extends StatelessWidget {
                                 UserType.client) {
                               context
                                   .read<AuthStatusBloc>()
-                                  .add(CheckUserStatus(showMessage: true));
+                                  .add(CheckUserStatus());
                               Navigator.pushReplacementNamed(
                                   context, route.welcomeMessageScreen);
                             }

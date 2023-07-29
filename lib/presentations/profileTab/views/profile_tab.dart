@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/client_appointment/client_appointments_bloc.dart';
+import 'package:my_daktari/presentations/client_side/homeTab/widgets/divice_dialog.dart';
 import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
 import '../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../../client_side/homeTab/widgets/authentication_dialog.dart';
@@ -14,14 +15,15 @@ class ProfileTab extends StatelessWidget {
 
   static const List<Map<String, dynamic>> doctorPages = [
     {"schedule": "Schedule"},
-    // {"appointments": "My Appointments"},
     {"profile": "Basic info"},
-    {"articles": "Articles"}
+    {"articles": "Articles"},
+    {"divice": "Add divice"}
   ];
   static const List<Map<String, dynamic>> patientPages = [
     {"clientAppointments": "My Appointments"},
     {"profile": "Basic info"},
-    {"articles": "Articles"}
+    {"articles": "Articles"},
+    {"divice": "Add devices"}
   ];
 
   @override
@@ -55,7 +57,14 @@ class ProfileTab extends StatelessWidget {
                         contentPadding: const EdgeInsets.all(10),
                         leading: CircleAvatar(
                             backgroundColor: Colors.transparent,
-                            child: const Icon(Icons.calendar_today_rounded,
+                            child: Icon(
+                                index == 0
+                                    ? Icons.calendar_today_rounded
+                                    : index == 1
+                                        ? Icons.person_2_outlined
+                                        : index == 2
+                                            ? Icons.article_outlined
+                                            : Icons.devices,
                                 color: Colors.blue)),
                         title: Text(title,
                             style: const TextStyle(color: Colors.black)),
@@ -63,11 +72,18 @@ class ProfileTab extends StatelessWidget {
                         onTap: () {
                           // Handle list item tap
                           // You can navigate to the corresponding route using Navigator
+                          if (route == 'divice') {
+                            diviceDialog(context);
+                          }
                           if (state is UserAuthenticated) {
-                            Navigator.pushNamed(context, route);
-                            if (route == 'clientAppointments') {
-                              context.read<ClientAppointmentsBloc>().add(
-                                  LoadClientAppointments(cleintId: userId));
+                            if (route == 'divice') {
+                              diviceDialog(context);
+                            } else {
+                              Navigator.pushNamed(context, route);
+                              if (route == 'clientAppointments') {
+                                context.read<ClientAppointmentsBloc>().add(
+                                    LoadClientAppointments(cleintId: userId));
+                              }
                             }
                           } else if (state is UserUnauthenticated) {
                             loginDialog(context);

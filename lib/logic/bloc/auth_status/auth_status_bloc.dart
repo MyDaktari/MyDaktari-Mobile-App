@@ -28,9 +28,10 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
     bool profileCompleted = false;
     bool fullProfileCompleted = false;
     bool otpVerified = false;
+
     try {
       Map<String, dynamic> response = await authRepository.checkUser();
-      otpVerified = bool.parse(response['otpVerified'] ?? 'false');
+      otpVerified = response['otpVerified'] ?? false;
       if (response['user'] != null && response['userType'] != null) {
         //if user is a client
         if (response['userType'] == UserType.client) {
@@ -73,6 +74,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
         emit(UserUnauthenticated());
       }
     } catch (error) {
+      print(error.toString());
       userId = '';
       emit(UserUnauthenticated());
     }

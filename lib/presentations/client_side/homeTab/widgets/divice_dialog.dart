@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/constants/route.dart' as route;
 
 Future<dynamic> diviceDialog(BuildContext context) {
   return showDialog(

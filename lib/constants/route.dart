@@ -12,6 +12,7 @@ import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/amb
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
 import 'package:my_daktari/presentations/client_side/payment/payment_screen.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
+import 'package:my_daktari/presentations/profileTab/health_screen.dart';
 import 'package:my_daktari/presentations/welcome_message_screen.dart';
 
 import '../models/doctor_profile_model.dart';
@@ -61,6 +62,7 @@ const String clientAppointments = "clientAppointments";
 //shared routes
 const String articles = "articles";
 const String profile = "profile";
+const String health = "health";
 const String homeScreen = 'homePage';
 const String blogScreen = 'blogScreen';
 
@@ -93,6 +95,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PharmacyScreen());
       case schedule:
         return MaterialPageRoute(builder: (_) => ScheduleScreen());
+
       case charges:
         return MaterialPageRoute(builder: (_) => ChargesScreen());
       case personalInfo:
@@ -123,6 +126,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => ProfilePage());
       case articles:
         return MaterialPageRoute(builder: (context) => ArticlesPage());
+      case health:
+        return MaterialPageRoute(builder: (context) => HealthScreen());
 
       default:
         return MaterialPageRoute(

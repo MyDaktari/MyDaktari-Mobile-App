@@ -17,12 +17,14 @@ class ProfileTab extends StatelessWidget {
     {"schedule": "Schedule"},
     {"profile": "Basic info"},
     {"articles": "Articles"},
-    {"divice": "Add divice"}
+    {"health": "Health Tracking "},
+    {"divice": "Add divice"},
   ];
   static const List<Map<String, dynamic>> patientPages = [
     {"clientAppointments": "My Appointments"},
     {"profile": "Basic info"},
     {"articles": "Articles"},
+    {"health": "Health Tracking "},
     {"divice": "Add devices"}
   ];
 
@@ -64,7 +66,9 @@ class ProfileTab extends StatelessWidget {
                                         ? Icons.person_2_outlined
                                         : index == 2
                                             ? Icons.article_outlined
-                                            : Icons.devices,
+                                            : index == 3
+                                                ? Icons.favorite_border_outlined
+                                                : Icons.devices,
                                 color: Colors.blue)),
                         title: Text(title,
                             style: const TextStyle(color: Colors.black)),

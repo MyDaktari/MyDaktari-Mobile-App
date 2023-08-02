@@ -31,6 +31,7 @@ class ClientRepository extends BaseClientRepository {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final List<dynamic> doctorData = jsonData['data'];
+      print(doctorData);
       List<DoctorProfileModel> doctors =
           doctorData.map((data) => DoctorProfileModel.fromJson(data)).toList();
       return doctors;
@@ -50,6 +51,7 @@ class ClientRepository extends BaseClientRepository {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final List<dynamic> doctorData = jsonData['data'];
+      print(doctorData);
       List<DoctorProfileModel> doctors =
           doctorData.map((data) => DoctorProfileModel.fromJson(data)).toList();
       return doctors;

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "794284378059",
+    "project_id": "my-daktari-health-app",
+    "storage_bucket": "my-daktari-health-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794284378059:android:bce5c90fa1cf12a0f4d84e",
+        "android_client_info": {
+          "package_name": "com.my_daktari.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794284378059-ll4r7l15c7prlu7kjngfco7ko39pcsou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.my_daktari.app",
+            "certificate_hash": "9ab55230745086d52aa642a4cc69ad504565a716"
+          }
+        },
+        {
+          "client_id": "794284378059-lokl4u85l66v9c13lkl9jt67lhssoum3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD07632kUmC4j-gSbZ6CFof4Xb52_4IzgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794284378059-lokl4u85l66v9c13lkl9jt67lhssoum3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/presentations/profileTab/views/health/health_controller.dart';
+
+import '../../widgets/health_info_dialog.dart';
 
 class HealthScreen extends StatelessWidget {
-  const HealthScreen({super.key});
+  HealthScreen({super.key});
+
+  HealthController healthController = HealthController();
 
   @override
   Widget build(BuildContext context) {
+    healthController.getHealthData();
     return Scaffold(
       appBar: AppBar(
         title: Text('Health Tracking'),
+        actions: [
+          IconButton(
+              onPressed: () => healthInfoDialog(context),
+              icon: Icon(Icons.info_outline_rounded, size: 30.0))
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -27,19 +38,10 @@ class HealthScreen extends StatelessWidget {
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10.0),
-                    HealthSummaryTile(
-                      label: 'Steps',
-                      value: '8000', // Replace with actual steps data
-                    ),
-                    HealthSummaryTile(
-                      label: 'Heart Rate',
-                      value: '75', // Replace with actual heart rate data
-                    ),
-                    HealthSummaryTile(
-                      label: 'Distance',
-                      value: '5.3 km', // Replace with actual distance data
-                    ),
-                    // Add more health summary tiles for other metrics
+                    HealthSummaryTile(label: 'Steps', value: '8000'),
+                    HealthSummaryTile(label: 'Heart Rate', value: '75'),
+                    HealthSummaryTile(label: 'Distance', value: '5.3 km'),
+                    HealthSummaryTile(label: 'Calories Burned', value: '460'),
                     SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

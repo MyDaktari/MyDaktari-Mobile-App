@@ -12,7 +12,7 @@ import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/amb
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
 import 'package:my_daktari/presentations/client_side/payment/payment_screen.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
-import 'package:my_daktari/presentations/profileTab/health_screen.dart';
+import 'package:my_daktari/presentations/profileTab/views/health/health_screen.dart';
 import 'package:my_daktari/presentations/welcome_message_screen.dart';
 
 import '../models/doctor_profile_model.dart';

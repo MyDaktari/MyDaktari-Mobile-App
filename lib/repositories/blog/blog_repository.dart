@@ -13,7 +13,6 @@ class BlogRepository extends BaseBlogRepository {
     List<BlogModel> blogs = List.empty();
     final response = await http.post(Uri.parse(blogUrl),
         headers: {'Content-Type': 'application/json'});
-    print(response.body);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
       blogs = jsonData.map((blog) => BlogModel.fromJson(blog)).toList();

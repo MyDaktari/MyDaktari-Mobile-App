@@ -18,10 +18,8 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
       RequestPasswordOtp event, Emitter<PasswordOtpState> emit) async {
     emit(PasswordOtpLoading());
     try {
-  
       String message = await authenticationRepository.passwordOtpRequest(
           phoneNumber: event.phoneNumber, userType: event.userType);
-      print(message);
       emit(PasswordOtpSet());
     } catch (error) {
       emit(PasswordOtpLoadError(errorMessage: error.toString()));
@@ -34,7 +32,6 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
     try {
       String userId = await authenticationRepository.passwordOtpVerification(
           phoneNumber: event.phoneNumber, otp: event.PasswordOtp);
-      print(userId);
       emit(PasswordOtpLoaded(userId: userId));
     } catch (error) {
       String errorMessage = error.toString().split(':').last;

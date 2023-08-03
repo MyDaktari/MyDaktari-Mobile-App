@@ -19,7 +19,6 @@ class PersonalDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pageCubit = context.watch<InfoPageUpdateCubit>();
 
-    print(pageCubit.state);
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(

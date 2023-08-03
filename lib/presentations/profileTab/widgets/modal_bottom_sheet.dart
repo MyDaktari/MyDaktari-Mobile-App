@@ -43,7 +43,6 @@ class ModalBottomSheet extends StatelessWidget {
                     context
                         .read<UpdateProfileCubit>()
                         .updateImagePath(imagePath: image);
-                    print(image.path);
                     Navigator.of(context).pop();
                   },
                 ),

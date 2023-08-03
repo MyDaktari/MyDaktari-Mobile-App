@@ -51,9 +51,6 @@ class ChargesScreen extends StatelessWidget {
                   width: 0.9 * MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                       onPressed: () {
-                        print(chatCotroller.text);
-                        print(phoneCotroller.text);
-                        print(videoCotroller.text);
                         if (chatCotroller.text.isNotEmpty &&
                             phoneCotroller.text.isNotEmpty &&
                             videoCotroller.text.isNotEmpty) {

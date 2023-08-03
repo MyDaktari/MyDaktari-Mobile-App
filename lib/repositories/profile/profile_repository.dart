@@ -40,9 +40,7 @@ class ProfileRepository extends BaseProfileRepository {
     request.fields['gender'] = gender;
     var response = await request.send();
     var message = await response.stream.bytesToString();
-    print(message);
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    print(message);
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(message);
       preferences.setString('user', jsonEncode(responseBody['data']));
@@ -84,7 +82,6 @@ class ProfileRepository extends BaseProfileRepository {
     var response = await request.send();
     var message = await response.stream.bytesToString();
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    print(message);
     if (response.statusCode == 200) {
       // Store the 'data' part of the response in local storage
       var responseBody = jsonDecode(message);

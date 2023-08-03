@@ -154,7 +154,6 @@ class BookingScreen extends StatelessWidget {
                               backgroundColor: primaryColor,
                               fixedSize: Size(size.width * .8, 50)),
                           onPressed: () {
-                            print(bookingState.meetingOption.trim());
                             context.read<BookAppointmentBloc>().add(
                                 BookNewAppointment(
                                     date: bookingState.date,
@@ -177,7 +176,6 @@ class BookingScreen extends StatelessWidget {
 
                                 if (state.amount.isNotEmpty &&
                                     state.appointmentID.isNotEmpty) {
-                                  print('hey');
                                   cubitState.updateBookingInfo(
                                       amount: amount, appointmentId: id);
                                 } else {

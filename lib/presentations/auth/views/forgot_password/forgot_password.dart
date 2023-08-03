@@ -78,7 +78,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                       return Center(
                         child: ElevatedButton(
                             onPressed: () {
-                              print(phoneController.text);
                               phoneController.text.isNotEmpty
                                   ? context.read<PasswordOtpBloc>().add(
                                       RequestPasswordOtp(

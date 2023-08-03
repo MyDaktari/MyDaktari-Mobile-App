@@ -28,7 +28,6 @@ class DoctorRepository extends BaseDoctorRepository {
           .toList();
       return appointments;
     } else if (response.statusCode == 404 || response.statusCode == 400) {
-      print('Empty appointments ${response.statusCode}');
       return appointments = List.empty();
     } else {
       throw Exception(
@@ -40,7 +39,6 @@ class DoctorRepository extends BaseDoctorRepository {
   @override
   Future<List<PatientModel>> getDoctorPatients(
       {required String doctorId}) async {
-    print('doctor: ## $doctorId');
     List<PatientModel> patients = List.empty();
     final response = await http.post(Uri.parse(getDoctorPatientsUrl),
         headers: {'Content-Type': 'application/json'},
@@ -237,7 +235,6 @@ class DoctorRepository extends BaseDoctorRepository {
 
     var response = await request.send();
     var message = await response.stream.bytesToString();
-    print(message);
     if (response.statusCode == 200) {
       //final jsonData = jsonDecode(response.stream.bytesToString())['data'];
       // final doctor = DoctorProfileModel.fromJson(jsonData);

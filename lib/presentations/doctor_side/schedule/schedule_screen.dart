@@ -133,8 +133,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   schedulesToAvailability(schedulesConstant);
                               int formattedSelectedTime =
                                   int.parse(selectedTime.split(" ")[0]);
-                              print('object');
-                              print(userId);
                               context
                                   .read<DoctorAvailabilityBloc>()
                                   .add(AddDoctorAvailability(

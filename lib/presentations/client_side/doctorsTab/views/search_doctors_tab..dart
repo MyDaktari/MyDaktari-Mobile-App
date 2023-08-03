@@ -35,8 +35,6 @@ class DoctorsTab extends StatelessWidget {
                 child: TextField(
                   style: const TextStyle(color: Colors.grey),
                   onSubmitted: (value) {
-                    print(value);
-                    print(value.length);
                     value.trim().isEmpty
                         ? null
                         : value.length < 2

@@ -13,7 +13,6 @@ class BodyPartsRepository extends BaseBodyPartsRepository {
         headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
-      print(jsonData);
       bodyParts =
           jsonData.map((bodypart) => BodyPartModel.fromJson(bodypart)).toList();
       return bodyParts;

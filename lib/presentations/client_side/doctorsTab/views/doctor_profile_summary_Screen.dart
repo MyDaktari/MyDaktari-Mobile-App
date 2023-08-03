@@ -131,7 +131,6 @@ class DoctorProfileSummaryPage extends StatelessWidget {
                           backgroundColor: primaryColor,
                           fixedSize: Size(size.width * .8, 50)),
                       onPressed: () {
-                        print(doctor.name);
                         context.read<BookingInfoCubit>().updateBookingInfo(
                             userId: userId,
                             doctorId: doctor.doctorID.toString());

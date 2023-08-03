@@ -79,6 +79,7 @@ class HealthScreen extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
+
                     SizedBox(height: 10.0),
                     // Add your health data chart widget here
                   ],

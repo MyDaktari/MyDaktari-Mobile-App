@@ -91,10 +91,6 @@ class SymptomChecker extends StatelessWidget {
                               fixedSize: Size(size.width * .8, 50),
                             ),
                             onPressed: () {
-                              print(jsonEncode({
-                                "bodyParts": _bodyPart,
-                                "symptoms": _symptomsController.text.trim()
-                              }));
                               if (_bodyPart != null &&
                                   _symptomsController.text.isNotEmpty) {
                                 context.read<SymptomsBloc>().add(LoadSymptoms(

@@ -38,8 +38,6 @@ class HealthRepository {
         HealthDataType.BLOOD_GLUCOSE,
         HealthDataType.WEIGHT,
       ]);
-      print('############');
-      print(healthData);
       return healthData.isNotEmpty;
     }
     return false;

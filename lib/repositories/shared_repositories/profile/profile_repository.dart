@@ -5,8 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../models/client.dart';
-import '../../models/doctor.dart';
+import '../../../models/client.dart';
+import '../../../models/doctor.dart';
 import 'base_profile_repository.dart';
 
 class ProfileRepository extends BaseProfileRepository {

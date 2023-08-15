@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import '../../constants/urls.dart';
-import '../../models/ambulance.dart';
+import '../../../constants/urls.dart';
+import '../../../models/ambulance.dart';
 import 'base_ambulance_repository.dart';
 import 'package:http/http.dart' as http;
 

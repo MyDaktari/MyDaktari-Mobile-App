@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/complete_profile/complete_profile_bloc.dart';
-import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
+import 'package:my_daktari/repositories/shared_repositories/authentication/authentication_repository.dart';
 import '../../../../logic/cubit/file_name/file_name_cubit.dart';
 import '../../../../logic/cubit/infor_page_update/info_page_update_cubit.dart';
 import '../../../../constants/route.dart' as route;

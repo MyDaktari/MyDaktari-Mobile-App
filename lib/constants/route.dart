@@ -32,6 +32,7 @@ import '../presentations/shared_ui/landing_screen.dart';
 import '../presentations/shared_ui/profileTab/views/pages/articles_page.dart';
 import '../presentations/shared_ui/profileTab/views/pages/profile_page.dart';
 import '../presentations/shared_ui/welcome_screen/welcome_screen.dart';
+import '../presentations/supplier_side/product_catalog/supplier_product_catalog.dart';
 
 //authentication routes
 const String signUpScreen = 'authPage';
@@ -62,6 +63,7 @@ const String clientAppointments = "clientAppointments";
 
 //supplier routes
 const String supplierHomeScreen = "supplierHomeScreen";
+const String supplierProductCatalogue = "supplierProductCatalogue";
 
 //shared routes
 const String articles = "articles";
@@ -131,8 +133,13 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => ArticlesPage());
       case health:
         return MaterialPageRoute(builder: (context) => HealthScreen());
+
+      //supplier routes
       case supplierHomeScreen:
         return MaterialPageRoute(builder: (context) => SupplierHomeScreen());
+      case supplierProductCatalogue:
+        return MaterialPageRoute(
+            builder: (context) => SupplierProductCatalogScreen());
 
       default:
         return MaterialPageRoute(

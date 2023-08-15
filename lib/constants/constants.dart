@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/models.dart';
+import '../models/supplier.dart';
 import '../presentations/doctor_side/schedule/models/dayschedule.dart';
 
 String userId = '';
 String userPhoneNumber = '';
 ClientModel client = ClientModel();
 DoctorModel doctor = DoctorModel();
+SupplierModel supplier = SupplierModel();
 var index = 0;
 List<DaySchedule> schedulesConstant = daysOfWeek.map((day) {
   // var id = '${day}-$index';
   index++;
   return DaySchedule(
-    id: UniqueKey().toString(),
-    day: day,
-    isEnabled: true,
-    startTime: timeIntervals.first,
-    endTime: timeIntervals.last,
-  );
+      id: UniqueKey().toString(),
+      day: day,
+      isEnabled: true,
+      startTime: timeIntervals.first,
+      endTime: timeIntervals.last);
 }).toList();
 
 // String convertTo12HourFormat(String time24Hr) {

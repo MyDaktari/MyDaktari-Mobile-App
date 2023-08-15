@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:my_daktari/models/body_part_model.dart';
-import 'package:my_daktari/repositories/bodyparts/base_body_parts_repository.dart';
+import 'package:my_daktari/repositories/client/bodyparts/base_body_parts_repository.dart';
 import 'package:http/http.dart' as http;
 
 class BodyPartsRepository extends BaseBodyPartsRepository {

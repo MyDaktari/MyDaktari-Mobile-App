@@ -58,3 +58,13 @@ const String pharmacyUrl =
     'https://mydoc.my-daktari.com/new_api/pharmacies.php';
 const String setDoctorAvailabilityUrl =
     'https://mydoc.my-daktari.com/new_api/addDoctorAvailability.php';
+
+//supplier urls
+const String loginSupplierUrl =
+    'https://mydoc.my-daktari.com/new_api/loginHealthSupplier.php';
+const String registerSupplierUrl =
+    'https://mydoc.my-daktari.com/new_api/registerHealthSupplier.php';
+const String forgotPasswordSupplierUrl =
+    'https://mydoc.my-daktari.com/new_api/loginHealthSupplier.php';
+const String updatePasswordSupplierUrl =
+    'https://mydoc.my-daktari.com/new_api/updatePasswordSupplier.php';

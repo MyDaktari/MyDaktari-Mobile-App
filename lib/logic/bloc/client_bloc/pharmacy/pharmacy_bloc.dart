@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/models/pharmacy.dart';
-import 'package:my_daktari/repositories/pharmacy/pharmacy_repository.dart';
+import 'package:my_daktari/repositories/client/pharmacy/pharmacy_repository.dart';
 
 part 'pharmacy_event.dart';
 part 'pharmacy_state.dart';

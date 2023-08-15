@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/models/models.dart';
-import 'package:my_daktari/repositories/blog/blog_repository.dart';
+import 'package:my_daktari/repositories/shared_repositories/blog/blog_repository.dart';
 
 part 'blog_event.dart';
 part 'blog_state.dart';

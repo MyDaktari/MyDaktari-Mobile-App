@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../constants/urls.dart';
-import '../../models/models.dart';
+import '../../../constants/urls.dart';
+import '../../../models/models.dart';
 import 'base_blog_repository.dart';
 
 class BlogRepository extends BaseBlogRepository {

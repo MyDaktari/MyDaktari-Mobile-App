@@ -1,7 +1,8 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
-import '../../constants/enums.dart';
-import '../../models/models.dart';
+import '../../../constants/enums.dart';
+import '../../../models/models.dart';
+import '../../../models/supplier.dart';
 
 abstract class BaseAuthenticationRepository {
   Future<bool?> logOut() async {}
@@ -17,6 +18,7 @@ abstract class BaseAuthenticationRepository {
       required String email,
       required String address}) async {}
 
+//Doctor
   Future<DoctorModel?> loginDoctor(
       {required String username, required String password}) async {}
   Future<DoctorModel?> registerDoctor(
@@ -27,7 +29,20 @@ abstract class BaseAuthenticationRepository {
       required String gender,
       required String email}) async {}
 
+//Supplier
+  Future<SupplierModel?> loginSupplier(
+      {required String username, required String password}) async {}
+  Future<SupplierModel?> registerSupplier(
+      {required String address,
+      required String dob,
+      required String email,
+      required String gender,
+      required String name,
+      required String password,
+      required String phone}) async {}
+
   Future<String?> otpRequest({required String phoneNumber}) async {}
+
   Future<String?> otpVerification(
       {required String phoneNumber,
       required String otp,

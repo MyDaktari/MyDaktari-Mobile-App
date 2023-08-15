@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/enums.dart';
-import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
+import 'package:my_daktari/repositories/shared_repositories/authentication/authentication_repository.dart';
 
 part 'password_otp_event.dart';
 part 'password_otp_state.dart';

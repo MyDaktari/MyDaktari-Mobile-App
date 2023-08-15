@@ -2,10 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/enums.dart';
+import 'package:my_daktari/models/supplier.dart';
 import 'package:my_daktari/presentations/shared_ui/auth/widgets/welcome_dialog.dart';
 
 import '../../../models/models.dart';
-import '../../../repositories/authentication/authentication_repository.dart';
+import '../../../repositories/shared_repositories/authentication/authentication_repository.dart';
 import '../../cubit/user_type/user_type_cubit.dart';
 
 part 'authentication_event.dart';
@@ -98,6 +99,11 @@ class AuthenticationBloc
             username: event.username, password: event.password);
         emit(AuthenticationLoaded(
             userType: userTypeCubit.state.userType, user: doctor));
+      } else if (event.userType == UserType.supplier) {
+        SupplierModel supplier = await _repository.loginSupplier(
+            username: event.username, password: event.password);
+        emit(AuthenticationLoaded(
+            userType: userTypeCubit.state.userType, user: supplier));
       } else {
         emit(AuthenticationError(
             errorMessage: 'User Type not defined',

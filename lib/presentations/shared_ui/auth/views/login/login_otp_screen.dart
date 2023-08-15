@@ -145,9 +145,17 @@ class LoginOtpScreen extends StatelessWidget {
                                   .add(CheckUserStatus());
                               Navigator.pushReplacementNamed(
                                   context, route.welcomeMessageScreen);
+                            } else if (userTypeCubit.state.userType ==
+                                UserType.supplier) {
+                              context
+                                  .read<AuthStatusBloc>()
+                                  .add(CheckUserStatus());
+                              Navigator.pushReplacementNamed(
+                                  context, route.supplierHomeScreen);
                             }
                           }
                           if (state is OtpLoadingError) {
+                            print(state.errorMessage);
                             Fluttertoast.showToast(
                                     msg: 'invalid verification code')
                                 .then((value) {

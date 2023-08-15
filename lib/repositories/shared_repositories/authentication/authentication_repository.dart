@@ -4,8 +4,9 @@ import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../constants/urls.dart';
-import '../../models/models.dart';
+import '../../../constants/urls.dart';
+import '../../../models/models.dart';
+import '../../../models/supplier.dart';
 import './base_authentication_repository.dart';
 
 class AuthenticationRepository extends BaseAuthenticationRepository {
@@ -155,6 +156,77 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       throw Exception('Failed to register doctor');
     }
   }
+  //end of doctor
+
+  //supplier
+  //client
+  @override
+  Future<SupplierModel> loginSupplier(
+      {required String username, required String password}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    final response = await http.post(Uri.parse(loginSupplierUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': username, 'password': password}));
+
+    if (response.statusCode == 200) {
+      preferences.setBool('otpVerified', false);
+      final responseBody = jsonDecode(response.body);
+      print('##########################');
+      print(responseBody['OTP ']);
+      SupplierModel supplier = SupplierModel.fromJson(responseBody['user']);
+      preferences.setString('user', jsonEncode(responseBody['user']));
+      preferences.setString('userType', UserType.supplier.name);
+      return supplier;
+    } else if (response.statusCode == 401 ||
+        response.statusCode == 404 ||
+        response.statusCode == 400) {
+      throw Exception('Incorrect username or password');
+    } else {
+      throw Exception('Failed to login');
+    }
+  }
+
+  @override
+  Future<SupplierModel> registerSupplier(
+      {required String address,
+      required String dob,
+      required String email,
+      required String gender,
+      required String name,
+      required String password,
+      required String phone}) async {
+    final response = await http.post(Uri.parse(registerSupplierUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "name": name,
+          "email": email,
+          "phone": phone,
+          "dob": dob,
+          "gender": gender,
+          "password": password,
+          "address": address,
+          "lat": "",
+          "lng": "",
+        }));
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print(response.body);
+    if (response.statusCode == 201) {
+      preferences.setBool('otpVerified', false);
+      final responseBody = jsonDecode(response.body);
+      SupplierModel supplier = SupplierModel.fromJson(responseBody['data']);
+      preferences.setString('user', jsonEncode(responseBody['data']));
+      preferences.setString('userType', UserType.supplier.name);
+      userPhoneNumber = client.phone!;
+      return supplier;
+    } else if (response.statusCode == 401 || response.statusCode == 404) {
+      throw Exception('Incorrect username or password');
+    } else if (response.statusCode == 409) {
+      throw Exception('Email already exist');
+    } else {
+      throw Exception('Failed to register user');
+    }
+  }
 
   //function to check the user Authentication status
   @override
@@ -176,9 +248,12 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           final userString = jsonDecode(userFromPrefs);
           ClientModel client = ClientModel.fromJson(userString);
           user = client;
+        } else if (userTypeFromPrefs == UserType.supplier.name) {
+          final userString = jsonDecode(userFromPrefs);
+          SupplierModel supplier = SupplierModel.fromJson(userString);
+          user = supplier;
         } else {
           final userString = jsonDecode(userFromPrefs);
-
           DoctorModel doctor = DoctorModel.fromJson(userString);
           user = doctor;
         }
@@ -191,7 +266,9 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         'doctorSchedule': doctorSchedules,
         'userType': (userTypeFromPrefs == UserType.client.name)
             ? UserType.client
-            : UserType.doctor
+            : (userTypeFromPrefs == UserType.supplier.name)
+                ? UserType.supplier
+                : UserType.doctor
       };
     } else {
       throw Exception('User Not Authenticated');

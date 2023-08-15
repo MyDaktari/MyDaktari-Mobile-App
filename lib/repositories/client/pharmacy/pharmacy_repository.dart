@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import '../../constants/urls.dart';
-import '../../models/pharmacy.dart';
+import '../../../constants/urls.dart';
+import '../../../models/pharmacy.dart';
 import 'base_pharmacy_repository.dart';
 import 'package:http/http.dart' as http;
 

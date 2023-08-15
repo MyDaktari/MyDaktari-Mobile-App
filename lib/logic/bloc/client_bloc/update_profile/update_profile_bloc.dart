@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/constants.dart';
 
-import '../../../../repositories/profile/profile_repository.dart';
+import '../../../../repositories/shared_repositories/profile/profile_repository.dart';
 
 part 'update_profile_event.dart';
 part 'update_profile_state.dart';

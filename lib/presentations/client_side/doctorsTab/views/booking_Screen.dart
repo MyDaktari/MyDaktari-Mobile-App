@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/book_appointment/book_appointment_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/constants/route.dart' as route;
+
+import '../../../../constants/colors.dart';
 
 class BookingScreen extends StatelessWidget {
   BookingScreen({super.key});
@@ -151,7 +152,7 @@ class BookingScreen extends StatelessWidget {
                       ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
+                              backgroundColor: AppColor.primaryColor,
                               fixedSize: Size(size.width * .8, 50)),
                           onPressed: () {
                             context.read<BookAppointmentBloc>().add(

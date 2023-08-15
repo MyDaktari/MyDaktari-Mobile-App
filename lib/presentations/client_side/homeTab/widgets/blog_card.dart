@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:my_daktari/constants/route.dart' as route;
 
+import '../../../../constants/colors.dart';
 import '../../../../constants/constants.dart';
 import '../../../../models/blog.dart';
 
@@ -33,11 +34,11 @@ class BlogCard extends StatelessWidget {
                     height: 150,
                     width: double.infinity,
                     margin: EdgeInsets.only(bottom: 5),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
-                        color: primaryColor),
+                        color: AppColor.primaryColor),
                     child:
                         Image.network(blog.featuredImage!, fit: BoxFit.cover)),
                 Padding(

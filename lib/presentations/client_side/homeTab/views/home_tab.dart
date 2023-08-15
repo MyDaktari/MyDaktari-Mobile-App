@@ -4,12 +4,11 @@ import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/presentations/widgets/scroll_behavior.dart';
 
-import '../../../../constants/constants.dart';
+import '../../../../constants/colors.dart';
 import '../../../../logic/bloc/client_bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '../widgets/blog_card.dart';
 import '../widgets/grid_item.dart';
-import '/constants/constants.dart' as constants;
 
 class HomeTabView extends StatelessWidget {
   HomeTabView({super.key});
@@ -53,16 +52,14 @@ class HomeTabView extends StatelessWidget {
             title: Text('Talk to Aya,',
                 style: Theme.of(context).textTheme.titleLarge),
             subtitle: Text('Your virtual assistant.',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: greenish, fontWeight: FontWeight.w700)),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: AppColor.lightgreen, fontWeight: FontWeight.w700)),
             button: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(21)),
-                    backgroundColor: constants.greenish),
+                    backgroundColor: AppColor.lightgreen),
                 onPressed: () {
                   context.read<PageUpdateCubit>().setPageIndex(2);
                 },

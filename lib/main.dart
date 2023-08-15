@@ -231,7 +231,7 @@ class MyApp extends StatelessWidget {
                           debugShowCheckedModeBanner: false,
                           title: 'My Daktari',
                           onGenerateRoute: route.AppRouter.generateRoute,
-                          initialRoute: route.welcomeScreen);
+                          initialRoute: route.supplierHomeScreen);
                     },
                   );
                 });

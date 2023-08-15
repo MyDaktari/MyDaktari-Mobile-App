@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart';
+
+import '../../../../constants/colors.dart';
 
 Future<dynamic> diviceDialog(BuildContext context) {
   return showDialog(
@@ -13,13 +14,13 @@ Future<dynamic> diviceDialog(BuildContext context) {
               children: [
                 Text('My Daktari',
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        color: primaryColor,
+                        color: AppColor.primaryColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
                 IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon:
-                        const Icon(Icons.cancel, size: 35, color: primaryColor))
+                    icon: Icon(Icons.cancel,
+                        size: 35, color: AppColor.primaryColor))
               ],
             ),
             const Divider(thickness: 2),
@@ -46,7 +47,7 @@ Future<dynamic> diviceDialog(BuildContext context) {
                 onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: primaryColor),
+                        side: BorderSide(color: AppColor.primaryColor),
                         borderRadius: BorderRadius.circular(10)),
                     fixedSize: const Size(100, 40)),
                 child: const Text('Cancel')),

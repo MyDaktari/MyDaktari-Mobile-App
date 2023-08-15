@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/time_dropdown.dart';
 
-import '../../../../constants/constants.dart';
+import '../../../../constants/colors.dart';
 
 import '../../../../logic/cubit/doctor_schedules/doctor_schedule.dart';
 import '../models/dayschedule.dart';
@@ -40,7 +40,7 @@ class ScheduleItemWidget extends StatelessWidget {
                             schedule.copyWith(isEnabled: value);
                         updateScheduleState(updatedSchedule);
                       },
-                      activeColor: primaryColor),
+                      activeColor: AppColor.primaryColor),
                   const SizedBox(width: 8),
                   Text(schedule.day),
                 ],

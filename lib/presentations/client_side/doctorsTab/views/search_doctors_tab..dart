@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../constants/colors.dart';
 import '../../../../logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
 import '../widgets/result_section.dart';
-import '/constants/constants.dart' as constants;
 
 // ignore: must_be_immutable
 class DoctorsTab extends StatelessWidget {
@@ -79,7 +79,7 @@ class DoctorsTab extends StatelessWidget {
             Center(
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: constants.primaryColor),
+                        backgroundColor: AppColor.primaryColor),
                     onPressed: () {
                       FocusScope.of(context).requestFocus(FocusNode());
                       context.read<SearchDoctorBloc>().add(SearchDoctors(

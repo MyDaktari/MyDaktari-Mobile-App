@@ -1,4 +1,4 @@
-enum UserType { doctor, client, unchoise }
+enum UserType { doctor, client, supplier, unchoise }
 
 enum Sex { male, female, undefined }
 

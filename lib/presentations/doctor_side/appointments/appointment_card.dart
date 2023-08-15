@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../constants/colors.dart';
 import '../../../constants/route.dart' as route;
 import 'package:my_daktari/models/appointment.dart';
 
-import '../../../constants/constants.dart';
 
 class DoctorAppointmentCard extends StatelessWidget {
   const DoctorAppointmentCard({super.key, required this.doctorAppointment});
@@ -18,7 +18,7 @@ class DoctorAppointmentCard extends StatelessWidget {
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          color: primaryColor,
+          color: AppColor.primaryColor,
           child: SizedBox(
             height: 110,
             width: double.infinity,

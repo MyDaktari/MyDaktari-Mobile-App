@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constants/colors.dart';
 import '../../../../constants/constants.dart';
 
 Future<dynamic> selectTimeDialog(
@@ -27,14 +28,16 @@ Future<dynamic> selectTimeDialog(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('Cancel', style: TextStyle(color: primaryColor)),
+            child:
+                Text('Cancel', style: TextStyle(color: AppColor.primaryColor)),
           ),
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 onPressed(selectedTime);
               },
-              child: const Text('OK', style: TextStyle(color: primaryColor))),
+              child:
+                  Text('OK', style: TextStyle(color: AppColor.primaryColor))),
         ],
       );
     },

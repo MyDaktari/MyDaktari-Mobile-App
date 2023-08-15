@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/presentations/client_side/doctorsTab/views/select_session.dart';
 
+import '../../../../constants/colors.dart';
 import '../../../../logic/cubit/booking_info/booking_info_cubit.dart';
 import '../../../../models/doctor_profile_model.dart';
 
@@ -128,7 +129,7 @@ class DoctorProfileSummaryPage extends StatelessWidget {
                   visible: state.symptomID.isNotEmpty,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryColor,
+                          backgroundColor: AppColor.primaryColor,
                           fixedSize: Size(size.width * .8, 50)),
                       onPressed: () {
                         context.read<BookingInfoCubit>().updateBookingInfo(

@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/models/appointment.dart';
+
+import '../../../constants/colors.dart';
 
 class AppointmentDetailsScreen extends StatelessWidget {
   const AppointmentDetailsScreen({super.key, required this.appointment});
@@ -78,9 +79,10 @@ class AppointmentDetailsScreen extends StatelessWidget {
                 width: 50,
                 margin: EdgeInsets.only(right: size.width * .04),
                 decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(0.3),
+                    color: AppColor.primaryColor.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(10)),
-                child: Icon(Icons.watch_later, color: primaryColor, size: 35),
+                child: Icon(Icons.watch_later,
+                    color: AppColor.primaryColor, size: 35),
               ),
               Text('3 PM -4PM - August 10, 2020',
                   style: Theme.of(context)
@@ -176,7 +178,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(size.width * .8, 45),
-                    backgroundColor: primaryColor),
+                    backgroundColor: AppColor.primaryColor),
                 child: Text('Reschedule'),
               ),
             ],

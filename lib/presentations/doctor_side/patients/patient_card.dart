@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/models/models.dart';
 
-import '../../../constants/constants.dart';
+import '../../../constants/colors.dart';
 
 class DoctorPatientCard extends StatelessWidget {
   const DoctorPatientCard({super.key, required this.patient});
@@ -12,7 +12,7 @@ class DoctorPatientCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      color: primaryColor,
+      color: AppColor.primaryColor,
       child: SizedBox(
         height: 110,
         width: double.infinity,

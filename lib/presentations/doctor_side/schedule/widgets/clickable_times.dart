@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart';
+
+import '../../../../constants/colors.dart';
 
 class ClickableTime extends StatelessWidget {
   final String text;
@@ -20,7 +21,7 @@ class ClickableTime extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isSelected ? primaryColor : Colors.transparent,
+          color: isSelected ? AppColor.primaryColor : Colors.transparent,
         ),
         padding: const EdgeInsets.all(12),
         child: Text(

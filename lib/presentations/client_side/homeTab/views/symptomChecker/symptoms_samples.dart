@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/constants/constants.dart' as constants;
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/widgets/authentication_dialog.dart';
 
+import '../../../../../constants/colors.dart';
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
 import '../../../../../models/symptom_model.dart';
@@ -83,7 +82,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                           setState(() {});
                                         },
                                         child: Card(
-                                          shadowColor: constants.primaryColor,
+                                          shadowColor: AppColor.primaryColor,
                                           child: Padding(
                                             padding: const EdgeInsets.all(10.0),
                                             child: Column(
@@ -105,13 +104,13 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w700,
-                                                              color: constants
+                                                              color: AppColor
                                                                   .primaryColor)),
                                                     ),
                                                     isSelected
                                                         ? Icon(
                                                             Icons.check_circle,
-                                                            color: constants
+                                                            color: AppColor
                                                                 .primaryColor)
                                                         : Icon(
                                                             Icons
@@ -159,7 +158,8 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: primaryColor,
+                                              backgroundColor:
+                                                  AppColor.primaryColor,
                                               fixedSize:
                                                   Size(size.width * .8, 50)),
                                           onPressed: selectedSymptoms.isEmpty
@@ -199,7 +199,8 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: primaryColor,
+                                            backgroundColor:
+                                                AppColor.primaryColor,
                                             fixedSize:
                                                 Size(size.width * .8, 50),
                                           ),

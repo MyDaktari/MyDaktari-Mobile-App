@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/route.dart' as routes;
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 
+import '../../../../../constants/colors.dart';
 import '../../../../../logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 
@@ -87,7 +85,7 @@ class SymptomChecker extends StatelessWidget {
                         const SizedBox(height: 15),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
+                              backgroundColor: AppColor.primaryColor,
                               fixedSize: Size(size.width * .8, 50),
                             ),
                             onPressed: () {
@@ -125,7 +123,7 @@ class SymptomChecker extends StatelessWidget {
                                   style: TextStyle(color: Colors.black)),
                               TextSpan(
                                 text: 'Check out our sample symptoms.',
-                                style: TextStyle(color: primaryColor),
+                                style: TextStyle(color: AppColor.primaryColor),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.pushNamed(

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/enums.dart';
-import 'package:my_daktari/presentations/auth/widgets/welcome_dialog.dart';
+import 'package:my_daktari/presentations/shared_ui/auth/widgets/welcome_dialog.dart';
 
 import '../../../models/models.dart';
 import '../../../repositories/authentication/authentication_repository.dart';

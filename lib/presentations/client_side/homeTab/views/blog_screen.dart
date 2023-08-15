@@ -4,6 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/models/models.dart';
 
+import '../../../../constants/colors.dart';
+
 class BlogScreen extends StatelessWidget {
   const BlogScreen({super.key, required this.blog});
   final BlogModel blog;
@@ -23,7 +25,7 @@ ${blog.content}
             onPressed: () => Navigator.pop(context),
             icon: Icon(Icons.arrow_back_sharp, color: Colors.white)),
         elevation: 0,
-        backgroundColor: primaryColor,
+        backgroundColor: AppColor.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(

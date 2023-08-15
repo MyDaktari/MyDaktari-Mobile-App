@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_daktari/models/client_appointment.dart';
 
-import '../../../constants/constants.dart';
+import '../../../constants/colors.dart';
 
 class ClientAppointmentCard extends StatelessWidget {
   const ClientAppointmentCard({Key? key, required this.clientAppointment})
@@ -29,7 +29,7 @@ class ClientAppointmentCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
-          color: primaryColor,
+          color: AppColor.primaryColor,
           child: SizedBox(
             height: 110,
             width: double.infinity,

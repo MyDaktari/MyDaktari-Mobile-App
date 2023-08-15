@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/constants/constants.dart' as constants;
+import '../../constants/colors.dart';
 
 class TabHeader extends StatelessWidget {
   const TabHeader({
@@ -22,7 +22,7 @@ class TabHeader extends StatelessWidget {
     return Container(
       height: size.height * .18,
       width: size.width,
-      decoration: const BoxDecoration(color: constants.headerColor),
+      decoration: BoxDecoration(color: AppColor.headerColor),
       child: Padding(
         padding: const EdgeInsets.only(left: 28.0),
         child: Row(

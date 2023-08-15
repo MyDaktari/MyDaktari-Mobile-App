@@ -9,6 +9,8 @@ import 'package:my_daktari/logic/bloc/client_bloc/payment/payment_bloc.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 
+import '../../../constants/colors.dart';
+
 class PaymentScreen extends StatelessWidget {
   PaymentScreen({super.key});
   TextEditingController numberController =
@@ -104,7 +106,7 @@ class PaymentScreen extends StatelessWidget {
                                 userPhoneNumber: numberController.text));
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
+                              backgroundColor: AppColor.primaryColor,
                               fixedSize: Size(size.width * .8, 55)),
                           child: BlocConsumer<PaymentBloc, PaymentState>(
                             listener: (context, state) {

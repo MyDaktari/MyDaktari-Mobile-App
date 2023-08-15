@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/route.dart' as route;
 import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../constants/colors.dart';
 import 'appointment_card.dart';
 
 class AppointmentTab extends StatelessWidget {
@@ -48,7 +48,7 @@ class AppointmentTab extends StatelessWidget {
                           Navigator.pushNamed(context, route.schedule);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor),
+                            backgroundColor: AppColor.primaryColor),
                         child: Text('Manage Appointments'),
                       ),
                     );

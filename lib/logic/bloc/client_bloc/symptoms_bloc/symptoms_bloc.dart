@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/models/symptom_model.dart';
-import 'package:my_daktari/repositories/symptoms/symptoms_repository.dart';
+import 'package:my_daktari/repositories/client/symptoms/symptoms_repository.dart';
 
 part 'symptoms_event.dart';
 part 'symptoms_state.dart';

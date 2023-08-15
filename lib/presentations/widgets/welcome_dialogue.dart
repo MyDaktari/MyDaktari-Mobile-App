@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart';
+
+import '../../constants/colors.dart';
 
 Future<void> welcomeDialog(
     {required BuildContext context,
     required String message,
     required String title}) async {
-  WidgetsBinding.instance.addPersistentFrameCallback((_) {
-    showDialog(
+  WidgetsBinding.instance.addPersistentFrameCallback(
+    (_) {
+      showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -42,12 +44,14 @@ Future<void> welcomeDialog(
                 const EdgeInsets.only(right: 20, left: 20, bottom: 10),
             actions: [
               ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                child: const Text('Continue'),
-              ),
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.primaryColor),
+                  child: const Text('Continue')),
             ],
           );
-        });
-  });
+        },
+      );
+    },
+  );
 }

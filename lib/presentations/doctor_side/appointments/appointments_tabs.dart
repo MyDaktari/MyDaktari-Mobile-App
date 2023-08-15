@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/presentations/profileTab/widgets/profile_summary.dart';
+import 'package:my_daktari/presentations/shared_ui/profileTab/widgets/profile_summary.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 
+import '../../../constants/colors.dart';
 import '../../../logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart';
 import '../../../logic/cubit/tab_update/tab_update_cubit.dart';
 import 'appointments_list.dart';
@@ -25,13 +25,13 @@ class PatientAppointment extends StatelessWidget {
             title,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: tabValue == index ? primaryColor : Colors.grey),
+                color: tabValue == index ? AppColor.primaryColor : Colors.grey),
           ),
           SizedBox(height: 5),
           Container(
             height: 3,
             decoration: BoxDecoration(
-                color: tabValue == index ? primaryColor : Colors.grey,
+                color: tabValue == index ? AppColor.primaryColor : Colors.grey,
                 borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(index == 0 ? 20 : 0),
                     right: Radius.circular(index == 3 ? 20 : 0))),
@@ -70,7 +70,8 @@ class PatientAppointment extends StatelessWidget {
                   ),
                   Text('See All',
                       style: TextStyle(
-                          color: primaryColor, fontWeight: FontWeight.w600)),
+                          color: AppColor.primaryColor,
+                          fontWeight: FontWeight.w600)),
                 ],
               ),
             ),

@@ -9,7 +9,8 @@ import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 
 import '../../../models/models.dart';
-import '../../../repositories/authentication/authentication_repository.dart';
+import '../../../models/supplier.dart';
+import '../../../repositories/shared_repositories/authentication/authentication_repository.dart';
 
 part 'auth_status_event.dart';
 part 'auth_status_state.dart';
@@ -38,6 +39,16 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
           userId = (response['user'] as ClientModel).id.toString();
           client = response['user'] as ClientModel;
           userPhoneNumber = (response['user'] as ClientModel).phone.toString();
+          emit(UserAuthenticated(
+              optVerified: otpVerified,
+              user: response['user'],
+              userType: response['userType'],
+              showMessage: event.showMessage));
+        } else if (response['userType'] == UserType.supplier) {
+          userId = (response['user'] as SupplierModel).id.toString();
+          supplier = response['user'] as SupplierModel;
+          userPhoneNumber =
+              (response['user'] as SupplierModel).phone.toString();
           emit(UserAuthenticated(
               optVerified: otpVerified,
               user: response['user'],

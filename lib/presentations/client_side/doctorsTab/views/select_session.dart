@@ -48,7 +48,6 @@ class SelectSession extends StatelessWidget {
               children: sessions
                   .map((session) => GestureDetector(
                         onTap: () {
-                          print(session['title'].toString());
                           Navigator.pop(context);
                           context.read<DoctorTimeSlotsBloc>().add(
                               LoadDoctorTimeSlots(

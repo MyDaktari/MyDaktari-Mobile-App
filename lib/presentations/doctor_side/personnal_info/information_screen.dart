@@ -6,7 +6,7 @@ import 'package:my_daktari/presentations/doctor_side/personnal_info/pages/docume
 import 'package:my_daktari/presentations/doctor_side/personnal_info/pages/personal_information.dart';
 import 'package:my_daktari/presentations/doctor_side/personnal_info/pages/specialty.dart';
 import 'package:my_daktari/presentations/doctor_side/personnal_info/widgets/line_widget.dart';
-import 'package:my_daktari/presentations/profileTab/widgets/log_out_dialog.dart';
+import 'package:my_daktari/presentations/shared_ui/profileTab/widgets/log_out_dialog.dart';
 
 import '../../../logic/cubit/infor_page_update/info_page_update_cubit.dart';
 
@@ -19,7 +19,6 @@ class PersonalDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pageCubit = context.watch<InfoPageUpdateCubit>();
 
-    print(pageCubit.state);
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(

@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/enums.dart';
 
-import '../../../repositories/authentication/authentication_repository.dart';
+import '../../../repositories/shared_repositories/authentication/authentication_repository.dart';
 
 part 'reset_password_event.dart';
 part 'reset_password_state.dart';

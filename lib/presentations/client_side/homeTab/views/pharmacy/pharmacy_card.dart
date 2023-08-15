@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:my_daktari/constants/constants.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
+import '../../../../../constants/colors.dart';
 import '../../../../../models/pharmacy.dart';
 
 class PharmacyCard extends StatelessWidget {
@@ -42,7 +42,8 @@ class PharmacyCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.local_pharmacy, size: iconSize, color: primaryColor),
+              Icon(Icons.local_pharmacy,
+                  size: iconSize, color: AppColor.primaryColor),
               SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -80,7 +81,7 @@ class PharmacyCard extends StatelessWidget {
                     onTap: _callNumber,
                     child: CircleAvatar(
                         radius: iconSize / 3,
-                        backgroundColor: primaryColor,
+                        backgroundColor: AppColor.primaryColor,
                         child: Icon(Icons.call,
                             size: iconSize * 0.35, color: Colors.white)),
                   ),
@@ -89,7 +90,7 @@ class PharmacyCard extends StatelessWidget {
                     onTap: _openMap,
                     child: CircleAvatar(
                         radius: iconSize / 3,
-                        backgroundColor: primaryColor,
+                        backgroundColor: AppColor.primaryColor,
                         child: Icon(Icons.map,
                             size: iconSize * 0.35, color: Colors.white)),
                   ),

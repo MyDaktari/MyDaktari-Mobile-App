@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/presentations/doctor_side/patients/patient_card.dart';
-import 'package:my_daktari/presentations/profileTab/widgets/profile_summary.dart';
+import 'package:my_daktari/presentations/shared_ui/profileTab/widgets/profile_summary.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 
 import '../../../logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';

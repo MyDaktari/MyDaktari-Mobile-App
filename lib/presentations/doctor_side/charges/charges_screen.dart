@@ -8,7 +8,7 @@ import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_charges/doctor_charges_
 import 'package:my_daktari/presentations/doctor_side/charges/charge_card.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 import 'package:my_daktari/constants/route.dart' as route;
-import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
+import 'package:my_daktari/repositories/shared_repositories/authentication/authentication_repository.dart';
 
 class ChargesScreen extends StatelessWidget {
   ChargesScreen({super.key});
@@ -51,9 +51,6 @@ class ChargesScreen extends StatelessWidget {
                   width: 0.9 * MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                       onPressed: () {
-                        print(chatCotroller.text);
-                        print(phoneCotroller.text);
-                        print(videoCotroller.text);
                         if (chatCotroller.text.isNotEmpty &&
                             phoneCotroller.text.isNotEmpty &&
                             videoCotroller.text.isNotEmpty) {

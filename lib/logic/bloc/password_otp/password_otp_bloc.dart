@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_daktari/constants/enums.dart';
-import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
+import 'package:my_daktari/repositories/shared_repositories/authentication/authentication_repository.dart';
 
 part 'password_otp_event.dart';
 part 'password_otp_state.dart';
@@ -18,10 +18,8 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
       RequestPasswordOtp event, Emitter<PasswordOtpState> emit) async {
     emit(PasswordOtpLoading());
     try {
-  
       String message = await authenticationRepository.passwordOtpRequest(
           phoneNumber: event.phoneNumber, userType: event.userType);
-      print(message);
       emit(PasswordOtpSet());
     } catch (error) {
       emit(PasswordOtpLoadError(errorMessage: error.toString()));
@@ -34,7 +32,6 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
     try {
       String userId = await authenticationRepository.passwordOtpVerification(
           phoneNumber: event.phoneNumber, otp: event.PasswordOtp);
-      print(userId);
       emit(PasswordOtpLoaded(userId: userId));
     } catch (error) {
       String errorMessage = error.toString().split(':').last;

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:my_daktari/repositories/authentication/authentication_repository.dart';
+import 'package:my_daktari/repositories/shared_repositories/authentication/authentication_repository.dart';
 
 part 'otp_event.dart';
 part 'otp_state.dart';

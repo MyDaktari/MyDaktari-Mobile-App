@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart';
+
+import '../../constants/colors.dart';
 
 Future<dynamic> successDialog(
     {required BuildContext context,
@@ -28,7 +29,8 @@ Future<dynamic> successDialog(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(success ? Icons.check : Icons.cancel,
-                  size: 48, color: success ? primaryColor : Colors.red),
+                  size: 48,
+                  color: success ? AppColor.primaryColor : Colors.red),
               const SizedBox(height: 16),
               Text(success ? "Success" : "Error",
                   style: const TextStyle(
@@ -55,8 +57,7 @@ Future<dynamic> successDialog(
                       Navigator.pop(context);
                     },
               style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
-              ),
+                  backgroundColor: AppColor.primaryColor),
               child: const Text('OK'),
             ),
           ],

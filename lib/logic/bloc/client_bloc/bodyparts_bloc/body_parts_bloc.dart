@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/models/body_part_model.dart';
-import 'package:my_daktari/repositories/bodyparts/body_parts_repository.dart';
+import 'package:my_daktari/repositories/client/bodyparts/body_parts_repository.dart';
 
 part 'body_parts_event.dart';
 part 'body_parts_state.dart';

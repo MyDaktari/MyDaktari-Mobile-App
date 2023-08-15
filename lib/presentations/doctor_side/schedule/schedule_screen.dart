@@ -6,6 +6,7 @@ import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_availability/doctor_ava
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/clickable_times.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/widgets/working_hours.dart';
 
+import '../../../constants/colors.dart';
 import '../../../constants/constants.dart';
 import '../../../logic/cubit/doctor_schedules/doctor_schedule.dart';
 import 'package:my_daktari/constants/route.dart' as route;
@@ -72,7 +73,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      color: primaryColor.withOpacity(0.05),
+                      color: AppColor.primaryColor.withOpacity(0.05),
                       padding: const EdgeInsets.all(10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -133,8 +134,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   schedulesToAvailability(schedulesConstant);
                               int formattedSelectedTime =
                                   int.parse(selectedTime.split(" ")[0]);
-                              print('object');
-                              print(userId);
                               context
                                   .read<DoctorAvailabilityBloc>()
                                   .add(AddDoctorAvailability(

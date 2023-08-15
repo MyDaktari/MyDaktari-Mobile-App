@@ -15,10 +15,7 @@ class ScheduleCubit extends Cubit<List<DaySchedule>> {
   void saveScheduleToMemory(List<DaySchedule> schedule) async {
     final convertedString = schedulesToAvailability(schedule);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     prefs.setString("schedules", jsonEncode(convertedString));
-    print("saving and getting from memorrrrrrrrrrrrrrrrry");
-    print(prefs.getString("schedules"));
   }
 
   void addSchedule(DaySchedule schedule) {

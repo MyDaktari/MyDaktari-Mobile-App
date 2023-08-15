@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/models/ambulance.dart';
+
+import '../../../../../constants/colors.dart';
 
 class AmbulanceCard extends StatelessWidget {
   const AmbulanceCard({super.key, required this.ambulance});
@@ -30,7 +31,8 @@ class AmbulanceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.local_hospital, size: 70, color: primaryColor),
+                  Icon(Icons.local_hospital,
+                      size: 70, color: AppColor.primaryColor),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +57,7 @@ class AmbulanceCard extends StatelessWidget {
                   onTap: _callNumber,
                   child: CircleAvatar(
                       minRadius: 30,
-                      backgroundColor: primaryColor,
+                      backgroundColor: AppColor.primaryColor,
                       child: Icon(Icons.call, size: 40, color: Colors.white)))
             ],
           ),

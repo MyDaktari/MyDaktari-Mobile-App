@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/route.dart' as route;
+
+import '../../../../constants/colors.dart';
 
 Future<dynamic> loginDialog(BuildContext context) {
   return showDialog(
@@ -13,13 +14,13 @@ Future<dynamic> loginDialog(BuildContext context) {
               children: [
                 Text('My Daktari',
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        color: primaryColor,
+                        color: AppColor.primaryColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
                 IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon:
-                        const Icon(Icons.cancel, size: 35, color: primaryColor))
+                    icon: Icon(Icons.cancel,
+                        size: 35, color: AppColor.primaryColor))
               ],
             ),
             const Divider(thickness: 2),
@@ -39,7 +40,7 @@ Future<dynamic> loginDialog(BuildContext context) {
                 onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: primaryColor),
+                        side: BorderSide(color: AppColor.primaryColor),
                         borderRadius: BorderRadius.circular(10)),
                     fixedSize: const Size(100, 40)),
                 child: const Text('Cancel')),
@@ -47,7 +48,7 @@ Future<dynamic> loginDialog(BuildContext context) {
                 onPressed: () =>
                     Navigator.pushNamed(context, route.loginScreen),
                 style: TextButton.styleFrom(
-                    backgroundColor: primaryColor,
+                    backgroundColor: AppColor.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     fixedSize: const Size(100, 40)),

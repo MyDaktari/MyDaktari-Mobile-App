@@ -1,29 +1,24 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/models.dart';
+import '../models/supplier.dart';
 import '../presentations/doctor_side/schedule/models/dayschedule.dart';
-
-const Color primaryColor = Color(0xff0154BA);
-const String fontFamily = 'montserrat';
-const Color headerColor = Color(0xFFF2F2F2); // Hex: #F2F2F2
-const Color greenish = Color(0xFF00ECB6); // Hex: #00ECB6
 
 String userId = '';
 String userPhoneNumber = '';
 ClientModel client = ClientModel();
 DoctorModel doctor = DoctorModel();
+SupplierModel supplier = SupplierModel();
 var index = 0;
 List<DaySchedule> schedulesConstant = daysOfWeek.map((day) {
   // var id = '${day}-$index';
   index++;
   return DaySchedule(
-    id: UniqueKey().toString(),
-    day: day,
-    isEnabled: true,
-    startTime: timeIntervals.first,
-    endTime: timeIntervals.last,
-  );
+      id: UniqueKey().toString(),
+      day: day,
+      isEnabled: true,
+      startTime: timeIntervals.first,
+      endTime: timeIntervals.last);
 }).toList();
 
 // String convertTo12HourFormat(String time24Hr) {
@@ -41,7 +36,6 @@ String convertTo12HourFormat(String time24Hr) {
     String formattedTime = DateFormat('h:mm a').format(dateTime);
     return formattedTime;
   } on Exception {
-
     return time24Hr;
   }
 }

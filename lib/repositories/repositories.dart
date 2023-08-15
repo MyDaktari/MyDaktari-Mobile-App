@@ -1,1 +1,1 @@
-export './authentication/authentication_repository.dart';
+export 'shared_repositories/authentication/authentication_repository.dart';

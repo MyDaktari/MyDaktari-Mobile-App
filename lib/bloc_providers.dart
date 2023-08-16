@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_daktari/logic/cubit/upload_product_data/upload_product_data_cubit.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/book_appointment/book_appointment_bloc.dart';
@@ -135,6 +136,8 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
             SymptomsBloc(symptomsRepository: SymptomsRepository())),
     //Cubits
     BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+    BlocProvider<UploadProductDataCubit>(
+        create: (context) => UploadProductDataCubit()),
     BlocProvider<BookingInfoCubit>(create: (context) => BookingInfoCubit()),
     BlocProvider<FileNameCubit>(create: (context) => FileNameCubit()),
     BlocProvider<ProfileViewCubit>(create: (context) => ProfileViewCubit()),

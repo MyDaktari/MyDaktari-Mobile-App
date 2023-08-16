@@ -31,10 +31,11 @@ class UploadProductScreen extends StatelessWidget {
                         color: AppColor.blackText,
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
-                UploadProductImages(),
                 CustomTextField(hintText: 'Product Name'),
                 MultiLineTextField(hintText: 'Product Description'),
-                CustomTextField(hintText: 'Product Price (ksh)'),
+                UploadProductImages(),
+                CustomTextField(hintText: 'Product Price (ksh)', number: true),
+                CustomTextField(hintText: 'Product Quantity', number: true),
                 CustomTextField(
                     hintText: 'Product Variations(Colors, Sizes, etc.)'),
                 SizedBox(height: 10),
@@ -53,6 +54,40 @@ class UploadProductScreen extends StatelessWidget {
                 MultiLineTextField(
                     hintText:
                         'Shipping Information (shipping methods, delivery times, and associated costs)'),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child:
+                            Text('Cancel', style: TextStyle(color: Colors.red)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          fixedSize: Size(50, 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: Colors.red)),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Submit'),
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(50, 50),
+                          backgroundColor: AppColor.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20)
               ],
             ),
           ),

@@ -18,10 +18,32 @@ class UploadProductImages extends StatelessWidget {
   Widget build(BuildContext context) {
     UploadProductDataCubit uploadDataCubit =
         context.watch<UploadProductDataCubit>();
-    Future<void> _pickImage({required ImageSource source}) async {
+    Future<void> _pictureImage({required ImageSource source}) async {
       final pickedImage = await ImagePicker().pickImage(source: source);
       if (pickedImage != null) {
-        uploadDataCubit.addImageFile(imageFile: File(pickedImage.path));
+        uploadDataCubit.addImageFiles(imageFiles: [File(pickedImage.path)]);
+      }
+    }
+
+    Future<void> _pickImage() async {
+      List<File> selectedImages = [];
+      final picker = ImagePicker();
+      try {
+        final pickedFile = await picker.pickMultiImage(
+            imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
+        List<XFile> xfilePick = pickedFile;
+        if (xfilePick.isNotEmpty) {
+          for (var i = 0; i < xfilePick.length; i++) {
+            selectedImages.add(File(xfilePick[i].path));
+          }
+          uploadDataCubit.addImageFiles(imageFiles: selectedImages);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Nothing is selected')));
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
       }
     }
 
@@ -100,10 +122,12 @@ class UploadProductImages extends StatelessWidget {
                   UploadButton(
                       title: 'Photo',
                       isCamera: true,
-                      onPressed: () => _pickImage(source: ImageSource.camera)),
+                      onPressed: () =>
+                          _pictureImage(source: ImageSource.camera)),
                   UploadButton(
-                      title: 'Gallery',
-                      onPressed: () => _pickImage(source: ImageSource.gallery)),
+                    title: 'Gallery',
+                    onPressed: () => _pickImage(),
+                  ),
                 ],
               ),
             ),

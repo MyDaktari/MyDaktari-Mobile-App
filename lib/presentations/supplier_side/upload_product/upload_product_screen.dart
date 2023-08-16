@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/colors.dart';
-import 'package:my_daktari/presentations/supplier_side/add_product/widget/custom_textfield.dart';
-import 'package:my_daktari/presentations/supplier_side/add_product/widget/multi_line_textfield.dart';
+import 'package:my_daktari/presentations/supplier_side/upload_product/widget/custom_textfield.dart';
+import 'package:my_daktari/presentations/supplier_side/upload_product/widget/multi_line_textfield.dart';
 
 import 'widget/upload_images.dart';
 

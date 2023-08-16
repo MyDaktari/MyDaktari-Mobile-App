@@ -32,7 +32,7 @@ import '../presentations/shared_ui/landing_screen.dart';
 import '../presentations/shared_ui/profileTab/views/pages/articles_page.dart';
 import '../presentations/shared_ui/profileTab/views/pages/profile_page.dart';
 import '../presentations/shared_ui/welcome_screen/welcome_screen.dart';
-import '../presentations/supplier_side/add_product/upload_product_screen.dart';
+import '../presentations/supplier_side/upload_product/upload_product_screen.dart';
 import '../presentations/supplier_side/product_catalog/supplier_product_catalog.dart';
 
 //authentication routes

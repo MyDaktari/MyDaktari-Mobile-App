@@ -11,4 +11,5 @@ class AppColor {
   static Color pick = Color(0xFFec4b94);
   static Color darkOrange = Color(0xFFcf8e4f);
   static Color bankground = Color(0xFFfafafa);
+  static Color ratingColor = Color(0xFFeeb31a);
 }

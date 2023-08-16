@@ -4,6 +4,7 @@ import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import 'package:my_daktari/presentations/widgets/scroll_behavior.dart';
 
+import '../../../../constants/route.dart' as route;
 import '../../../../constants/colors.dart';
 import '../../../../logic/bloc/client_bloc/blog/blog_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
@@ -29,11 +30,7 @@ class HomeTabView extends StatelessWidget {
       'title': 'Pharmacies',
       'route': 'pharmacy'
     },
-    // {
-    //   'image': 'assets/images/pharmacist.png',
-    //   'title': 'Prescription Discounts',
-    //   'route': 'prescriptionDiscounts'
-    // },
+
     // {
     //   'image': 'assets/images/virus.png',
     //   'title': 'Allergy Tracker',
@@ -67,25 +64,41 @@ class HomeTabView extends StatelessWidget {
             image: Image.asset('assets/images/aya-half.png'),
           ),
           SizedBox(
-            height: size.height * .18,
-            child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: grids.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 3, crossAxisCount: 2),
-                itemBuilder: (context, index) {
-                  Map<String, dynamic> grid = grids[index];
-                  return HomeGridItem(grid: grid);
-                }),
-          ),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Top Articles',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              height: size.height * .18,
+              child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: grids.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 3, crossAxisCount: 2),
+                  itemBuilder: (context, index) {
+                    Map<String, dynamic> grid = grids[index];
+                    return HomeGridItem(grid: grid);
+                  })),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, route.shopScreen),
+            child: Container(
+              height: 80,
+              width: size.width,
+              padding: const EdgeInsets.all(8),
+              decoration:
+                  BoxDecoration(border: Border.all(color: AppColor.lightGrey)),
+              child: Column(
+                children: [
+                  Image.asset('assets/images/shop.png'),
+                  Text('Shop for with us',
+                      style: Theme.of(context).textTheme.titleMedium)
+                ],
+              ),
             ),
           ),
+          const Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Top Articles',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              )),
           Expanded(child: BlocBuilder<BlogBloc, BlogState>(
             builder: (context, state) {
               if (state is BlogLoading) {

@@ -32,6 +32,7 @@ import '../presentations/shared_ui/landing_screen.dart';
 import '../presentations/shared_ui/profileTab/views/pages/articles_page.dart';
 import '../presentations/shared_ui/profileTab/views/pages/profile_page.dart';
 import '../presentations/shared_ui/welcome_screen/welcome_screen.dart';
+import '../presentations/supplier_side/add_product/upload_product_screen.dart';
 import '../presentations/supplier_side/product_catalog/supplier_product_catalog.dart';
 
 //authentication routes
@@ -63,7 +64,8 @@ const String clientAppointments = "clientAppointments";
 
 //supplier routes
 const String supplierHomeScreen = "supplierHomeScreen";
-const String supplierProductCatalogue = "supplierProductCatalogue";
+const String supplierProductCatalogueScreen = "supplierProductCatalogue";
+const String uploadProductScreen = "supplierAddProduct";
 
 //shared routes
 const String articles = "articles";
@@ -137,9 +139,11 @@ class AppRouter {
       //supplier routes
       case supplierHomeScreen:
         return MaterialPageRoute(builder: (context) => SupplierHomeScreen());
-      case supplierProductCatalogue:
+      case supplierProductCatalogueScreen:
         return MaterialPageRoute(
             builder: (context) => SupplierProductCatalogScreen());
+      case uploadProductScreen:
+        return MaterialPageRoute(builder: (context) => UploadProductScreen());
 
       default:
         return MaterialPageRoute(

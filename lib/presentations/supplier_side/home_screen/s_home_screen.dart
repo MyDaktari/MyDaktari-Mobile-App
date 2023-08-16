@@ -45,21 +45,21 @@ class SupplierHomeScreen extends StatelessWidget {
               SizedBox(height: 10),
               SupplierHomeButton(
                   title: 'Upload Products',
-                  onTap: () => Navigator.pushNamed(context, ''),
+                  onTap: () =>
+                      Navigator.pushNamed(context, route.uploadProductScreen),
                   color: AppColor.primaryColor,
                   icon: Icons.file_upload_outlined),
               SupplierHomeButton(
                   title: 'Product Catalog',
                   onTap: () => Navigator.pushNamed(
-                      context, route.supplierProductCatalogue),
+                      context, route.supplierProductCatalogueScreen),
                   color: AppColor.darkOrange,
                   icon: Icons.production_quantity_limits),
               SupplierHomeButton(
                 title: 'Orders',
                 color: AppColor.green,
                 icon: Icons.list_alt,
-                onTap: () =>
-                    Navigator.pushNamed(context, 'route.supplierOrders'),
+                onTap: () => Navigator.pushNamed(context, 'Orders'),
               ),
             ],
           ),

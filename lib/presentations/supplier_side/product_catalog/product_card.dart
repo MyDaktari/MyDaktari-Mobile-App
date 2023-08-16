@@ -16,7 +16,16 @@ class SupplierProductCard extends StatelessWidget {
           width: size.width * .5,
           child: Row(
             children: <Widget>[
-              Container(width: size.width * .2, height: 100, color: Colors.red),
+              Container(
+                width: size.width * .2,
+                height: 100,
+                clipBehavior: Clip.antiAlias,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                child: Image.network(
+                    'https://images.pexels.com/photos/4386464/pexels-photo-4386464.jpeg?auto=compress&cs=tinysrgb&w=1600',
+                    fit: BoxFit.cover),
+              ),
               SizedBox(width: 10),
               Expanded(
                 child: Padding(

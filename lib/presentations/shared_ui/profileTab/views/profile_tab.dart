@@ -25,7 +25,8 @@ class ProfileTab extends StatelessWidget {
     {"profile": "Basic info"},
     {"articles": "Articles"},
     {"health": "Health Tracking "},
-    {"divice": "Add devices"}
+    {"divice": "Add devices"},
+    {"myOrders": "My orders"},
   ];
 
   @override
@@ -68,7 +69,10 @@ class ProfileTab extends StatelessWidget {
                                             ? Icons.article_outlined
                                             : index == 3
                                                 ? Icons.favorite_border_outlined
-                                                : Icons.devices,
+                                                : index == 4
+                                                    ? Icons.devices
+                                                    : Icons
+                                                        .shopping_cart_outlined,
                                 color: Colors.blue)),
                         title: Text(title,
                             style: const TextStyle(color: Colors.black)),

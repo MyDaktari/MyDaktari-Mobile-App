@@ -35,6 +35,7 @@ import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/otp/otp_bloc.dart';
 import 'logic/bloc/password_otp/password_otp_bloc.dart';
+import 'logic/bloc/supplier_bloc/upload_product/upload_product_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
 import 'logic/cubit/file_name/file_name_cubit.dart';
@@ -48,9 +49,10 @@ import 'logic/cubit/tab_update/tab_update_cubit.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
 import 'logic/cubit/update_profile/update_profile_cubit.dart';
 import 'logic/cubit/user_type/user_type_cubit.dart';
+import 'repositories/shared_repositories/authentication/authentication_repository.dart';
 import 'repositories/shared_repositories/blog/blog_repository.dart';
 import 'repositories/shared_repositories/profile/profile_repository.dart';
-import 'repositories/repositories.dart';
+import 'repositories/supplier/product/product_repository.dart';
 
 List<SingleChildWidget> blocProviders({required BuildContext context}) {
   return [
@@ -155,5 +157,9 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
     BlocProvider<ScheduleCubit>(
       create: (context) => ScheduleCubit(schedulesConstant),
     ),
+    //upload product bloc
+    BlocProvider<UploadProductBloc>(
+        create: (context) =>
+            UploadProductBloc(repository: ProductRepository())),
   ];
 }

@@ -6,6 +6,7 @@ class AppColor {
   static Color headerColor = Color(0xFFF2F2F2);
   static Color lightgreen = Color(0xFF00ECB6);
   static Color green = Color(0xff00be91);
+  static Color lightGreen = Color(0xff3cd08d);
   static Color blackText = Color(0xFF606060);
   static Color lightGrey = Color(0xFFe5e5e5);
   static Color pick = Color(0xFFec4b94);

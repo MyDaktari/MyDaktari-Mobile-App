@@ -1,40 +1,48 @@
 class SupplierModel {
-  String? name;
-  int? id;
-  String? email;
-  String? phone;
-  String? dob;
-  String? gender;
-  String? profileImage;
+  int? supplierID;
+  String? supplierName;
+  String? supplierCode;
+  String? supplierPhone;
+  String? supplierEmail;
+  String? supplierCategory;
+  String? supplierAddress;
+  String? supplierBirthDate;
+  String? supplierGender;
 
   SupplierModel(
-      {this.name,
-      this.id,
-      this.email,
-      this.phone,
-      this.dob,
-      this.gender,
-      this.profileImage});
+      {this.supplierID,
+      this.supplierName,
+      this.supplierCode,
+      this.supplierPhone,
+      this.supplierEmail,
+      this.supplierCategory,
+      this.supplierAddress,
+      this.supplierBirthDate,
+      this.supplierGender});
 
   SupplierModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    id = json['id'];
-    email = json['email'];
-    phone = json['phone'];
-    dob = json['dob'];
-    gender = json['gender'];
-    profileImage = json['profileImage'];
+    supplierID = json['supplierID'];
+    supplierName = json['supplierName'];
+    supplierCode = json['supplierCode'];
+    supplierPhone = json['supplierPhone'];
+    supplierEmail = json['supplierEmail'];
+    supplierCategory = json['supplierCategory'];
+    supplierAddress = json['supplierAddress'];
+    supplierBirthDate = json['supplierBirthDate'];
+    supplierGender = json['supplierGender'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['id'] = this.id;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['dob'] = this.dob;
-    data['gender'] = this.gender;
-    data['profileImage'] = this.profileImage;
+    data['supplierID'] = this.supplierID;
+    data['supplierName'] = this.supplierName;
+    data['supplierCode'] = this.supplierCode;
+    data['supplierPhone'] = this.supplierPhone;
+    data['supplierEmail'] = this.supplierEmail;
+    data['supplierCategory'] = this.supplierCategory;
+    data['supplierAddress'] = this.supplierAddress;
+    data['supplierBirthDate'] = this.supplierBirthDate;
+    data['supplierGender'] = this.supplierGender;
     return data;
   }
 }

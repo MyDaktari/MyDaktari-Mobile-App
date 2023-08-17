@@ -18,6 +18,7 @@ import 'package:my_daktari/presentations/supplier_side/home_screen/s_home_screen
 
 import '../models/doctor_profile_model.dart';
 import '../presentations/client_side/shop/cart/cart_screen.dart';
+import '../presentations/client_side/shop/my_orders_screen.dart';
 import '../presentations/client_side/shop/product.dart';
 import '../presentations/client_side/shop/product_details.dart';
 import '../presentations/client_side/shop/shop_screen.dart';
@@ -81,7 +82,7 @@ const String blogScreen = 'blogScreen';
 const String shopScreen = 'shopScreen';
 const String cartScreen = 'cartScreen';
 const String checkoutScreen = 'checkoutScreen';
-const String orderScreen = 'orderScreen';
+const String myOrders = 'myOrders';
 const String orderDetailsScreen = 'orderDetailsScreen';
 const String productDetailsScreen = 'productDetailsScreen';
 const String productScreen = 'productReviewsScreen';
@@ -157,6 +158,8 @@ class AppRouter {
                 ));
       case cartScreen:
         return MaterialPageRoute(builder: (context) => CartScreen());
+      case myOrders:
+        return MaterialPageRoute(builder: (context) => MyOrdersScreen());
       //supplier routes
       case supplierHomeScreen:
         return MaterialPageRoute(builder: (context) => SupplierHomeScreen());

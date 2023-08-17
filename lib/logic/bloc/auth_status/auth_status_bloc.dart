@@ -45,10 +45,10 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
               userType: response['userType'],
               showMessage: event.showMessage));
         } else if (response['userType'] == UserType.supplier) {
-          userId = (response['user'] as SupplierModel).id.toString();
+          userId = (response['user'] as SupplierModel).supplierID.toString();
           supplier = response['user'] as SupplierModel;
           userPhoneNumber =
-              (response['user'] as SupplierModel).phone.toString();
+              (response['user'] as SupplierModel).supplierPhone.toString();
           emit(UserAuthenticated(
               optVerified: otpVerified,
               user: response['user'],

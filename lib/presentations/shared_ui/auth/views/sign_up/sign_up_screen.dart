@@ -130,7 +130,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       Visibility(
                         visible:
-                            userTypeCubit.state.userType == UserType.client,
+                            !(userTypeCubit.state.userType == UserType.client),
                         child: Column(
                           children: [
                             const SizedBox(height: 15),

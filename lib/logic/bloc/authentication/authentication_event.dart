@@ -19,6 +19,21 @@ class RegisterDoctor extends AuthenticationEvent {
       required this.email});
   List<Object> get props => [name, password, phone, dob, gender, email];
 }
+//Supplier events
+
+class RegisterSupplier extends AuthenticationEvent {
+  final String name, password, phone, dob, gender, email, address;
+  RegisterSupplier(
+      {required this.name,
+      required this.password,
+      required this.address,
+      required this.phone,
+      required this.dob,
+      required this.gender,
+      required this.email});
+  List<Object> get props =>
+      [name, password, phone, dob, gender, email, address];
+}
 
 class LoginUser extends AuthenticationEvent {
   final String username, password;

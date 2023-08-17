@@ -146,6 +146,13 @@ class SignUpOtpScreen extends StatelessWidget {
                                   .add(CheckUserStatus(showMessage: true));
                               Navigator.pushReplacementNamed(
                                   context, route.welcomeMessageScreen);
+                            } else if (userTypeCubit.state.userType ==
+                                UserType.supplier) {
+                              context
+                                  .read<AuthStatusBloc>()
+                                  .add(CheckUserStatus(showMessage: true));
+                              Navigator.pushReplacementNamed(
+                                  context, route.supplierHomeScreen);
                             }
                           }
                           if (state is OtpLoadingError) {

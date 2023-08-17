@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../constants/colors.dart';
 
 class MultiLineTextField extends StatelessWidget {
-  const MultiLineTextField({super.key, required this.hintText});
+  const MultiLineTextField(
+      {super.key, required this.hintText, required this.controller});
   final String hintText;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class MultiLineTextField extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: AppColor.lightGrey),
       child: TextField(
+        controller: controller,
         maxLines: 5,
         decoration: InputDecoration(
             hintText: hintText,

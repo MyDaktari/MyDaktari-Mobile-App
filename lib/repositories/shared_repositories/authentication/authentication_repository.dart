@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
@@ -146,7 +147,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           'profileCompleted', jsonEncode(responseBody['profile_completed']));
       preferences.setString('fullProfileCompleted',
           jsonEncode(responseBody['full_profile_completed']));
-      userPhoneNumber = doctor.phone!;
+      userPhoneNumber = doctor.phone.toString().trim();
       return doctor;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');
@@ -177,6 +178,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       SupplierModel supplier = SupplierModel.fromJson(responseBody['user']);
       preferences.setString('user', jsonEncode(responseBody['user']));
       preferences.setString('userType', UserType.supplier.name);
+      userPhoneNumber = supplier.supplierPhone.toString().trim();
       return supplier;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -196,19 +198,30 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       required String name,
       required String password,
       required String phone}) async {
+    DateTime parsedDate = DateTime.parse(dob);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
     final response = await http.post(Uri.parse(registerSupplierUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          "name": name,
-          "email": email,
-          "phone": phone,
-          "dob": dob,
-          "gender": gender,
-          "password": password,
-          "address": address,
-          "lat": "",
-          "lng": "",
+          "supplierName": name,
+          "supplierEmail": email,
+          "supplierPhone": phone,
+          "supplierPassword": password,
+          "supplierCategory": "1,2,3",
+          "supplierBirthDate": formattedDate,
+          "supplierAddress": address,
+          "supplierGender": gender
         }));
+    print(jsonEncode({
+      "supplierName": name,
+      "supplierEmail": email,
+      "supplierPhone": phone,
+      "supplierPassword": password,
+      "supplierCategory": "1,2,3",
+      "supplierBithDate": dob,
+      "supplierAddress": address,
+      "supplierGender": gender
+    }));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     print(response.body);
     if (response.statusCode == 201) {
@@ -217,7 +230,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       SupplierModel supplier = SupplierModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.supplier.name);
-      userPhoneNumber = client.phone!;
+      userPhoneNumber = supplier.supplierPhone.toString().trim();
       return supplier;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');

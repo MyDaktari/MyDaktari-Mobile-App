@@ -8,6 +8,7 @@ import 'repositories/client/pharmacy/pharmacy_repository.dart';
 import 'repositories/client/symptoms/symptoms_repository.dart';
 import 'repositories/doctor/doctor_repository.dart';
 import 'repositories/shared_repositories/authentication/authentication_repository.dart';
+import 'repositories/supplier/product/product_repository.dart';
 
 List<SingleChildWidget> repositoriesList = [
   RepositoryProvider<AuthenticationRepository>(
@@ -17,5 +18,7 @@ List<SingleChildWidget> repositoriesList = [
   RepositoryProvider<AmbulanceRepository>(create: (_) => AmbulanceRepository()),
   RepositoryProvider<PharmacyRepository>(create: (_) => PharmacyRepository()),
   RepositoryProvider<BodyPartsRepository>(create: (_) => BodyPartsRepository()),
-  RepositoryProvider<SymptomsRepository>(create: (_) => SymptomsRepository())
+  RepositoryProvider<SymptomsRepository>(create: (_) => SymptomsRepository()),
+  //Product repository
+  RepositoryProvider<ProductRepository>(create: (_) => ProductRepository()),
 ];

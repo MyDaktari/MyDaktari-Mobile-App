@@ -6,20 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'upload_product_data_state.dart';
 
 class UploadProductDataCubit extends Cubit<UploadProductDataState> {
-  UploadProductDataCubit()
-      : super(UploadProductDataState(
-          userId: '',
-          productName: '',
-          productDescription: '',
-          productCategory: '',
-          productPrice: '',
-          productVariations: '',
-          productTags: '',
-          productHighlights: '',
-          productSpecifications: '',
-          ShippingDetails: '',
-          imageFiles: [],
-        ));
+  UploadProductDataCubit() : super(UploadProductDataState(imageFiles: []));
 
   void updateImageFiles({required List<File> imageFiles}) {
     emit(state.copyWith(imageFiles: imageFiles));
@@ -45,32 +32,5 @@ class UploadProductDataCubit extends Cubit<UploadProductDataState> {
     final updatedImageFiles =
         state.imageFiles.where((file) => file != imageFile).toList();
     emit(state.copyWith(imageFiles: updatedImageFiles));
-  }
-
-  void updateProductdata({
-    String? userId,
-    String? productName,
-    String? productDescription,
-    String? productCategory,
-    String? productPrice,
-    String? productVariations,
-    String? productTags,
-    String? productHighlights,
-    String? productSpecifications,
-    String? ShippingDetails,
-  }) {
-    emit(state.copyWith(
-      userId: userId ?? state.userId,
-      productName: productName ?? state.productName,
-      productDescription: productDescription ?? state.productDescription,
-      productCategory: productCategory ?? state.productCategory,
-      productPrice: productPrice ?? state.productPrice,
-      productVariations: productVariations ?? state.productVariations,
-      productTags: productTags ?? state.productTags,
-      productHighlights: productHighlights ?? state.productHighlights,
-      productSpecifications:
-          productSpecifications ?? state.productSpecifications,
-      ShippingDetails: ShippingDetails ?? state.ShippingDetails,
-    ));
   }
 }

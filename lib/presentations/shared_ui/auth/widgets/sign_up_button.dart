@@ -59,6 +59,21 @@ class SignUpButton extends StatelessWidget {
               } else {
                 Fluttertoast.showToast(msg: 'make sure all field are filled');
               }
+            } else if (userTypeCubit.state.userType == UserType.supplier) {
+              if (signUpHelperCubit.state.birthDate.toString().isNotEmpty &&
+                  signUpHelperCubit.state.sex.name.toString().isNotEmpty) {
+                context.read<AuthenticationBloc>().add(RegisterSupplier(
+                      name: nameController.text,
+                      dob: signUpHelperCubit.state.birthDate.toString(),
+                      gender: signUpHelperCubit.state.sex.name.toString(),
+                      address: addressController.text,
+                      phone: phoneController.text.trim(),
+                      email: emailController.text.trim(),
+                      password: passwordController.text.toString(),
+                    ));
+              } else {
+                Fluttertoast.showToast(msg: 'make sure all field are filled');
+              }
             }
           } else {
             print('all fields are required');

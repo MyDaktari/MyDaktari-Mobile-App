@@ -25,6 +25,7 @@ class AuthenticationBloc
         super(AuthenticationInitial()) {
     on<RegisterClient>(_onRegisterClient);
     on<RegisterDoctor>(_onRegisterDoctor);
+    on<RegisterSupplier>(_onRegisterSupplier);
     on<LoginUser>(_onLoginUser);
     on<WelcomeUser>(_onWelcomeClient);
   }
@@ -77,6 +78,28 @@ class AuthenticationBloc
           gender: event.gender,
           password: event.password,
           phone: event.phone);
+      emit(AuthenticationLoaded(
+          userType: userTypeCubit.state.userType, user: doctor));
+    } catch (error) {
+      String errorMessage = error.toString().split(':').last;
+      emit(AuthenticationError(
+          errorMessage: errorMessage, userType: userTypeCubit.state.userType));
+    }
+  }
+
+  void _onRegisterSupplier(
+      RegisterSupplier event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    try {
+      SupplierModel doctor = await _repository.registerSupplier(
+        address: event.address,
+        name: event.name,
+        email: event.email,
+        dob: event.dob,
+        gender: event.gender,
+        password: event.password,
+        phone: event.phone,
+      );
       emit(AuthenticationLoaded(
           userType: userTypeCubit.state.userType, user: doctor));
     } catch (error) {

@@ -17,9 +17,9 @@ import 'package:my_daktari/presentations/shared_ui/welcome_screen/welcome_messag
 import 'package:my_daktari/presentations/supplier_side/home_screen/s_home_screen.dart';
 
 import '../models/doctor_profile_model.dart';
+import '../models/product.dart';
 import '../presentations/client_side/shop/cart/cart_screen.dart';
 import '../presentations/client_side/shop/my_orders_screen.dart';
-import '../presentations/client_side/shop/product.dart';
 import '../presentations/client_side/shop/product_details.dart';
 import '../presentations/client_side/shop/shop_screen.dart';
 import '../presentations/shared_ui/authentication/views/forgot_password/forgot_password.dart';
@@ -154,7 +154,7 @@ class AppRouter {
       case productScreen:
         return MaterialPageRoute(
             builder: (context) => ProductDetailScreen(
-                  product: settings.arguments as Product,
+                  product: settings.arguments as ProductModel,
                 ));
       case cartScreen:
         return MaterialPageRoute(builder: (context) => CartScreen());

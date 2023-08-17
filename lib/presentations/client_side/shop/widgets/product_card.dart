@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../constants/route.dart' as route;
-import '../product.dart';
+import '../../../../logic/bloc/shared_bloc/cart/cart_bloc.dart';
+import '../../../../models/product.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
-  const ProductCard({
-    super.key,
-    required this.product,
-  });
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -33,61 +35,78 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                height: 140,
-                width: double.infinity,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(8))),
-                child: Image.network(product.imageUrl, fit: BoxFit.cover)),
+              height: 140,
+              width: double.infinity,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
+              child: CachedNetworkImage(
+                  placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(strokeWidth: 1)),
+                  errorWidget: (context, url, error) => const Icon(
+                      Icons.error_outline,
+                      size: 54,
+                      color: Colors.red),
+                  imageUrl: product.productsImages!.first.toString(),
+                  fit: BoxFit.cover),
+            ),
             Padding(
               padding: const EdgeInsets.all(8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.productName),
+                  Text(product.productName.toString(),
+                      maxLines: 1, overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 4),
                   Text(
-                    'Kshs ${product.price}',
+                    'Kshs ${product.productPrice.toString()}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  InkWell(
-                    onTap: () {
-                      // Navigator.pushNamed(context, route.productDetails,
-                      //     arguments: {'product': product});
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Add to Cart',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          const SizedBox(width: 8),
-                          Container(
-                            color: Colors.grey,
-                            height: 20,
-                            width: 2,
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.shopping_cart_checkout_outlined,
-                              color: Colors.white),
-                        ],
-                      ),
+                  Container(
+                    width: double.infinity,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state is CartLoaded) {
+                          return InkWell(
+                            onTap: () {
+                              Fluttertoast.showToast(msg: 'Added to cart');
+                              context
+                                  .read<CartBloc>()
+                                  .add(AddProductToCart(product: product));
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('Add to Cart',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700)),
+                                const SizedBox(width: 8),
+                                Container(
+                                    color: Colors.grey, height: 20, width: 2),
+                                const SizedBox(width: 8),
+                                const Icon(
+                                    Icons.shopping_cart_checkout_outlined,
+                                    color: Colors.white),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return CupertinoActivityIndicator(
+                              color: Colors.white);
+                        }
+                      },
                     ),
                   ),
                 ],

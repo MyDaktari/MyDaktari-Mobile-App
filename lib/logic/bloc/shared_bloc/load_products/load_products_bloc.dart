@@ -12,17 +12,29 @@ class LoadProductsBloc extends Bloc<ProductsByBrandEvent, LoadProductsState> {
   LoadProductsBloc({required ProductRepository productsRepository})
       : _productsRepository = productsRepository,
         super(ProductsLoading()) {
-    on<LoadSupplierProducts>(_onLoadProductsByBrand);
+    on<LoadSupplierProducts>(_onLoadSupplierProducts);
+    on<LoadProducts>(_onLoadByBrand);
   }
 
-  void _onLoadProductsByBrand(
-    LoadSupplierProducts event,
-    Emitter<LoadProductsState> emit,
-  ) async {
+  void _onLoadSupplierProducts(
+      LoadSupplierProducts event, Emitter<LoadProductsState> emit) async {
     try {
       emit(ProductsLoading());
       List<ProductModel> products = await _productsRepository
           .getSupplierProducts(supplierId: event.supplierId);
+      emit(ProductsLoaded(products: products));
+    } catch (error) {
+      print(error.toString());
+      emit(ProductsLoadError(errorMessage: error.toString()));
+    }
+  }
+
+  void _onLoadByBrand(
+      LoadProducts event, Emitter<LoadProductsState> emit) async {
+    try {
+      emit(ProductsLoading());
+      List<ProductModel> products =
+          await _productsRepository.getProductCatalogue();
       emit(ProductsLoaded(products: products));
     } catch (error) {
       print(error.toString());

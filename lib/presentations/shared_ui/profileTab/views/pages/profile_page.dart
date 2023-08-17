@@ -12,6 +12,7 @@ import '../../../../../models/client.dart';
 import '../../../../../models/doctor.dart';
 
 import '../../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
+import '../../../../../models/supplier.dart';
 import 'edit_doctor_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -109,6 +110,28 @@ class ProfilePage extends StatelessWidget {
               value: DateFormat('d MMM y')
                   .format(DateTime.parse(doctor.dob.toString()))),
           ProfileField(title: 'Gender', value: doctor.gender.toString()),
+        ],
+      );
+    } else if (userType == UserType.supplier && userData is SupplierModel) {
+      print('here');
+      print(userData.toJson());
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ProfilePicture(imageUrl: ''),
+          ProfileField(
+              title: 'Your Name', value: supplier.supplierName.toString()),
+          ProfileField(
+              title: 'Email Address', value: supplier.supplierEmail.toString()),
+          ProfileField(
+              title: 'Phone Number', value: supplier.supplierPhone.toString()),
+          ProfileField(
+              title: 'Date of Birth',
+              value: DateFormat('d MMM y').format(DateTime.parse(
+                  ((supplier.supplierBirthDate) ?? DateTime.now())
+                      .toString()))),
+          ProfileField(
+              title: 'Gender', value: supplier.supplierGender.toString()),
         ],
       );
     } else {

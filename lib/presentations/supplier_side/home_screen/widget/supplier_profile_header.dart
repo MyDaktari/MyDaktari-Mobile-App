@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/colors.dart';
 
+import '../../../../constants/constants.dart';
+
 class SupplierProfileHeader extends StatelessWidget {
   const SupplierProfileHeader({super.key});
 
@@ -15,7 +17,7 @@ class SupplierProfileHeader extends StatelessWidget {
           children: [
             Text('Welcome Back,', style: TextStyle(fontSize: 17)),
             SizedBox(height: 10),
-            Text('Supplier Name',
+            Text(supplier.supplierName.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ],
         ),

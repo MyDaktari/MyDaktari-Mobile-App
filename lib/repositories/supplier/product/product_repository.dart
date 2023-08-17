@@ -76,4 +76,24 @@ class ProductRepository extends BaseProductRepository {
       throw Exception('Failed load your products');
     }
   }
+
+  @override
+  Future<List<ProductModel>> getProductCatalogue() async {
+    final response = await http.post(
+      Uri.parse('https://mydoc.my-daktari.com/new_api/shop.php'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data']
+          .map((json) => ProductModel.fromJson(json))
+          .toList();
+      List<ProductModel> products = data.cast<ProductModel>();
+      return products;
+    } else if (response.statusCode == 404) {
+      throw Exception('Products not found');
+    } else {
+      throw Exception('Failed load products');
+    }
+  }
 }

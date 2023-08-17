@@ -21,4 +21,5 @@ abstract class BaseProductRepository {
 
   Future<List<ProductModel>?> getSupplierProducts(
       {required String supplierId}) async {}
+  Future<List<ProductModel>?> getProductCatalogue() async {}
 }

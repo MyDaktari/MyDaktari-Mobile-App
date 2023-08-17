@@ -1,10 +1,10 @@
 class ProductModel {
   int? productID;
   String? productName;
-  String? productsImages;
-  String? productDescription;
   int? productPrice;
-  int? productsQuantity;
+  List<String>? productsImages;
+  String? productDescription;
+  int? productsAvailable;
   String? productVariations;
   String? productTags;
   String? productHighlights;
@@ -14,10 +14,10 @@ class ProductModel {
   ProductModel(
       {this.productID,
       this.productName,
+      this.productPrice,
       this.productsImages,
       this.productDescription,
-      this.productPrice,
-      this.productsQuantity,
+      this.productsAvailable,
       this.productVariations,
       this.productTags,
       this.productHighlights,
@@ -27,10 +27,10 @@ class ProductModel {
   ProductModel.fromJson(Map<String, dynamic> json) {
     productID = json['productID'];
     productName = json['productName'];
-    productsImages = json['productsImages'];
-    productDescription = json['productDescription'];
     productPrice = json['productPrice'];
-    productsQuantity = json['productsAvailable'];
+    productsImages = json['productsImages'].cast<String>();
+    productDescription = json['productDescription'];
+    productsAvailable = json['productsAvailable'];
     productVariations = json['productVariations'];
     productTags = json['productTags'];
     productHighlights = json['productHighlights'];
@@ -42,10 +42,10 @@ class ProductModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['productID'] = this.productID;
     data['productName'] = this.productName;
+    data['productPrice'] = this.productPrice;
     data['productsImages'] = this.productsImages;
     data['productDescription'] = this.productDescription;
-    data['productPrice'] = this.productPrice;
-    data['productsAvailable'] = this.productsQuantity;
+    data['productsAvailable'] = this.productsAvailable;
     data['productVariations'] = this.productVariations;
     data['productTags'] = this.productTags;
     data['productHighlights'] = this.productHighlights;

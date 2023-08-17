@@ -85,7 +85,7 @@ class HomeTabView extends StatelessWidget {
               child: Column(
                 children: [
                   Image.asset('assets/images/shop.png'),
-                  Text('Shop for with us',
+                  Text('See Our Catalogue',
                       style: Theme.of(context).textTheme.titleMedium)
                 ],
               ),

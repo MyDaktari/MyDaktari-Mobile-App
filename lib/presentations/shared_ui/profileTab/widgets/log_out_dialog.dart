@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
+import '../../../../logic/cubit/user_type/user_type_cubit.dart';
 
 Future<dynamic> logOutDialog(BuildContext context) {
   return showDialog(
@@ -48,7 +50,11 @@ Future<dynamic> logOutDialog(BuildContext context) {
                     const Text('Stay', style: TextStyle(color: Colors.black))),
             TextButton(
               onPressed: () {
-                context.read<PageUpdateCubit>().setPageIndex(0);
+                print('Hello');
+                if (context.read<UserTypeCubit>().state.userType !=
+                    UserType.supplier) {
+                  context.read<PageUpdateCubit>().setPageIndex(0);
+                }
                 context.read<AuthStatusBloc>().add(logUserOut());
                 context
                     .read<AuthenticationBloc>()

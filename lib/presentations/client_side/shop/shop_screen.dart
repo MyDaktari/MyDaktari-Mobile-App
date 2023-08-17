@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/colors.dart';
+import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import '../../../constants/route.dart' as route;
 
-import 'product.dart';
+import '../../../logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
 import 'widgets/product_card.dart';
 
 class ShopScreen extends StatelessWidget {
@@ -64,17 +66,56 @@ class ShopScreen extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.75,
-              ),
-              itemCount: dummyProducts.length, // Number of product cards
-              itemBuilder: (context, index) {
-                return ProductCard(product: dummyProducts[index]);
-              },
-            ),
+          BlocBuilder<LoadProductsBloc, LoadProductsState>(
+            builder: (context, state) {
+              if (state is ProductsLoading) {
+                return Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: CustomLoading(),
+                  ),
+                );
+              } else if (state is ProductsLoaded) {
+                return Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async =>
+                        context.read<LoadProductsBloc>().add(LoadProducts()),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemCount:
+                          state.products.length, // Number of product cards
+                      itemBuilder: (context, index) {
+                        return ProductCard(product: state.products[index]);
+                      },
+                    ),
+                  ),
+                );
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 100),
+                    Center(
+                        child: Text('No Products Found }}',
+                            style: TextStyle(
+                                color: AppColor.blackText,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold))),
+                    //refresh
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                        onPressed: () => context
+                            .read<LoadProductsBloc>()
+                            .add(LoadProducts()),
+                        child: Text('Refresh'))
+                  ],
+                );
+              }
+            },
           ),
         ],
       ),

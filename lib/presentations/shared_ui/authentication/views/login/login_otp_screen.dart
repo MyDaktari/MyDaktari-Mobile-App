@@ -111,6 +111,8 @@ class LoginOtpScreen extends StatelessWidget {
                             _fieldFive.text +
                             _fieldSix.text;
                         if (inputOTP.length == 6) {
+                          print(
+                              '###################$userPhoneNumber################');
                           context.read<OtpBloc>().add(VerifyOtp(
                               phoneNumber: userPhoneNumber,
                               otp: inputOTP,

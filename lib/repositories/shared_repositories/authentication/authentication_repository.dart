@@ -67,7 +67,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
       ClientModel client = ClientModel.fromJson(responseBody['data']);
       preferences.setString('user', jsonEncode(responseBody['data']));
       preferences.setString('userType', UserType.client.name);
-      userPhoneNumber = client.phone!;
+      userPhoneNumber = client.phone.toString().trim();
       return client;
     } else if (response.statusCode == 401 || response.statusCode == 404) {
       throw Exception('Incorrect username or password');
@@ -173,12 +173,14 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     if (response.statusCode == 200) {
       preferences.setBool('otpVerified', false);
       final responseBody = jsonDecode(response.body);
-      print('##########################');
       print(responseBody['OTP ']);
       SupplierModel supplier = SupplierModel.fromJson(responseBody['user']);
       preferences.setString('user', jsonEncode(responseBody['user']));
       preferences.setString('userType', UserType.supplier.name);
+      print(responseBody['user']);
+
       userPhoneNumber = supplier.supplierPhone.toString().trim();
+      print(userPhoneNumber);
       return supplier;
     } else if (response.statusCode == 401 ||
         response.statusCode == 404 ||
@@ -311,6 +313,10 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"phone": phoneNumber, "otp": otp}));
 
+    print('##############################');
+    print(phoneNumber);
+    print('##############################');
+
     if (response.statusCode == 201 || response.statusCode == 200) {
       String message = jsonDecode(response.body)['message'];
       SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -373,6 +379,8 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     userId = '';
     userPhoneNumber = '';
     doctor = DoctorModel();
+    client = ClientModel();
+    supplier = SupplierModel();
     schedulesConstant = daysOfWeek.map((day) {
       return DaySchedule(
         id: '${day}-${timeIntervals.first}-${timeIntervals.first}',

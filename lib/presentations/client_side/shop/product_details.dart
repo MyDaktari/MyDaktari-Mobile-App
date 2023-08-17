@@ -1,19 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:my_daktari/constants/colors.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/cart/cart_bloc.dart';
 
-import 'product.dart';
+import '../../../models/product.dart';
 import 'widgets/rating.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const ProductDetailScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product Detail'),
-      ),
+          title: Text('Product Detail',
+              style: TextStyle(color: AppColor.primaryColor))),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,10 +29,17 @@ class ProductDetailScreen extends StatelessWidget {
               height: 250,
               margin: const EdgeInsets.all(10),
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.network(product.imageUrl, fit: BoxFit.cover),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(16)),
+              child: CachedNetworkImage(
+                  placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(strokeWidth: 1)),
+                  errorWidget: (context, url, error) => const Icon(
+                      Icons.error_outline,
+                      size: 54,
+                      color: Colors.red),
+                  imageUrl: product.productsImages!.first.toString(),
+                  fit: BoxFit.cover),
             ),
             Padding(
               padding: const EdgeInsets.all(16),
@@ -34,29 +47,26 @@ class ProductDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.productName,
+                    product.productName.toString(),
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Kshs. ${product.price.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text('Kshs. ${product.productPrice.toString()}',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Product Details',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+                  const Text('Product Details',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  Text(product.description),
+                  Text(product.productDescription.toString()),
                   const SizedBox(height: 16),
+                  Divider(thickness: 1),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Text(
                         'Product Review',
@@ -65,7 +75,7 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          ...buildStarRating(product.rating),
+                          ...buildStarRating(2),
                           // Text(
                           //   product.rating.toString(),
                           //   style: const TextStyle(
@@ -77,29 +87,30 @@ class ProductDetailScreen extends StatelessWidget {
                       )
                     ],
                   ),
+                  Divider(thickness: 1),
                   const SizedBox(height: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle add to cart action
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            padding: const EdgeInsets.all(5)),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 12),
-                          child: Text('Add to Cart',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.white)),
-                        ),
-                      ),
-                    ],
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle add to cart action
+                      Fluttertoast.showToast(msg: 'Added to cart');
+                      context
+                          .read<CartBloc>()
+                          .add(AddProductToCart(product: product));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        fixedSize: Size(size.width * .9, 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.all(5)),
+                    child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        child: Text('Add to Cart',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white))),
                   ),
+                  SizedBox(height: 16),
                 ],
               ),
             ),

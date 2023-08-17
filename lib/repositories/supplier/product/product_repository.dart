@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import '../../../models/product.dart';
 import 'base_product_repository.dart';
 
 class ProductRepository extends BaseProductRepository {
@@ -36,7 +37,7 @@ class ProductRepository extends BaseProductRepository {
     request.fields['supplierID'] = supplierId;
     request.fields['productName'] = productName;
     request.fields['productDescription'] = productDescription;
-    request.fields['productCategory'] = productCategory;
+    request.fields['productCategory'] = '1';
     request.fields['productPrice'] = productPrice;
     request.fields['productsAvailable'] = productQuantity;
     request.fields['productVariations'] = productVariations;
@@ -46,14 +47,33 @@ class ProductRepository extends BaseProductRepository {
     request.fields['shippingInformation'] = shippingInfomation;
     var response = await request.send();
     var message = await response.stream.bytesToString();
-    print('######################');
-    print(message);
     if (response.statusCode == 201) {
       String successMessageDecoded = jsonDecode(message)['message'].toString();
       return successMessageDecoded;
     } else {
       String errorDecoded = jsonDecode(message)['message'].toString();
       throw (errorDecoded);
+    }
+  }
+
+  @override
+  Future<List<ProductModel>> getSupplierProducts(
+      {required String supplierId}) async {
+    final response = await http.post(
+        Uri.parse('https://mydoc.my-daktari.com/new_api/productCatalogue.php'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"supplierID": supplierId}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data']
+          .map((json) => ProductModel.fromJson(json))
+          .toList();
+      List<ProductModel> products = data.cast<ProductModel>();
+      return products;
+    } else if (response.statusCode == 404) {
+      throw Exception('Products not found');
+    } else {
+      throw Exception('Failed load your products');
     }
   }
 }

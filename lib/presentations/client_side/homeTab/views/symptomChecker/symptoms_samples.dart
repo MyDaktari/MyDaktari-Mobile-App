@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/widgets/authentication_dialog.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../../../logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
+import '../../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import '../../../../../logic/cubit/symptoms/symptoms_cubit_cubit.dart';
 import '../../../../../models/symptom_model.dart';
 import '../../../../widgets/custom_loading.dart';

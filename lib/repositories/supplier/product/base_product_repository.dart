@@ -2,6 +2,8 @@
 
 import 'dart:io';
 
+import '../../../models/product.dart';
+
 abstract class BaseProductRepository {
   Future<String?> uploadPrescription(
       {required String supplierId,
@@ -16,4 +18,7 @@ abstract class BaseProductRepository {
       required String productSpecifications,
       required String productInfomation,
       required List<File> imageFiles}) async {}
+
+  Future<List<ProductModel>?> getSupplierProducts(
+      {required String supplierId}) async {}
 }

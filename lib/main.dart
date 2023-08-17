@@ -5,7 +5,7 @@ import 'package:my_daktari/bloc_providers.dart';
 import 'package:my_daktari/constants/enums.dart';
 import './constants/theme/app_theme.dart';
 import 'constants/route.dart' as route;
-import 'logic/bloc/auth_status/auth_status_bloc.dart';
+import 'logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import 'logic/cubit/theme/theme_cubit.dart';
 import 'logic/cubit/user_type/user_type_cubit.dart';
 import 'repositories_list.dart';

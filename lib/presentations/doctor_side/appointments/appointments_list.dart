@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:my_daktari/constants/route.dart' as route;
-import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import '../../../constants/colors.dart';
 import 'appointment_card.dart';
 

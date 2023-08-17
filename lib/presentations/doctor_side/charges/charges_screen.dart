@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/constants.dart';
-import 'package:my_daktari/logic/bloc/auth_status/auth_status_bloc.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import 'package:my_daktari/logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'package:my_daktari/presentations/doctor_side/charges/charge_card.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';

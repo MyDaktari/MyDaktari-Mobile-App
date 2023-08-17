@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/presentations/supplier_side/home_screen/widget/supplier_profile_header.dart';
+import '../../../constants/constants.dart';
 import '../../../constants/route.dart' as route;
 import '../../../constants/colors.dart';
+import '../../../logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
 import 'widget/summary_card.dart';
 import 'widget/supplier_home_button.dart';
 
@@ -51,8 +54,12 @@ class SupplierHomeScreen extends StatelessWidget {
                   icon: Icons.file_upload_outlined),
               SupplierHomeButton(
                   title: 'Product Catalog',
-                  onTap: () => Navigator.pushNamed(
-                      context, route.supplierProductCatalogueScreen),
+                  onTap: () {
+                    context.read<LoadProductsBloc>().add(LoadSupplierProducts(
+                        supplierId: supplier.supplierID.toString()));
+                    Navigator.pushNamed(
+                        context, route.supplierProductCatalogueScreen);
+                  },
                   color: AppColor.darkOrange,
                   icon: Icons.production_quantity_limits),
               SupplierHomeButton(

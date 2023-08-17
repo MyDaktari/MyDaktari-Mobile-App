@@ -4,7 +4,7 @@ import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/client_appointment/client_appointments_bloc.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/widgets/divice_dialog.dart';
-import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import '../../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../../../client_side/homeTab/widgets/authentication_dialog.dart';
 import '../widgets/log_out_dialog.dart';

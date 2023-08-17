@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/widgets/sign_up_button.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/widgets/sign_up_button.dart';
 import '../../../../../constants/enums.dart';
 import '../../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
 import '../../widgets/birth_date_picker.dart';

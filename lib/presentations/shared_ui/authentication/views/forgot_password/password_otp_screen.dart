@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/logic/bloc/password_otp/password_otp_bloc.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
 import 'package:my_daktari/logic/cubit/otp_timer/otp_timer_cubit.dart';
 
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/views/forgot_password/reset_password.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/widgets/otp_input_field.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/views/forgot_password/reset_password.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/widgets/otp_input_field.dart';
 
 import '../../../../../constants/colors.dart';
 

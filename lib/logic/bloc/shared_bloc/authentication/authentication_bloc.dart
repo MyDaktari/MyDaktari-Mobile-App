@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/models/supplier.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/widgets/welcome_dialog.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/widgets/welcome_dialog.dart';
 
-import '../../../models/models.dart';
-import '../../../repositories/shared_repositories/authentication/authentication_repository.dart';
-import '../../cubit/user_type/user_type_cubit.dart';
+import '../../../../models/client.dart';
+import '../../../../models/doctor.dart';
+import '../../../../repositories/shared_repositories/authentication/authentication_repository.dart';
+import '../../../cubit/user_type/user_type_cubit.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';

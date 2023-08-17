@@ -8,9 +8,10 @@ import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/constants/enums.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/models/dayschedule.dart';
 
-import '../../../models/models.dart';
-import '../../../models/supplier.dart';
-import '../../../repositories/shared_repositories/authentication/authentication_repository.dart';
+import '../../../../models/client.dart';
+import '../../../../models/doctor.dart';
+import '../../../../models/supplier.dart';
+import '../../../../repositories/shared_repositories/authentication/authentication_repository.dart';
 
 part 'auth_status_event.dart';
 part 'auth_status_state.dart';

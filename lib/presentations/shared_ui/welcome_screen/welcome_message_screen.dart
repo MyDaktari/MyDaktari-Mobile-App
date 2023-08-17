@@ -7,7 +7,7 @@ import 'package:my_daktari/constants/route.dart' as route;
 
 import '../../../constants/colors.dart';
 import '../../../constants/constants.dart';
-import '../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 
 String doctorHtmlContent = '''
           <style>

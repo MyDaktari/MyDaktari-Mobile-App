@@ -91,7 +91,7 @@ class UploadProductScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).pop(),
                         child:
                             Text('Cancel', style: TextStyle(color: Colors.red)),
                         style: ElevatedButton.styleFrom(

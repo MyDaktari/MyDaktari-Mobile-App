@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/logic/bloc/password_otp/password_otp_bloc.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/views/forgot_password/password_otp_screen.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/views/forgot_password/password_otp_screen.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 import '../../../../../constants/colors.dart';
 

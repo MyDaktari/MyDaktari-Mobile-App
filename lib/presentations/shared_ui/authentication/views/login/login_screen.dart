@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../../constants/colors.dart';
 import 'package:my_daktari/constants/route.dart' as route;
-import '../../../../../logic/bloc/authentication/authentication_bloc.dart';
+import '../../../../../logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import '../../../../../logic/cubit/otp_timer/otp_timer_cubit.dart';
 import '../../../../../logic/cubit/user_type/user_type_cubit.dart';
 import '../../widgets/password_input.dart';

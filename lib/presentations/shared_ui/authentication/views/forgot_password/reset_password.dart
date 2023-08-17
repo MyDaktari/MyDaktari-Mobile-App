@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/views/forgot_password/widedgets/customTextFormField.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/views/forgot_password/widedgets/customTextFormField.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 
 import '../../../../../constants/colors.dart';
-import '../../../../../logic/bloc/forgot_password/reset_password_bloc.dart';
+import '../../../../../logic/bloc/shared_bloc/forgot_password/reset_password_bloc.dart';
 import '../../../../../constants/route.dart' as route;
 
 class ResetPasswordScreen extends StatelessWidget {

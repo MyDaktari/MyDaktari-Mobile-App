@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/logic/bloc/authentication/authentication_bloc.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'package:my_daktari/logic/cubit/page_update/page_update_cubit.dart';
 
 import '../../../../constants/colors.dart';
-import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 
 Future<dynamic> logOutDialog(BuildContext context) {
   return showDialog(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/colors.dart';
+import 'package:my_daktari/models/product.dart';
 
 class SupplierProductCard extends StatelessWidget {
-  const SupplierProductCard({super.key});
+  const SupplierProductCard({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +25,7 @@ class SupplierProductCard extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(5)),
-                child: Image.network(
-                    'https://images.pexels.com/photos/4386464/pexels-photo-4386464.jpeg?auto=compress&cs=tinysrgb&w=1600',
+                child: Image.network(product.productsImages.toString(),
                     fit: BoxFit.cover),
               ),
               SizedBox(width: 10),
@@ -35,7 +37,7 @@ class SupplierProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Product Name',
+                      Text(product.productName.toString(),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

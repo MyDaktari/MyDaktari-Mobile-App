@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/constants.dart';
 import '../../../../constants/enums.dart';
-import '../../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import '../../../widgets/tab_header_bar.dart';
 import '../../../../constants/route.dart' as routes;
 

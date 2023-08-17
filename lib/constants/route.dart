@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/views/login/login_otp_screen.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/views/login/login_otp_screen.dart';
 import 'package:my_daktari/presentations/client_side/appointments/client_appointment_screen.dart';
 import 'package:my_daktari/presentations/client_side/doctorsTab/views/booking_Screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/doctor_by_symptoms_screen.dart';
 
 import 'package:my_daktari/models/appointment.dart';
 import 'package:my_daktari/models/blog.dart';
-import 'package:my_daktari/presentations/shared_ui/auth/views/sign_up/sign_up_otp_screen.dart';
+import 'package:my_daktari/presentations/shared_ui/authentication/views/sign_up/sign_up_otp_screen.dart';
 
 import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/ambulance_screen.dart';
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
@@ -22,9 +22,9 @@ import '../presentations/client_side/shop/my_orders_screen.dart';
 import '../presentations/client_side/shop/product.dart';
 import '../presentations/client_side/shop/product_details.dart';
 import '../presentations/client_side/shop/shop_screen.dart';
-import '../presentations/shared_ui/auth/views/forgot_password/forgot_password.dart';
-import '../presentations/shared_ui/auth/views/login/login_screen.dart';
-import '../presentations/shared_ui/auth/views/sign_up/sign_up_screen.dart';
+import '../presentations/shared_ui/authentication/views/forgot_password/forgot_password.dart';
+import '../presentations/shared_ui/authentication/views/login/login_screen.dart';
+import '../presentations/shared_ui/authentication/views/sign_up/sign_up_screen.dart';
 import '../presentations/doctor_side/appointments/appointment_details.dart';
 import '../presentations/client_side/doctorsTab/views/doctor_profile_summary_Screen.dart';
 import '../presentations/client_side/homeTab/views/blog_screen.dart';

@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/constants/route.dart' as route;
 
 import '../../../../constants/enums.dart';
-import '../../../../logic/bloc/authentication/authentication_bloc.dart';
+import '../../../../logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import '../../../../logic/cubit/sign_up_helper/sign_up_helper_cubit.dart';
 import '../../../../logic/cubit/user_type/user_type_cubit.dart';
 

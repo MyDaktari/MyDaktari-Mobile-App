@@ -11,7 +11,7 @@ import '../../../../../constants/enums.dart';
 import '../../../../../models/client.dart';
 import '../../../../../models/doctor.dart';
 
-import '../../../../../logic/bloc/auth_status/auth_status_bloc.dart';
+import '../../../../../logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import 'edit_doctor_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {

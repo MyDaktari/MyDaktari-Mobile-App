@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/book_appointment/book_appointment_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/client_appointment/client_appointments_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/payment/payment_bloc.dart';
-import 'package:my_daktari/logic/bloc/forgot_password/reset_password_bloc.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/forgot_password/reset_password_bloc.dart';
 
 import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
@@ -17,8 +17,8 @@ import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 import 'package:my_daktari/repositories/client/pharmacy/pharmacy_repository.dart';
 import 'package:my_daktari/repositories/client/symptoms/symptoms_repository.dart';
 
-import 'logic/bloc/auth_status/auth_status_bloc.dart';
-import 'logic/bloc/authentication/authentication_bloc.dart';
+import 'logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
+import 'logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'logic/bloc/client_bloc/ambulance/ambulance_bloc.dart';
 import 'logic/bloc/client_bloc/blog/blog_bloc.dart';
 import 'logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';
@@ -33,8 +33,9 @@ import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart
 import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
-import 'logic/bloc/otp/otp_bloc.dart';
-import 'logic/bloc/password_otp/password_otp_bloc.dart';
+import 'logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
+import 'logic/bloc/shared_bloc/otp/otp_bloc.dart';
+import 'logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
 import 'logic/bloc/supplier_bloc/upload_product/upload_product_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
@@ -161,5 +162,9 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
     BlocProvider<UploadProductBloc>(
         create: (context) =>
             UploadProductBloc(repository: ProductRepository())),
+    //load products bloc
+    BlocProvider<LoadProductsBloc>(
+        create: (context) =>
+            LoadProductsBloc(productsRepository: ProductRepository())),
   ];
 }

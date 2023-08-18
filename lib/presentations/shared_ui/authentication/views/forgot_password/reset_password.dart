@@ -19,11 +19,7 @@ class ResetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userTypeCubit = context.watch<UserTypeCubit>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reset Password'),
-        // Set the app bar background color
-        elevation: 0, // Remove app bar elevation
-      ),
+      appBar: AppBar(title: const Text('Reset Password'), elevation: 0),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16.0),

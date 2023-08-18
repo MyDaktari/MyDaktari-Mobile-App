@@ -38,7 +38,7 @@ class ProductRepository extends BaseProductRepository {
     request.fields['supplierID'] = supplierId;
     request.fields['productName'] = productName;
     request.fields['productDescription'] = productDescription;
-    request.fields['productCategory'] = '1';
+    request.fields['productCategory'] = productCategory;
     request.fields['productPrice'] = productPrice;
     request.fields['productsAvailable'] = productQuantity;
     request.fields['productVariations'] = productVariations;

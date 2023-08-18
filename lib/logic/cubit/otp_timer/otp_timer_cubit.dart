@@ -28,7 +28,7 @@ class OtpTimerCubit extends Cubit<OtpTimerState> {
   }
 
   void resetTimer() {
-    emit(state.copyWith(counter: 60));
+    emit(state.copyWith(counter: 30));
     _timer!.cancel();
   }
 

@@ -64,10 +64,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                       maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       maxLength: 10, // Set the maximum length to 10 characters
                       decoration: InputDecoration(
-                        labelText: 'Phone Number',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
+                          labelText: 'Phone Number',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
                       style: TextStyle(
                           color: Colors.grey,
                           wordSpacing: 2,

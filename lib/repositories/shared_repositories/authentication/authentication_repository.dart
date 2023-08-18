@@ -328,45 +328,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
-  Future<String> passwordOtpVerification(
-      {required String phoneNumber, required String otp}) async {
-    final response = await http.post(
-        Uri.parse(
-            "https://mydoc.my-daktari.com/new_api/verifyForgotPasswordOTP.php"),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"identifier": phoneNumber, "otp": otp}));
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      String message = jsonDecode(response.body)['UserID'].toString();
-      return message;
-    } else {
-      throw Exception('Invalid OTP');
-    }
-  }
-
-  @override
-  Future<String> passwordOtpRequest(
-      {required String phoneNumber, required UserType userType}) async {
-    const String clientUrl =
-        'https://mydoc.my-daktari.com/new_api/forgotPasswordClient.php';
-    const String doctorUrl =
-        'https://mydoc.my-daktari.com/new_api/forgotPasswordDoctor.php';
-
-    final response = await http.post(
-        Uri.parse(userType == UserType.client ? clientUrl : doctorUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"phone": phoneNumber}));
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      String message = jsonDecode(response.body)['message'];
-      return message;
-    } else if (response.statusCode == 401) {
-      throw Exception(
-          'No account found for the provided number. Please check the number and try again.');
-    } else {
-      throw Exception('Fail to send OTP');
-    }
-  }
-
-  @override
   Future<bool> logOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool deleteUseType = await preferences.remove('userType');
@@ -407,6 +368,51 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
+  Future<String> passwordOtpRequest(
+      {required String phoneNumber, required UserType userType}) async {
+    const String clientUrl =
+        'https://mydoc.my-daktari.com/new_api/forgotPasswordClient.php';
+    const String doctorUrl =
+        'https://mydoc.my-daktari.com/new_api/forgotPasswordDoctor.php';
+    const String supplierUrl =
+        'https://mydoc.my-daktari.com/new_api/forgotPasswordSupplier.php';
+
+    final response = await http.post(
+        Uri.parse(userType == UserType.client
+            ? clientUrl
+            : userType == UserType.supplier
+                ? supplierUrl
+                : doctorUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"phone": phoneNumber}));
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      String message = jsonDecode(response.body)['message'];
+      return message;
+    } else if (response.statusCode == 401) {
+      throw Exception(
+          'No account found for the provided number. Please check the number and try again.');
+    } else {
+      throw Exception('Fail to send OTP');
+    }
+  }
+
+  @override
+  Future<String> passwordOtpVerification(
+      {required String phoneNumber, required String otp}) async {
+    final response = await http.post(
+        Uri.parse(
+            "https://mydoc.my-daktari.com/new_api/verifyForgotPasswordOTP.php"),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"identifier": phoneNumber, "otp": otp}));
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      String message = jsonDecode(response.body)['UserID'].toString();
+      return message;
+    } else {
+      throw Exception('Invalid OTP');
+    }
+  }
+
+  @override
   Future<String> resetPassword(
       {required String userId,
       required String password,
@@ -415,13 +421,18 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         'https://mydoc.my-daktari.com/new_api/updatePasswordClient.php';
     const String doctorUrl =
         'https://mydoc.my-daktari.com/new_api/updatePasswordDoctor.php';
+    const String supplierUrl =
+        'https://mydoc.my-daktari.com/new_api/updatePasswordSupplier.php';
     final response = await http.post(
-      Uri.parse(userType == UserType.client ? clientUrl : doctorUrl),
+      Uri.parse(userType == UserType.client
+          ? clientUrl
+          : userType == UserType.supplier
+              ? supplierUrl
+              : doctorUrl),
       body: jsonEncode(
-        {
-          "userID": userId,
-          "password": password,
-        },
+        userType == UserType.supplier
+            ? {"supplierID": userId, "password": password}
+            : {"userID": userId, "password": password},
       ),
     );
     if (response.statusCode == 200) {

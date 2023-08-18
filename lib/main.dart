@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
                       return MaterialApp(
                           debugShowCheckedModeBanner: false,
                           title: 'My Daktari',
+                          theme: AppTheme().lightTheme,
                           onGenerateRoute: route.AppRouter.generateRoute,
                           initialRoute: route.welcomeScreen);
                     },

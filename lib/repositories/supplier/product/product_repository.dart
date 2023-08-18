@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import '../../../models/category.dart';
 import '../../../models/product.dart';
 import 'base_product_repository.dart';
 
@@ -94,6 +95,27 @@ class ProductRepository extends BaseProductRepository {
       throw Exception('Products not found');
     } else {
       throw Exception('Failed load products');
+    }
+  }
+
+  @override
+  Future<List<CategoryModel>> getProductCategories() async {
+    final response = await http.post(
+      Uri.parse(
+          'https://mydoc.my-daktari.com/new_api/allSupplierCategories.php'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data']
+          .map((json) => CategoryModel.fromJson(json))
+          .toList();
+      List<CategoryModel> products = data.cast<CategoryModel>();
+      return products;
+    } else if (response.statusCode == 404) {
+      throw Exception('Categories not found');
+    } else {
+      throw Exception('Failed load products categories');
     }
   }
 }

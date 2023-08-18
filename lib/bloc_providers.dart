@@ -37,6 +37,7 @@ import 'logic/bloc/shared_bloc/cart/cart_bloc.dart';
 import 'logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
 import 'logic/bloc/shared_bloc/otp/otp_bloc.dart';
 import 'logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
+import 'logic/bloc/supplier_bloc/load_categories/load_categories_bloc.dart';
 import 'logic/bloc/supplier_bloc/upload_product/upload_product_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
@@ -169,5 +170,10 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
             LoadProductsBloc(productsRepository: ProductRepository())
               ..add(LoadProducts())),
     BlocProvider(create: (context) => CartBloc()..add(StartCart())),
+    //load product categories bloc
+    BlocProvider<LoadCategoriesBloc>(
+        create: (context) =>
+            LoadCategoriesBloc(CategoriesRepository: ProductRepository())
+              ..add(LoadCategories())),
   ];
 }

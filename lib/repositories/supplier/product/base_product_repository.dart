@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import '../../../models/category.dart';
 import '../../../models/product.dart';
 
 abstract class BaseProductRepository {
@@ -22,4 +23,5 @@ abstract class BaseProductRepository {
   Future<List<ProductModel>?> getSupplierProducts(
       {required String supplierId}) async {}
   Future<List<ProductModel>?> getProductCatalogue() async {}
+  Future<List<CategoryModel>?> getProductCategories() async {}
 }

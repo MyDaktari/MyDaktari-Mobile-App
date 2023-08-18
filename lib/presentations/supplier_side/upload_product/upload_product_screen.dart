@@ -10,6 +10,7 @@ import 'package:my_daktari/presentations/supplier_side/upload_product/widget/cus
 import 'package:my_daktari/presentations/supplier_side/upload_product/widget/multi_line_textfield.dart';
 import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 
+import 'widget/custom_category_textfield.dart';
 import 'widget/upload_images.dart';
 
 class UploadProductScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class UploadProductScreen extends StatelessWidget {
 
   TextEditingController productName = TextEditingController();
   TextEditingController productDescription = TextEditingController();
+  TextEditingController productCategory = TextEditingController();
   TextEditingController productPrice = TextEditingController();
   TextEditingController productQuantity = TextEditingController();
   TextEditingController productVariations = TextEditingController();
@@ -53,6 +55,8 @@ class UploadProductScreen extends StatelessWidget {
                 MultiLineTextField(
                     hintText: 'Product Description',
                     controller: productDescription),
+                CustomCategoryTextField(
+                    hintText: 'Product Category', controller: productCategory),
                 UploadProductImages(),
                 CustomTextField(
                     hintText: 'Product Price (ksh)',
@@ -114,6 +118,7 @@ class UploadProductScreen extends StatelessWidget {
                               productVariations.text.isNotEmpty &&
                               productTags.text.isNotEmpty &&
                               productHighlights.text.isNotEmpty &&
+                              productCategory.text.isNotEmpty &&
                               productSpecifications.text.isNotEmpty &&
                               productShipping.text.isNotEmpty) {
                             context.read<UploadProductBloc>().add(UploadProduct(
@@ -126,7 +131,7 @@ class UploadProductScreen extends StatelessWidget {
                                 productHighlights: productHighlights.text,
                                 productSpecifications:
                                     productSpecifications.text,
-                                productCategory: 'Category',
+                                productCategory: productCategory.text,
                                 supplierId: supplier.supplierID.toString(),
                                 shippingInfo: productShipping.text,
                                 imageFiles: context

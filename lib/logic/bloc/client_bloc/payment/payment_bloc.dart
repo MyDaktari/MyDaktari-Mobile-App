@@ -20,9 +20,11 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           appointmentID: event.appointmentID,
           phoneNumber: event.userPhoneNumber);
       emit(PaymentSuccess(successMessage: paymentResponse));
-    } catch (e) {
-      emit(
-          const PaymentFailure(errorMessage: 'Payment Could not be completed'));
+    } catch (error) {
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(PaymentFailure(errorMessage: message));
     }
   }
 }

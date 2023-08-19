@@ -21,7 +21,9 @@ class DoctorTimeSlotsBloc
           doctorId: event.doctorId, date: event.date);
       emit(DoctorTimeSlotsLoaded(timeAvailable: timeAvailable));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorTimeSlotsLoadError(message: errorMessage));
     }
   }

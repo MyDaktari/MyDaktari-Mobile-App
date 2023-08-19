@@ -22,7 +22,10 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
           .sort((a, b) => b.date!.compareTo(a.date!)); // Reverse the comparison
       emit(BlogLoaded(blogs: sortedBlogs));
     } catch (error) {
-      emit(BlogLoadingError(message: 'Failed to Load Articles'));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(BlogLoadingError(message: message));
     }
   }
 }

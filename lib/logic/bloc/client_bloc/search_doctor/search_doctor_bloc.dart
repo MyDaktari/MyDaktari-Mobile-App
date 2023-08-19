@@ -27,7 +27,9 @@ class SearchDoctorBloc extends Bloc<SearchDoctorEvent, SearchDoctorState> {
             const SnackBar(content: Text('search term too short')));
       }
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(SearchDoctorLoadingError(errorMessage: errorMessage));
     }
   }

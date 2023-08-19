@@ -21,7 +21,9 @@ class BodyPartsBloc extends Bloc<BodyPartsEvent, BodyPartsState> {
           await _bodyPartsRepository.getBodyParts();
       emit(BodyPartsLoaded(bodyParts: bodyParts));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(BodyPartsLoadingError(message: errorMessage));
     }
   }

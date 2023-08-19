@@ -21,7 +21,9 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
           await _ambulanceRepository.getAmbulances();
       emit(AmbulanceLoaded(ambulances: ambulance));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(AmbulanceLoadingError(message: errorMessage));
     }
   }

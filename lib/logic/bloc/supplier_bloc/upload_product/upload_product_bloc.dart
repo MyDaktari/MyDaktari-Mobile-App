@@ -34,7 +34,10 @@ class UploadProductBloc extends Bloc<UploadProductEvent, UploadProductState> {
           imageFiles: event.imageFiles);
       emit(UploadProductSuccess(message: message));
     } catch (error) {
-      emit(UploadProductFailed(message: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(UploadProductFailed(message: message));
     }
   }
 }

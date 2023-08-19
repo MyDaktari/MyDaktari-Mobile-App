@@ -22,7 +22,9 @@ class DoctorPatientsBloc
           await doctorRepository.getDoctorPatients(doctorId: event.doctorId);
       emit(DoctorPatientsLoaded(patients: patients));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorPatientsLoadingError(message: errorMessage));
     }
   }

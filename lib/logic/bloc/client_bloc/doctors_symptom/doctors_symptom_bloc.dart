@@ -23,7 +23,9 @@ class DoctorsBySymptomsBloc
           await repository.showDoctorsBySyptoms(event.symptomId);
       emit(DoctorsBySymptomsLoaded(doctors: doctors));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorsBySymptomsLoadError(errorMessage: errorMessage));
     }
   }

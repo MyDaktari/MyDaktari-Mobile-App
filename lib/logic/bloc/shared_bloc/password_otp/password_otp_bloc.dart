@@ -22,7 +22,10 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
           phoneNumber: event.phoneNumber, userType: event.userType);
       emit(PasswordOtpSet());
     } catch (error) {
-      emit(PasswordOtpLoadError(errorMessage: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(PasswordOtpLoadError(errorMessage: message));
     }
   }
 
@@ -34,7 +37,9 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
           phoneNumber: event.phoneNumber, otp: event.PasswordOtp);
       emit(PasswordOtpLoaded(userId: userId));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(PasswordOtpLoadError(errorMessage: errorMessage));
     }
   }

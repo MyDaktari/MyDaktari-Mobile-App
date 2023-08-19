@@ -21,7 +21,9 @@ class SymptomsBloc extends Bloc<SymptomsEvent, SymptomsState> {
           await _symptomsRepository.getSymptoms(event.query);
       emit(SymptomsLoaded(symptoms: symptoms));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(SymptomsLoadingError(message: errorMessage));
     }
   }
@@ -37,7 +39,9 @@ class SymptomsBloc extends Bloc<SymptomsEvent, SymptomsState> {
           .copyWith(selectedSymptoms: selectedSymptoms);
       emit(newState);
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(SymptomsLoadingError(message: errorMessage));
     }
   }

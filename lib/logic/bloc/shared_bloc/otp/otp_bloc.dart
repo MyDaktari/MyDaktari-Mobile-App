@@ -21,7 +21,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       print(message);
       emit(OtpSet());
     } catch (error) {
-      emit(OtpLoadingError(errorMessage: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(OtpLoadingError(errorMessage: message));
     }
   }
 
@@ -37,7 +40,9 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       print(message);
       emit(OtpLoaded());
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(OtpLoadingError(errorMessage: errorMessage));
     }
   }

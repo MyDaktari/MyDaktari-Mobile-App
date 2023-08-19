@@ -20,7 +20,9 @@ class PharmacyBloc extends Bloc<PharmacyEvent, PharmacyState> {
           await _pharmacyRepository.getPharmacy();
       emit(PharmacyLoaded(pharmacyList: pharmacyList));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(PharmacyLoadingError(message: errorMessage));
     }
   }

@@ -20,18 +20,22 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     final response = await http.post(Uri.parse('$loginClientUrl'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
-    if (response.statusCode == 200) {
-      preferences.setBool('otpVerified', false);
-      final responseBody = jsonDecode(response.body);
-      ClientModel client = ClientModel.fromJson(responseBody['user']);
-      userPhoneNumber = client.phone.toString().trim();
-      preferences.setString('user', jsonEncode(responseBody['user']));
-      preferences.setString('userType', UserType.client.name);
-      return client;
-    } else if (response.statusCode == 401 ||
-        response.statusCode == 404 ||
-        response.statusCode == 400) {
-      throw Exception('Incorrect username or password');
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 200) {
+        preferences.setBool('otpVerified', false);
+        final responseBody = jsonDecode(response.body);
+        ClientModel client = ClientModel.fromJson(responseBody['user']);
+        userPhoneNumber = client.phone.toString().trim();
+        preferences.setString('user', jsonEncode(responseBody['user']));
+        preferences.setString('userType', UserType.client.name);
+        return client;
+      } else if (response.statusCode == 401 ||
+          response.statusCode == 404 ||
+          response.statusCode == 400) {
+        throw Exception('Incorrect username or password');
+      } else {
+        throw Exception('Failed to login');
+      }
     } else {
       throw Exception('Failed to login');
     }
@@ -60,19 +64,22 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
           "lng": "",
         }));
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    if (response.statusCode == 201) {
-      preferences.setBool('otpVerified', false);
-      final responseBody = jsonDecode(response.body);
-      ClientModel client = ClientModel.fromJson(responseBody['data']);
-      preferences.setString('user', jsonEncode(responseBody['data']));
-      preferences.setString('userType', UserType.client.name);
-      userPhoneNumber = client.phone.toString().trim();
-      return client;
-    } else if (response.statusCode == 401 || response.statusCode == 404) {
-      throw Exception('Incorrect username or password');
-    } else if (response.statusCode == 409) {
-      throw Exception('Email already exist');
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 201) {
+        preferences.setBool('otpVerified', false);
+        final responseBody = jsonDecode(response.body);
+        ClientModel client = ClientModel.fromJson(responseBody['data']);
+        preferences.setString('user', jsonEncode(responseBody['data']));
+        preferences.setString('userType', UserType.client.name);
+        userPhoneNumber = client.phone.toString().trim();
+        return client;
+      } else if (response.statusCode == 401 || response.statusCode == 404) {
+        throw Exception('Incorrect username or password');
+      } else if (response.statusCode == 409) {
+        throw Exception('Email already exist');
+      } else {
+        throw Exception('Failed to register user');
+      }
     } else {
       throw Exception('Failed to register user');
     }
@@ -87,30 +94,34 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         body: jsonEncode({'email': username, 'password': password}));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     //print(response.body);
-    if (response.statusCode == 200) {
-      preferences.setBool('otpVerified', false);
-      final responseBody = jsonDecode(response.body);
-      DoctorModel doctor = DoctorModel.fromJson(responseBody['data'][0]);
-      userPhoneNumber = doctor.phone.toString().trim();
-      preferences.setString('user', jsonEncode(responseBody['data'][0]));
-      preferences.setString('userType', UserType.doctor.name);
-      preferences.setString(
-          'profileCompleted', jsonEncode(responseBody['profile_completed']));
-      preferences.setString('fullProfileCompleted',
-          jsonEncode(responseBody['full_profile_completed']));
-      //Doctor Availability
-      bool fullProfileCompleted = responseBody['full_profile_completed'];
-      if (fullProfileCompleted) {
-        schedulesConstant = availabilityToSchedules(responseBody['data'][0]
-            ['doctorAvailability'] as Map<String, dynamic>);
-        preferences.setString('schedules',
-            jsonEncode(responseBody['data'][0]['doctorAvailability']));
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 200) {
+        preferences.setBool('otpVerified', false);
+        final responseBody = jsonDecode(response.body);
+        DoctorModel doctor = DoctorModel.fromJson(responseBody['data'][0]);
+        userPhoneNumber = doctor.phone.toString().trim();
+        preferences.setString('user', jsonEncode(responseBody['data'][0]));
+        preferences.setString('userType', UserType.doctor.name);
+        preferences.setString(
+            'profileCompleted', jsonEncode(responseBody['profile_completed']));
+        preferences.setString('fullProfileCompleted',
+            jsonEncode(responseBody['full_profile_completed']));
+        //Doctor Availability
+        bool fullProfileCompleted = responseBody['full_profile_completed'];
+        if (fullProfileCompleted) {
+          schedulesConstant = availabilityToSchedules(responseBody['data'][0]
+              ['doctorAvailability'] as Map<String, dynamic>);
+          preferences.setString('schedules',
+              jsonEncode(responseBody['data'][0]['doctorAvailability']));
+        }
+        return doctor;
+      } else if (response.statusCode == 401 ||
+          response.statusCode == 404 ||
+          response.statusCode == 400) {
+        throw Exception('Incorrect username or password');
+      } else {
+        throw Exception('Failed to login ${response.statusCode}');
       }
-      return doctor;
-    } else if (response.statusCode == 401 ||
-        response.statusCode == 404 ||
-        response.statusCode == 400) {
-      throw Exception('Incorrect username or password');
     } else {
       throw Exception('Failed to login ${response.statusCode}');
     }
@@ -136,23 +147,26 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
         }));
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      final responseBody = jsonDecode(response.body);
-      DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
-      preferences.setString('user', jsonEncode(responseBody['data']));
-      preferences.setString('userType', UserType.doctor.name);
-      preferences.setBool('otpVerified', false);
-      preferences.setString(
-          'profileCompleted', jsonEncode(responseBody['profile_completed']));
-      preferences.setString('fullProfileCompleted',
-          jsonEncode(responseBody['full_profile_completed']));
-      userPhoneNumber = doctor.phone.toString().trim();
-      return doctor;
-    } else if (response.statusCode == 401 || response.statusCode == 404) {
-      throw Exception('Incorrect username or password');
-    } else if (response.statusCode == 409) {
-      throw Exception('Email already exist');
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        DoctorModel doctor = DoctorModel.fromJson(responseBody['data']);
+        preferences.setString('user', jsonEncode(responseBody['data']));
+        preferences.setString('userType', UserType.doctor.name);
+        preferences.setBool('otpVerified', false);
+        preferences.setString(
+            'profileCompleted', jsonEncode(responseBody['profile_completed']));
+        preferences.setString('fullProfileCompleted',
+            jsonEncode(responseBody['full_profile_completed']));
+        userPhoneNumber = doctor.phone.toString().trim();
+        return doctor;
+      } else if (response.statusCode == 401 || response.statusCode == 404) {
+        throw Exception('Incorrect username or password');
+      } else if (response.statusCode == 409) {
+        throw Exception('Email already exist');
+      } else {
+        throw Exception('Failed to register doctor');
+      }
     } else {
       throw Exception('Failed to register doctor');
     }
@@ -169,23 +183,26 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     final response = await http.post(Uri.parse(loginSupplierUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 200) {
+        preferences.setBool('otpVerified', false);
+        final responseBody = jsonDecode(response.body);
+        print(responseBody['OTP ']);
+        SupplierModel supplier = SupplierModel.fromJson(responseBody['user']);
+        preferences.setString('user', jsonEncode(responseBody['user']));
+        preferences.setString('userType', UserType.supplier.name);
+        print(responseBody['user']);
 
-    if (response.statusCode == 200) {
-      preferences.setBool('otpVerified', false);
-      final responseBody = jsonDecode(response.body);
-      print(responseBody['OTP ']);
-      SupplierModel supplier = SupplierModel.fromJson(responseBody['user']);
-      preferences.setString('user', jsonEncode(responseBody['user']));
-      preferences.setString('userType', UserType.supplier.name);
-      print(responseBody['user']);
-
-      userPhoneNumber = supplier.supplierPhone.toString().trim();
-      print(userPhoneNumber);
-      return supplier;
-    } else if (response.statusCode == 401 ||
-        response.statusCode == 404 ||
-        response.statusCode == 400) {
-      throw Exception('Incorrect username or password');
+        userPhoneNumber = supplier.supplierPhone.toString().trim();
+        print(userPhoneNumber);
+        return supplier;
+      } else if (response.statusCode == 401 ||
+          response.statusCode == 404 ||
+          response.statusCode == 400) {
+        throw Exception('Incorrect username or password');
+      } else {
+        throw Exception('Failed to login');
+      }
     } else {
       throw Exception('Failed to login');
     }
@@ -226,18 +243,22 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     }));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     print(response.body);
-    if (response.statusCode == 201) {
-      preferences.setBool('otpVerified', false);
-      final responseBody = jsonDecode(response.body);
-      SupplierModel supplier = SupplierModel.fromJson(responseBody['data']);
-      preferences.setString('user', jsonEncode(responseBody['data']));
-      preferences.setString('userType', UserType.supplier.name);
-      userPhoneNumber = supplier.supplierPhone.toString().trim();
-      return supplier;
-    } else if (response.statusCode == 401 || response.statusCode == 404) {
-      throw Exception('Incorrect username or password');
-    } else if (response.statusCode == 409) {
-      throw Exception('Email already exist');
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 201) {
+        preferences.setBool('otpVerified', false);
+        final responseBody = jsonDecode(response.body);
+        SupplierModel supplier = SupplierModel.fromJson(responseBody['data']);
+        preferences.setString('user', jsonEncode(responseBody['data']));
+        preferences.setString('userType', UserType.supplier.name);
+        userPhoneNumber = supplier.supplierPhone.toString().trim();
+        return supplier;
+      } else if (response.statusCode == 401 || response.statusCode == 404) {
+        throw Exception('Incorrect username or password');
+      } else if (response.statusCode == 409) {
+        throw Exception('Email already exist');
+      } else {
+        throw Exception('Failed to register user');
+      }
     } else {
       throw Exception('Failed to register user');
     }
@@ -256,7 +277,6 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
     String? doctorSchedules = preferences.getString('schedules');
     bool? otpVerified = preferences.getBool('otpVerified');
     dynamic user;
-
     if (userTypeFromPrefs != null && otpVerified != null) {
       if (userFromPrefs != null) {
         if (userTypeFromPrefs == UserType.client.name) {
@@ -385,12 +405,16 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
                 : doctorUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({"phone": phoneNumber}));
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      String message = jsonDecode(response.body)['message'];
-      return message;
-    } else if (response.statusCode == 401) {
-      throw Exception(
-          'No account found for the provided number. Please check the number and try again.');
+    if (!response.body.contains('<b>')) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        String message = jsonDecode(response.body)['message'];
+        return message;
+      } else if (response.statusCode == 401) {
+        throw Exception(
+            'No account found for the provided number. Please check the number and try again.');
+      } else {
+        throw Exception('Fail to send OTP');
+      }
     } else {
       throw Exception('Fail to send OTP');
     }

@@ -23,7 +23,9 @@ class DoctorAppointmentsBloc
           .getDoctorAppointments(doctorId: event.doctorId);
       emit(DoctorAppointmentsLoaded(appointments: appointments));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorAppointmentsLoadingError(message: errorMessage));
     }
   }

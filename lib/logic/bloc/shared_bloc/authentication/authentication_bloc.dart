@@ -40,7 +40,9 @@ class AuthenticationBloc
       welcomeDialog(event.context);
       // Your function's code after the delay
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(AuthenticationError(
           errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
@@ -62,7 +64,9 @@ class AuthenticationBloc
       emit(AuthenticationLoaded(
           userType: userTypeCubit.state.userType, user: client));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(AuthenticationError(
           errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
@@ -82,7 +86,9 @@ class AuthenticationBloc
       emit(AuthenticationLoaded(
           userType: userTypeCubit.state.userType, user: doctor));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(AuthenticationError(
           errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
@@ -104,7 +110,9 @@ class AuthenticationBloc
       emit(AuthenticationLoaded(
           userType: userTypeCubit.state.userType, user: doctor));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(AuthenticationError(
           errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }
@@ -134,7 +142,9 @@ class AuthenticationBloc
             userType: userTypeCubit.state.userType));
       }
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      final errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(AuthenticationError(
           errorMessage: errorMessage, userType: userTypeCubit.state.userType));
     }

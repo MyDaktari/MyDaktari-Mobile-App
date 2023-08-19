@@ -33,7 +33,10 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
       client = await repo.getClientModelFromLocalStorage();
       emit(UpdateProfileLoaded());
     } catch (error) {
-      emit(UpdateProfileLoadError(message: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(UpdateProfileLoadError(message: message));
     }
   }
 
@@ -51,7 +54,10 @@ class UpdateProfileBloc extends Bloc<UpdateProfileEvent, UpdateProfileState> {
       doctor = await repo.getDoctorModelFromLocalStorage();
       emit(UpdateProfileLoaded());
     } catch (error) {
-      emit(UpdateProfileLoadError(message: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(UpdateProfileLoadError(message: message));
     }
   }
 }

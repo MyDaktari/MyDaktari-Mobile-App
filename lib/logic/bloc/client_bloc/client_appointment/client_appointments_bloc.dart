@@ -23,7 +23,9 @@ class ClientAppointmentsBloc
           await repo.fetchClientAppointments(clientID: event.cleintId);
       emit(ClientAppointmentsLoaded(clientAppointments: ClientAppointments));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(ClientAppointmentsLoadError(message: errorMessage));
     }
   }

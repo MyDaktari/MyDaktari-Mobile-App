@@ -23,8 +23,10 @@ class LoadCategoriesBloc extends Bloc<CategoriesEvent, LoadCategoriesState> {
           await _CategoriesRepository.getProductCategories();
       emit(CategoriesLoaded(categories: Categories));
     } catch (error) {
-      print(error.toString());
-      emit(CategoriesLoadError(errorMessage: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(CategoriesLoadError(errorMessage: message));
     }
   }
 }

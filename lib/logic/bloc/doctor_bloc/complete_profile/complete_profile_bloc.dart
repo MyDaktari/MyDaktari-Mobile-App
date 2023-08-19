@@ -30,7 +30,10 @@ class CompleteProfileBloc
       );
       emit(CompleteProfileLoaded());
     } catch (error) {
-      emit(CompleteProfileLoadError(message: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(CompleteProfileLoadError(message: message));
     }
   }
 }

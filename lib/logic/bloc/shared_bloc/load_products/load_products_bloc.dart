@@ -24,8 +24,10 @@ class LoadProductsBloc extends Bloc<ProductsByBrandEvent, LoadProductsState> {
           .getSupplierProducts(supplierId: event.supplierId);
       emit(ProductsLoaded(products: products));
     } catch (error) {
-      print(error.toString());
-      emit(ProductsLoadError(errorMessage: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(ProductsLoadError(errorMessage: message));
     }
   }
 
@@ -37,8 +39,10 @@ class LoadProductsBloc extends Bloc<ProductsByBrandEvent, LoadProductsState> {
           await _productsRepository.getProductCatalogue();
       emit(ProductsLoaded(products: products));
     } catch (error) {
-      print(error.toString());
-      emit(ProductsLoadError(errorMessage: error.toString()));
+      final message = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
+      emit(ProductsLoadError(errorMessage: message));
     }
   }
 }

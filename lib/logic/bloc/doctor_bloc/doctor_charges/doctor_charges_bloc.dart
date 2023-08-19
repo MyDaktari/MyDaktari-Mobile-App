@@ -23,7 +23,9 @@ class DoctorChargesBloc extends Bloc<DoctorChargesEvent, DoctorChargesState> {
           await doctorRepository.getDoctorCharges(doctorId: event.doctorId);
       emit(DoctorChargesLoaded(charges: charges));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorChargesLoadError(message: errorMessage));
     }
   }
@@ -40,7 +42,9 @@ class DoctorChargesBloc extends Bloc<DoctorChargesEvent, DoctorChargesState> {
               phoneCallCost: event.phoneCallCost);
       emit(DoctorChargesLoaded(charges: charges));
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorChargesLoadError(message: errorMessage));
     }
   }

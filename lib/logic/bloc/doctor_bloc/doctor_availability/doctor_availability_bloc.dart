@@ -23,7 +23,9 @@ class DoctorAvailabilityBloc
     try {
       emit(DoctorAvailabilityLoaded());
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       emit(DoctorAvailabilityLoadingError(message: errorMessage));
     }
   }
@@ -39,7 +41,9 @@ class DoctorAvailabilityBloc
       Fluttertoast.showToast(msg: result);
       emit(DoctorAvailabilityLoaded());
     } catch (error) {
-      String errorMessage = error.toString().split(':').last;
+      String errorMessage = error.toString().contains("host lookup")
+          ? 'Connect to the internet '
+          : error.toString().split("Exception:").last;
       Fluttertoast.showToast(msg: errorMessage);
 
       emit(DoctorAvailabilityLoadingError(message: errorMessage));

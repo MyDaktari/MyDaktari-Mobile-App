@@ -24,8 +24,7 @@ class CartModel extends Equatable {
   }
 
   double total(subtotal) {
-    //free delivery for order above 500 ksh
-    double shippingFee = subtotal < 500 ? 40 : 0;
+    double shippingFee = 200;
     return subtotal + shippingFee;
   }
 
@@ -46,6 +45,7 @@ class CartModel extends Equatable {
           total + double.parse(current.productPrice.toString()));
 
   double get totalAmount => total(subtotal);
+  double get shippingFee => 200;
 
   //returns the total price of the product items in the cart list as String
   String get subtotalString => subtotal.toStringAsFixed(2);

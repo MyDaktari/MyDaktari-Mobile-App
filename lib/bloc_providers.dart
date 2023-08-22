@@ -43,6 +43,7 @@ import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
 import 'logic/cubit/file_name/file_name_cubit.dart';
 import 'logic/cubit/infor_page_update/info_page_update_cubit.dart';
+import 'logic/cubit/order_data/order_data_cubit.dart';
 import 'logic/cubit/otp_timer/otp_timer_cubit.dart';
 import 'logic/cubit/page_update/page_update_cubit.dart';
 import 'logic/cubit/personal_info/personal_info_cubit.dart';
@@ -175,5 +176,7 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
         create: (context) =>
             LoadCategoriesBloc(CategoriesRepository: ProductRepository())
               ..add(LoadCategories())),
+    //order data cubit
+    BlocProvider<OrderDataCubit>(create: (context) => OrderDataCubit()),
   ];
 }

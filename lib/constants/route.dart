@@ -18,10 +18,12 @@ import 'package:my_daktari/presentations/supplier_side/home_screen/s_home_screen
 
 import '../models/doctor_profile_model.dart';
 import '../models/product.dart';
-import '../presentations/client_side/shop/cart/cart_screen.dart';
-import '../presentations/client_side/shop/my_orders_screen.dart';
-import '../presentations/client_side/shop/product_details.dart';
-import '../presentations/client_side/shop/shop_screen.dart';
+import '../presentations/shared_ui/shop/cart/cart_screen.dart';
+import '../presentations/shared_ui/shop/delivery_address/deliver_details_screen.dart';
+import '../presentations/shared_ui/shop/my_orders_screen.dart';
+import '../presentations/shared_ui/shop/payment/product_payment_screen.dart';
+import '../presentations/shared_ui/shop/product_details.dart';
+import '../presentations/shared_ui/shop/shop_screen.dart';
 import '../presentations/shared_ui/authentication/views/forgot_password/forgot_password.dart';
 import '../presentations/shared_ui/authentication/views/login/login_screen.dart';
 import '../presentations/shared_ui/authentication/views/sign_up/sign_up_screen.dart';
@@ -86,6 +88,8 @@ const String myOrders = 'myOrders';
 const String orderDetailsScreen = 'orderDetailsScreen';
 const String productDetailsScreen = 'productDetailsScreen';
 const String productScreen = 'productReviewsScreen';
+const String deliveryAddressScreen = 'deliveryAddressScreen';
+const String productPaymentScreen = 'productPaymentScreen';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -160,6 +164,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => CartScreen());
       case myOrders:
         return MaterialPageRoute(builder: (context) => MyOrdersScreen());
+      case deliveryAddressScreen:
+        return MaterialPageRoute(builder: (context) => DeliveryAddressScreen());
+      case productPaymentScreen:
+        return MaterialPageRoute(builder: (context) => ProductPaymentScreen());
+
       //supplier routes
       case supplierHomeScreen:
         return MaterialPageRoute(builder: (context) => SupplierHomeScreen());

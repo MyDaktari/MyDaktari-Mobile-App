@@ -68,3 +68,9 @@ const String forgotPasswordSupplierUrl =
     'https://mydoc.my-daktari.com/new_api/loginHealthSupplier.php';
 const String updatePasswordSupplierUrl =
     'https://mydoc.my-daktari.com/new_api/updatePasswordSupplier.php';
+
+//shop urls
+const String makeShopOrderUrl =
+    'https://mydoc.my-daktari.com/new_api/placeOrders.php';
+const String makePaymentUrl =
+    'https://mydoc.my-daktari.com/new_api/payOrders.php';

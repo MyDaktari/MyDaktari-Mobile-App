@@ -102,6 +102,7 @@ class DeliveryAddressScreen extends StatelessWidget {
                   if (_nameController.text.isNotEmpty &&
                       _phoneController.text.isNotEmpty &&
                       _addressController.text.isNotEmpty &&
+                      _additionalInfoController.text.isNotEmpty &&
                       userId.isNotEmpty) {
                     context.read<OrderDataCubit>().updateOrderData(
                         userId: userId,

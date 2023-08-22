@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:my_daktari/logic/cubit/upload_product_data/upload_product_data_cubit.dart';
-import 'package:provider/single_child_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/single_child_widget.dart';
+
+import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/book_appointment/book_appointment_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/client_appointment/client_appointments_bloc.dart';
 import 'package:my_daktari/logic/bloc/client_bloc/payment/payment_bloc.dart';
 import 'package:my_daktari/logic/bloc/shared_bloc/forgot_password/reset_password_bloc.dart';
-
-import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/cubit/booking_info/booking_info_cubit.dart';
 import 'package:my_daktari/logic/cubit/profile_page_view/profile_view_cubit.dart';
+import 'package:my_daktari/logic/cubit/upload_product_data/upload_product_data_cubit.dart';
 import 'package:my_daktari/repositories/client/ambulance/ambulance_repository.dart';
 import 'package:my_daktari/repositories/client/bodyparts/body_parts_repository.dart';
 import 'package:my_daktari/repositories/client/client_repository.dart';
-import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 import 'package:my_daktari/repositories/client/pharmacy/pharmacy_repository.dart';
 import 'package:my_daktari/repositories/client/symptoms/symptoms_repository.dart';
+import 'package:my_daktari/repositories/doctor/doctor_repository.dart';
 
-import 'logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
-import 'logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'logic/bloc/client_bloc/ambulance/ambulance_bloc.dart';
 import 'logic/bloc/client_bloc/blog/blog_bloc.dart';
 import 'logic/bloc/client_bloc/bodyparts_bloc/body_parts_bloc.dart';
+import 'logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'logic/bloc/client_bloc/pharmacy/pharmacy_bloc.dart';
-import 'logic/bloc/client_bloc/doctor_time_slots/doctor_time_slots_bloc.dart';
 import 'logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';
 import 'logic/bloc/client_bloc/symptoms_bloc/symptoms_bloc.dart';
 import 'logic/bloc/client_bloc/update_profile/update_profile_bloc.dart';
@@ -33,8 +31,11 @@ import 'logic/bloc/doctor_bloc/doctor_appointments/doctor_appointments_bloc.dart
 import 'logic/bloc/doctor_bloc/doctor_availability/doctor_availability_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_charges/doctor_charges_bloc.dart';
 import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
+import 'logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
+import 'logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'logic/bloc/shared_bloc/cart/cart_bloc.dart';
 import 'logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
+import 'logic/bloc/shared_bloc/make_order/make_order_bloc.dart';
 import 'logic/bloc/shared_bloc/otp/otp_bloc.dart';
 import 'logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
 import 'logic/bloc/supplier_bloc/load_categories/load_categories_bloc.dart';
@@ -56,6 +57,7 @@ import 'logic/cubit/user_type/user_type_cubit.dart';
 import 'repositories/shared_repositories/authentication/authentication_repository.dart';
 import 'repositories/shared_repositories/blog/blog_repository.dart';
 import 'repositories/shared_repositories/profile/profile_repository.dart';
+import 'repositories/shared_repositories/shop/shop_repository.dart';
 import 'repositories/supplier/product/product_repository.dart';
 
 List<SingleChildWidget> blocProviders({required BuildContext context}) {
@@ -176,6 +178,11 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
         create: (context) =>
             LoadCategoriesBloc(CategoriesRepository: ProductRepository())
               ..add(LoadCategories())),
+
+    //make order bloc
+    BlocProvider<MakeOrderBloc>(
+        create: (context) =>
+            MakeOrderBloc(paymentRepository: ShopRepository())),
     //order data cubit
     BlocProvider<OrderDataCubit>(create: (context) => OrderDataCubit()),
   ];

@@ -27,11 +27,11 @@ class ShopRepository extends BaseShopRepository {
       "items": items,
     };
 
-    final response = await http.post(
-      Uri.parse(makeShopOrderUrl),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(payload),
-    );
+    final response = await http.post(Uri.parse(makeShopOrderUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(payload));
+    print('################28################');
+    print(response.body);
     if (response.statusCode == 200) {
       return {
         "message": jsonDecode(response.body)["message"],
@@ -54,6 +54,8 @@ class ShopRepository extends BaseShopRepository {
           "totalAmount": amount,
           "contactNumber": "254${phoneNumber.substring(1)}"
         }));
+    print('################5555################');
+    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)["message"];
     } else {

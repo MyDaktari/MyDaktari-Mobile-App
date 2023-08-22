@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/logic/cubit/order_data/order_data_cubit.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../models/cart_model.dart';
@@ -11,6 +13,9 @@ class OrderPriceWidget extends StatelessWidget {
   final CartModel cartModel;
   @override
   Widget build(BuildContext context) {
+    context
+        .read<OrderDataCubit>()
+        .updateOrderData(totalAmount: cartModel.totalAmountString);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),

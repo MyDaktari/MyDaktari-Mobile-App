@@ -8,6 +8,7 @@ import 'repositories/client/pharmacy/pharmacy_repository.dart';
 import 'repositories/client/symptoms/symptoms_repository.dart';
 import 'repositories/doctor/doctor_repository.dart';
 import 'repositories/shared_repositories/authentication/authentication_repository.dart';
+import 'repositories/shared_repositories/shop/shop_repository.dart';
 import 'repositories/supplier/product/product_repository.dart';
 
 List<SingleChildWidget> repositoriesList = [
@@ -21,4 +22,6 @@ List<SingleChildWidget> repositoriesList = [
   RepositoryProvider<SymptomsRepository>(create: (_) => SymptomsRepository()),
   //Product repository
   RepositoryProvider<ProductRepository>(create: (_) => ProductRepository()),
+  //Shop repository
+  RepositoryProvider<ShopRepository>(create: (_) => ShopRepository()),
 ];

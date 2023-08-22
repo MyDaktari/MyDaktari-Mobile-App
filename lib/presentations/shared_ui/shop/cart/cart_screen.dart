@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/colors.dart';
 import 'package:my_daktari/logic/bloc/shared_bloc/cart/cart_bloc.dart';
+import 'package:my_daktari/logic/cubit/order_data/order_data_cubit.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 import '../../../../constants/route.dart' as route;
 import '../../../../models/product.dart';
@@ -13,6 +14,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size; // Get the screen size
     return Scaffold(
       appBar: AppBar(title: const Text('Cart Items')),
       body: Container(
@@ -53,6 +55,9 @@ class CartScreen extends StatelessWidget {
                     // Add the SubOrdersModel to the list of cart items
                     cartItems.add(item);
                   }
+                  context
+                      .read<OrderDataCubit>()
+                      .updateOrderData(cartItems: cartItems);
                   return Visibility(
                     replacement: Center(
                         child: Text('No items in cart',
@@ -98,9 +103,10 @@ class CartScreen extends StatelessWidget {
                 Navigator.pushNamed(context, route.deliveryAddressScreen);
               },
               style: ElevatedButton.styleFrom(
+                minimumSize: Size(size.width * .6, 50),
                 backgroundColor: AppColor.primaryColor,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(20)),
               ),
               child: Text('Checkout'),
             ),

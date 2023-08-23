@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/colors.dart';
 import 'package:my_daktari/models/product.dart';
+import '../../../../constants/route.dart' as route;
 
 class SupplierProductCard extends StatelessWidget {
   const SupplierProductCard({super.key, required this.product});
@@ -11,11 +12,14 @@ class SupplierProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Card(
-      color: Colors.white,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Container(
+    return GestureDetector(
+      onTap: () => Navigator.of(context)
+          .pushNamed(route.productScreen, arguments: product),
+      child: Card(
+        color: Colors.white,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Container(
           height: 120,
           width: size.width * .5,
           child: Row(
@@ -57,7 +61,9 @@ class SupplierProductCard extends StatelessWidget {
                 ),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

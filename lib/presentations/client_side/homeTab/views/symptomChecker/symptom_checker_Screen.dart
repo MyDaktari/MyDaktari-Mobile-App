@@ -20,14 +20,13 @@ class SymptomChecker extends StatelessWidget {
   final TextEditingController _symptomsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    //  context.read<BodyPartsBloc>().add(LoadBodyParts());
     Size size = MediaQuery.of(context).size;
     return ValueListenableBuilder(
         valueListenable: _bodyPartNotifier,
         builder: (context, _bodyPart, _) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text('Report Symptoms'),
-            ),
+            appBar: AppBar(title: Text('Report Symptoms')),
             body: BlocBuilder<BodyPartsBloc, BodyPartsState>(
                 builder: (context, bPState) {
               if (bPState is BodyPartsLoaded) {
@@ -63,9 +62,7 @@ class SymptomChecker extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight: 100,
-                          ),
+                          constraints: BoxConstraints(maxHeight: 100),
                           child: TextField(
                             controller: _symptomsController,
                             style: TextStyle(color: Colors.grey),
@@ -74,12 +71,11 @@ class SymptomChecker extends StatelessWidget {
                                 .updateBookingInfo(description: value),
                             maxLines: null, // allow unlimited number of lines
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              labelText:
-                                  'Describe your Symptoms, (be as precise as possible)',
-                              hintText: 'Describe your symptoms here',
-                            ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                labelText:
+                                    'Describe your Symptoms, (be as precise as possible)',
+                                hintText: 'Describe your symptoms here'),
                           ),
                         ),
                         const SizedBox(height: 15),
@@ -97,6 +93,9 @@ class SymptomChecker extends StatelessWidget {
                                           "symptoms":
                                               _symptomsController.text.trim()
                                         }));
+                                Navigator.pushNamed(
+                                    context, routes.symptomSamples,
+                                    arguments: _bodyPartNotifier);
                               } else {
                                 Fluttertoast.showToast(
                                     msg: 'All Field are required');
@@ -139,8 +138,26 @@ class SymptomChecker extends StatelessWidget {
                     ),
                   ),
                 );
+              } else if (bPState is BodyPartsLoadingError) {
+                return Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(bPState.message),
+                        SizedBox(height: 10),
+                        ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .read<BodyPartsBloc>()
+                                  .add(LoadBodyParts());
+                            },
+                            child: Text('Retry'))
+                      ]),
+                );
               } else {
-                return SizedBox();
+                return SizedBox(
+                  child: Center(child: Text('Loading...')),
+                );
               }
             }),
           );

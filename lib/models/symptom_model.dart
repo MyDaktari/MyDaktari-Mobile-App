@@ -5,7 +5,7 @@ class SymptomModel {
   SymptomModel({this.bodyPart, this.symptoms});
 
   SymptomModel.fromJson(Map<String, dynamic> json) {
-    bodyPart = json['body_part'];
+    bodyPart = json['bodyPart'];
     if (json['symptoms'] != null) {
       symptoms = <Symptoms>[];
       json['symptoms'].forEach((v) {
@@ -16,7 +16,7 @@ class SymptomModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['body_part'] = bodyPart;
+    data['bodyPart'] = bodyPart;
     if (symptoms != null) {
       data['symptoms'] = symptoms!.map((v) => v.toJson()).toList();
     }
@@ -25,23 +25,30 @@ class SymptomModel {
 }
 
 class Symptoms {
-  String? symptom;
-  String? description;
   int? symptomID;
+  String? conditions;
+  String? symptomsDescription;
+  String? generalSpeciality;
 
-  Symptoms({this.symptom, this.description, this.symptomID});
+  Symptoms(
+      {this.symptomID,
+      this.conditions,
+      this.symptomsDescription,
+      this.generalSpeciality});
 
   Symptoms.fromJson(Map<String, dynamic> json) {
-    symptom = json['symptom'];
-    description = json['description'];
     symptomID = json['symptomID'];
+    conditions = json['conditions'];
+    symptomsDescription = json['symptomsDescription'];
+    generalSpeciality = json['generalSpeciality'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['symptom'] = symptom;
-    data['description'] = description;
-    data['symptomID'] = symptomID;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['symptomID'] = this.symptomID;
+    data['conditions'] = this.conditions;
+    data['symptomsDescription'] = this.symptomsDescription;
+    data['generalSpeciality'] = this.generalSpeciality;
     return data;
   }
 }

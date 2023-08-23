@@ -22,20 +22,19 @@ class UploadProduct extends UploadProductEvent {
   final String shippingInfo;
   final List<File> imageFiles;
 
-  const UploadProduct({
-    required this.supplierId,
-    required this.productName,
-    required this.productDescription,
-    required this.productCategory,
-    required this.productPrice,
-    required this.productQuantity,
-    required this.productVariations,
-    required this.productTags,
-    required this.productHighlights,
-    required this.productSpecifications,
-    required this.shippingInfo,
-    required this.imageFiles,
-  });
+  const UploadProduct(
+      {required this.supplierId,
+      required this.productName,
+      required this.productDescription,
+      required this.productCategory,
+      required this.productPrice,
+      required this.productQuantity,
+      required this.productVariations,
+      required this.productTags,
+      required this.productHighlights,
+      required this.productSpecifications,
+      required this.shippingInfo,
+      required this.imageFiles});
   @override
   List<Object> get props => [
         supplierId,

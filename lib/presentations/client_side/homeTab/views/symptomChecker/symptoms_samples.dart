@@ -60,7 +60,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                 SizedBox(height: 10),
                                 Center(
                                   child: Text(
-                                      symptoms[index].bodyPart as String,
+                                      symptoms[index].bodyPart.toString(),
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold)),
@@ -94,7 +94,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                                   children: [
                                                     Expanded(
                                                       child: Text(
-                                                          symptom.symptom ??
+                                                          symptom.conditions ??
                                                               "No title",
                                                           style: TextStyle(
                                                               overflow:
@@ -120,7 +120,7 @@ class _SymptomSamplesState extends State<SymptomSamples> {
                                                 ),
                                                 SizedBox(height: 5),
                                                 Text(
-                                                  symptom.description ??
+                                                  symptom.symptomsDescription ??
                                                       "No description",
                                                   textAlign: TextAlign.left,
                                                   maxLines: 5,

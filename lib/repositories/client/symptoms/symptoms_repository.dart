@@ -10,9 +10,9 @@ class SymptomsRepository {
         Uri.parse('https://mydoc.my-daktari.com/new_api/reportSymptoms.php'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(query));
+    print(response.body);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
-
       symptoms =
           jsonData.map((symptom) => SymptomModel.fromJson(symptom)).toList();
       return symptoms;

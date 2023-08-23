@@ -19,7 +19,6 @@ class BodyPartsLoaded extends BodyPartsState {
 
 class BodyPartsLoadingError extends BodyPartsState {
   final String message;
-
   const BodyPartsLoadingError({required this.message});
   @override
   List<Object> get props => [message];

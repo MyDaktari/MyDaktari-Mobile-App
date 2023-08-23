@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../../../models/category.dart';
 import '../../../models/product.dart';
+import '../../../models/supplier_order_model.dart';
 import 'base_product_repository.dart';
 
 class ProductRepository extends BaseProductRepository {
@@ -75,6 +76,27 @@ class ProductRepository extends BaseProductRepository {
       throw Exception('Products not found');
     } else {
       throw Exception('Failed load your products');
+    }
+  }
+
+  @override
+  Future<List<SupplierOrderModel>> getSupplierOrders(
+      {required String supplierId}) async {
+    final response = await http.post(
+        Uri.parse('https://mydoc.my-daktari.com/new_api/supplierOrders.php'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"supplierID": supplierId}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data']
+          .map((json) => SupplierOrderModel.fromJson(json))
+          .toList();
+      List<SupplierOrderModel> orders = data.cast<SupplierOrderModel>();
+      return orders;
+    } else if (response.statusCode == 404) {
+      throw Exception('Orders not found');
+    } else {
+      throw Exception('Failed load your orders');
     }
   }
 

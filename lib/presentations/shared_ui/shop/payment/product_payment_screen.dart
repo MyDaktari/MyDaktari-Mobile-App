@@ -45,31 +45,32 @@ class ProductPaymentScreen extends StatelessWidget {
               child: Text('Enter Phone Number')),
           SizedBox(height: size.height * .02),
           TextField(
-            controller: numberController,
-            enableSuggestions: false,
-            autocorrect: false,
-            keyboardType: TextInputType.phone,
-            maxLengthEnforcement: MaxLengthEnforcement.enforced,
-            maxLength: 10, // Set the maximum length to 10 characters
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            style: TextStyle(
-                color: Colors.grey,
-                wordSpacing: 2,
-                fontWeight: FontWeight.w600),
-          ),
+              controller: numberController,
+              enableSuggestions: false,
+              autocorrect: false,
+              keyboardType: TextInputType.phone,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              maxLength: 10, // Set the maximum length to 10 characters
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              style: TextStyle(
+                  color: Colors.grey,
+                  wordSpacing: 2,
+                  fontWeight: FontWeight.w600)),
           SizedBox(height: size.height * .05),
           ElevatedButton(
             onPressed: () {
               OrderDataCubit orderDataCubit = context.read<OrderDataCubit>();
-              context.read<MakeOrderBloc>().add(PlaceOrder(
-                  userID: orderDataCubit.state.userId,
-                  totalAmount: orderDataCubit.state.totalAmount,
-                  phoneNumber: numberController.text,
-                  address: orderDataCubit.state.address,
-                  additionalInfo: orderDataCubit.state.additionalInfo,
-                  products: orderDataCubit.state.cartItems));
+              context.read<MakeOrderBloc>().add(
+                    PlaceOrder(
+                        userID: orderDataCubit.state.userId,
+                        totalAmount: orderDataCubit.state.totalAmount,
+                        phoneNumber: numberController.text,
+                        address: orderDataCubit.state.address,
+                        additionalInfo: orderDataCubit.state.additionalInfo,
+                        products: orderDataCubit.state.cartItems),
+                  );
             },
             style: ElevatedButton.styleFrom(
                 minimumSize: Size(size.width, 50),

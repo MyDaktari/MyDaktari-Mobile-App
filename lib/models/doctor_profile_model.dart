@@ -3,7 +3,8 @@ class DoctorProfileModel {
   String? name;
   String? speciality;
   String? experienceYears;
-  Location? location;
+  //Location? location;
+  String? location;
   String? image;
   String? title;
   String? overview;
@@ -27,9 +28,10 @@ class DoctorProfileModel {
     name = json['name'];
     speciality = json['speciality'];
     experienceYears = json['experience_years'];
-    location = json['location'] != null
-        ? new Location.fromJson(json['location'])
-        : null;
+    // location = json['location'] != null
+    //     ? new Location.fromJson(json['location'])
+    //     : null;
+    location = json['location'];
     image = json['image'];
     title = json['title'];
     overview = json['overview'];
@@ -50,9 +52,10 @@ class DoctorProfileModel {
     data['name'] = this.name;
     data['speciality'] = this.speciality;
     data['experience_years'] = this.experienceYears;
-    if (this.location != null) {
-      data['location'] = this.location!.toJson();
-    }
+    // if (this.location != null) {
+    //   data['location'] = this.location!.toJson();
+    // }
+    data['location'] = this.location;
     data['image'] = this.image;
     data['title'] = this.title;
     data['overview'] = this.overview;
@@ -66,24 +69,24 @@ class DoctorProfileModel {
   }
 }
 
-class Location {
-  String? lat;
-  String? lng;
+// class Location {
+//   String? lat;
+//   String? lng;
 
-  Location({this.lat, this.lng});
+//   Location({this.lat, this.lng});
 
-  Location.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lng = json['lng'];
-  }
+//   Location.fromJson(Map<String, dynamic> json) {
+//     lat = json['lat'];
+//     lng = json['lng'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['lat'] = this.lat;
+//     data['lng'] = this.lng;
+//     return data;
+//   }
+// }
 
 class Charges {
   int? phoneCall;

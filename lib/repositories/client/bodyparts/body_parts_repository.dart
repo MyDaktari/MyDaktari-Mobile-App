@@ -11,6 +11,7 @@ class BodyPartsRepository extends BaseBodyPartsRepository {
     final response = await http.post(
         Uri.parse('https://mydoc.my-daktari.com/new_api/bodyParts.php'),
         headers: {'Content-Type': 'application/json'});
+    print(response.body);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'] as List;
       bodyParts =

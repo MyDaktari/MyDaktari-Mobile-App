@@ -1,18 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../models/doctor_profile_model.dart';
 import '../../../../constants/route.dart' as route;
 
 class DoctorResultWidget1 extends StatelessWidget {
-  const DoctorResultWidget1({
-    super.key,
-    required this.doctor,
-  });
+  const DoctorResultWidget1({super.key, required this.doctor});
   final DoctorProfileModel doctor;
 
   @override
   Widget build(BuildContext context) {
+    print('#######################');
+    print(doctor.image.toString());
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     return GestureDetector(
@@ -31,23 +30,16 @@ class DoctorResultWidget1 extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 20,
-                  child: Text(
-                    (doctor.name ?? ''),
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.titleLarge?.copyWith(fontSize: 15),
-                  ),
+                  child: Text((doctor.name ?? ''),
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleLarge?.copyWith(fontSize: 15)),
                 ),
                 SizedBox(
-                  height: 20,
-                  child: Text(
-                    doctor.speciality ?? '',
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.titleLarge?.copyWith(fontSize: 15),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                    height: 20,
+                    child: Text(doctor.speciality ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.titleLarge?.copyWith(fontSize: 15))),
+                const SizedBox(height: 10),
                 Container(
                   height: 20,
                   width: 40,
@@ -58,24 +50,29 @@ class DoctorResultWidget1 extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: const [
-                        Icon(
-                          Icons.star,
-                          color: Colors.grey,
-                          size: 15,
-                        ),
-                        Text(
-                          '5.0',
-                          style: TextStyle(fontSize: 9),
-                        )
+                        Icon(Icons.star, color: Colors.grey, size: 15),
+                        Text('5.0', style: TextStyle(fontSize: 9))
                       ])),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SvgPicture.asset(
-                  doctor.image.toString(),
+                const SizedBox(height: 10),
+                Container(
                   height: 150,
-                )
+                  width: double.infinity,
+                  clipBehavior: Clip.antiAlias,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: CachedNetworkImage(
+                      height: 150,
+                      width: double.infinity,
+                      placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(strokeWidth: 1)),
+                      errorWidget: (context, url, error) => const Icon(
+                          Icons.error_outline,
+                          size: 54,
+                          color: Colors.red),
+                      imageUrl: doctor.image.toString(),
+                      fit: BoxFit.cover),
+                ),
               ],
             ),
           ),

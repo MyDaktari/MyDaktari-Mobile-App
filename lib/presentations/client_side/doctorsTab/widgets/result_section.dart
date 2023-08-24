@@ -26,8 +26,8 @@ class ResultSection extends StatelessWidget {
                 height: 150,
                 width: size.width,
                 child: const Center(
-                  child: Text('No results found, try a different search Term'),
-                ),
+                    child:
+                        Text('No results found, try a different search Term')),
               ),
             ),
             child: Column(

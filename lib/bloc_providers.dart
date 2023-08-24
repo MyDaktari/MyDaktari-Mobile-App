@@ -34,11 +34,13 @@ import 'logic/bloc/doctor_bloc/doctor_patients/doctor_patients_bloc.dart';
 import 'logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import 'logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'logic/bloc/shared_bloc/cart/cart_bloc.dart';
+import 'logic/bloc/shared_bloc/load_orders/load_order_bloc.dart';
 import 'logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
 import 'logic/bloc/shared_bloc/make_order/make_order_bloc.dart';
 import 'logic/bloc/shared_bloc/otp/otp_bloc.dart';
 import 'logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
 import 'logic/bloc/supplier_bloc/load_categories/load_categories_bloc.dart';
+import 'logic/bloc/supplier_bloc/load_orders/load_order_bloc.dart';
 import 'logic/bloc/supplier_bloc/upload_product/upload_product_bloc.dart';
 import 'logic/cubit/charges_dropdown/drop_down_cubit.dart';
 import 'logic/cubit/doctor_schedules/doctor_schedule.dart';
@@ -142,6 +144,7 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
     BlocProvider<SymptomsBloc>(
         create: (context) =>
             SymptomsBloc(symptomsRepository: SymptomsRepository())),
+
     //Cubits
     BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
     BlocProvider<UploadProductDataCubit>(
@@ -185,5 +188,12 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
             MakeOrderBloc(paymentRepository: ShopRepository())),
     //order data cubit
     BlocProvider<OrderDataCubit>(create: (context) => OrderDataCubit()),
+    //load supplier orders bloc
+    BlocProvider<SupplierOrdersBloc>(
+        create: (context) =>
+            SupplierOrdersBloc(repository: ProductRepository())),
+    //load user orders bloc
+    BlocProvider<OrderBloc>(
+        create: (context) => OrderBloc(repository: ProductRepository())),
   ];
 }

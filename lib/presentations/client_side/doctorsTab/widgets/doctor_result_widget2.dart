@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_daktari/models/models.dart';
 
@@ -25,17 +26,28 @@ class DoctorResultWidget2 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.asset(
-                'assets/images/male-user.png',
+              Container(
                 height: 90,
+                clipBehavior: Clip.antiAlias,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: CachedNetworkImage(
+                    height: 90,
+                    width: double.infinity,
+                    placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(strokeWidth: 1)),
+                    errorWidget: (context, url, error) => const Icon(
+                        Icons.error_outline,
+                        size: 54,
+                        color: Colors.red),
+                    imageUrl: doctor.image.toString(),
+                    fit: BoxFit.cover),
               ),
               Text(doctor.name ?? ''),
+              Text(doctor.speciality ?? '',
+                  style: textTheme.titleLarge?.copyWith(fontSize: 10)),
               Text(
-                doctor.speciality ?? '',
-                style: textTheme.titleLarge?.copyWith(fontSize: 10),
-              ),
-              Text(
-                  '${doctor.experienceYears?.toString() ?? ''} Years Experience | 12.7 Km'),
+                  '${doctor.experienceYears?.toString() ?? ''} Years Experience'),
               Text(doctor.speciality ?? ''),
               Container(
                 height: 20,
@@ -47,15 +59,8 @@ class DoctorResultWidget2 extends StatelessWidget {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
-                      Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                        size: 15,
-                      ),
-                      Text(
-                        '5.0',
-                        style: TextStyle(fontSize: 9),
-                      )
+                      Icon(Icons.star, color: Colors.amber, size: 15),
+                      Text('5.0', style: TextStyle(fontSize: 9))
                     ])),
               ),
             ],

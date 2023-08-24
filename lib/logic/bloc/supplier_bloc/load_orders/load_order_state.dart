@@ -1,26 +1,26 @@
 part of 'load_order_bloc.dart';
 
-abstract class LoadOrderState extends Equatable {
-  const LoadOrderState();
+abstract class LoadSupplierOrderState extends Equatable {
+  const LoadSupplierOrderState();
 
   @override
   List<Object> get props => [];
 }
 
-class LoadOrderInitial extends LoadOrderState {}
+class LoadSupplierOrderInitial extends LoadSupplierOrderState {}
 
-class LoadOrderLoading extends LoadOrderState {}
+class LoadSupplierOrderLoading extends LoadSupplierOrderState {}
 
-class LoadOrderSuccess extends LoadOrderState {
+class LoadSupplierOrderSuccess extends LoadSupplierOrderState {
   final List<SupplierOrderModel> orders;
-  const LoadOrderSuccess({required this.orders});
+  const LoadSupplierOrderSuccess({required this.orders});
   @override
   List<Object> get props => [orders];
 }
 
-class LoadOrderFailed extends LoadOrderState {
+class LoadSupplierOrderFailed extends LoadSupplierOrderState {
   final String message;
-  const LoadOrderFailed({required this.message});
+  const LoadSupplierOrderFailed({required this.message});
   @override
   List<Object> get props => [message];
 }

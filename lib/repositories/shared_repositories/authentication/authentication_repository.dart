@@ -179,10 +179,12 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   Future<SupplierModel> loginSupplier(
       {required String username, required String password}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
+    print('Hello');
     final response = await http.post(Uri.parse(loginSupplierUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': username, 'password': password}));
+    print('##############################');
+    print(response.body);
     if (!response.body.contains('<b>')) {
       if (response.statusCode == 200) {
         preferences.setBool('otpVerified', false);

@@ -1,15 +1,15 @@
 part of 'load_order_bloc.dart';
 
-abstract class LoadOrderEvent extends Equatable {
-  const LoadOrderEvent();
+abstract class LoadSupplierOrderEvent extends Equatable {
+  const LoadSupplierOrderEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class LoadOrder extends LoadOrderEvent {
+class LoadSupplierOrders extends LoadSupplierOrderEvent {
   final String supplierId;
-  const LoadOrder({required this.supplierId});
+  const LoadSupplierOrders({required this.supplierId});
   @override
   List<Object> get props => [supplierId];
 }

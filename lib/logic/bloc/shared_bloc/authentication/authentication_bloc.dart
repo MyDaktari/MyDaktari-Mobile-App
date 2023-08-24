@@ -132,6 +132,7 @@ class AuthenticationBloc
         emit(AuthenticationLoaded(
             userType: userTypeCubit.state.userType, user: doctor));
       } else if (event.userType == UserType.supplier) {
+        print('reached here');
         SupplierModel supplier = await _repository.loginSupplier(
             username: event.username, password: event.password);
         emit(AuthenticationLoaded(

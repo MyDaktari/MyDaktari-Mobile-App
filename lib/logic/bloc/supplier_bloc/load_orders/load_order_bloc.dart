@@ -7,24 +7,26 @@ import '../../../../repositories/supplier/product/product_repository.dart';
 part 'load_order_event.dart';
 part 'load_order_state.dart';
 
-class LoadOrderBloc extends Bloc<LoadOrderEvent, LoadOrderState> {
+class SupplierOrdersBloc
+    extends Bloc<LoadSupplierOrderEvent, LoadSupplierOrderState> {
   final ProductRepository productRepository;
-  LoadOrderBloc({required ProductRepository repository})
+  SupplierOrdersBloc({required ProductRepository repository})
       : productRepository = repository,
-        super(LoadOrderInitial()) {
-    on<LoadOrder>(_onLoadOrder);
+        super(LoadSupplierOrderInitial()) {
+    on<LoadSupplierOrders>(_onLoadOrder);
   }
-  void _onLoadOrder(LoadOrder event, Emitter<LoadOrderState> emit) async {
-    emit(LoadOrderLoading());
+  void _onLoadOrder(
+      LoadSupplierOrders event, Emitter<LoadSupplierOrderState> emit) async {
+    emit(LoadSupplierOrderLoading());
     try {
       List<SupplierOrderModel> orders = await productRepository
           .getSupplierOrders(supplierId: event.supplierId);
-      emit(LoadOrderSuccess(orders: orders));
+      emit(LoadSupplierOrderSuccess(orders: orders));
     } catch (error) {
       final message = error.toString().contains("host lookup")
           ? 'Connect to the internet '
           : error.toString().split("Exception:").last;
-      emit(LoadOrderFailed(message: message));
+      emit(LoadSupplierOrderFailed(message: message));
     }
   }
 }

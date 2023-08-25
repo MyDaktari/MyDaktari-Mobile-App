@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../models/doctor_profile_model.dart';
 import '../../../../constants/route.dart' as route;
+import 'doctor_image_widget.dart';
 
 class DoctorResultWidget1 extends StatelessWidget {
   const DoctorResultWidget1({super.key, required this.doctor});
@@ -10,8 +10,6 @@ class DoctorResultWidget1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('#######################');
-    print(doctor.image.toString());
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     return GestureDetector(
@@ -55,24 +53,7 @@ class DoctorResultWidget1 extends StatelessWidget {
                       ])),
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  height: 150,
-                  width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child: CachedNetworkImage(
-                      height: 150,
-                      width: double.infinity,
-                      placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(strokeWidth: 1)),
-                      errorWidget: (context, url, error) => const Icon(
-                          Icons.error_outline,
-                          size: 54,
-                          color: Colors.red),
-                      imageUrl: doctor.image.toString(),
-                      fit: BoxFit.cover),
-                ),
+                DoctorImageWidget(imageUrl: doctor.image.toString()),
               ],
             ),
           ),

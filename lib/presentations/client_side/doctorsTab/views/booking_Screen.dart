@@ -13,8 +13,6 @@ import '../../../../constants/colors.dart';
 
 class BookingScreen extends StatelessWidget {
   BookingScreen({super.key});
-
-  // final SlotNotiifier _slotNotiifier = SlotNotiifier(value: '');
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

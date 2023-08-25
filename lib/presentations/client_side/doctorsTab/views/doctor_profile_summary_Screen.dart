@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_daktari/constants/constants.dart';
@@ -7,6 +6,7 @@ import 'package:my_daktari/presentations/client_side/doctorsTab/views/select_ses
 import '../../../../constants/colors.dart';
 import '../../../../logic/cubit/booking_info/booking_info_cubit.dart';
 import '../../../../models/doctor_profile_model.dart';
+import '../widgets/doctor_image_widget.dart';
 
 class DoctorProfileSummaryPage extends StatelessWidget {
   const DoctorProfileSummaryPage({super.key, required this.doctor});
@@ -24,23 +24,29 @@ class DoctorProfileSummaryPage extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                      height: 150,
-                      width: 150,
-                      placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(strokeWidth: 1)),
-                      errorWidget: (context, url, error) => const Icon(
-                          Icons.error_outline,
-                          size: 54,
-                          color: Colors.red),
-                      imageUrl: doctor.image.toString(),
-                      fit: BoxFit.cover),
-                ),
+                DoctorImageWidget(imageUrl: doctor.image.toString(), size: 170),
                 SizedBox(height: 10),
-                Text(doctor.name ?? '',
-                    style: textTheme.titleLarge!
-                        .copyWith(fontSize: 22, color: Colors.black)),
+                Stack(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(doctor.name ?? '',
+                            style: textTheme.titleLarge!
+                                .copyWith(fontSize: 24, color: Colors.black)),
+                        const SizedBox(width: 5),
+                        Column(
+                          children: [
+                            Icon(Icons.stars_rounded,
+                                color: AppColor.primaryColor, size: 20),
+                            const Text('')
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
                 SizedBox(height: 5),
                 Text(doctor.title ?? '',
                     style: textTheme.titleLarge

@@ -24,7 +24,7 @@ class ProfileTab extends StatelessWidget {
     {"clientAppointments": "My Appointments"},
     {"profile": "Basic info"},
     {"articles": "Articles"},
-    //{"health": "Health Tracking "},
+    {"health": "Health Tracking "},
     //{"divice": "Add devices"},
     {"myOrders": "My orders"},
   ];
@@ -68,9 +68,10 @@ class ProfileTab extends StatelessWidget {
                                         : index == 2
                                             ? Icons.article_outlined
                                             : index == 3
-                                                ? Icons.shopping_cart_outlined
+                                                ? Icons.favorite_border
                                                 : index == 4
-                                                    ? Icons.devices
+                                                    ? Icons
+                                                        .shopping_cart_outlined
                                                     : Icons
                                                         .shopping_cart_outlined,
                                 color: Colors.blue)),

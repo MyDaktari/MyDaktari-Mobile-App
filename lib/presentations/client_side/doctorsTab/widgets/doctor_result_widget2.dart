@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/colors.dart';
 import 'package:my_daktari/models/models.dart';

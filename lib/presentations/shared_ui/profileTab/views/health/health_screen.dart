@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/health_controller.dart';
-import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/widget/bar_chart/graph_card.dart';
-
-import '../../../../../constants/colors.dart';
 import '../../widgets/health_info_dialog.dart';
 import 'widget/blood_card.dart';
-import 'widget/summary.dart';
 
 class HealthScreen extends StatelessWidget {
   HealthScreen({super.key});

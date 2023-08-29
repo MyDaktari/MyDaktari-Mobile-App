@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_daktari/constants/colors.dart';
 import '../../../../../../constants/route.dart' as route;
+import 'graph/blood_graph.dart';
 
 class BoodSugarScreen extends StatelessWidget {
   BoodSugarScreen({super.key});
@@ -21,6 +22,7 @@ class BoodSugarScreen extends StatelessWidget {
             SizedBox(height: 10.0),
             Text('Tap the + button to add a reading',
                 style: TextStyle(fontSize: 15)),
+            BloodGraph(),
           ],
         ),
       ),

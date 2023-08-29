@@ -57,6 +57,7 @@ dependencies:
   health: ^7.0.1
   permission_handler: ^10.4.3
   fl_chart: ^0.63.0
+  syncfusion_flutter_charts: ^22.2.11
 
 
 dev_dependencies:

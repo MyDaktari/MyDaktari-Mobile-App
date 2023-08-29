@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../../constants/route.dart' as route;
 import 'package:my_daktari/constants/colors.dart';
-import 'package:my_daktari/logic/bloc/shared_bloc/cart/cart_bloc.dart';
+import 'package:my_daktari/presentations/shared_ui/shop/widgets/add_to_cart_button.dart';
 
 import '../../../models/product.dart';
 import 'widgets/rating.dart';
@@ -37,8 +36,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          title: Text('Product Detail',
-              style: TextStyle(color: AppColor.primaryColor))),
+        title: Text('Product Detail',
+            style: TextStyle(color: AppColor.primaryColor)),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(route.cartScreen);
+              },
+              icon: const Icon(Icons.shopping_cart_outlined),
+              color: AppColor.primaryColor),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,28 +146,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ],
                   ),
                   Divider(thickness: 1),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle add to cart action
-                      Fluttertoast.showToast(msg: 'Added to cart');
-                      context
-                          .read<CartBloc>()
-                          .add(AddProductToCart(product: widget.product));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        fixedSize: Size(size.width * .9, 50),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.all(5)),
-                    child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        child: Text('Add to Cart',
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white))),
-                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                      height: 55,
+                      child: AddToCatButton(product: widget.product)),
                   SizedBox(height: 16),
                 ],
               ),

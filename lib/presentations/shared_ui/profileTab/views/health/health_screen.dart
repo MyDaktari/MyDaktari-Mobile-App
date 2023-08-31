@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/health_controller.dart';
+import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/widget/medication_reading.dart';
 import '../../widgets/health_info_dialog.dart';
 import 'widget/blood_card.dart';
 
@@ -58,6 +59,7 @@ class HealthScreen extends StatelessWidget {
               SizedBox(height: 10.0),
               // Health Data Chart Section
               BloodHomeCard(),
+              MedicationReadingCard(),
               // Card(
               //   child: Padding(
               //     padding:

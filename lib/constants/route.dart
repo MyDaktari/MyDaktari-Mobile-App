@@ -20,6 +20,8 @@ import '../models/doctor_profile_model.dart';
 import '../models/product.dart';
 import '../presentations/shared_ui/profileTab/views/health/blood_sugar/blood_sugar_screen.dart';
 import '../presentations/shared_ui/profileTab/views/health/blood_sugar/record_sugar_screen.dart';
+import '../presentations/shared_ui/profileTab/views/health/medication/medication_screen.dart';
+import '../presentations/shared_ui/profileTab/views/health/medication/record_medication_screen.dart';
 import '../presentations/shared_ui/shop/cart/cart_screen.dart';
 import '../presentations/shared_ui/shop/delivery_address/deliver_details_screen.dart';
 import '../presentations/shared_ui/shop/my_orders_screen.dart';
@@ -94,6 +96,8 @@ const String deliveryAddressScreen = 'deliveryAddressScreen';
 const String productPaymentScreen = 'productPaymentScreen';
 const String bloodGlucoseScreen = 'bloodGlucoseScreen';
 const String recordSugarScreen = 'recordSugarScreen';
+const String medicationScreen = 'medicationScreen';
+const String recordMedicationScreen = 'recordMedicationScreen';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -187,6 +191,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => BoodSugarScreen());
       case recordSugarScreen:
         return MaterialPageRoute(builder: (context) => RecordBloodScreen());
+      case medicationScreen:
+        return MaterialPageRoute(builder: (context) => MedicationScreen());
+      case recordMedicationScreen:
+        return MaterialPageRoute(
+            builder: (context) => RecordMedicationScreen());
 
       default:
         return MaterialPageRoute(

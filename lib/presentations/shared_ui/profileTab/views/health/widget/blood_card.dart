@@ -13,9 +13,7 @@ class BloodHomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<BloodSugarBloc>().add(LoadBloodSugarRecord(userId: userId));
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, route.bloodGlucoseScreen);
-      },
+      onTap: () => Navigator.pushNamed(context, route.bloodGlucoseScreen),
       child: Card(
         child: Container(
           height: 100,
@@ -28,7 +26,7 @@ class BloodHomeCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.water_drop_rounded, color: Colors.red),
-                  Text('Blood glucose',
+                  Text(' Blood glucose',
                       style: TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold))
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/repositories/shared_repositories/medication/medication_repository.dart';
 import 'package:provider/single_child_widget.dart';
 
 import 'package:my_daktari/constants/constants.dart';
@@ -38,6 +39,7 @@ import 'logic/bloc/shared_bloc/cart/cart_bloc.dart';
 import 'logic/bloc/shared_bloc/load_orders/load_order_bloc.dart';
 import 'logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
 import 'logic/bloc/shared_bloc/make_order/make_order_bloc.dart';
+import 'logic/bloc/shared_bloc/medication/medication_bloc.dart';
 import 'logic/bloc/shared_bloc/otp/otp_bloc.dart';
 import 'logic/bloc/shared_bloc/password_otp/password_otp_bloc.dart';
 import 'logic/bloc/supplier_bloc/load_categories/load_categories_bloc.dart';
@@ -201,5 +203,9 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
     BlocProvider<BloodSugarBloc>(
         create: (context) =>
             BloodSugarBloc(repository: BloodSugarRepository())),
+    //Medication bloc
+    BlocProvider<MedicationBloc>(
+        create: (context) =>
+            MedicationBloc(repository: MedicationRepository())),
   ];
 }

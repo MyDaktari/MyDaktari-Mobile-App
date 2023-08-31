@@ -39,17 +39,18 @@ class ResultSection extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text('Results')),
                     Visibility(
-                        visible: state.doctors.length > 2,
-                        child: TextButton(
-                            onPressed: () => showModalBottomSheet(
-                                  barrierColor: Colors.transparent,
-                                  useSafeArea: true,
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (context) =>
-                                      const DoctorBySymptomsScreen(),
-                                ),
-                            child: const Text('See All')))
+                      visible: state.doctors.length > 2,
+                      child: TextButton(
+                        onPressed: () => showModalBottomSheet(
+                          barrierColor: Colors.transparent,
+                          useSafeArea: true,
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => const DoctorBySymptomsScreen(),
+                        ),
+                        child: const Text('See All'),
+                      ),
+                    )
                   ],
                 ),
                 Row(

@@ -9,6 +9,7 @@ import 'repositories/client/symptoms/symptoms_repository.dart';
 import 'repositories/doctor/doctor_repository.dart';
 import 'repositories/shared_repositories/authentication/authentication_repository.dart';
 import 'repositories/shared_repositories/blood_sugar/blood_sugar_repository.dart';
+import 'repositories/shared_repositories/medication/medication_repository.dart';
 import 'repositories/shared_repositories/shop/shop_repository.dart';
 import 'repositories/supplier/product/product_repository.dart';
 
@@ -28,4 +29,7 @@ List<SingleChildWidget> repositoriesList = [
   //Blood sugar repository
   RepositoryProvider<BloodSugarRepository>(
       create: (_) => BloodSugarRepository()),
+  //Medication repository
+  RepositoryProvider<MedicationRepository>(
+      create: (_) => MedicationRepository()),
 ];

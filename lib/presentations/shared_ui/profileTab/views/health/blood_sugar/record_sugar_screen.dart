@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:my_daktari/constants/colors.dart';
+import 'package:my_daktari/constants/constants.dart';
 
 import '../../../../../../constants/enums.dart';
-import '../../../../../../models/blood_sugar.dart';
+import '../../../../../../logic/bloc/shared_bloc/blood_sugar/blood_sugar_bloc.dart';
 
 class RecordBloodScreen extends StatefulWidget {
   const RecordBloodScreen({super.key});
@@ -107,7 +111,9 @@ class _RecordBloodScreenState extends State<RecordBloodScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: DropdownButtonFormField<MealType>(
-                value: _selectedMealType,
+                value: _selectedMealType.name == 'Before Meal'
+                    ? MealType.beforeMeal
+                    : MealType.afterMeal,
                 onChanged: (value) {
                   setState(() {
                     _selectedMealType = value!;
@@ -178,21 +184,50 @@ class _RecordBloodScreenState extends State<RecordBloodScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                //all fields are required (glucose level, date, time, time base
+
                 final glucoseLevel =
                     double.tryParse(_glucoseController.text) ?? 0;
                 final note = _noteController.text;
-
-                final reading = BloodSugarReading(
-                  dateTime: _selectedDateTime,
-                  glucoseLevel: glucoseLevel,
-                  note: note,
-                  mealType: _selectedMealType,
-                );
-                Navigator.pop(context, reading);
+                if (glucoseLevel != 0 &&
+                    _selectedDateTime != null &&
+                    _selectedMealType != null) {
+                  context.read<BloodSugarBloc>().add(AddBloodSugarRecord(
+                        userId: userId,
+                        timeBase: _selectedMealType.toString(),
+                        date:
+                            DateFormat('yyyy-MM-dd').format(_selectedDateTime),
+                        time: DateFormat('HH:mm').format(_selectedDateTime),
+                        glucoseLevel: glucoseLevel,
+                      ));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('All fields are required'),
+                    ),
+                  );
+                }
               },
               style:
                   ElevatedButton.styleFrom(minimumSize: Size(size.width, 50)),
-              child: const Text('Save'),
+              child: BlocConsumer<BloodSugarBloc, BloodSugarState>(
+                listener: (context, state) {
+                  if (state is BloodSugarLoadSuccess) {
+                    Fluttertoast.showToast(
+                        msg: 'Blood sugar record added successfully');
+                  }
+                  if (state is BloodSugarsLoadinFailed) {
+                    Fluttertoast.showToast(msg: state.message);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is BloodSugarLoading) {
+                    return const CupertinoActivityIndicator(
+                        color: Colors.white);
+                  }
+                  return const Text('Save', style: TextStyle(fontSize: 18));
+                },
+              ),
             ),
           ],
         ),

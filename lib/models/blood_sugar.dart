@@ -1,14 +1,26 @@
-import '../constants/enums.dart';
+class BloodSugarModel {
+  String? dateTime;
+  double? glucoseLevel;
+  String? note;
 
-class BloodSugarReading {
-  final DateTime dateTime;
-  final double glucoseLevel;
-  final String note;
+  BloodSugarModel({this.dateTime, this.glucoseLevel, this.note});
 
-  BloodSugarReading({
-    required this.dateTime,
-    required this.glucoseLevel,
-    required this.note,
-    required MealType mealType,
-  });
+  BloodSugarModel.fromJson(Map<String, dynamic> json) {
+    dateTime = json['dateTime'];
+    // Handle both int and double types for glucoseLevel
+    if (json['glucoseLevel'] is int) {
+      glucoseLevel = (json['glucoseLevel'] as int).toDouble();
+    } else {
+      glucoseLevel = json['glucoseLevel'];
+    }
+    note = json['note'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dateTime'] = this.dateTime;
+    data['glucoseLevel'] = this.glucoseLevel;
+    data['note'] = this.note;
+    return data;
+  }
 }

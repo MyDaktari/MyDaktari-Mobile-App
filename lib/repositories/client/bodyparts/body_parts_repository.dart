@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 class BodyPartsRepository extends BaseBodyPartsRepository {
   @override
   Future<List<BodyPartModel>> getBodyParts() async {
+    print('Fetching body parts');
     List<BodyPartModel> bodyParts = List.empty();
     final response = await http.post(
         Uri.parse('https://mydoc.my-daktari.com/new_api/bodyParts.php'),

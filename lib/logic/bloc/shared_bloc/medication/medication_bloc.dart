@@ -39,7 +39,8 @@ class MedicationBloc extends Bloc<MedicationEvent, MedicationState> {
     try {
       await repository.addMedicationRecord(
           userId: event.userId,
-          glucoseLevel: event.glucoseLevel,
+          dosage: event.dosage,
+          medicneName: event.medicineName,
           date: event.date,
           time: event.time,
           timeBase: event.timeBase);

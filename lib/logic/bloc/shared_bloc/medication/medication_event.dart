@@ -15,14 +15,17 @@ class LoadMedicationRecord extends MedicationEvent {
 }
 
 class AddMedicationRecord extends MedicationEvent {
-  final String userId, timeBase, date, time;
-  final double glucoseLevel;
-  const AddMedicationRecord(
-      {required this.userId,
-      required this.timeBase,
-      required this.date,
-      required this.time,
-      required this.glucoseLevel});
+  final String userId, timeBase, date, time, medicineName;
+  final double dosage;
+  const AddMedicationRecord({
+    required this.userId,
+    required this.timeBase,
+    required this.date,
+    required this.time,
+    required this.dosage,
+    required this.medicineName,
+  });
   @override
-  List<Object> get props => [userId, timeBase, date, time, glucoseLevel];
+  List<Object> get props =>
+      [userId, timeBase, date, time, medicineName, dosage];
 }

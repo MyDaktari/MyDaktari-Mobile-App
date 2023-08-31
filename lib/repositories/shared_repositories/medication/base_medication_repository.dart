@@ -7,7 +7,8 @@ abstract class BaseMedicationRepository {
       {required String userId}) async {}
   Future<String?> addMedicationRecord(
       {required String userId,
-      required double glucoseLevel,
+      required double dosage,
+      required String medicneName,
       required String date,
       required String time,
       required String timeBase}) async {}

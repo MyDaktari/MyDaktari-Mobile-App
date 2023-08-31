@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_daktari/logic/bloc/shared_bloc/blood_sugar/blood_sugar_bloc.dart';
 import '../../../../../../constants/constants.dart';
 import '../../../../../../constants/route.dart' as route;
 import '../../../../../../constants/colors.dart';
+import '../../../../../../logic/bloc/shared_bloc/medication/medication_bloc.dart';
 
 class MedicationReadingCard extends StatelessWidget {
   const MedicationReadingCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    context.read<BloodSugarBloc>().add(LoadBloodSugarRecord(userId: userId));
+    context.read<MedicationBloc>().add(LoadMedicationRecord(userId: userId));
     return GestureDetector(
-      onTap: () => Fluttertoast.showToast(msg: 'Coming Soon!'),
-      // Navigator.pushNamed(context, route.medicationScreen),
+      onTap: () =>
+          //Fluttertoast.showToast(msg: 'Coming Soon!'),
+          Navigator.pushNamed(context, route.medicationScreen),
       child: Card(
         child: Container(
           height: 100,

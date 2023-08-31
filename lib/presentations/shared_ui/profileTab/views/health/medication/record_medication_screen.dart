@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:my_daktari/constants/colors.dart';
 import 'package:my_daktari/constants/constants.dart';
+import 'package:my_daktari/logic/bloc/shared_bloc/medication/medication_bloc.dart';
 
 import '../../../../../../constants/enums.dart';
 import '../../../../../../logic/bloc/shared_bloc/blood_sugar/blood_sugar_bloc.dart';
@@ -18,7 +19,8 @@ class RecordMedicationScreen extends StatefulWidget {
 }
 
 class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
-  late TextEditingController _glucoseController;
+  late TextEditingController _medicinNameController;
+  late TextEditingController _dosageController;
   late TextEditingController _noteController;
   DateTime _selectedDateTime = DateTime.now();
   MealType _selectedMealType = MealType.beforeMeal;
@@ -26,13 +28,15 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
   @override
   void initState() {
     super.initState();
-    _glucoseController = TextEditingController();
+    _medicinNameController = TextEditingController();
+    _dosageController = TextEditingController();
     _noteController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _glucoseController.dispose();
+    _medicinNameController.dispose();
+    _dosageController.dispose();
     _noteController.dispose();
     super.dispose();
   }
@@ -94,7 +98,7 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
                   borderRadius: BorderRadius.circular(10),
                   color: AppColor.primaryColor.withOpacity(.1)),
               child: TextField(
-                controller: _glucoseController,
+                controller: _medicinNameController,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'Medication Name',
@@ -112,7 +116,7 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
                   borderRadius: BorderRadius.circular(10),
                   color: AppColor.primaryColor.withOpacity(.1)),
               child: TextField(
-                controller: _glucoseController,
+                controller: _dosageController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Dosage (units)',
@@ -203,19 +207,19 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
               onPressed: () async {
                 //all fields are required (glucose level, date, time, time base
 
-                final glucoseLevel =
-                    double.tryParse(_glucoseController.text) ?? 0;
                 final note = _noteController.text;
-                if (glucoseLevel != 0 &&
+                if (_medicinNameController.text.isNotEmpty &&
+                    _dosageController.text.isNotEmpty &&
                     _selectedDateTime != null &&
                     _selectedMealType != null) {
-                  context.read<BloodSugarBloc>().add(AddBloodSugarRecord(
+                  context.read<MedicationBloc>().add(AddMedicationRecord(
                         userId: userId,
                         timeBase: _selectedMealType.toString(),
                         date:
                             DateFormat('yyyy-MM-dd').format(_selectedDateTime),
                         time: DateFormat('HH:mm').format(_selectedDateTime),
-                        glucoseLevel: glucoseLevel,
+                        dosage: double.parse(_dosageController.text),
+                        medicineName: _medicinNameController.text,
                       ));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -227,18 +231,18 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
               },
               style:
                   ElevatedButton.styleFrom(minimumSize: Size(size.width, 50)),
-              child: BlocConsumer<BloodSugarBloc, BloodSugarState>(
+              child: BlocConsumer<MedicationBloc, MedicationState>(
                 listener: (context, state) {
-                  if (state is BloodSugarLoadSuccess) {
+                  if (state is MedicationLoadSuccess) {
                     Fluttertoast.showToast(
-                        msg: 'Blood sugar record added successfully');
+                        msg: 'Medication record added successfully');
                   }
-                  if (state is BloodSugarsLoadinFailed) {
+                  if (state is MedicationsLoadinFailed) {
                     Fluttertoast.showToast(msg: state.message);
                   }
                 },
                 builder: (context, state) {
-                  if (state is BloodSugarLoading) {
+                  if (state is MedicationLoading) {
                     return const CupertinoActivityIndicator(
                         color: Colors.white);
                   }

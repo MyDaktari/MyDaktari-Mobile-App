@@ -1,26 +1,21 @@
 class MedicationModel {
+  String? medicationName;
   String? dateTime;
-  double? glucoseLevel;
-  String? note;
+  int? dosage;
 
-  MedicationModel({this.dateTime, this.glucoseLevel, this.note});
+  MedicationModel({this.medicationName, this.dateTime, this.dosage});
 
   MedicationModel.fromJson(Map<String, dynamic> json) {
+    medicationName = json['medicationName'];
     dateTime = json['dateTime'];
-    // Handle both int and double types for glucoseLevel
-    if (json['glucoseLevel'] is int) {
-      glucoseLevel = (json['glucoseLevel'] as int).toDouble();
-    } else {
-      glucoseLevel = json['glucoseLevel'];
-    }
-    note = json['note'];
+    dosage = json['dosage'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['medicationName'] = this.medicationName;
     data['dateTime'] = this.dateTime;
-    data['glucoseLevel'] = this.glucoseLevel;
-    data['note'] = this.note;
+    data['dosage'] = this.dosage;
     return data;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/repositories/shared_repositories/chat_bot/chat_repository.dart';
 import 'package:provider/single_child_widget.dart';
 
 import 'repositories/client/ambulance/ambulance_repository.dart';
@@ -32,4 +33,6 @@ List<SingleChildWidget> repositoriesList = [
   //Medication repository
   RepositoryProvider<MedicationRepository>(
       create: (_) => MedicationRepository()),
+  //chat repository
+  RepositoryProvider<ChatBotRepository>(create: (_) => ChatBotRepository()),
 ];

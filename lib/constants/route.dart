@@ -18,6 +18,7 @@ import 'package:my_daktari/presentations/supplier_side/home_screen/s_home_screen
 
 import '../models/doctor_profile_model.dart';
 import '../models/product.dart';
+import '../presentations/shared_ui/ayaTab/views/chat_page.dart';
 import '../presentations/shared_ui/profileTab/views/health/blood_sugar/blood_sugar_screen.dart';
 import '../presentations/shared_ui/profileTab/views/health/blood_sugar/record_sugar_screen.dart';
 import '../presentations/shared_ui/profileTab/views/health/medication/medication_screen.dart';
@@ -98,6 +99,7 @@ const String bloodGlucoseScreen = 'bloodGlucoseScreen';
 const String recordSugarScreen = 'recordSugarScreen';
 const String medicationScreen = 'medicationScreen';
 const String recordMedicationScreen = 'recordMedicationScreen';
+const String chatBotScreen = 'chatBotScreen';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -196,6 +198,8 @@ class AppRouter {
       case recordMedicationScreen:
         return MaterialPageRoute(
             builder: (context) => RecordMedicationScreen());
+      case chatBotScreen:
+        return MaterialPageRoute(builder: (context) => ChatBotScreen());
 
       default:
         return MaterialPageRoute(

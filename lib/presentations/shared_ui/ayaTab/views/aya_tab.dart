@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:my_daktari/logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
+//import route as route
+import '../../../../constants/route.dart' as route;
 import 'package:my_daktari/presentations/shared_ui/profileTab/widgets/profile_summary.dart';
 import '../../../../constants/colors.dart';
 
@@ -46,8 +48,8 @@ class AyaTab extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.lightgreen),
                           onPressed: state is UserAuthenticated
-                              ? () =>
-                                  Fluttertoast.showToast(msg: 'Coming Soon!')
+                              ? () => Navigator.pushNamed(
+                                  context, route.chatBotScreen)
                               : () =>
                                   Fluttertoast.showToast(msg: 'Coming Soon!'),
                           // Navigator.pushNamed(

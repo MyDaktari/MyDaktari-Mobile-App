@@ -36,6 +36,7 @@ import 'logic/bloc/shared_bloc/auth_status/auth_status_bloc.dart';
 import 'logic/bloc/shared_bloc/authentication/authentication_bloc.dart';
 import 'logic/bloc/shared_bloc/blood_sugar/blood_sugar_bloc.dart';
 import 'logic/bloc/shared_bloc/cart/cart_bloc.dart';
+import 'logic/bloc/shared_bloc/chat/chat_bloc.dart';
 import 'logic/bloc/shared_bloc/load_orders/load_order_bloc.dart';
 import 'logic/bloc/shared_bloc/load_products/load_products_bloc.dart';
 import 'logic/bloc/shared_bloc/make_order/make_order_bloc.dart';
@@ -62,6 +63,7 @@ import 'logic/cubit/user_type/user_type_cubit.dart';
 import 'repositories/shared_repositories/authentication/authentication_repository.dart';
 import 'repositories/shared_repositories/blog/blog_repository.dart';
 import 'repositories/shared_repositories/blood_sugar/blood_sugar_repository.dart';
+import 'repositories/shared_repositories/chat_bot/chat_repository.dart';
 import 'repositories/shared_repositories/profile/profile_repository.dart';
 import 'repositories/shared_repositories/shop/shop_repository.dart';
 import 'repositories/supplier/product/product_repository.dart';
@@ -207,5 +209,8 @@ List<SingleChildWidget> blocProviders({required BuildContext context}) {
     BlocProvider<MedicationBloc>(
         create: (context) =>
             MedicationBloc(repository: MedicationRepository())),
+    //chat bloc
+    BlocProvider<ChatBloc>(
+        create: (context) => ChatBloc(repository: ChatBotRepository())),
   ];
 }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_daktari/constants/colors.dart';
 import 'package:my_daktari/logic/cubit/user_type/user_type_cubit.dart';
 import 'package:my_daktari/presentations/shared_ui/authentication/widgets/sign_up_button.dart';
 import '../../../../../constants/enums.dart';
@@ -32,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
       appBar: AppBar(
           elevation: 0,
           toolbarHeight: 0,
-          backgroundColor: const Color.fromARGB(255, 1, 84, 186)),
+          backgroundColor: AppColor.primaryColor),
       body: ScrollConfiguration(
         behavior: ScrollBehavior(),
         child: SingleChildScrollView(
@@ -42,13 +43,15 @@ class SignUpScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: size.height * .20,
+                  height: size.height * .23,
                   width: size.width,
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 1, 84, 186)),
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 40.0),
-                      child: Image.asset('assets/images/telehealth.png')),
+                  decoration: BoxDecoration(
+                      color: AppColor.primaryColor,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20))),
+                  child: Image.asset('assets/images/telehealth.png',
+                      height: size.height * .18),
                 ),
                 SizedBox(height: 10),
                 Text('Create Account',
@@ -57,7 +60,7 @@ class SignUpScreen extends StatelessWidget {
                         .displaySmall!
                         .copyWith(fontSize: 30, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 10),
-                Padding(
+                Container(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [

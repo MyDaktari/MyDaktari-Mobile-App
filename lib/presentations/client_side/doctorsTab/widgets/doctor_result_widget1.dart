@@ -23,7 +23,7 @@ class DoctorResultWidget1 extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            width: size.width * .41,
+            width: size.width * .4,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
               child: Column(

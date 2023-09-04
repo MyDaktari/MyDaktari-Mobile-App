@@ -22,6 +22,7 @@ class LoginScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(elevation: 0, backgroundColor: AppColor.primaryColor),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<UserTypeCubit, UserTypeState>(
         builder: (context, userState) {
           return ScrollConfiguration(
@@ -34,9 +35,14 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      height: size.height * .22,
+                      height: size.height * .23,
                       width: size.width,
-                      decoration: BoxDecoration(color: AppColor.primaryColor),
+                      decoration: BoxDecoration(
+                        color: AppColor.primaryColor,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20)),
+                      ),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
@@ -44,23 +50,27 @@ class LoginScreen extends StatelessWidget {
                             child: Image.asset('assets/images/my_daktari.png')),
                       ),
                     ),
-                    Padding(
+                    Container(
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Column(
                         children: [
-                          SizedBox(height: 30),
+                          SizedBox(height: 10),
                           Text('Hello There',
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall!
-                                  .copyWith(fontSize: 30)),
+                                  .copyWith(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w600)),
+                          SizedBox(height: 10),
                           Text(
                             'Welcome Back!',
                             style: Theme.of(context)
                                 .textTheme
                                 .displaySmall!
                                 .copyWith(
-                                    fontSize: 30, color: AppColor.primaryColor),
+                                    fontSize: 28, color: AppColor.primaryColor),
                           ),
                           SizedBox(height: 15),
                           TextFormField(

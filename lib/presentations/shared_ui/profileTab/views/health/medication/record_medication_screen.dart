@@ -8,7 +8,6 @@ import 'package:my_daktari/constants/constants.dart';
 import 'package:my_daktari/logic/bloc/shared_bloc/medication/medication_bloc.dart';
 
 import '../../../../../../constants/enums.dart';
-import '../../../../../../logic/bloc/shared_bloc/blood_sugar/blood_sugar_bloc.dart';
 
 class RecordMedicationScreen extends StatefulWidget {
   const RecordMedicationScreen({super.key});
@@ -209,9 +208,7 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
 
                 final note = _noteController.text;
                 if (_medicinNameController.text.isNotEmpty &&
-                    _dosageController.text.isNotEmpty &&
-                    _selectedDateTime != null &&
-                    _selectedMealType != null) {
+                    _dosageController.text.isNotEmpty) {
                   context.read<MedicationBloc>().add(AddMedicationRecord(
                         userId: userId,
                         timeBase: _selectedMealType.toString(),

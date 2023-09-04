@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_daktari/logic/bloc/client_bloc/doctors_symptom/doctors_symptom_bloc.dart';
 import 'package:my_daktari/presentations/widgets/custom_loading.dart';
 
 import '../../../../../logic/bloc/client_bloc/search_doctor/search_doctor_bloc.dart';

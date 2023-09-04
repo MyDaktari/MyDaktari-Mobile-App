@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../../constants/urls.dart';
 import '../../../models/blood_sugar.dart';
 import 'base_blood_sugar_repository.dart';
 

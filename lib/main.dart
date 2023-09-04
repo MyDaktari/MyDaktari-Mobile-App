@@ -16,6 +16,7 @@ void main() {
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((value) => runApp(MyApp()));
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override

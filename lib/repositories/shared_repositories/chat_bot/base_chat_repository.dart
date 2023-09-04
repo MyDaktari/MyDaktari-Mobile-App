@@ -1,3 +1,5 @@
 abstract class BaseChatBotRepository {
-  Future<String?> sendMessage(String message) async {}
+  Future<String?> sendMessage(String message) async {
+    return null;
+  }
 }

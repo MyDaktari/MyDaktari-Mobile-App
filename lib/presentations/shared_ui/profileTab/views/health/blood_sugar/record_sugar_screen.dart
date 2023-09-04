@@ -189,9 +189,7 @@ class _RecordBloodScreenState extends State<RecordBloodScreen> {
                 final glucoseLevel =
                     double.tryParse(_glucoseController.text) ?? 0;
                 final note = _noteController.text;
-                if (glucoseLevel != 0 &&
-                    _selectedDateTime != null &&
-                    _selectedMealType != null) {
+                if (glucoseLevel != 0) {
                   context.read<BloodSugarBloc>().add(AddBloodSugarRecord(
                         userId: userId,
                         timeBase: _selectedMealType.toString(),

@@ -18,7 +18,7 @@ class PasswordOtpBloc extends Bloc<PasswordOtpEvent, PasswordOtpState> {
       RequestPasswordOtp event, Emitter<PasswordOtpState> emit) async {
     emit(PasswordOtpLoading());
     try {
-      String message = await authenticationRepository.passwordOtpRequest(
+      await authenticationRepository.passwordOtpRequest(
           phoneNumber: event.phoneNumber, userType: event.userType);
       emit(PasswordOtpSet());
     } catch (error) {

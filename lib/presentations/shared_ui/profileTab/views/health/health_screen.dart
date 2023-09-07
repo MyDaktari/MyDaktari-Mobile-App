@@ -5,6 +5,7 @@ import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/widge
 import '../../widgets/health_info_dialog.dart';
 import 'widget/blood_card.dart';
 
+// ignore: must_be_immutable
 class HealthScreen extends StatelessWidget {
   HealthScreen({super.key});
 

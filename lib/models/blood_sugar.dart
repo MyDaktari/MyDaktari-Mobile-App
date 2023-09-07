@@ -7,12 +7,7 @@ class BloodSugarModel {
 
   BloodSugarModel.fromJson(Map<String, dynamic> json) {
     dateTime = json['dateTime'];
-    // Handle both int and double types for glucoseLevel
-    if (json['glucoseLevel'] is int) {
-      glucoseLevel = (json['glucoseLevel'] as int).toDouble();
-    } else {
-      glucoseLevel = json['glucoseLevel'];
-    }
+    glucoseLevel = json['glucoseLevel'].toDouble(); // Always parse as double
     note = json['note'];
   }
 

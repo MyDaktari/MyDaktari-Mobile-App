@@ -32,6 +32,7 @@ class BoodSugarScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BloodGraph(),
+            SizedBox(height: 10.0),
             BlocBuilder<BloodSugarBloc, BloodSugarState>(
               builder: (context, state) {
                 if (state is BloodSugarLoadSuccess) {
@@ -51,8 +52,7 @@ class BoodSugarScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(height: 10.0),
-                        SizedBox(height: 10.0),
+                        SizedBox(height: 20.0),
                         BloodSummaryTile(
                             label: 'Average', value: state.average.toString()),
                         BloodSummaryTile(

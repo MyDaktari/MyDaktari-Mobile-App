@@ -16,9 +16,11 @@ import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/healt
 import 'package:my_daktari/presentations/shared_ui/welcome_screen/welcome_message_screen.dart';
 import 'package:my_daktari/presentations/supplier_side/home_screen/s_home_screen.dart';
 
+import '../models/blood_sugar.dart';
 import '../models/doctor_profile_model.dart';
 import '../models/product.dart';
 import '../presentations/shared_ui/ayaTab/views/chat_page.dart';
+import '../presentations/shared_ui/profileTab/views/health/blood_sugar/blood_sugar_history_screen.dart';
 import '../presentations/shared_ui/profileTab/views/health/blood_sugar/blood_sugar_screen.dart';
 import '../presentations/shared_ui/profileTab/views/health/blood_sugar/record_sugar_screen.dart';
 import '../presentations/shared_ui/profileTab/views/health/medication/medication_screen.dart';
@@ -96,6 +98,7 @@ const String productScreen = 'productReviewsScreen';
 const String deliveryAddressScreen = 'deliveryAddressScreen';
 const String productPaymentScreen = 'productPaymentScreen';
 const String bloodGlucoseScreen = 'bloodGlucoseScreen';
+const String bloodGlucoseHistoryScreen = 'bloodGlucoseHistoryScreen';
 const String recordSugarScreen = 'recordSugarScreen';
 const String medicationScreen = 'medicationScreen';
 const String recordMedicationScreen = 'recordMedicationScreen';
@@ -193,6 +196,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => BoodSugarScreen());
       case recordSugarScreen:
         return MaterialPageRoute(builder: (context) => RecordBloodScreen());
+      case bloodGlucoseHistoryScreen:
+        return MaterialPageRoute(
+            builder: (context) => DetailedRecordsScreen(
+                records: settings.arguments as List<BloodSugarModel>));
       case medicationScreen:
         return MaterialPageRoute(builder: (context) => MedicationScreen());
       case recordMedicationScreen:

@@ -205,8 +205,6 @@ class _RecordMedicationScreenScreenState extends State<RecordMedicationScreen> {
             ElevatedButton(
               onPressed: () async {
                 //all fields are required (glucose level, date, time, time base
-
-                final note = _noteController.text;
                 if (_medicinNameController.text.isNotEmpty &&
                     _dosageController.text.isNotEmpty) {
                   context.read<MedicationBloc>().add(AddMedicationRecord(

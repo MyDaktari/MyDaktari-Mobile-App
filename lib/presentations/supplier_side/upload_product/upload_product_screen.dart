@@ -13,6 +13,7 @@ import 'package:my_daktari/presentations/widgets/success_dialogue.dart';
 import 'widget/custom_category_textfield.dart';
 import 'widget/upload_images.dart';
 
+// ignore: must_be_immutable
 class UploadProductScreen extends StatelessWidget {
   UploadProductScreen({super.key});
 

@@ -71,11 +71,13 @@ class BlogCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(blog.author ?? '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall!
-                                  .copyWith(fontSize: 16)),
+                          Expanded(
+                            child: Text(blog.author ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall!
+                                    .copyWith(fontSize: 16)),
+                          ),
                           Text(
                               formatRelativeTime(
                                   DateTime.parse(blog.date.toString())),

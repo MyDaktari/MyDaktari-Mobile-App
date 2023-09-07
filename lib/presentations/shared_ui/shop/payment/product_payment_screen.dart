@@ -11,6 +11,7 @@ import '../../../../../constants/route.dart' as route;
 import '../../../../constants/constants.dart';
 import '../../../../logic/bloc/shared_bloc/cart/cart_bloc.dart';
 
+// ignore: must_be_immutable
 class ProductPaymentScreen extends StatelessWidget {
   ProductPaymentScreen({super.key});
   TextEditingController numberController =

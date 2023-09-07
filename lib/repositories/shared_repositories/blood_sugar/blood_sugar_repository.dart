@@ -19,7 +19,6 @@ class BloodSugarRepository extends BaseBloodSugarRepository {
       final jsonData = jsonDecode(response.body)['data']['data'] as List;
       bloodRecords =
           jsonData.map((record) => BloodSugarModel.fromJson(record)).toList();
-      print(bloodRecords.length);
       return bloodRecords;
     } else if (response.statusCode == 404) {
       return bloodRecords = List.empty();

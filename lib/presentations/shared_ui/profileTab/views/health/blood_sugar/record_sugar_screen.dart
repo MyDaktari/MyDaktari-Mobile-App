@@ -188,7 +188,6 @@ class _RecordBloodScreenState extends State<RecordBloodScreen> {
 
                 final glucoseLevel =
                     double.tryParse(_glucoseController.text) ?? 0;
-                final note = _noteController.text;
                 if (glucoseLevel != 0) {
                   context.read<BloodSugarBloc>().add(AddBloodSugarRecord(
                         userId: userId,
@@ -213,6 +212,7 @@ class _RecordBloodScreenState extends State<RecordBloodScreen> {
                   if (state is BloodSugarLoadSuccess) {
                     Fluttertoast.showToast(
                         msg: 'Blood sugar record added successfully');
+                    Navigator.pop(context);
                   }
                   if (state is BloodSugarsLoadinFailed) {
                     Fluttertoast.showToast(msg: state.message);

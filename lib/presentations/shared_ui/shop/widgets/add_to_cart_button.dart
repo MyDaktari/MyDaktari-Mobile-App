@@ -11,7 +11,6 @@ class AddToCatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         return (state is CartLoaded)

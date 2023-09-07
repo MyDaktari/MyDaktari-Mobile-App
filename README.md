@@ -47,4 +47,4 @@ Provide instructions on how to get your project up and running on a local machin
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/MyDaktari/MyDaktariMobileApp.git
+   git clone https://github.com/Vesen-computing/My-Daktari-Health-App.git

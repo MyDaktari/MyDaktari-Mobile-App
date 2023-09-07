@@ -47,7 +47,7 @@ class AyaTab extends StatelessWidget {
                       return ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.lightgreen),
-                          onPressed: state is UserAuthenticated
+                          onPressed: false //state is UserAuthenticated
                               ? () => Navigator.pushNamed(
                                   context, route.chatBotScreen)
                               : () =>

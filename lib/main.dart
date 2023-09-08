@@ -13,8 +13,9 @@ import 'repositories_list.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((value) => runApp(MyApp()));
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then(
+    (value) => runApp(MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {

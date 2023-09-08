@@ -12,7 +12,6 @@ import 'package:my_daktari/presentations/client_side/homeTab/views/ambulance/amb
 import 'package:my_daktari/presentations/client_side/homeTab/views/symptomChecker/symptoms_samples.dart';
 import 'package:my_daktari/presentations/client_side/payment/payment_screen.dart';
 import 'package:my_daktari/presentations/doctor_side/schedule/schedule_screen.dart';
-import 'package:my_daktari/presentations/shared_ui/profileTab/views/health/health_screen.dart';
 import 'package:my_daktari/presentations/shared_ui/welcome_screen/welcome_message_screen.dart';
 import 'package:my_daktari/presentations/supplier_side/home_screen/s_home_screen.dart';
 
@@ -85,7 +84,6 @@ const String supplierOrderScreen = "supplierOrderScreen";
 //shared routes
 const String articles = "articles";
 const String profile = "profile";
-const String health = "health";
 const String homeScreen = 'homePage';
 const String blogScreen = 'blogScreen';
 const String shopScreen = 'shopScreen';
@@ -163,8 +161,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => ProfilePage());
       case articles:
         return MaterialPageRoute(builder: (context) => ArticlesPage());
-      case health:
-        return MaterialPageRoute(builder: (context) => HealthScreen());
       //shop
       case shopScreen:
         return MaterialPageRoute(builder: (context) => ShopScreen());
